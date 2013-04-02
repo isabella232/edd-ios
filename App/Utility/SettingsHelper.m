@@ -93,7 +93,7 @@
 
 + (NSString *)getCurrency{
 	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
-	if (site == nil) {
+	if (site == nil || [site objectForKey:KEY_FOR_CURRENCY] == nil) {
 		NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
 		[currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 		return currencyFormatter.currencyCode;
