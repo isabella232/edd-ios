@@ -8,12 +8,12 @@
 
 #import "SetupViewController.h"
 
+#import "BSModalPickerView.h"
 #import "EDDAPIClient.h"
 #import "NSString+DateHelper.h"
 #import "SettingsHelper.h"
-#import "UIView+ViewHelper.h"
 #import "UIColor+Helpers.h"
-#import "BSModalPickerView.h"
+#import "UIView+ViewHelper.h"
 
 @interface SetupViewController () {
 	BOOL initialSetup;
@@ -68,6 +68,9 @@
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	self.tableView.autoresizesSubviews = YES;
+	
+    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
+    self.tableView.scrollsToTop = YES;
 	
 	[self.tableView reloadData];
 }

@@ -14,6 +14,7 @@
 #import "SetupViewController.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
+#import "UIView+ViewHelper.h"
 
 @interface MainViewController () {
 	SetupViewController *setupViewController;
@@ -67,6 +68,9 @@
 	
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
+	
+    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
+    self.tableView.scrollsToTop = YES;
 	
 	[self setupSiteName];
 	

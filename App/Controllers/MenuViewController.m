@@ -18,6 +18,7 @@
 #import "SalesViewController.h"
 #import "SetupViewController.h"
 #import "UIColor+Helpers.h"
+#import "UIView+ViewHelper.h"
 
 enum {
     MenuHomeRow = 0,
@@ -53,6 +54,12 @@ enum {
 	
     [self.tableView registerNib:[self menuCellNib] forCellReuseIdentifier:@"MenuCell"];
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
 }
 
 - (void)setupNotifications {	
