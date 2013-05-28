@@ -22,10 +22,10 @@
 
 enum {
     MenuHomeRow = 0,
-    MenuAboutRow,
 	MenuEarningsRow,
 	MenuProductsRow,
 	MenuSalesRow,
+    MenuAboutRow,
     MenuSettingsRow,
     MenuRowCount
 };
