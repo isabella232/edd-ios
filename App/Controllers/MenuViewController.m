@@ -99,9 +99,8 @@ enum {
 		[self setupMenuCell:cell forIndexPath:indexPath];
 	} else {
 		NSDictionary *site = [self getSite:indexPath.row];
-		if ([[SettingsHelper getCurrentSiteID] isEqualToString:[site objectForKey:KEY_FOR_SITE_ID]]) {
-//			NSLog(@"this is the current site selected");
-		}
+		
+		cell.siteID = [site objectForKey:KEY_FOR_SITE_ID];		
 		cell.label.text = [site objectForKey:KEY_FOR_SITE_NAME];
 	}
 }
