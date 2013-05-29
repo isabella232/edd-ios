@@ -21,8 +21,6 @@
 	BOOL setupIsPresent;
 }
 
-- (void)reload:(id)sender;
-
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UIButton *salesButton;
 @property (nonatomic, retain) IBOutlet UILabel *siteName;
@@ -38,7 +36,6 @@
 	float alltimeEarnings;
 }
 
-
 - (id)init {
     self = [super init];
     if (!self) {
@@ -51,6 +48,8 @@
 }
 
 - (void)reload:(id)sender {
+	[self setupSiteName];
+	
 	[SVProgressHUD showWithStatus:@"Loading Data..." maskType:SVProgressHUDMaskTypeClear];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 	

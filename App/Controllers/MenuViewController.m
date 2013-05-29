@@ -227,6 +227,20 @@ enum {
 	} else {
 		NSDictionary *site = [self getSite:indexPath.row];
 		[SettingsHelper setCurrentSiteID:[site objectForKey:KEY_FOR_SITE_ID]];
+		[self.tableView reloadData];
+		
+		if ([self isShowingClass:[MainViewController class]]) {
+			UINavigationController *navController = (UINavigationController *)self.slideMenuController.contentViewController;
+			MainViewController *main = (MainViewController *)navController.visibleViewController;
+			[main reload:nil];
+			[self.slideMenuController toggleMenuAnimated:self];
+		} else {
+			id mainVC = [[MainViewController alloc] init];
+			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
+			[self.slideMenuController closeMenuBehindContentViewController:nav
+																  animated:YES
+																completion:nil];
+		}
 	}
 }
 
