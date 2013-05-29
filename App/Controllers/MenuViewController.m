@@ -17,7 +17,8 @@
 #import "ProductsViewController.h"
 #import "SalesViewController.h"
 #import "SettingsHelper.h"
-#import "SetupViewController.h"
+#import "SitesViewController.h"
+//#import "SetupViewController.h"
 #import "SSGradientView.h"
 #import "UIColor+Helpers.h"
 #import "UIView+ViewHelper.h"
@@ -64,6 +65,7 @@ enum {
 	[super viewWillAppear:animated];
 	
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
+	[self.tableView reloadData];
 }
 
 - (void)setupNotifications {	
@@ -98,7 +100,7 @@ enum {
 	} else {
 		NSDictionary *site = [self getSite:indexPath.row];
 		if ([[SettingsHelper getCurrentSiteID] isEqualToString:[site objectForKey:KEY_FOR_SITE_ID]]) {
-			NSLog(@"this is the current site selected");
+//			NSLog(@"this is the current site selected");
 		}
 		cell.label.text = [site objectForKey:KEY_FOR_SITE_NAME];
 	}
@@ -251,9 +253,9 @@ enum {
     } else {
         id mainVC = [[class alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
-        [self.slideMenuController setContentViewController:nav
-                                                  animated:YES
-                                                completion:nil];
+		[self.slideMenuController closeMenuBehindContentViewController:nav
+															  animated:YES
+															completion:nil];
     }
 }
 
@@ -278,7 +280,7 @@ enum {
 }
 
 - (void)showSetupController {
-    [self showControllerClass:[SetupViewController class]];
+    [self showControllerClass:[SitesViewController class]];
 }
 
 @end
