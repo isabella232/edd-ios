@@ -39,7 +39,7 @@
 
 + (void)saveSite:(NSDictionary *)site {
 	NSMutableDictionary *currentSites = [[self getSites] mutableCopy];
-	NSMutableDictionary *currentSite = [currentSites objectForKey:[site objectForKey:KEY_FOR_SITE_ID]];
+	NSMutableDictionary *currentSite = [[currentSites objectForKey:[site objectForKey:KEY_FOR_SITE_ID]] mutableCopy];
 	
 	if (currentSite != nil) {
 		[currentSite setObject:[site objectForKey:KEY_FOR_SITE_NAME] forKey:KEY_FOR_SITE_NAME];
