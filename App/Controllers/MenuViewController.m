@@ -11,6 +11,7 @@
 #import "AboutViewController.h"
 #import "CustomersViewController.h"
 #import "EarningsViewController.h"
+#import "EDDAPIClient.h"
 #import "MainViewController.h"
 #import "MenuCell.h"
 #import "NVSlideMenuController.h"
@@ -18,7 +19,6 @@
 #import "SalesViewController.h"
 #import "SettingsHelper.h"
 #import "SitesViewController.h"
-//#import "SetupViewController.h"
 #import "SSGradientView.h"
 #import "UIColor+Helpers.h"
 #import "UIView+ViewHelper.h"
@@ -227,6 +227,7 @@ enum {
 	} else {
 		NSDictionary *site = [self getSite:indexPath.row];
 		[SettingsHelper setCurrentSiteID:[site objectForKey:KEY_FOR_SITE_ID]];
+		[[EDDAPIClient sharedClient] reload];
 		[self.tableView reloadData];
 		
 		if ([self isShowingClass:[MainViewController class]]) {
