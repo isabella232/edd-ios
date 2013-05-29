@@ -172,7 +172,9 @@
 				
 		NSString *currency = [self.siteForEditing objectForKey:KEY_FOR_CURRENCY];
 		if ([NSString isNullOrWhiteSpace:currency]) {
-			currency = @"";
+			NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
+			[currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+			currency = currencyFormatter.currencyCode;
 		}
 		self.currency = currency;
 	} else {
