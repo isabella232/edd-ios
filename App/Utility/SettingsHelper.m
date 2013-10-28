@@ -85,7 +85,7 @@
 }
 
 + (NSString *)getUrlForClient {
-    return [NSString stringWithFormat:@"%@edd-api/", [self getUrl]];
+    return [self getUrl];
 }
 
 + (NSString *)getApiKey{
