@@ -39,7 +39,6 @@
 	
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
-	self.window.tintColor = [UIColor whiteColor];
 	[self applyStyleSheet];
 	
 	self.window.backgroundColor = [UIColor whiteColor];
@@ -73,6 +72,7 @@
 
 - (void)applyStyleSheet {
 	UINavigationBar *navigationBar = [UINavigationBar appearance];
+	navigationBar.tintColor = [UIColor whiteColor];
 	[navigationBar setBarTintColor:[UIColor colorWithHexString:@"#1c5585"]];
 	[navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
