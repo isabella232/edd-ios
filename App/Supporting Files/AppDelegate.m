@@ -30,15 +30,18 @@
 	
 	MainViewController *mainViewController = [[MainViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+	nav.navigationBar.translucent = NO;
     
     MenuViewController *menuViewController = [[MenuViewController alloc] init];	
 	
     NVSlideMenuController *slideMenuController = [[NVSlideMenuController alloc] initWithMenuViewController:menuViewController andContentViewController:nav];
     slideMenuController.panGestureEnabled = NO;
 	
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	
+	self.window.tintColor = [UIColor whiteColor];
 	[self applyStyleSheet];
 	
-	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.backgroundColor = [UIColor whiteColor];
 	self.window.rootViewController = slideMenuController;
 	[self.window makeKeyAndVisible];
@@ -70,7 +73,8 @@
 
 - (void)applyStyleSheet {
 	UINavigationBar *navigationBar = [UINavigationBar appearance];
-	[navigationBar setTintColor:[UIColor colorWithHexString:@"#1c5585"]];
+	[navigationBar setBarTintColor:[UIColor colorWithHexString:@"#1c5585"]];
+	[navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 @end

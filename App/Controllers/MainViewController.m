@@ -117,6 +117,7 @@
 - (void)showSetup {
 	setupViewController = [[SetupViewController alloc] initForInitialSetup];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:setupViewController];
+	nav.navigationBar.translucent = NO;
 	[self presentViewController:nav animated:YES completion:nil];
 }
 

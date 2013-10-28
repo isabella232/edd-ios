@@ -232,12 +232,14 @@ enum {
 		
 		if ([self isShowingClass:[MainViewController class]]) {
 			UINavigationController *navController = (UINavigationController *)self.slideMenuController.contentViewController;
+			navController.navigationBar.translucent = NO;
 			MainViewController *main = (MainViewController *)navController.visibleViewController;
 			[main reload:nil];
 			[self.slideMenuController toggleMenuAnimated:self];
 		} else {
 			id mainVC = [[MainViewController alloc] init];
 			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
+			nav.navigationBar.translucent = NO;
 			[self.slideMenuController closeMenuBehindContentViewController:nav
 																  animated:YES
 																completion:nil];
@@ -267,6 +269,7 @@ enum {
     } else {
         id mainVC = [[class alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
+		nav.navigationBar.translucent = NO;
 		[self.slideMenuController closeMenuBehindContentViewController:nav
 															  animated:YES
 															completion:nil];

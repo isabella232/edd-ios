@@ -29,6 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.navigationItem.leftBarButtonItem = [self slideOutBarButton];
 	[self.view setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
