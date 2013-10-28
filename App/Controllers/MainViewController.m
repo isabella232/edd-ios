@@ -24,6 +24,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UIButton *salesButton;
 @property (nonatomic, retain) IBOutlet UILabel *siteName;
+@property (nonatomic, weak) IBOutlet UIView *footerView;
 
 - (IBAction)salesButtonTapped:(id)sender;
 
@@ -70,6 +71,8 @@
 	
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
     self.tableView.scrollsToTop = YES;
+	
+	self.tableView.tableFooterView = self.footerView;
 	
 	[self setupSiteName];
 	
