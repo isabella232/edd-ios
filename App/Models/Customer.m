@@ -48,7 +48,10 @@
 }
 
 + (void)globalCustomersWithBlock:(void (^)(NSArray *customers, NSError *error))block {
-	[[EDDAPIClient sharedClient] getPath:@"customers/" parameters:[EDDAPIClient defaultParams] success:^(AFHTTPRequestOperation *operation, id JSON) {
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"customers" forKey:@"query"];
+	
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSArray *customersFromResponse = [JSON valueForKeyPath:@"customers"];
         NSMutableArray *mutableCustomers = [NSMutableArray arrayWithCapacity:[customersFromResponse count]];
 		

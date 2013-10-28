@@ -24,7 +24,7 @@ static EDDAPIClient *_sharedClient = nil;
     return _sharedClient;
 }
 
-+ (NSDictionary *)defaultParams {
++ (NSMutableDictionary *)defaultParams {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	[params setValue:[SettingsHelper getApiKey] forKey:@"key"];
 	[params setValue:[SettingsHelper getToken] forKey:@"token"];

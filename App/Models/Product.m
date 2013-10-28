@@ -64,10 +64,11 @@
 }
 
 + (void)globalProductsWithPage:(int)page andWithBlock:(void (^)(NSArray *sales, NSError *error))block {
-	NSDictionary *params = [EDDAPIClient defaultParams];
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"products" forKey:@"query"];
 	[params setValue:[NSString stringWithFormat:@"%i", page] forKey:@"page"];
 
-	[[EDDAPIClient sharedClient] getPath:@"products/" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSArray *productsFromResponse = [JSON valueForKeyPath:@"products"];
         NSMutableArray *mutableProducts = [NSMutableArray arrayWithCapacity:[productsFromResponse count]];
 		

@@ -89,9 +89,11 @@
 }
 
 - (void)loadEarningsReport {
-	NSDictionary *params = [EDDAPIClient defaultParams];
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"stats" forKey:@"query"];
 	[params setValue:@"earnings" forKey:@"type"];
-	[[EDDAPIClient sharedClient] getPath:@"stats/" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSDictionary *earningsFromResponse = [JSON valueForKeyPath:@"earnings"];
 		currentMonthlyEarnings = [[earningsFromResponse objectForKey:@"current_month"] floatValue];
 		alltimeEarnings = [[earningsFromResponse objectForKey:@"totals"] floatValue];
