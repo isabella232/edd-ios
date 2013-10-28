@@ -6,26 +6,10 @@
 //
 //  https://github.com/mattlawer/BButton
 //
-//  Redistribution and use in source and binary forms, with or without modification,
-//  are permitted provided that the following conditions are met:
 //
-//  * Redistributions of source code must retain the above copyright notice,
-//  this list of conditions and the following disclaimer.
+//  BButton is licensed under the MIT license
+//  http://opensource.org/licenses/MIT
 //
-//  * Redistributions in binary form must reproduce the above copyright notice,
-//  this list of conditions and the following disclaimer in the documentation
-//  and/or other materials provided with the distribution.
-//
-// * Neither the name of Mathieu Bolard, mattlawer nor the names of its contributors
-//  may be used to endorse or promote products derived from this software
-//  without specific prior written permission.
-//
-//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-//  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-//  IN NO EVENT SHALL Mathieu Bolard BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-//  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-//  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-//  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //  -----------------------------------------
 //  Edited and refactored by Jesse Squires on 2 April, 2013.
@@ -39,6 +23,105 @@
 
 @implementation UIColor (BButton)
 
+#pragma mark - Custom colors
++ (UIColor *)defaultColorV2
+{
+    return [UIColor colorWithRed:0.85f green:0.85f blue:0.85f alpha:1.00f];
+}
+
++ (UIColor *)defaultColorV3
+{
+    return [UIColor colorWithHue:0.0f saturation:0.0f brightness:1.0f alpha:1.0f];
+}
+
++ (UIColor *)primaryColorV2
+{
+    return [UIColor colorWithRed:0.00f green:0.33f blue:0.80f alpha:1.00f];
+}
+
++ (UIColor *)primaryColorV3
+{
+    return [UIColor colorWithHue:208.0f/360.0f saturation:0.72f brightness:0.69f alpha:1.0f];
+}
+
++ (UIColor *)infoColorV2
+{
+    return [UIColor colorWithRed:0.18f green:0.59f blue:0.71f alpha:1.00f];
+}
+
++ (UIColor *)infoColorV3
+{
+    return [UIColor colorWithHue:194.0f/360.0f saturation:0.59f brightness:0.87f alpha:1.0f];
+}
+
++ (UIColor *)successColorV2
+{
+    return [UIColor colorWithRed:0.32f green:0.64f blue:0.32f alpha:1.00f];
+}
+
++ (UIColor *)successColorV3
+{
+    return [UIColor colorWithHue:120.0f/360.0f saturation:0.50f brightness:0.72f alpha:1.0f];
+}
+
++ (UIColor *)warningColorV2
+{
+    return [UIColor colorWithRed:0.97f green:0.58f blue:0.02f alpha:1.00f];
+}
+
++ (UIColor *)warningColorV3
+{
+    return [UIColor colorWithHue:35.0f/360.0f saturation:0.68f brightness:0.94f alpha:1.0f];
+}
+
++ (UIColor *)dangerColorV2
+{
+    return [UIColor colorWithRed:0.74f green:0.21f blue:0.18f alpha:1.00f];
+}
+
++ (UIColor *)dangerColorV3
+{
+    return [UIColor colorWithHue:2.0f/360.0f saturation:0.64f brightness:0.85f alpha:1.0f];
+}
+
++ (UIColor *)inverseColorV2
+{
+    return [UIColor colorWithRed:0.13f green:0.13f blue:0.13f alpha:1.00f];
+}
+
++ (UIColor *)inverseColorV3
+{
+    return [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.75f alpha:1.0f];
+}
+
++ (UIColor *)twitterColor
+{
+    return [UIColor colorWithRed:0.25f green:0.60f blue:1.00f alpha:1.00f];
+}
+
++ (UIColor *)facebookColor
+{
+    return [UIColor colorWithRed:0.23f green:0.35f blue:0.60f alpha:1.00f];
+}
+
++ (UIColor *)purpleBButtonColor
+{
+    return [UIColor colorWithRed:0.45f green:0.30f blue:0.75f alpha:1.00f];
+}
+
++ (UIColor *)grayBButtonColor
+{
+    return [UIColor colorWithRed:0.60f green:0.60f blue:0.60f alpha:1.00f];
+}
+
+#pragma mark - Utilities
+- (UIColor *)desaturatedColorToPercentSaturation:(CGFloat)percent
+{
+    CGFloat h, s, b, a;
+    [self getHue:&h saturation:&s brightness:&b alpha:&a];
+    return [UIColor colorWithHue:h saturation:s * percent brightness:b alpha:a];
+}
+
 - (UIColor *)lightenColorWithValue:(CGFloat)value
 {
     int totalComponents = CGColorGetNumberOfComponents(self.CGColor);
@@ -48,15 +131,15 @@
     CGFloat newComponents[4];
     
     if(isGreyscale) {
-        newComponents[0] = oldComponents[0] + value > 1.0 ? 1.0 : oldComponents[0] + value;
-        newComponents[1] = oldComponents[0] + value > 1.0 ? 1.0 : oldComponents[0] + value;
-        newComponents[2] = oldComponents[0] + value > 1.0 ? 1.0 : oldComponents[0] + value;
+        newComponents[0] = oldComponents[0] + value > 1.0f ? 1.0f : oldComponents[0] + value;
+        newComponents[1] = oldComponents[0] + value > 1.0f ? 1.0f : oldComponents[0] + value;
+        newComponents[2] = oldComponents[0] + value > 1.0f ? 1.0f : oldComponents[0] + value;
         newComponents[3] = oldComponents[1];
     }
     else {
-        newComponents[0] = oldComponents[0] + value > 1.0 ? 1.0 : oldComponents[0] + value;
-        newComponents[1] = oldComponents[1] + value > 1.0 ? 1.0 : oldComponents[1] + value;
-        newComponents[2] = oldComponents[2] + value > 1.0 ? 1.0 : oldComponents[2] + value;
+        newComponents[0] = oldComponents[0] + value > 1.0f ? 1.0f : oldComponents[0] + value;
+        newComponents[1] = oldComponents[1] + value > 1.0f ? 1.0f : oldComponents[1] + value;
+        newComponents[2] = oldComponents[2] + value > 1.0f ? 1.0f : oldComponents[2] + value;
         newComponents[3] = oldComponents[3];
     }
     
@@ -79,15 +162,15 @@
     CGFloat newComponents[4];
     
     if(isGreyscale) {
-        newComponents[0] = oldComponents[0] - value < 0.0 ? 0.0 : oldComponents[0] - value;
-        newComponents[1] = oldComponents[0] - value < 0.0 ? 0.0 : oldComponents[0] - value;
-        newComponents[2] = oldComponents[0] - value < 0.0 ? 0.0 : oldComponents[0] - value;
+        newComponents[0] = oldComponents[0] - value < 0.0f ? 0.0f : oldComponents[0] - value;
+        newComponents[1] = oldComponents[0] - value < 0.0f ? 0.0f : oldComponents[0] - value;
+        newComponents[2] = oldComponents[0] - value < 0.0f ? 0.0f : oldComponents[0] - value;
         newComponents[3] = oldComponents[1];
     }
     else {
-        newComponents[0] = oldComponents[0] - value < 0.0 ? 0.0 : oldComponents[0] - value;
-        newComponents[1] = oldComponents[1] - value < 0.0 ? 0.0 : oldComponents[1] - value;
-        newComponents[2] = oldComponents[2] - value < 0.0 ? 0.0 : oldComponents[2] - value;
+        newComponents[0] = oldComponents[0] - value < 0.0f ? 0.0f : oldComponents[0] - value;
+        newComponents[1] = oldComponents[1] - value < 0.0f ? 0.0f : oldComponents[1] - value;
+        newComponents[2] = oldComponents[2] - value < 0.0f ? 0.0f : oldComponents[2] - value;
         newComponents[3] = oldComponents[3];
     }
     
@@ -116,7 +199,7 @@
         sum = (components[0] + components[1] + components[2]) / 3.0f;
     }
     
-    return (sum > 0.8f);
+    return (sum >= 0.75f);
 }
 
 @end

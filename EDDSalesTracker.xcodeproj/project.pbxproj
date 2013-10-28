@@ -19,6 +19,7 @@
 		34C20802181EFBD000F7E02A /* BSModalDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C207FF181EFBD000F7E02A /* BSModalDatePickerView.m */; };
 		34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20801181EFBD000F7E02A /* BSModalPickerBase.m */; };
 		34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20804181EFBF800F7E02A /* BSModalPickerView.m */; };
+		34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
 		6951D23916F7C3F100A24034 /* button-slice-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23716F7C3F100A24034 /* button-slice-blue.png */; };
 		6951D24516F7FA0A00A24034 /* bg-only-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23C16F7FA0A00A24034 /* bg-only-568h.png */; };
@@ -131,6 +132,7 @@
 		34C20801181EFBD000F7E02A /* BSModalPickerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSModalPickerBase.m; sourceTree = "<group>"; };
 		34C20804181EFBF800F7E02A /* BSModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSModalPickerView.m; sourceTree = "<group>"; };
 		34C20805181EFBF800F7E02A /* BSModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSModalPickerView.h; sourceTree = "<group>"; };
+		34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue@2x.png"; sourceTree = "<group>"; };
 		6951D23716F7C3F100A24034 /* button-slice-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue.png"; sourceTree = "<group>"; };
 		6951D23C16F7FA0A00A24034 /* bg-only-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-only-568h.png"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		6961A8FA16F4C6D00042E7B9 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
+				34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */,
 				6961A8FB16F4C6D00042E7B9 /* SVProgressHUD.h */,
 				6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */,
 			);
@@ -702,6 +705,7 @@
 				6951D24B16F7FA0A00A24034 /* top-brand@2x.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
 				6951D24F16F7FABD00A24034 /* 114x114_mobile_icon.png in Resources */,
+				34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */,
 				6951D25516F8CD6600A24034 /* SaleDetailCell.xib in Resources */,
 				6951D25F16F8F1FE00A24034 /* EarningsViewController.xib in Resources */,
 				34B65D4F1755498C009CFA73 /* SitesViewController.xib in Resources */,
