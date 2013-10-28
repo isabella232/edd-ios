@@ -32,6 +32,7 @@
 @property (nonatomic) NSDictionary *siteForEditing;
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIView *footerView;
 
 @end
 
@@ -88,6 +89,8 @@
 	
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
     self.tableView.scrollsToTop = YES;
+	
+	self.tableView.tableFooterView = self.footerView;
 	
 	[self.tableView reloadData];
 }
