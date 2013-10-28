@@ -93,7 +93,7 @@
 
 - (void)loadEarningsReport {
 	NSMutableDictionary *params = [EDDAPIClient defaultParams];
-	[params setValue:@"stats" forKey:@"query"];
+	[params setValue:@"stats" forKey:@"edd-api"];
 	[params setValue:@"earnings" forKey:@"type"];
 
 	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {

@@ -49,7 +49,7 @@
 
 + (void)globalCustomersWithBlock:(void (^)(NSArray *customers, NSError *error))block {
 	NSMutableDictionary *params = [EDDAPIClient defaultParams];
-	[params setValue:@"customers" forKey:@"query"];
+	[params setValue:@"customers" forKey:@"edd-api"];
 	
 	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSArray *customersFromResponse = [JSON valueForKeyPath:@"customers"];
