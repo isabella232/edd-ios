@@ -18,13 +18,15 @@ static EDDAPIClient *_sharedClient = nil;
 + (EDDAPIClient *)sharedClient {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[EDDAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[SettingsHelper getUrlForClient]]];
+		NSString *clientUrl = [SettingsHelper getUrlForClient];
+		NSURL *url = [NSURL URLWithString:clientUrl];
+        _sharedClient = [[EDDAPIClient alloc] initWithBaseURL:url];
     });
     
     return _sharedClient;
 }
 
-+ (NSDictionary *)defaultParams {
++ (NSMutableDictionary *)defaultParams {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	[params setValue:[SettingsHelper getApiKey] forKey:@"key"];
 	[params setValue:[SettingsHelper getToken] forKey:@"token"];
@@ -46,7 +48,9 @@ static EDDAPIClient *_sharedClient = nil;
 }
 
 - (void)reload {
-    _sharedClient = [[EDDAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[SettingsHelper getUrlForClient]]];
+	NSString *clientUrl = [SettingsHelper getUrlForClient];
+	NSURL *url = [NSURL URLWithString:clientUrl];
+	_sharedClient = [[EDDAPIClient alloc] initWithBaseURL:url];
 }
 
 @end

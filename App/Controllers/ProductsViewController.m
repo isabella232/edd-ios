@@ -180,4 +180,8 @@ const int kProductsLoadingCellTag = 1273;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	return [[UIView alloc] init];
+}
+
 @end

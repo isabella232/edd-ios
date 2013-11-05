@@ -15,7 +15,7 @@
 
 + (EDDAPIClient *)sharedClient;
 
-+ (NSDictionary *)defaultParams;
++ (NSMutableDictionary *)defaultParams;
 
 - (void)reload;
 

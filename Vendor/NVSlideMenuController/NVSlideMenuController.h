@@ -20,10 +20,11 @@ typedef NS_ENUM(NSUInteger, NVSlideMenuControllerSlideDirection)
 @property (nonatomic, readonly, strong) UIViewController *menuViewController;
 @property (nonatomic, readonly, strong) UIViewController *contentViewController;
 @property (nonatomic, assign) BOOL panGestureEnabled; // default is YES. Set it to NO to disable the pan gesture
-@property (nonatomic, assign) CGFloat contentViewWidthWhenMenuIsOpen; // default is 44.0
+@property (nonatomic, assign) CGFloat menuWidth; // default is 276
 @property (nonatomic, assign) BOOL autoAdjustMenuWidth; // default is YES. Set it to NO to keep the menu the same width as the SlideMenuController's view
 @property (nonatomic, assign) BOOL bounceWhenNavigating; // default is NO. Determines whether the contentViewController will bounce offscreen when calling
-// `-closeMenuBehindContentViewController:animated:completion:`
+                                                         // `-closeMenuBehindContentViewController:animated:completion:`
+@property (nonatomic, assign) BOOL showShadowOnContentView; // default is YES. Set it to NO to remove shadow from content view
 
 - (id)initWithMenuViewController:(UIViewController *)menuViewController andContentViewController:(UIViewController *)contentViewController;
 
@@ -71,18 +72,5 @@ typedef NS_ENUM(NSUInteger, NVSlideMenuControllerSlideDirection)
 - (void)viewDidSlideIn:(BOOL)animated inSlideMenuController:(NVSlideMenuController *)slideMenuController; // default implementation does nothing
 - (void)viewWillSlideOut:(BOOL)animated inSlideMenuController:(NVSlideMenuController *)slideMenuController; // default implementation does nothing
 - (void)viewDidSlideOut:(BOOL)animated inSlideMenuController:(NVSlideMenuController *)slideMenuController; // default implementation does nothing
-
-@end
-
-
-#pragma mark - NVSlideMenuController (Deprecated)
-
-@interface NVSlideMenuController (Deprecated)
-
-- (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated completion:(void(^)(BOOL finished))completion DEPRECATED_ATTRIBUTE; // Use `-closeMenuBehindContentViewController:animated:completion:` instead
-- (void)showContentViewControllerAnimated:(BOOL)animated completion:(void(^)(BOOL finished))completion DEPRECATED_ATTRIBUTE; // Use `-closeMenuAnimated:completion:` instead
-- (void)showMenuAnimated:(BOOL)animated completion:(void(^)(BOOL finished))completion DEPRECATED_ATTRIBUTE; // Use `-openMenuAnimated:completion:` instead
-
-@property (nonatomic, assign) BOOL panEnabledWhenSlideMenuIsHidden DEPRECATED_ATTRIBUTE; // Use `panGestureEnabled` property to control whether the pan gesture is enabled.
 
 @end

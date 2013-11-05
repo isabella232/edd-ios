@@ -29,6 +29,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	self.edgesForExtendedLayout = UIRectEdgeNone;
+	
+	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"", nil) style:UIBarButtonItemStylePlain target:self action:nil];
     
     self.navigationItem.leftBarButtonItem = [self slideOutBarButton];
 	[self.view setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];

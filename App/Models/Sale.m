@@ -58,10 +58,11 @@
 }
 
 + (void)globalSalesWithPage:(int)page andWithBlock:(void (^)(NSArray *sales, NSError *error))block {
-	NSDictionary *params = [EDDAPIClient defaultParams];
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"sales" forKey:@"edd-api"];
 	[params setValue:[NSString stringWithFormat:@"%i", page] forKey:@"page"];
 	
-	[[EDDAPIClient sharedClient] getPath:@"sales/" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSArray *salesFromResponse = [JSON valueForKeyPath:@"sales"];
         NSMutableArray *mutableSales = [NSMutableArray arrayWithCapacity:[salesFromResponse count]];
 		

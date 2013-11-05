@@ -24,6 +24,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UIButton *salesButton;
 @property (nonatomic, retain) IBOutlet UILabel *siteName;
+@property (nonatomic, weak) IBOutlet UIView *footerView;
 
 - (IBAction)salesButtonTapped:(id)sender;
 
@@ -71,6 +72,8 @@
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
     self.tableView.scrollsToTop = YES;
 	
+	self.tableView.tableFooterView = self.footerView;
+	
 	[self setupSiteName];
 	
 	if ([SettingsHelper requiresSetup]) {
@@ -89,9 +92,11 @@
 }
 
 - (void)loadEarningsReport {
-	NSDictionary *params = [EDDAPIClient defaultParams];
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"stats" forKey:@"edd-api"];
 	[params setValue:@"earnings" forKey:@"type"];
-	[[EDDAPIClient sharedClient] getPath:@"stats/" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSDictionary *earningsFromResponse = [JSON valueForKeyPath:@"earnings"];
 		currentMonthlyEarnings = [[earningsFromResponse objectForKey:@"current_month"] floatValue];
 		alltimeEarnings = [[earningsFromResponse objectForKey:@"totals"] floatValue];
@@ -112,6 +117,7 @@
 - (void)showSetup {
 	setupViewController = [[SetupViewController alloc] initForInitialSetup];
 	UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:setupViewController];
+	nav.navigationBar.translucent = NO;
 	[self presentViewController:nav animated:YES completion:nil];
 }
 

@@ -101,6 +101,7 @@
 - (void)loadEarningsReport {
 	NSDictionary *params = [EDDAPIClient defaultParams];
 	[params setValue:@"earnings" forKey:@"type"];
+	[params setValue:@"stats" forKey:@"edd-api"];
 	
 	if ([self isCustom]) {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -113,7 +114,7 @@
 		[params setValue:self.currentChoice forKey:@"date"];
 	}
 	
-	[[EDDAPIClient sharedClient] getPath:@"stats/" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSDictionary *earningsFromResponse = [JSON valueForKeyPath:@"earnings"];
 		earnings = 0;
 		
