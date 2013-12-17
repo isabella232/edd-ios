@@ -84,6 +84,7 @@
 		69659CEC16EA3B3E006BEE11 /* NSString+DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659CEB16EA3B3E006BEE11 /* NSString+DateHelper.m */; };
 		69659CF016EA3D1E006BEE11 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659CEE16EA3D1E006BEE11 /* SalesViewController.m */; };
 		69659CF116EA3D1E006BEE11 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69659CEF16EA3D1E006BEE11 /* SalesViewController.xib */; };
+		697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 697866C21860826A00E19CB5 /* 120x120_mobile_icon.png */; };
 		697FF7BE16EA871D00D0BE91 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7BD16EA871D00D0BE91 /* Product.m */; };
 		697FF7C216EA8D2800D0BE91 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C016EA8D2800D0BE91 /* ProductsViewController.m */; };
 		697FF7C316EA8D2800D0BE91 /* ProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7C116EA8D2800D0BE91 /* ProductsViewController.xib */; };
@@ -231,6 +232,7 @@
 		69659CED16EA3D1E006BEE11 /* SalesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesViewController.h; sourceTree = "<group>"; };
 		69659CEE16EA3D1E006BEE11 /* SalesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesViewController.m; sourceTree = "<group>"; };
 		69659CEF16EA3D1E006BEE11 /* SalesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SalesViewController.xib; sourceTree = "<group>"; };
+		697866C21860826A00E19CB5 /* 120x120_mobile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120x120_mobile_icon.png; sourceTree = SOURCE_ROOT; };
 		697FF7BC16EA871D00D0BE91 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		697FF7BD16EA871D00D0BE91 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		697FF7BF16EA8D2800D0BE91 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 		69659C9416E8ED99006BEE11 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				697866C21860826A00E19CB5 /* 120x120_mobile_icon.png */,
 				6951D24E16F7FABD00A24034 /* 114x114_mobile_icon.png */,
 				6951D24C16F7FA5000A24034 /* 57x57_mobile_icon.png */,
 				6951D23C16F7FA0A00A24034 /* bg-only-568h.png */,
@@ -706,6 +709,7 @@
 				6951D24916F7FA0A00A24034 /* button-slice-blue-pressed@2x.png in Resources */,
 				6951D24A16F7FA0A00A24034 /* top-brand.png in Resources */,
 				6951D24B16F7FA0A00A24034 /* top-brand@2x.png in Resources */,
+				697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
 				6951D24F16F7FABD00A24034 /* 114x114_mobile_icon.png in Resources */,
 				34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */,
@@ -874,6 +878,8 @@
 		69659C9116E8ED63006BEE11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Charles Williamson";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Charles Williamson";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -883,6 +889,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/App/Supporting Files/EDDSalesTracker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "62F37B4E-6A4C-4D35-9521-5962DE5B4724";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "62F37B4E-6A4C-4D35-9521-5962DE5B4724";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
