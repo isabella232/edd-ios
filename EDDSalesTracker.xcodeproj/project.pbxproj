@@ -21,6 +21,7 @@
 		34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20804181EFBF800F7E02A /* BSModalPickerView.m */; };
 		34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */; };
 		34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C20809181F02F900F7E02A /* MenuViewController.xib */; };
+		34C7F53A18BBE77200A03511 /* Commission.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7F53918BBE77200A03511 /* Commission.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
 		6951D23916F7C3F100A24034 /* button-slice-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23716F7C3F100A24034 /* button-slice-blue.png */; };
 		6951D24516F7FA0A00A24034 /* bg-only-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23C16F7FA0A00A24034 /* bg-only-568h.png */; };
@@ -136,6 +137,8 @@
 		34C20805181EFBF800F7E02A /* BSModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSModalPickerView.h; sourceTree = "<group>"; };
 		34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		34C20809181F02F900F7E02A /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
+		34C7F53818BBE77200A03511 /* Commission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commission.h; sourceTree = "<group>"; };
+		34C7F53918BBE77200A03511 /* Commission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commission.m; sourceTree = "<group>"; };
 		6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue@2x.png"; sourceTree = "<group>"; };
 		6951D23716F7C3F100A24034 /* button-slice-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue.png"; sourceTree = "<group>"; };
 		6951D23C16F7FA0A00A24034 /* bg-only-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-only-568h.png"; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 		69659CCA16E8F2E0006BEE11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				34C7F53818BBE77200A03511 /* Commission.h */,
+				34C7F53918BBE77200A03511 /* Commission.m */,
 				697FF7EA16EB970200D0BE91 /* Customer.h */,
 				697FF7EB16EB970300D0BE91 /* Customer.m */,
 				697FF7BC16EA871D00D0BE91 /* Product.h */,
@@ -760,6 +765,7 @@
 				69659CE516EA32D7006BEE11 /* Sale.m in Sources */,
 				69659CE816EA3402006BEE11 /* SaleProduct.m in Sources */,
 				69659CEC16EA3B3E006BEE11 /* NSString+DateHelper.m in Sources */,
+				34C7F53A18BBE77200A03511 /* Commission.m in Sources */,
 				69659CF016EA3D1E006BEE11 /* SalesViewController.m in Sources */,
 				697FF7BE16EA871D00D0BE91 /* Product.m in Sources */,
 				697FF7C216EA8D2800D0BE91 /* ProductsViewController.m in Sources */,
