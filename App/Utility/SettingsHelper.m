@@ -47,6 +47,9 @@
 		[currentSite setObject:[site objectForKey:KEY_FOR_API_KEY] forKey:KEY_FOR_API_KEY];
 		[currentSite setObject:[site objectForKey:KEY_FOR_TOKEN] forKey:KEY_FOR_TOKEN];
 		[currentSite setObject:[site objectForKey:KEY_FOR_CURRENCY] forKey:KEY_FOR_CURRENCY];
+				
+		[currentSites setObject:currentSite forKey:[site objectForKey:KEY_FOR_SITE_ID]];
+		
 	} else {
 		[currentSites setObject:site forKey:[site objectForKey:KEY_FOR_SITE_ID]];
 	}
