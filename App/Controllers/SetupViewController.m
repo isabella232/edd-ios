@@ -12,6 +12,7 @@
 #import "EDDAPIClient.h"
 #import "NSString+DateHelper.h"
 #import "SettingsHelper.h"
+#import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
 #import "UIView+ViewHelper.h"
 
@@ -189,7 +190,9 @@
 	}
 }
 
-- (void)save {	
+- (void)save {
+	[SVProgressHUD showWithStatus:@"Saving Site..." maskType:SVProgressHUDMaskTypeClear];
+	
 	NSURL *candidateURL = [NSURL URLWithString:self.url.text];
 	if (candidateURL && candidateURL.scheme && candidateURL.host) {
 		// URL is good but does it end with a slash?
@@ -199,6 +202,7 @@
 		}
 		
 	} else {
+		[SVProgressHUD dismiss];
 		[self showError:@"URL is invalid, please fix before continuing."];
 		return;
 	}
@@ -227,6 +231,7 @@
 	[site setObject:[self.currency  trimmed] forKey:KEY_FOR_CURRENCY];
 	
 	if ([SettingsHelper requiresSetup:site]) {
+		[SVProgressHUD dismiss];
 		[self showError:@"Please fill out all fields before continuing."];
 		return;
 	}
@@ -234,6 +239,8 @@
 	[SettingsHelper saveSite:site];
 	
     [[EDDAPIClient sharedClient] reload];
+	
+	[SVProgressHUD dismiss];
 	
 	if (initialSetup) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SettingsInitialSetup" object:self];
