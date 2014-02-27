@@ -106,15 +106,10 @@
 		} else {
 			SaleProduct *product = [_sale.products objectAtIndex:indexPath.row];
 			
-			NSString *name = [NSString stringWithFormat:@"%@:", product.name];
-			if (![NSString isNullOrWhiteSpace:product.priceName]) {
-				name = [NSString stringWithFormat:@"%@ - %@:", product.name, product.priceName];
-			}
-			
 			SaleDetailCell *saleDetailCell = [self.tableView dequeueReusableCellWithIdentifier:@"SaleDetailCell"];
 			saleDetailCell.name.numberOfLines = 1;
 			saleDetailCell.name.adjustsFontSizeToFitWidth = YES;
-			saleDetailCell.name.text = name;
+			saleDetailCell.name.text = product.displayName;
 			saleDetailCell.price.text = [formatter stringFromNumber: [NSNumber numberWithFloat:product.price]];
 			cell = saleDetailCell;
 		}

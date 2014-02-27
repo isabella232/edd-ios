@@ -8,6 +8,8 @@
 
 #import "SaleProduct.h"
 
+#import "NSString+DateHelper.h"
+
 @implementation SaleProduct
 
 @synthesize name = _name;
@@ -23,8 +25,23 @@
     _name = [attributes valueForKeyPath:@"name"];
     _price = [[attributes valueForKeyPath:@"price"] floatValue];
     _priceName = [attributes valueForKeyPath:@"price_name"];
+	_quantity = [[attributes valueForKeyPath:@"quantity"] intValue];
     
     return self;
+}
+
+- (NSString *)displayName {
+	NSString *name = [NSString stringWithFormat:@"%@", _name];
+	
+	if (![NSString isNullOrWhiteSpace:_priceName]) {
+		name = [NSString stringWithFormat:@"%@ - %@", name, _priceName];
+	}
+	
+	if (_quantity > 1) {
+		name = [NSString stringWithFormat:@"%@ (%i)", name, _quantity];
+	}
+	
+	return name;
 }
 
 @end

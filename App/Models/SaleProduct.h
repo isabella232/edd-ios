@@ -13,7 +13,10 @@
 @property (readonly) NSString *name;
 @property (readonly) float price;
 @property (readonly) NSString *priceName;
+@property (readonly) int quantity;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
+
+- (NSString *)displayName;
 
 @end
