@@ -129,15 +129,11 @@
 + (BOOL)requiresSetup:(NSDictionary *)site {
 	if (site == nil) return YES;
 	
-	BOOL isCommissionSite = [[site objectForKey:KEY_FOR_COMMISSION_SITE] boolValue];
-	
-	if (!isCommissionSite) {
-		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_SITE_NAME]]) return YES;
-		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_URL]]) return YES;
-		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_API_KEY]]) return YES;
-		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_TOKEN]]) return YES;
-		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_CURRENCY]]) return YES;
-	}
+	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_SITE_NAME]]) return YES;
+	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_URL]]) return YES;
+	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_API_KEY]]) return YES;
+	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_TOKEN]]) return YES;
+	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_CURRENCY]]) return YES;
 	
 	return NO;
 }
