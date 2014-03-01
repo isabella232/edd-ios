@@ -12,10 +12,10 @@
 
 @implementation SettingsHelper
 
-+ (NSString *)newID {	
++ (NSString *)newID {
 	NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
 	[timeFormatter setDateFormat:@"MMddyyyyhhmmss"];
-	return [timeFormatter stringFromDate:[NSDate date]];	
+	return [timeFormatter stringFromDate:[NSDate date]];
 }
 
 + (NSString *)getCurrentSiteID {
@@ -47,7 +47,8 @@
 		[currentSite setObject:[site objectForKey:KEY_FOR_API_KEY] forKey:KEY_FOR_API_KEY];
 		[currentSite setObject:[site objectForKey:KEY_FOR_TOKEN] forKey:KEY_FOR_TOKEN];
 		[currentSite setObject:[site objectForKey:KEY_FOR_CURRENCY] forKey:KEY_FOR_CURRENCY];
-				
+		[currentSite setObject:[site objectForKey:KEY_FOR_COMMISSION_SITE] forKey:KEY_FOR_COMMISSION_SITE];
+		
 		[currentSites setObject:currentSite forKey:[site objectForKey:KEY_FOR_SITE_ID]];
 		
 	} else {
@@ -68,7 +69,7 @@
 	[currentSites removeObjectForKey:[currentSite objectForKey:KEY_FOR_SITE_ID]];
 	[[NSUserDefaults standardUserDefaults] setObject:currentSites forKey:KEY_FOR_SITES];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-} 
+}
 
 + (NSDictionary *)getSiteForSiteID:(NSString *)siteID {
 	NSDictionary *currentSites = [self getSites];
@@ -91,19 +92,19 @@
     return [self getUrl];
 }
 
-+ (NSString *)getApiKey{
++ (NSString *)getApiKey {
 	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
 	if (site == nil) return @"";
 	return [site objectForKey:KEY_FOR_API_KEY];
 }
 
-+ (NSString *)getToken{
++ (NSString *)getToken {
 	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
 	if (site == nil) return @"";
 	return [site objectForKey:KEY_FOR_TOKEN];
 }
 
-+ (NSString *)getCurrency{
++ (NSString *)getCurrency {
 	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
 	if (site == nil || [site objectForKey:KEY_FOR_CURRENCY] == nil) {
 		NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
@@ -113,6 +114,13 @@
 	return [site objectForKey:KEY_FOR_CURRENCY];
 }
 
++ (BOOL)getCommissionSite {
+	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
+	if (site == nil) return NO;
+	NSNumber *commissionSite = [site objectForKey:KEY_FOR_COMMISSION_SITE];
+	return [commissionSite boolValue];
+}
+
 + (BOOL)requiresSetup {
 	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
 	return [self requiresSetup:site];
@@ -120,11 +128,16 @@
 
 + (BOOL)requiresSetup:(NSDictionary *)site {
 	if (site == nil) return YES;
-	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_SITE_NAME]]) return YES;
-	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_URL]]) return YES;
-	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_API_KEY]]) return YES;
-	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_TOKEN]]) return YES;
-	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_CURRENCY]]) return YES;
+	
+	BOOL isCommissionSite = [[site objectForKey:KEY_FOR_COMMISSION_SITE] boolValue];
+	
+	if (!isCommissionSite) {
+		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_SITE_NAME]]) return YES;
+		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_URL]]) return YES;
+		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_API_KEY]]) return YES;
+		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_TOKEN]]) return YES;
+		if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_CURRENCY]]) return YES;
+	}
 	
 	return NO;
 }
