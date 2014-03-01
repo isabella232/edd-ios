@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 
 #import "AboutViewController.h"
+#import "CommissionsViewController.h"
 #import "CustomersViewController.h"
 #import "EarningsViewController.h"
 #import "EDDAPIClient.h"
@@ -320,7 +321,7 @@ enum {
 }
 
 - (void)showCommissionsController {
-	
+	[self showControllerClass:[CommissionsViewController class]];
 }
 
 - (void)showEarningsController {
