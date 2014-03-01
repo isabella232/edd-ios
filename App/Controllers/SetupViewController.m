@@ -83,6 +83,7 @@
 	}
 	
 	[self setupTextFields];
+	[self setupSwitches];
 	
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
@@ -142,6 +143,12 @@
 	self.token.delegate = self;
 }
 
+- (void)setupSwitches {
+	self.commissionSiteSwitch = [[UISwitch alloc] init];
+	[self.commissionSiteSwitch setOnTintColor:[UIColor colorWithHexString:@"#1c5585"]];
+	[self.commissionSiteSwitch addTarget:self action:@selector(setCommissionSiteState:) forControlEvents:UIControlEventValueChanged];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
@@ -181,12 +188,16 @@
 			currency = currencyFormatter.currencyCode;
 		}
 		self.currency = currency;
+		
+		NSNumber *commissionSite = [self.siteForEditing objectForKey:KEY_FOR_COMMISSION_SITE];
+		self.isCommissionSite = [commissionSite boolValue];
 	} else {
 		self.siteName.text = [SettingsHelper getSiteName];
 		self.url.text = [SettingsHelper getUrl];
 		self.apiKey.text = [SettingsHelper getApiKey];
 		self.token.text = [SettingsHelper getToken];
 		self.currency = [SettingsHelper getCurrency];
+		self.isCommissionSite = [SettingsHelper getCommissionSite];
 	}
 }
 
@@ -229,6 +240,7 @@
 	[site setObject:[self.apiKey.text trimmed] forKey:KEY_FOR_API_KEY];
 	[site setObject:[self.token.text trimmed] forKey:KEY_FOR_TOKEN];
 	[site setObject:[self.currency  trimmed] forKey:KEY_FOR_CURRENCY];
+	[site setObject:[NSNumber numberWithBool:self.isCommissionSite] forKey:KEY_FOR_COMMISSION_SITE];
 	
 	if ([SettingsHelper requiresSetup:site]) {
 		[SVProgressHUD dismiss];
@@ -345,7 +357,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 5;
+	return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -370,9 +382,17 @@
 			textField = self.token;
 			cell.textLabel.text = @"Token:";
 			break;
-		default:
+		case 4:
 			cell.textLabel.text = @"Currency:";
 			cell.detailTextLabel.text = self.currency;
+			break;
+		case 5:
+			cell.textLabel.text = @"Commission Site:";
+			cell.detailTextLabel.hidden = YES;
+			cell.accessoryType = UITableViewCellAccessoryNone;
+			
+			[self.commissionSiteSwitch setOn: self.isCommissionSite];
+			cell.accessoryView = self.commissionSiteSwitch;
 			break;
 	}
 	
@@ -385,6 +405,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITextField *textField = nil;
+	
 	switch (indexPath.row) {
 		case 0:
 			textField = self.siteName;
@@ -401,7 +422,9 @@
 		case 4:
 			[self handleCurrencySelection];
 			[tableView deselectRowAtIndexPath: indexPath animated: NO];
-			return;
+			break;
+		case 5:
+			break;
 	}
 	
 	if (textField && ![textField isFirstResponder]) {
@@ -420,6 +443,11 @@
 		self.currency = pickerView.selectedValue;
 		[self.tableView reloadData];
     }];
+}
+
+- (void)setCommissionSiteState:(id)sender {
+    BOOL state = [sender isOn];
+	self.isCommissionSite = state;
 }
 
 @end
