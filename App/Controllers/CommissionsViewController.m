@@ -9,6 +9,7 @@
 #import "CommissionsViewController.h"
 
 #import "Commission.h"
+#import "CommissionsListViewController.h"
 #import "SettingsHelper.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
@@ -96,12 +97,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+	CommissionsListViewController *commissionsListViewController = nil;
 	
 	if (indexPath.row == 0) { // unpaid
-		
+		commissionsListViewController = [[CommissionsListViewController alloc] initWithUnpaidCommissions:self.unpaid];
 	} else if (indexPath.row == 1) { // paid
-		
+		commissionsListViewController = [[CommissionsListViewController alloc] initWithPaidCommissions:self.paid];
 	}
+	[self.navigationController pushViewController:commissionsListViewController animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
