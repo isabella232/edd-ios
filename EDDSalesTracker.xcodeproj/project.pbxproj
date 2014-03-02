@@ -11,6 +11,8 @@
 		34967FB418C2A63400ACE1BF /* CommissionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FB218C2A63400ACE1BF /* CommissionsViewController.xib */; };
 		34967FB818C2A9F400ACE1BF /* CommissionsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34967FB618C2A9F400ACE1BF /* CommissionsListViewController.m */; };
 		34967FB918C2A9F400ACE1BF /* CommissionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */; };
+		34967FBD18C2AC3600ACE1BF /* CommissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */; };
+		34967FBE18C2AC3600ACE1BF /* CommissionDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */; };
 		34B65D4817554397009CFA73 /* SSBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4317554397009CFA73 /* SSBorderedView.m */; };
 		34B65D4917554397009CFA73 /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4517554397009CFA73 /* SSDrawingUtilities.m */; };
 		34B65D4A17554397009CFA73 /* SSGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4717554397009CFA73 /* SSGradientView.m */; };
@@ -123,6 +125,9 @@
 		34967FB518C2A9F400ACE1BF /* CommissionsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissionsListViewController.h; sourceTree = "<group>"; };
 		34967FB618C2A9F400ACE1BF /* CommissionsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissionsListViewController.m; sourceTree = "<group>"; };
 		34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommissionsListViewController.xib; sourceTree = "<group>"; };
+		34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissionDetailViewController.h; sourceTree = "<group>"; };
+		34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissionDetailViewController.m; sourceTree = "<group>"; };
+		34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommissionDetailViewController.xib; sourceTree = "<group>"; };
 		34B65D4217554397009CFA73 /* SSBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSBorderedView.h; sourceTree = "<group>"; };
 		34B65D4317554397009CFA73 /* SSBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSBorderedView.m; sourceTree = "<group>"; };
 		34B65D4417554397009CFA73 /* SSDrawingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDrawingUtilities.h; sourceTree = "<group>"; };
@@ -531,6 +536,9 @@
 				697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */,
 				697FF7E416EB939700D0BE91 /* BaseViewController.h */,
 				697FF7E516EB939700D0BE91 /* BaseViewController.m */,
+				34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */,
+				34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */,
+				34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */,
 				34967FB518C2A9F400ACE1BF /* CommissionsListViewController.h */,
 				34967FB618C2A9F400ACE1BF /* CommissionsListViewController.m */,
 				34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */,
@@ -741,6 +749,7 @@
 				34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */,
 				34B65D4F1755498C009CFA73 /* SitesViewController.xib in Resources */,
 				34B65D5C17559453009CFA73 /* FontAwesome.ttf in Resources */,
+				34967FBE18C2AC3600ACE1BF /* CommissionDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +777,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69659CA216E8ED99006BEE11 /* AppDelegate.m in Sources */,
+				34967FBD18C2AC3600ACE1BF /* CommissionDetailViewController.m in Sources */,
 				69659CA416E8ED99006BEE11 /* main.m in Sources */,
 				69659CBA16E8F286006BEE11 /* AFHTTPClient.m in Sources */,
 				69659CBB16E8F286006BEE11 /* AFHTTPRequestOperation.m in Sources */,

@@ -9,6 +9,7 @@
 #import "CommissionsListViewController.h"
 
 #import "Commission.h"
+#import "CommissionDetailViewController.h"
 #import "SettingsHelper.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
@@ -85,6 +86,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	Commission *commission = [self.commissions objectAtIndex:indexPath.row];
+	CommissionDetailViewController *commissionDetailViewController = [[CommissionDetailViewController alloc] initWithCommission:commission];
+	[self.navigationController pushViewController:commissionDetailViewController animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
