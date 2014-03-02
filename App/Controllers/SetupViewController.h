@@ -18,6 +18,9 @@
 
 @property (nonatomic, strong) id editingField;
 
+@property (nonatomic, strong) UISwitch *commissionSiteSwitch;
+@property (nonatomic) BOOL isCommissionSite;
+
 - (IBAction)saveSettings:(id)sender;
 
 - (id)initForInitialSetup;

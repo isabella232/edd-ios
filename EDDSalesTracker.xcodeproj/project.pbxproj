@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34967FB318C2A63400ACE1BF /* CommissionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34967FB118C2A63400ACE1BF /* CommissionsViewController.m */; };
+		34967FB418C2A63400ACE1BF /* CommissionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FB218C2A63400ACE1BF /* CommissionsViewController.xib */; };
+		34967FB818C2A9F400ACE1BF /* CommissionsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34967FB618C2A9F400ACE1BF /* CommissionsListViewController.m */; };
+		34967FB918C2A9F400ACE1BF /* CommissionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */; };
+		34967FBD18C2AC3600ACE1BF /* CommissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */; };
+		34967FBE18C2AC3600ACE1BF /* CommissionDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */; };
 		34B65D4817554397009CFA73 /* SSBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4317554397009CFA73 /* SSBorderedView.m */; };
 		34B65D4917554397009CFA73 /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4517554397009CFA73 /* SSDrawingUtilities.m */; };
 		34B65D4A17554397009CFA73 /* SSGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4717554397009CFA73 /* SSGradientView.m */; };
@@ -113,6 +119,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34967FB018C2A63400ACE1BF /* CommissionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissionsViewController.h; sourceTree = "<group>"; };
+		34967FB118C2A63400ACE1BF /* CommissionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissionsViewController.m; sourceTree = "<group>"; };
+		34967FB218C2A63400ACE1BF /* CommissionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommissionsViewController.xib; sourceTree = "<group>"; };
+		34967FB518C2A9F400ACE1BF /* CommissionsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissionsListViewController.h; sourceTree = "<group>"; };
+		34967FB618C2A9F400ACE1BF /* CommissionsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissionsListViewController.m; sourceTree = "<group>"; };
+		34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommissionsListViewController.xib; sourceTree = "<group>"; };
+		34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissionDetailViewController.h; sourceTree = "<group>"; };
+		34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissionDetailViewController.m; sourceTree = "<group>"; };
+		34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommissionDetailViewController.xib; sourceTree = "<group>"; };
 		34B65D4217554397009CFA73 /* SSBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSBorderedView.h; sourceTree = "<group>"; };
 		34B65D4317554397009CFA73 /* SSBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSBorderedView.m; sourceTree = "<group>"; };
 		34B65D4417554397009CFA73 /* SSDrawingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDrawingUtilities.h; sourceTree = "<group>"; };
@@ -521,6 +536,15 @@
 				697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */,
 				697FF7E416EB939700D0BE91 /* BaseViewController.h */,
 				697FF7E516EB939700D0BE91 /* BaseViewController.m */,
+				34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */,
+				34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */,
+				34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */,
+				34967FB518C2A9F400ACE1BF /* CommissionsListViewController.h */,
+				34967FB618C2A9F400ACE1BF /* CommissionsListViewController.m */,
+				34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */,
+				34967FB018C2A63400ACE1BF /* CommissionsViewController.h */,
+				34967FB118C2A63400ACE1BF /* CommissionsViewController.m */,
+				34967FB218C2A63400ACE1BF /* CommissionsViewController.xib */,
 				697FF7ED16EB9AAA00D0BE91 /* CustomersViewController.h */,
 				697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */,
 				697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */,
@@ -700,6 +724,7 @@
 				6961A91516F6484D0042E7B9 /* ProductCell.xib in Resources */,
 				6961A91816F654CC0042E7B9 /* text-box.png in Resources */,
 				6961A91916F654CC0042E7B9 /* text-box@2x.png in Resources */,
+				34967FB918C2A9F400ACE1BF /* CommissionsListViewController.xib in Resources */,
 				6961A91C16F656510042E7B9 /* ipad-button-grey.png in Resources */,
 				6961A91D16F656510042E7B9 /* ipad-button-grey@2x.png in Resources */,
 				6961A92216F658DE0042E7B9 /* SaleCell.xib in Resources */,
@@ -714,6 +739,7 @@
 				6951D24916F7FA0A00A24034 /* button-slice-blue-pressed@2x.png in Resources */,
 				6951D24A16F7FA0A00A24034 /* top-brand.png in Resources */,
 				6951D24B16F7FA0A00A24034 /* top-brand@2x.png in Resources */,
+				34967FB418C2A63400ACE1BF /* CommissionsViewController.xib in Resources */,
 				697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
 				6951D24F16F7FABD00A24034 /* 114x114_mobile_icon.png in Resources */,
@@ -723,6 +749,7 @@
 				34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */,
 				34B65D4F1755498C009CFA73 /* SitesViewController.xib in Resources */,
 				34B65D5C17559453009CFA73 /* FontAwesome.ttf in Resources */,
+				34967FBE18C2AC3600ACE1BF /* CommissionDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,6 +777,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69659CA216E8ED99006BEE11 /* AppDelegate.m in Sources */,
+				34967FBD18C2AC3600ACE1BF /* CommissionDetailViewController.m in Sources */,
 				69659CA416E8ED99006BEE11 /* main.m in Sources */,
 				69659CBA16E8F286006BEE11 /* AFHTTPClient.m in Sources */,
 				69659CBB16E8F286006BEE11 /* AFHTTPRequestOperation.m in Sources */,
@@ -774,6 +802,7 @@
 				697FF7CE16EB8F6A00D0BE91 /* AboutViewController.m in Sources */,
 				697FF7D316EB8F7A00D0BE91 /* SetupViewController.m in Sources */,
 				697FF7D816EB8FF600D0BE91 /* MenuCell.m in Sources */,
+				34967FB818C2A9F400ACE1BF /* CommissionsListViewController.m in Sources */,
 				697FF7DC16EB90A500D0BE91 /* MainViewController.m in Sources */,
 				697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */,
 				34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */,
@@ -798,6 +827,7 @@
 				6951D25D16F8F1EE00A24034 /* EarningsDetailViewController.m in Sources */,
 				34B65D4817554397009CFA73 /* SSBorderedView.m in Sources */,
 				34B65D4917554397009CFA73 /* SSDrawingUtilities.m in Sources */,
+				34967FB318C2A63400ACE1BF /* CommissionsViewController.m in Sources */,
 				34B65D4A17554397009CFA73 /* SSGradientView.m in Sources */,
 				34B65D4E1755498C009CFA73 /* SitesViewController.m in Sources */,
 				34B65D5717559446009CFA73 /* BButton.m in Sources */,

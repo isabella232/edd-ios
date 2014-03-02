@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 
 #import "AboutViewController.h"
+#import "CommissionsViewController.h"
 #import "CustomersViewController.h"
 #import "EarningsViewController.h"
 #import "EDDAPIClient.h"
@@ -69,7 +70,7 @@ enum {
 	[self.tableView reloadData];
 }
 
-- (void)setupNotifications {	
+- (void)setupNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(setupDismissalRequested:) name:@"ShowRecentSales" object: nil];
 }
 
@@ -92,7 +93,11 @@ enum {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? MenuRowCount : [self siteCount];
+	if (section == 0) {
+		BOOL isCommissionSite = [SettingsHelper getCommissionSite];
+		return isCommissionSite ? 3 : MenuRowCount;
+	}
+	return [self siteCount];
 }
 
 - (void)configureCell:(MenuCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -101,40 +106,59 @@ enum {
 	} else {
 		NSDictionary *site = [self getSite:indexPath.row];
 		
-		cell.siteID = [site objectForKey:KEY_FOR_SITE_ID];		
+		cell.siteID = [site objectForKey:KEY_FOR_SITE_ID];
 		cell.label.text = [site objectForKey:KEY_FOR_SITE_NAME];
 	}
 }
 
 - (void)setupMenuCell:(MenuCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
-        case MenuAboutRow:
-            cell.label.text = @"About";
-            break;
-			
-        case MenuEarningsRow:
-            cell.label.text = @"Earnings";
-            break;
-			
-        case MenuHomeRow:
-            cell.label.text = @"Home";
-            break;
-            
-        case MenuProductsRow:
-            cell.label.text = @"Products";
-            break;
-            
-        case MenuSalesRow:
-            cell.label.text = @"Sales";
-            break;
-            
-        case MenuSettingsRow:
-            cell.label.text = @"Setup";
-            break;
-            
-        default:
-            break;
-    }	
+	BOOL isCommissionSite = [SettingsHelper getCommissionSite];
+	if (isCommissionSite) {
+		switch (indexPath.row) {
+			case 0:
+				cell.label.text = @"Home";
+				break;
+			case 1:
+				cell.label.text = @"Commissions";
+				break;
+				
+			case 2:
+				cell.label.text = @"Setup";
+				break;
+		}
+	} else {
+		switch (indexPath.row) {
+			case MenuAboutRow:
+				cell.label.text = @"About";
+				break;
+				
+			case MenuEarningsRow:
+				cell.label.text = @"Earnings";
+				break;
+				
+			case MenuHomeRow:
+				cell.label.text = @"Home";
+				break;
+				
+			case MenuProductsRow:
+				cell.label.text = @"Products";
+				break;
+				
+			case MenuSalesRow:
+				cell.label.text = @"Sales";
+				break;
+				
+			case MenuSettingsRow:
+				cell.label.text = @"Setup";
+				break;
+				
+			default:
+				break;
+		}
+	}
+	
+	cell.labelCheckmark.text = @"";
+	cell.labelCheckmark.hidden = YES;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,25 +229,40 @@ enum {
 	[tableView deselectRowAtIndexPath: indexPath animated: NO];
 	
 	if (indexPath.section == 0) {
-		switch (indexPath.row) {
-			case MenuAboutRow:
-				[self showAboutController];
-				break;
-			case MenuEarningsRow:
-				[self showEarningsController];
-				break;
-			case MenuHomeRow:
-				[self showMainController];
-				break;
-			case MenuProductsRow:
-				[self showProductsController];
-				break;
-			case MenuSalesRow:
-				[self showSalesController];
-				break;
-			case MenuSettingsRow:
-				[self showSetupController];
-				break;
+		BOOL isCommissionSite = [SettingsHelper getCommissionSite];
+		if (isCommissionSite) {
+			switch (indexPath.row) {
+				case 0:
+					[self showMainController];
+					break;
+				case 1:
+					[self showCommissionsController];
+					break;
+				case 2:
+					[self showSetupController];
+					break;
+			}
+		} else {
+			switch (indexPath.row) {
+				case MenuAboutRow:
+					[self showAboutController];
+					break;
+				case MenuEarningsRow:
+					[self showEarningsController];
+					break;
+				case MenuHomeRow:
+					[self showMainController];
+					break;
+				case MenuProductsRow:
+					[self showProductsController];
+					break;
+				case MenuSalesRow:
+					[self showSalesController];
+					break;
+				case MenuSettingsRow:
+					[self showSetupController];
+					break;
+			}
 		}
 	} else {
 		NSDictionary *site = [self getSite:indexPath.row];
@@ -279,6 +318,10 @@ enum {
 
 - (void)showAboutController {
     [self showControllerClass:[AboutViewController class]];
+}
+
+- (void)showCommissionsController {
+	[self showControllerClass:[CommissionsViewController class]];
 }
 
 - (void)showEarningsController {

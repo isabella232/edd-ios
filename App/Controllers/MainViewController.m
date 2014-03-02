@@ -77,7 +77,7 @@
 	[self setupSiteName];
 	
 	if ([SettingsHelper requiresSetup]) {
-//	if (YES) { // for testing
+		//	if (YES) { // for testing
 		[self showSetup];
 		setupIsPresent = YES;
 	} else {
@@ -95,18 +95,22 @@
 	NSMutableDictionary *params = [EDDAPIClient defaultParams];
 	[params setValue:@"stats" forKey:@"edd-api"];
 	[params setValue:@"earnings" forKey:@"type"];
-
+	
 	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-		NSDictionary *earningsFromResponse = [JSON valueForKeyPath:@"earnings"];
-		currentMonthlyEarnings = [[earningsFromResponse objectForKey:@"current_month"] floatValue];
-		alltimeEarnings = [[earningsFromResponse objectForKey:@"totals"] floatValue];
-		
+		if ([JSON isKindOfClass:[NSArray class]]) { // Commissions
+			currentMonthlyEarnings = 0.0f;
+			alltimeEarnings = 0.0f;
+		} else {
+			NSDictionary *earningsFromResponse = [JSON valueForKeyPath:@"earnings"];
+			currentMonthlyEarnings = [[earningsFromResponse objectForKey:@"current_month"] floatValue];
+			alltimeEarnings = [[earningsFromResponse objectForKey:@"totals"] floatValue];
+		}
 		
 		self.navigationItem.rightBarButtonItem.enabled = YES;
 		[self.tableView reloadData];
 		[SVProgressHUD dismiss];
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:error.localizedDescription];		
+		[SVProgressHUD showErrorWithStatus:error.localizedDescription];
 	}];
 }
 
@@ -172,7 +176,7 @@
 	NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
 	[currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	[currencyFormatter setCurrencyCode:[SettingsHelper getCurrency]];
-		
+	
 	cell.textLabel.text = indexPath.row == 1 ? @"Current Month:" : @"All-Time:";
 	cell.detailTextLabel.text = [currencyFormatter stringFromNumber: [NSNumber numberWithFloat:earnings]];
 	
@@ -188,7 +192,7 @@
 #pragma mark - IBActions
 
 - (IBAction)salesButtonTapped:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ShowRecentSales" object:self];	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"ShowRecentSales" object:self];
 }
 
 @end
