@@ -89,7 +89,7 @@ const int kProductsLoadingCellTag = 1273;
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	
     [self.tableView registerNib:[self productCellNib] forCellReuseIdentifier:@"ProductCell"];
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
     self.tableView.scrollsToTop = YES;

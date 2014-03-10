@@ -57,7 +57,6 @@ enum {
     [super viewDidLoad];
 	
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
-    self.tableView.separatorColor = [UIColor blackColor];
 	
     [self.tableView registerNib:[self menuCellNib] forCellReuseIdentifier:@"MenuCell"];
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];

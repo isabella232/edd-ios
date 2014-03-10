@@ -85,7 +85,7 @@ const int kSalesLoadingCellTag = 1273;
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	
     [self.tableView registerNib:[self saleCellNib] forCellReuseIdentifier:@"SaleCell"];
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
     self.tableView.scrollsToTop = YES;

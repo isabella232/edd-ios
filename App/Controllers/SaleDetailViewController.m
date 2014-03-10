@@ -46,7 +46,7 @@
 	self.title = [NSString stringWithFormat:@"Sale #%i", _sale.saleID];
 
 	[self.tableView registerNib:[self saleCellNib] forCellReuseIdentifier:@"SaleDetailCell"];
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
     [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
     self.tableView.scrollsToTop = YES;
