@@ -21,13 +21,6 @@
 	BOOL setupIsPresent;
 }
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) IBOutlet UIButton *salesButton;
-@property (nonatomic, retain) IBOutlet UILabel *siteName;
-@property (nonatomic, weak) IBOutlet UIView *footerView;
-
-- (IBAction)salesButtonTapped:(id)sender;
-
 @end
 
 @implementation MainViewController {
@@ -63,6 +56,8 @@
 	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-brand"]];
 	
 	self.title = NSLocalizedString(@"Home", nil);
+	
+	[self.salesButton setType:BButtonTypePrimary];
 	
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reload:)];
 	

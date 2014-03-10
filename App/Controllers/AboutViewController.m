@@ -8,17 +8,6 @@
 
 #import "AboutViewController.h"
 
-@interface AboutViewController ()
-
-@property (nonatomic, retain) IBOutlet UILabel *versionInfo;
-@property (nonatomic, retain) IBOutlet UIButton *eddButton;
-@property (nonatomic, retain) IBOutlet UIButton *ifButton;
-
-- (IBAction)launchEddWebsite:(id)sender;
-- (IBAction)launchIdleFusionWebsite:(id)sender;
-
-@end
-
 @implementation AboutViewController
 
 - (void)viewDidLoad {
@@ -26,6 +15,8 @@
     
     self.title = NSLocalizedString(@"About", nil);
 	
+	[self.eddButton setType:BButtonTypePrimary];
+	[self.ifButton setType:BButtonTypePrimary];
 	
     NSString* buildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 	self.versionInfo.text = [NSString stringWithFormat:@"Current Version: %@", buildNumber];

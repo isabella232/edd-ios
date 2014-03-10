@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+#import "BButton.h"
+
 @interface SetupViewController : BaseViewController<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource> {
     BOOL keyboardShown;
     CGPoint point;
@@ -15,6 +17,19 @@
     UITextField *activeTextField;
     UITapGestureRecognizer *tapRecognizer;
 }
+
+@property (nonatomic) IBOutlet BButton *saveButton;
+
+@property (nonatomic) UITextField *siteName;
+@property (nonatomic) UITextField *url;
+@property (nonatomic) UITextField *apiKey;
+@property (nonatomic) UITextField *token;
+@property (nonatomic) NSString *currency;
+
+@property (nonatomic) NSDictionary *siteForEditing;
+
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIView *footerView;
 
 @property (nonatomic, strong) id editingField;
 

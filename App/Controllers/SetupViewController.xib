@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupViewController">
             <connections>
                 <outlet property="footerView" destination="frW-nG-7wl" id="kD7-9n-w0s"/>
-                <outlet property="saveButton" destination="16" id="17"/>
+                <outlet property="saveButton" destination="rX1-Ex-y5k" id="7Pj-Tm-9yW"/>
                 <outlet property="tableView" destination="25" id="26"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -45,37 +45,30 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX1-Ex-y5k" customClass="BButton">
                     <rect key="frame" x="80" y="20" width="160" height="49"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="1b3-dc-wyX"/>
-                        <constraint firstAttribute="width" constant="160" id="zyO-hF-0Kb"/>
+                        <constraint firstAttribute="width" constant="160" id="K0p-do-cIQ"/>
+                        <constraint firstAttribute="height" constant="49" id="yfK-bG-osu"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                    <size key="titleShadowOffset" width="0.0" height="-1"/>
-                    <state key="normal" title="Save" backgroundImage="button-slice-blue.png">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" red="0.0" green="0.18039215689999999" blue="0.33725490200000002" alpha="0.67000000000000004" colorSpace="calibratedRGB"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <state key="normal" title="Save">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="saveSettings:" destination="-1" eventType="touchUpInside" id="18"/>
+                        <action selector="saveSettings:" destination="-1" eventType="touchUpInside" id="2l7-f5-mJL"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="16" firstAttribute="leading" secondItem="frW-nG-7wl" secondAttribute="leading" constant="80" id="TWc-h1-Yni"/>
-                <constraint firstAttribute="trailing" secondItem="16" secondAttribute="trailing" constant="80" id="Tq1-yd-Fcp"/>
-                <constraint firstItem="16" firstAttribute="top" secondItem="frW-nG-7wl" secondAttribute="top" constant="20" id="ccs-52-wAU"/>
+                <constraint firstItem="rX1-Ex-y5k" firstAttribute="leading" secondItem="frW-nG-7wl" secondAttribute="leading" constant="80" id="LvM-Z4-m31"/>
+                <constraint firstItem="rX1-Ex-y5k" firstAttribute="top" secondItem="frW-nG-7wl" secondAttribute="top" constant="20" id="Ry7-SD-cL1"/>
+                <constraint firstAttribute="bottom" secondItem="rX1-Ex-y5k" secondAttribute="bottom" constant="20" id="SVM-nY-Vwf"/>
+                <constraint firstAttribute="trailing" secondItem="rX1-Ex-y5k" secondAttribute="trailing" constant="80" id="Wm6-ew-jzD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
-    <resources>
-        <image name="button-slice-blue.png" width="79" height="25"/>
-    </resources>
 </document>

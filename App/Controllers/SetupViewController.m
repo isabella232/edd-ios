@@ -21,20 +21,6 @@
 	BOOL siteCreation;
 }
 
-
-@property (nonatomic) IBOutlet UIButton *saveButton;
-
-@property (nonatomic) UITextField *siteName;
-@property (nonatomic) UITextField *url;
-@property (nonatomic) UITextField *apiKey;
-@property (nonatomic) UITextField *token;
-@property (nonatomic) NSString *currency;
-
-@property (nonatomic) NSDictionary *siteForEditing;
-
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIView *footerView;
-
 @end
 
 @implementation SetupViewController
@@ -62,6 +48,8 @@
 	[super viewDidLoad];
     
     self.title = NSLocalizedString(@"Setup", nil);
+	
+	[self.saveButton setType:BButtonTypeSuccess];
 	
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)

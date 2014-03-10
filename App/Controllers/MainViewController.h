@@ -8,7 +8,16 @@
 
 #import "BaseViewController.h"
 
+#import "BButton.h"
+
 @interface MainViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet BButton *salesButton;
+@property (nonatomic, retain) IBOutlet UILabel *siteName;
+@property (nonatomic, weak) IBOutlet UIView *footerView;
+
+- (IBAction)salesButtonTapped:(id)sender;
 
 - (void)reload:(id)sender;
 

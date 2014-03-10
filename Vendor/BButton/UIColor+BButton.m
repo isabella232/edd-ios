@@ -41,7 +41,7 @@
 
 + (UIColor *)primaryColorV3
 {
-    return [UIColor colorWithHue:208.0f/360.0f saturation:0.72f brightness:0.69f alpha:1.0f];
+    return [UIColor colorWithRed:28.0f/255.0f green:85.0f/255.0f blue:133.0f/255.0f alpha:1.0f];
 }
 
 + (UIColor *)infoColorV2

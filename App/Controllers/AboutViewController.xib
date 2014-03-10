@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController">
             <connections>
-                <outlet property="eddButton" destination="15" id="21"/>
-                <outlet property="ifButton" destination="16" id="22"/>
+                <outlet property="eddButton" destination="VQh-Lk-2U0" id="MRW-bc-kEd"/>
+                <outlet property="ifButton" destination="xRZ-aD-Djm" id="gMg-fH-nn8"/>
                 <outlet property="versionInfo" destination="19" id="20"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -30,30 +30,26 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="15">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VQh-Lk-2U0" customClass="BButton">
                     <rect key="frame" x="73" y="179" width="175" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <size key="titleShadowOffset" width="0.0" height="-1"/>
-                    <state key="normal" title="Easy Digital Downloads" backgroundImage="button-slice-blue.png">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Easy Digital Downloads">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="launchEddWebsite:" destination="-1" eventType="touchUpInside" id="23"/>
+                        <action selector="launchEddWebsite:" destination="-1" eventType="touchUpInside" id="eHj-hy-kLH"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="16">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xRZ-aD-Djm" customClass="BButton">
                     <rect key="frame" x="89" y="267" width="143" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <size key="titleShadowOffset" width="0.0" height="-1"/>
-                    <state key="normal" title="Idle Fusion" backgroundImage="button-slice-blue.png">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Idle Fusion">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="launchIdleFusionWebsite:" destination="-1" eventType="touchUpInside" id="24"/>
+                        <action selector="launchIdleFusionWebsite:" destination="-1" eventType="touchUpInside" id="aK0-ZU-RRs"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="iOS Development by:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="17">
@@ -84,7 +80,6 @@
         </view>
     </objects>
     <resources>
-        <image name="button-slice-blue.png" width="79" height="25"/>
         <image name="text-box.png" width="305" height="134"/>
     </resources>
 </document>

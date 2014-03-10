@@ -8,6 +8,15 @@
 
 #import "BaseViewController.h"
 
+#import "BButton.h"
+
 @interface AboutViewController : BaseViewController
+
+@property (nonatomic, retain) IBOutlet UILabel *versionInfo;
+@property (nonatomic, retain) IBOutlet BButton *eddButton;
+@property (nonatomic, retain) IBOutlet BButton *ifButton;
+
+- (IBAction)launchEddWebsite:(id)sender;
+- (IBAction)launchIdleFusionWebsite:(id)sender;
 
 @end
