@@ -80,6 +80,12 @@
 	}
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.salesButton.hidden = [SettingsHelper isCommissionOnlySite];
+}
+
 - (void)setupSiteName {
 	NSString *siteName = [SettingsHelper getSiteName];
 	self.siteName.text = siteName;

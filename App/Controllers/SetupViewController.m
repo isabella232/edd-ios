@@ -71,7 +71,6 @@
 	}
 	
 	[self setupTextFields];
-	[self setupSwitches];
 	
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
@@ -131,12 +130,6 @@
 	self.token.delegate = self;
 }
 
-- (void)setupSwitches {
-	self.commissionSiteSwitch = [[UISwitch alloc] init];
-	[self.commissionSiteSwitch setOnTintColor:[UIColor colorWithHexString:@"#1c5585"]];
-	[self.commissionSiteSwitch addTarget:self action:@selector(setCommissionSiteState:) forControlEvents:UIControlEventValueChanged];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
@@ -177,15 +170,18 @@
 		}
 		self.currency = currency;
 		
-		NSNumber *commissionSite = [self.siteForEditing objectForKey:KEY_FOR_COMMISSION_SITE];
-		self.isCommissionSite = [commissionSite boolValue];
+		NSString *siteType = [self.siteForEditing objectForKey:KEY_FOR_SITE_TYPE];
+		if ([NSString isNullOrWhiteSpace:siteType]) {
+			siteType = KEY_FOR_SITE_TYPE_STANDARD;
+		}
+		self.siteType = siteType;
 	} else {
 		self.siteName.text = [SettingsHelper getSiteName];
 		self.url.text = [SettingsHelper getUrl];
 		self.apiKey.text = [SettingsHelper getApiKey];
 		self.token.text = [SettingsHelper getToken];
 		self.currency = [SettingsHelper getCurrency];
-		self.isCommissionSite = [SettingsHelper getCommissionSite];
+		self.siteType = [SettingsHelper getSiteType];
 	}
 }
 
@@ -228,7 +224,7 @@
 	[site setObject:[self.apiKey.text trimmed] forKey:KEY_FOR_API_KEY];
 	[site setObject:[self.token.text trimmed] forKey:KEY_FOR_TOKEN];
 	[site setObject:[self.currency  trimmed] forKey:KEY_FOR_CURRENCY];
-	[site setObject:[NSNumber numberWithBool:self.isCommissionSite] forKey:KEY_FOR_COMMISSION_SITE];
+	[site setObject:[self.siteType trimmed] forKey:KEY_FOR_SITE_TYPE];
 	
 	if ([SettingsHelper requiresSetup:site]) {
 		[SVProgressHUD dismiss];
@@ -375,12 +371,8 @@
 			cell.detailTextLabel.text = self.currency;
 			break;
 		case 5:
-			cell.textLabel.text = @"Commission Site:";
-			cell.detailTextLabel.hidden = YES;
-			cell.accessoryType = UITableViewCellAccessoryNone;
-			
-			[self.commissionSiteSwitch setOn: self.isCommissionSite];
-			cell.accessoryView = self.commissionSiteSwitch;
+			cell.textLabel.text = @"Type:";
+			cell.detailTextLabel.text = self.siteType;
 			break;
 	}
 	
@@ -412,6 +404,8 @@
 			[tableView deselectRowAtIndexPath: indexPath animated: NO];
 			break;
 		case 5:
+			[self handleSiteTypeSelection];
+			[tableView deselectRowAtIndexPath: indexPath animated: NO];
 			break;
 	}
 	
@@ -433,9 +427,13 @@
     }];
 }
 
-- (void)setCommissionSiteState:(id)sender {
-    BOOL state = [sender isOn];
-	self.isCommissionSite = state;
+- (void)handleSiteTypeSelection {
+	BSModalPickerView *pickerView = [[BSModalPickerView alloc] initWithValues:@[ KEY_FOR_SITE_TYPE_STANDARD, KEY_FOR_SITE_TYPE_COMMISSION_ONLY, KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION ]];
+    [pickerView presentInView:self.view withBlock:^(BOOL madeChoice) {
+        NSLog(@"Selected value: %@", pickerView.selectedValue);
+		self.siteType = pickerView.selectedValue;
+		[self.tableView reloadData];
+    }];
 }
 
 @end

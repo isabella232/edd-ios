@@ -16,7 +16,11 @@
 #define KEY_FOR_API_KEY				@"EDDApiKey"
 #define KEY_FOR_TOKEN				@"EDDToken"
 #define KEY_FOR_CURRENCY			@"EDDCurrency"
-#define KEY_FOR_COMMISSION_SITE		@"EDDCommissionSite"
+#define KEY_FOR_SITE_TYPE			@"EDDSiteType"
+
+#define KEY_FOR_SITE_TYPE_STANDARD					@"Standard"
+#define KEY_FOR_SITE_TYPE_COMMISSION_ONLY			@"Commission Only"
+#define KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION	@"Standard + Commission"
 
 @interface SettingsHelper : NSObject
 
@@ -33,7 +37,10 @@
 + (NSString *)getApiKey;
 + (NSString *)getToken;
 + (NSString *)getCurrency;
-+ (BOOL)getCommissionSite;
++ (NSString *)getSiteType;
++ (BOOL)isStandardSite;
++ (BOOL)isCommissionOnlySite;
++ (BOOL)isStandardAndCommissionSite;
 + (BOOL)requiresSetup;
 + (BOOL)requiresSetup:(NSDictionary *)site;
 

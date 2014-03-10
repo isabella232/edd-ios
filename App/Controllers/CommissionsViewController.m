@@ -97,6 +97,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	if (indexPath.row == 0 && self.unpaid.count == 0) return;
+	if (indexPath.row == 1 && self.paid.count == 0) return;
 		
 	CommissionsListViewController *commissionsListViewController = nil;
 	

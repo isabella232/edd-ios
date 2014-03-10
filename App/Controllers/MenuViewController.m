@@ -93,8 +93,13 @@ enum {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
-		BOOL isCommissionSite = [SettingsHelper getCommissionSite];
-		return isCommissionSite ? 3 : MenuRowCount;
+		if ([SettingsHelper isCommissionOnlySite]) {
+			return 3;
+		} else if ([SettingsHelper isStandardAndCommissionSite]) {
+			return MenuRowCount + 1;
+		} else {
+			return MenuRowCount;
+		}
 	}
 	return [self siteCount];
 }
@@ -111,8 +116,7 @@ enum {
 }
 
 - (void)setupMenuCell:(MenuCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-	BOOL isCommissionSite = [SettingsHelper getCommissionSite];
-	if (isCommissionSite) {
+	if ([SettingsHelper isCommissionOnlySite]) {
 		switch (indexPath.row) {
 			case 0:
 				cell.label.text = @"Home";
@@ -120,38 +124,53 @@ enum {
 			case 1:
 				cell.label.text = @"Commissions";
 				break;
-				
 			case 2:
 				cell.label.text = @"Setup";
 				break;
 		}
-	} else {
+	} else if ([SettingsHelper isStandardAndCommissionSite]) {
 		switch (indexPath.row) {
-			case MenuAboutRow:
-				cell.label.text = @"About";
-				break;
-				
-			case MenuEarningsRow:
-				cell.label.text = @"Earnings";
-				break;
-				
-			case MenuHomeRow:
+			case 0:
 				cell.label.text = @"Home";
 				break;
-				
-			case MenuProductsRow:
+			case 1:
+				cell.label.text = @"Earnings";
+				break;
+			case 2:
 				cell.label.text = @"Products";
 				break;
-				
-			case MenuSalesRow:
+			case 3:
 				cell.label.text = @"Sales";
 				break;
-				
-			case MenuSettingsRow:
+			case 4:
+				cell.label.text = @"About";
+				break;
+			case 5:
 				cell.label.text = @"Setup";
 				break;
-				
-			default:
+			case 6:
+				cell.label.text = @"Commissions";
+				break;
+		}
+	} else {
+		switch (indexPath.row) {
+			case 0:
+				cell.label.text = @"Home";
+				break;
+			case 1:
+				cell.label.text = @"Earnings";
+				break;
+			case 2:
+				cell.label.text = @"Products";
+				break;
+			case 3:
+				cell.label.text = @"Sales";
+				break;
+			case 4:
+				cell.label.text = @"About";
+				break;
+			case 5:
+				cell.label.text = @"Setup";
 				break;
 		}
 	}
@@ -228,8 +247,7 @@ enum {
 	[tableView deselectRowAtIndexPath: indexPath animated: NO];
 	
 	if (indexPath.section == 0) {
-		BOOL isCommissionSite = [SettingsHelper getCommissionSite];
-		if (isCommissionSite) {
+		if ([SettingsHelper isCommissionOnlySite]) {
 			switch (indexPath.row) {
 				case 0:
 					[self showMainController];
@@ -241,24 +259,48 @@ enum {
 					[self showSetupController];
 					break;
 			}
-		} else {
+		} else if ([SettingsHelper isStandardAndCommissionSite]) {
 			switch (indexPath.row) {
-				case MenuAboutRow:
-					[self showAboutController];
-					break;
-				case MenuEarningsRow:
-					[self showEarningsController];
-					break;
-				case MenuHomeRow:
+				case 0:
 					[self showMainController];
 					break;
-				case MenuProductsRow:
+				case 1:
+					[self showEarningsController];
+					break;
+				case 2:
 					[self showProductsController];
 					break;
-				case MenuSalesRow:
+				case 3:
 					[self showSalesController];
 					break;
-				case MenuSettingsRow:
+				case 4:
+					[self showAboutController];
+					break;
+				case 5:
+					[self showSetupController];
+					break;
+				case 6:
+					[self showCommissionsController];
+					break;
+			}
+		} else {
+			switch (indexPath.row) {
+				case 0:
+					[self showMainController];
+					break;
+				case 1:
+					[self showEarningsController];
+					break;
+				case 2:
+					[self showProductsController];
+					break;
+				case 3:
+					[self showSalesController];
+					break;
+				case 4:
+					[self showAboutController];
+					break;
+				case 5:
 					[self showSetupController];
 					break;
 			}
