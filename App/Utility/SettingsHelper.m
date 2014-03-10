@@ -10,6 +10,7 @@
 
 #import "NSString+DateHelper.h"
 
+
 @implementation SettingsHelper
 
 + (NSString *)newID {
@@ -47,7 +48,7 @@
 		[currentSite setObject:[site objectForKey:KEY_FOR_API_KEY] forKey:KEY_FOR_API_KEY];
 		[currentSite setObject:[site objectForKey:KEY_FOR_TOKEN] forKey:KEY_FOR_TOKEN];
 		[currentSite setObject:[site objectForKey:KEY_FOR_CURRENCY] forKey:KEY_FOR_CURRENCY];
-		[currentSite setObject:[site objectForKey:KEY_FOR_COMMISSION_SITE] forKey:KEY_FOR_COMMISSION_SITE];
+		[currentSite setObject:[site objectForKey:KEY_FOR_SITE_TYPE] forKey:KEY_FOR_SITE_TYPE];
 		
 		[currentSites setObject:currentSite forKey:[site objectForKey:KEY_FOR_SITE_ID]];
 		
@@ -114,11 +115,44 @@
 	return [site objectForKey:KEY_FOR_CURRENCY];
 }
 
-+ (BOOL)getCommissionSite {
++ (NSString *)getSiteType {
+	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
+	if (site == nil) return KEY_FOR_SITE_TYPE_STANDARD;
+	NSString *siteType = [site objectForKey:KEY_FOR_SITE_TYPE];
+	if ([NSString isNullOrWhiteSpace:siteType]) {
+		siteType = KEY_FOR_SITE_TYPE_STANDARD;
+	}
+	return siteType;
+}
+
++ (BOOL)isStandardSite {
+	BOOL standard = YES;
+	
+	if ([self isCommissionOnlySite]) {
+		standard = NO;
+	}
+	
+	if ([self isStandardAndCommissionSite]) {
+		standard = NO;
+	}
+	
+	return standard;
+}
+
++ (BOOL)isCommissionOnlySite {
 	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
 	if (site == nil) return NO;
-	NSNumber *commissionSite = [site objectForKey:KEY_FOR_COMMISSION_SITE];
-	return [commissionSite boolValue];
+	
+	NSString *siteType = [site objectForKey:KEY_FOR_SITE_TYPE];
+	return siteType != nil && [siteType isEqualToString:KEY_FOR_SITE_TYPE_COMMISSION_ONLY];
+}
+
++ (BOOL)isStandardAndCommissionSite {
+	NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
+	if (site == nil) return NO;
+	
+	NSString *siteType = [site objectForKey:KEY_FOR_SITE_TYPE];
+	return siteType != nil && [siteType isEqualToString:KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION];
 }
 
 + (BOOL)requiresSetup {
@@ -134,6 +168,7 @@
 	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_API_KEY]]) return YES;
 	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_TOKEN]]) return YES;
 	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_CURRENCY]]) return YES;
+	if ([NSString isNullOrWhiteSpace:[site objectForKey:KEY_FOR_SITE_TYPE]]) return YES;
 	
 	return NO;
 }
