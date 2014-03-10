@@ -24,6 +24,7 @@
 @synthesize email = _email;
 @synthesize date = _date;
 @synthesize products = _products;
+@synthesize discounts = _discounts;
 
 - (id)initWithAttributes:(NSDictionary *)attributes {
     self = [super init];
@@ -54,7 +55,24 @@
 	
 	_fees = feesArray;
 	
+	NSMutableArray *discountsArray = [NSMutableArray array];
+	for (NSString *discount in [attributes valueForKeyPath:@"discounts"]) {
+		[discountsArray addObject:discount];
+	}
+	
+	_discounts = discountsArray;
+	
     return self;
+}
+
+- (NSString *)discountFormat {
+	NSString *format = @"";
+	
+	for (NSString *discount in self.discounts) {
+		format = [NSString stringWithFormat:@"%@, %@", format, discount];
+	}
+	
+	return format;
 }
 
 + (void)globalSalesWithPage:(int)page andWithBlock:(void (^)(NSArray *sales, NSError *error))block {

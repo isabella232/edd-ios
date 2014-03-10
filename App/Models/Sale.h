@@ -20,8 +20,11 @@
 @property (readonly) NSString *email;
 @property (readonly) NSDate *date;
 @property (readonly) NSArray *products;
+@property (readonly) NSArray *discounts;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
+
+- (NSString *)discountFormat;
 
 + (void)globalSalesWithPage:(int)page andWithBlock:(void (^)(NSArray *sales, NSError *error))block;
 

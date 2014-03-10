@@ -63,16 +63,25 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	int rows = 0;
+	
 	switch (section) {
 		case 0:
-			return 2 + [_sale.products count];
+			rows = 2 + [_sale.products count];
+			break;
 		case 1:
-			return [self hasFees] ? [_sale.fees count] : 3;
+			rows = [self hasFees] ? [_sale.fees count] : 3;
+			break;
 		case 2:
-			return [self hasFees] ? 3 : 0;
-		default:
-			return 0;
+			rows = [self hasFees] ? 3 : 0;
+			break;
 	}
+	
+	if (_sale.discounts.count > 0) {
+		rows++;
+	}
+	
+	return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -88,6 +97,7 @@
 	if (indexPath.section == 0) {
 		int date = [_sale.products count];
 		int buyer = [_sale.products count] + 1;
+		int discount = [_sale.products count] + 2;
 		
 		// Details
 		if (indexPath.row == date) {
@@ -102,6 +112,10 @@
 		} else if (indexPath.row == buyer) {
 			cell.textLabel.text = @"Buyer:";
 			cell.detailTextLabel.text = _sale.email;
+			cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
+		} else if (indexPath.row == discount) {
+			cell.textLabel.text = @"Discounts:";
+			cell.detailTextLabel.text = _sale.discountFormat;
 			cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
 		} else {
 			SaleProduct *product = [_sale.products objectAtIndex:indexPath.row];
