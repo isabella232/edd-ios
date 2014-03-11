@@ -6,8 +6,11 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "EDDAPIClient.h"
 #import "MainViewController.h"
+
+#import "Commission.h"
+#import "CommissionsListViewController.h"
+#import "EDDAPIClient.h"
 #import "NSString+DateHelper.h"
 #import "NVSlideMenuController.h"
 #import "SettingsHelper.h"
@@ -47,7 +50,11 @@
 	[SVProgressHUD showWithStatus:@"Loading Data..." maskType:SVProgressHUDMaskTypeClear];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 	
-	[self loadEarningsReport];
+	if ([SettingsHelper isCommissionOnlySite]) {
+		[self loadCommissions];
+	} else {
+		[self loadEarningsReport];
+	}
 }
 
 - (void)viewDidLoad {
@@ -115,6 +122,27 @@
 	}];
 }
 
+- (void)loadCommissions {
+	[SVProgressHUD showWithStatus:@"Loading Commissions..." maskType:SVProgressHUDMaskTypeClear];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+	
+	[Commission globalCommissionsWithBlock:^(NSArray *unpaid, NSArray *paid, float unpaidTotal, float paidTotal, NSError *error) {
+		if (error) {
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+		}
+		
+		self.unpaid = unpaid;
+		self.paid = paid;
+		self.unpaidTotal = unpaidTotal;
+		self.paidTotal = paidTotal;
+		
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+		[self.tableView reloadData];
+		
+		[SVProgressHUD dismiss];
+	}];
+}
+
 - (void)setupNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(setupDismissalRequested:) name:@"SettingsInitialSetup" object: nil];
 }
@@ -148,10 +176,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 	if (indexPath.row == 0) {
 		UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-		cell.textLabel.text = @"Earnings";
+		cell.textLabel.text = [SettingsHelper isCommissionOnlySite] ? @"Commissions" : @"Earnings";
 		cell.textLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:20.0f];
 		cell.textLabel.textAlignment = NSTextAlignmentCenter;
 		
@@ -162,23 +189,40 @@
 	cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#009100"];
     
     // Configure the cell...
-	
 	float earnings = 0.0f;
 	
-	switch (indexPath.row) {
-		case 1:
-			earnings = currentMonthlyEarnings;
-			break;
-		case 2:
-			earnings = alltimeEarnings;
-			break;
+	if ([SettingsHelper isCommissionOnlySite]) {
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+		switch (indexPath.row) {
+			case 0:
+				earnings = self.unpaidTotal;
+				break;
+			case 1:
+				earnings = self.paidTotal;
+				break;
+		}
+		
+		cell.textLabel.text = indexPath.row == 1 ? @"Unpaid Commissions:" : @"Paid Commissions";
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		
+		switch (indexPath.row) {
+			case 1:
+				earnings = currentMonthlyEarnings;
+				break;
+			case 2:
+				earnings = alltimeEarnings;
+				break;
+		}
+		
+		cell.textLabel.text = indexPath.row == 1 ? @"Current Month:" : @"All-Time:";
 	}
 	
 	NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
 	[currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	[currencyFormatter setCurrencyCode:[SettingsHelper getCurrency]];
 	
-	cell.textLabel.text = indexPath.row == 1 ? @"Current Month:" : @"All-Time:";
 	cell.detailTextLabel.text = [currencyFormatter stringFromNumber: [NSNumber numberWithFloat:earnings]];
 	
     return cell;
@@ -188,6 +232,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	if ([SettingsHelper isCommissionOnlySite]) {
+		if (indexPath.row == 0 && self.unpaid.count == 0) return;
+		if (indexPath.row == 1 && self.paid.count == 0) return;
+		
+		CommissionsListViewController *commissionsListViewController = nil;
+		
+		if (indexPath.row == 0) { // unpaid
+			commissionsListViewController = [[CommissionsListViewController alloc] initWithUnpaidCommissions:self.unpaid];
+		} else if (indexPath.row == 1) { // paid
+			commissionsListViewController = [[CommissionsListViewController alloc] initWithPaidCommissions:self.paid];
+		}
+		[self.navigationController pushViewController:commissionsListViewController animated:YES];
+	}	
 }
 
 #pragma mark - IBActions
