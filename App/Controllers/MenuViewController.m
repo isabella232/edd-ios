@@ -143,13 +143,13 @@ enum {
 				cell.label.text = @"Sales";
 				break;
 			case 4:
-				cell.label.text = @"About";
+				cell.label.text = @"Commissions";
 				break;
 			case 5:
-				cell.label.text = @"Setup";
+				cell.label.text = @"About";
 				break;
 			case 6:
-				cell.label.text = @"Commissions";
+				cell.label.text = @"Setup";
 				break;
 		}
 	} else {
@@ -274,13 +274,13 @@ enum {
 					[self showSalesController];
 					break;
 				case 4:
-					[self showAboutController];
+					[self showCommissionsController];
 					break;
 				case 5:
-					[self showSetupController];
+					[self showAboutController];
 					break;
 				case 6:
-					[self showCommissionsController];
+					[self showSetupController];
 					break;
 			}
 		} else {
