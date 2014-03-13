@@ -195,10 +195,10 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		
 		switch (indexPath.row) {
-			case 0:
+			case 1:
 				earnings = self.unpaidTotal;
 				break;
-			case 1:
+			case 2:
 				earnings = self.paidTotal;
 				break;
 		}
@@ -234,14 +234,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	if ([SettingsHelper isCommissionOnlySite]) {
-		if (indexPath.row == 0 && self.unpaid.count == 0) return;
-		if (indexPath.row == 1 && self.paid.count == 0) return;
+		if (indexPath.row == 1 && self.unpaid.count == 0) return;
+		if (indexPath.row == 2 && self.paid.count == 0) return;
 		
 		CommissionsListViewController *commissionsListViewController = nil;
 		
-		if (indexPath.row == 0) { // unpaid
+		if (indexPath.row == 1) { // unpaid
 			commissionsListViewController = [[CommissionsListViewController alloc] initWithUnpaidCommissions:self.unpaid];
-		} else if (indexPath.row == 1) { // paid
+		} else if (indexPath.row == 2) { // paid
 			commissionsListViewController = [[CommissionsListViewController alloc] initWithPaidCommissions:self.paid];
 		}
 		[self.navigationController pushViewController:commissionsListViewController animated:YES];
