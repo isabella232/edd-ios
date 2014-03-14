@@ -47,6 +47,8 @@
 - (void)reload:(id)sender {
 	[self setupSiteName];
 	
+	self.salesButton.hidden = [SettingsHelper isCommissionOnlySite];
+	
 	[SVProgressHUD showWithStatus:@"Loading Data..." maskType:SVProgressHUDMaskTypeClear];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 	
@@ -118,6 +120,7 @@
 		[self.tableView reloadData];
 		[SVProgressHUD dismiss];
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		self.navigationItem.rightBarButtonItem.enabled = YES;
 		[SVProgressHUD showErrorWithStatus:error.localizedDescription];
 	}];
 }
