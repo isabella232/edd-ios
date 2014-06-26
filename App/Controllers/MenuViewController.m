@@ -10,7 +10,6 @@
 
 #import "AboutViewController.h"
 #import "CommissionsViewController.h"
-#import "CustomersViewController.h"
 #import "EarningsViewController.h"
 #import "EDDAPIClient.h"
 #import "MainViewController.h"

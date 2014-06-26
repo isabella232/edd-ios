@@ -11,7 +11,6 @@
 #import "EDDAPIClient.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
-#import "TDSemiModal.h"
 #import "TDDatePickerController.h"
 #import "SettingsHelper.h"
 #import "UIView+ViewHelper.h"

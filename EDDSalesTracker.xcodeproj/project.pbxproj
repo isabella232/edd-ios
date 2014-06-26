@@ -64,8 +64,6 @@
 		6961A92D16F688AD0042E7B9 /* EarningsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A92B16F688AB0042E7B9 /* EarningsDetailViewController.xib */; };
 		6961A94016F7726C0042E7B9 /* TDDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A93916F7726C0042E7B9 /* TDDatePickerController.m */; };
 		6961A94116F7726C0042E7B9 /* TDDatePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A93A16F7726C0042E7B9 /* TDDatePickerController.xib */; };
-		6961A94216F7726C0042E7B9 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A93D16F7726C0042E7B9 /* TDSemiModalViewController.m */; };
-		6961A94316F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A93F16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m */; };
 		69659C7616E8ED62006BEE11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7516E8ED62006BEE11 /* UIKit.framework */; };
 		69659C7816E8ED62006BEE11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7716E8ED62006BEE11 /* Foundation.framework */; };
 		69659C7A16E8ED62006BEE11 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7916E8ED62006BEE11 /* CoreGraphics.framework */; };
@@ -108,14 +106,13 @@
 		697FF7E216EB929100D0BE91 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7E016EB929100D0BE91 /* list.png */; };
 		697FF7E316EB929100D0BE91 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7E116EB929100D0BE91 /* list@2x.png */; };
 		697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E516EB939700D0BE91 /* BaseViewController.m */; };
-		697FF7E916EB93EC00D0BE91 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */; };
 		697FF7EC16EB970300D0BE91 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7EB16EB970300D0BE91 /* Customer.m */; };
-		697FF7F016EB9AAB00D0BE91 /* CustomersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */; };
-		697FF7F116EB9AAB00D0BE91 /* CustomersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */; };
 		697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7F316EBA21F00D0BE91 /* SettingsHelper.m */; };
 		697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F516EBA57000D0BE91 /* ipad-button-green.png */; };
 		697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */; };
 		697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */; };
+		69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */; };
+		69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,11 +198,6 @@
 		6961A93816F7726C0042E7B9 /* TDDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePickerController.h; sourceTree = "<group>"; };
 		6961A93916F7726C0042E7B9 /* TDDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePickerController.m; sourceTree = "<group>"; };
 		6961A93A16F7726C0042E7B9 /* TDDatePickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDDatePickerController.xib; sourceTree = "<group>"; };
-		6961A93B16F7726C0042E7B9 /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
-		6961A93C16F7726C0042E7B9 /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
-		6961A93D16F7726C0042E7B9 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
-		6961A93E16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
-		6961A93F16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
 		69659C7216E8ED62006BEE11 /* EDDSalesTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EDDSalesTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69659C7516E8ED62006BEE11 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69659C7716E8ED62006BEE11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -276,19 +268,19 @@
 		697FF7E116EB929100D0BE91 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		697FF7E416EB939700D0BE91 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		697FF7E516EB939700D0BE91 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		697FF7E716EB93EB00D0BE91 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
-		697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		697FF7EA16EB970200D0BE91 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
 		697FF7EB16EB970300D0BE91 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
-		697FF7ED16EB9AAA00D0BE91 /* CustomersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomersViewController.h; sourceTree = "<group>"; };
-		697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomersViewController.m; sourceTree = "<group>"; };
-		697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomersViewController.xib; sourceTree = "<group>"; };
 		697FF7F216EBA21F00D0BE91 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
 		697FF7F316EBA21F00D0BE91 /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsHelper.m; sourceTree = "<group>"; };
 		697FF7F516EBA57000D0BE91 /* ipad-button-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-button-green.png"; sourceTree = "<group>"; };
 		697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-button-green@2x.png"; sourceTree = "<group>"; };
 		697FF7F916EBA6D500D0BE91 /* UIView+ViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ViewHelper.h"; sourceTree = "<group>"; };
 		697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ViewHelper.m"; sourceTree = "<group>"; };
+		69BC42F6195C750C004FB716 /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
+		69BC42F7195C750C004FB716 /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
+		69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
+		69BC42F9195C750C004FB716 /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
+		69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,11 +364,11 @@
 				6961A93816F7726C0042E7B9 /* TDDatePickerController.h */,
 				6961A93916F7726C0042E7B9 /* TDDatePickerController.m */,
 				6961A93A16F7726C0042E7B9 /* TDDatePickerController.xib */,
-				6961A93B16F7726C0042E7B9 /* TDSemiModal.h */,
-				6961A93C16F7726C0042E7B9 /* TDSemiModalViewController.h */,
-				6961A93D16F7726C0042E7B9 /* TDSemiModalViewController.m */,
-				6961A93E16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.h */,
-				6961A93F16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m */,
+				69BC42F6195C750C004FB716 /* TDSemiModal.h */,
+				69BC42F7195C750C004FB716 /* TDSemiModalViewController.h */,
+				69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */,
+				69BC42F9195C750C004FB716 /* UIViewController+TDSemiModalExtension.h */,
+				69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */,
 			);
 			path = TDSemiModal;
 			sourceTree = "<group>";
@@ -532,8 +524,6 @@
 				697FF7CB16EB8F6A00D0BE91 /* AboutViewController.h */,
 				697FF7CC16EB8F6A00D0BE91 /* AboutViewController.m */,
 				697FF7CD16EB8F6A00D0BE91 /* AboutViewController.xib */,
-				697FF7E716EB93EB00D0BE91 /* BaseTableViewController.h */,
-				697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */,
 				697FF7E416EB939700D0BE91 /* BaseViewController.h */,
 				697FF7E516EB939700D0BE91 /* BaseViewController.m */,
 				34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */,
@@ -545,9 +535,6 @@
 				34967FB018C2A63400ACE1BF /* CommissionsViewController.h */,
 				34967FB118C2A63400ACE1BF /* CommissionsViewController.m */,
 				34967FB218C2A63400ACE1BF /* CommissionsViewController.xib */,
-				697FF7ED16EB9AAA00D0BE91 /* CustomersViewController.h */,
-				697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */,
-				697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */,
 				6951D25B16F8F1EE00A24034 /* EarningsDetailViewController.h */,
 				6951D25C16F8F1EE00A24034 /* EarningsDetailViewController.m */,
 				6961A92B16F688AB0042E7B9 /* EarningsDetailViewController.xib */,
@@ -716,7 +703,6 @@
 				697FF7DF16EB917200D0BE91 /* MenuCell.xib in Resources */,
 				697FF7E216EB929100D0BE91 /* list.png in Resources */,
 				697FF7E316EB929100D0BE91 /* list@2x.png in Resources */,
-				697FF7F116EB9AAB00D0BE91 /* CustomersViewController.xib in Resources */,
 				697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */,
 				697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */,
 				6961A8F916F4C47A0042E7B9 /* SaleDetailViewController.xib in Resources */,
@@ -789,7 +775,9 @@
 				69659CC116E8F286006BEE11 /* AFXMLRequestOperation.m in Sources */,
 				69659CC216E8F286006BEE11 /* UIImageView+AFNetworking.m in Sources */,
 				69659CCB16E8F2E0006BEE11 /* EDDAPIClient.m in Sources */,
+				69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */,
 				34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */,
+				69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */,
 				69659CE516EA32D7006BEE11 /* Sale.m in Sources */,
 				69659CE816EA3402006BEE11 /* SaleProduct.m in Sources */,
 				69659CEC16EA3B3E006BEE11 /* NSString+DateHelper.m in Sources */,
@@ -806,9 +794,7 @@
 				697FF7DC16EB90A500D0BE91 /* MainViewController.m in Sources */,
 				697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */,
 				34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */,
-				697FF7E916EB93EC00D0BE91 /* BaseTableViewController.m in Sources */,
 				697FF7EC16EB970300D0BE91 /* Customer.m in Sources */,
-				697FF7F016EB9AAB00D0BE91 /* CustomersViewController.m in Sources */,
 				697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */,
 				697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */,
 				6961A8F816F4C47A0042E7B9 /* SaleDetailViewController.m in Sources */,
@@ -821,8 +807,6 @@
 				6961A92516F65C640042E7B9 /* SaleFee.m in Sources */,
 				6961A92C16F688AD0042E7B9 /* EarningsViewController.m in Sources */,
 				6961A94016F7726C0042E7B9 /* TDDatePickerController.m in Sources */,
-				6961A94216F7726C0042E7B9 /* TDSemiModalViewController.m in Sources */,
-				6961A94316F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m in Sources */,
 				6951D25216F8B77000A24034 /* SaleDetailCell.m in Sources */,
 				6951D25D16F8F1EE00A24034 /* EarningsDetailViewController.m in Sources */,
 				34B65D4817554397009CFA73 /* SSBorderedView.m in Sources */,
