@@ -69,8 +69,13 @@
 	NSString *format = @"";
 	
 	for (NSString *discount in self.discounts) {
-		format = [NSString stringWithFormat:@"%@, %@", format, discount];
+        format = [format stringByAppendingString:[NSString stringWithFormat:@"%@,", discount]];
 	}
+    
+    // remove comma
+    if (format.length > 0) {
+        format = [format substringToIndex:[format length] - 1];
+    }
 	
 	return format;
 }
