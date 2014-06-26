@@ -56,7 +56,7 @@
 	_fees = feesArray;
 	
 	NSMutableArray *discountsArray = [NSMutableArray array];
-	for (NSString *discount in [attributes valueForKeyPath:@"discounts"]) {
+	for (NSString *discount in [attributes valueForKeyPath:@"discount"]) {
 		[discountsArray addObject:discount];
 	}
 	
