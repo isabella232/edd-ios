@@ -67,7 +67,7 @@
 	
 	switch (section) {
 		case 0:
-			rows = 2 + [_sale.products count];
+			rows = 3 + [_sale.products count];
 			break;
 		case 1:
 			rows = [self hasFees] ? [_sale.fees count] : 3;
@@ -97,7 +97,8 @@
 	if (indexPath.section == 0) {
 		int date = [_sale.products count];
 		int buyer = [_sale.products count] + 1;
-		int discount = [_sale.products count] + 2;
+        int gateway = [_sale.products count] + 2;
+		int discount = [_sale.products count] + 3;
 		
 		// Details
 		if (indexPath.row == date) {
@@ -109,6 +110,10 @@
 			cell.detailTextLabel.text = timeString;
 			cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
 			
+		} else if (indexPath.row == gateway) {
+			cell.textLabel.text = @"Gateway:";
+			cell.detailTextLabel.text = _sale.gateway;
+			cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
 		} else if (indexPath.row == buyer) {
 			cell.textLabel.text = @"Buyer:";
 			cell.detailTextLabel.text = _sale.email;
