@@ -37,7 +37,7 @@
     _tax = [[attributes valueForKeyPath:@"tax"] floatValue];
 	
     _total = [[attributes valueForKeyPath:@"total"] floatValue];
-    _gateway = [attributes valueForKeyPath:@"gateway"];
+    _gateway = [[attributes valueForKeyPath:@"gateway"] capitalizedString];
     _email = [attributes valueForKeyPath:@"email"];
     _date = [[attributes objectForKey:@"date"] dateValue];
 
