@@ -123,7 +123,7 @@
 				float value = [[earningsFromResponse objectForKey:earning] floatValue];
 				earnings = value + earnings;
 			}
-		} else if ([earningsFromResponse objectForKey:self.currentChoice]) {
+		} else if ([earningsFromResponse isKindOfClass:[NSDictionary class]] && [earningsFromResponse objectForKey:self.currentChoice]) {
 			earnings = [[earningsFromResponse objectForKey:self.currentChoice] floatValue];
 		}
 		
