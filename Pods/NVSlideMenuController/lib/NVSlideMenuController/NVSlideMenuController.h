@@ -74,3 +74,18 @@ typedef NS_ENUM(NSUInteger, NVSlideMenuControllerSlideDirection)
 - (void)viewDidSlideOut:(BOOL)animated inSlideMenuController:(NVSlideMenuController *)slideMenuController; // default implementation does nothing
 
 @end
+
+
+#pragma mark - NVSlideMenuController (Deprecated)
+
+@interface NVSlideMenuController (Deprecated)
+
+@property (nonatomic, assign) CGFloat contentViewWidthWhenMenuIsOpen DEPRECATED_ATTRIBUTE; // default is 44.0, DEPRECATED use `menuWidth` property instead
+
+- (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated completion:(void(^)(BOOL finished))completion DEPRECATED_ATTRIBUTE; // Use `-closeMenuBehindContentViewController:animated:completion:` instead
+- (void)showContentViewControllerAnimated:(BOOL)animated completion:(void(^)(BOOL finished))completion DEPRECATED_ATTRIBUTE; // Use `-closeMenuAnimated:completion:` instead
+- (void)showMenuAnimated:(BOOL)animated completion:(void(^)(BOOL finished))completion DEPRECATED_ATTRIBUTE; // Use `-openMenuAnimated:completion:` instead
+
+@property (nonatomic, assign) BOOL panEnabledWhenSlideMenuIsHidden DEPRECATED_ATTRIBUTE; // Use `panGestureEnabled` property to control whether the pan gesture is enabled.
+
+@end

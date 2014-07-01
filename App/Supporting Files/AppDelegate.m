@@ -11,9 +11,9 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "EDDAppDefines.h"
 #import "EDDAnalytics.h"
+#import "EDDSlideMenuController.h"
 #import "MainViewController.h"
 #import "MenuViewController.h"
-#import "NVSlideMenuController.h"
 #import "UIColor+Helpers.h"
 #import <Crashlytics/Crashlytics.h>
 

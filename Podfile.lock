@@ -6,13 +6,16 @@ PODS:
     - ARAnalytics/CoreIOS
     - GoogleAnalytics-iOS-SDK
   - GoogleAnalytics-iOS-SDK (3.0.7)
+  - NVSlideMenuController (1.5.6)
 
 DEPENDENCIES:
   - ARAnalytics/Crashlytics
   - ARAnalytics/GoogleAnalytics
+  - NVSlideMenuController (~> 1.5.6)
 
 SPEC CHECKSUMS:
   ARAnalytics: 9b56fa1385710cd8afca391b2ee578f81d6bb389
   GoogleAnalytics-iOS-SDK: bb285d8eef15a682f1b82971becd0d22edd0e53b
+  NVSlideMenuController: 15f156b3c730a9e9b672f6b0264304e4a3eed4b8
 
 COCOAPODS: 0.33.1

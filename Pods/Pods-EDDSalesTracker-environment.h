@@ -30,3 +30,9 @@
 #define COCOAPODS_VERSION_MINOR_GoogleAnalytics_iOS_SDK 0
 #define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 7
 
+// NVSlideMenuController
+#define COCOAPODS_POD_AVAILABLE_NVSlideMenuController
+#define COCOAPODS_VERSION_MAJOR_NVSlideMenuController 1
+#define COCOAPODS_VERSION_MINOR_NVSlideMenuController 5
+#define COCOAPODS_VERSION_PATCH_NVSlideMenuController 6
+

@@ -93,7 +93,6 @@
 		697FF7BE16EA871D00D0BE91 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7BD16EA871D00D0BE91 /* Product.m */; };
 		697FF7C216EA8D2800D0BE91 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C016EA8D2800D0BE91 /* ProductsViewController.m */; };
 		697FF7C316EA8D2800D0BE91 /* ProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7C116EA8D2800D0BE91 /* ProductsViewController.xib */; };
-		697FF7C716EB8EEC00D0BE91 /* NVSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C616EB8EEC00D0BE91 /* NVSlideMenuController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		697FF7CA16EB8F0C00D0BE91 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C916EB8F0B00D0BE91 /* MenuViewController.m */; };
 		697FF7CE16EB8F6A00D0BE91 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7CC16EB8F6A00D0BE91 /* AboutViewController.m */; };
 		697FF7CF16EB8F6A00D0BE91 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7CD16EB8F6A00D0BE91 /* AboutViewController.xib */; };
@@ -112,6 +111,7 @@
 		697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */; };
 		697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */; };
 		69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9936219623224004CAF85 /* EDDAnalytics.m */; };
+		69A9936719623514004CAF85 /* EDDSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9936619623514004CAF85 /* EDDSlideMenuController.m */; };
 		69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */; };
 		69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */; };
 		D938EBED0BBE488AB50D816F /* libPods-EDDSalesTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */; };
@@ -251,8 +251,6 @@
 		697FF7BF16EA8D2800D0BE91 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		697FF7C016EA8D2800D0BE91 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		697FF7C116EA8D2800D0BE91 /* ProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsViewController.xib; sourceTree = "<group>"; };
-		697FF7C516EB8EEC00D0BE91 /* NVSlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVSlideMenuController.h; sourceTree = "<group>"; };
-		697FF7C616EB8EEC00D0BE91 /* NVSlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVSlideMenuController.m; sourceTree = "<group>"; };
 		697FF7C816EB8F0B00D0BE91 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		697FF7C916EB8F0B00D0BE91 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		697FF7CB16EB8F6A00D0BE91 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -282,6 +280,8 @@
 		69A9936119623224004CAF85 /* EDDAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDAnalytics.h; sourceTree = "<group>"; };
 		69A9936219623224004CAF85 /* EDDAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDAnalytics.m; sourceTree = "<group>"; };
 		69A993641962328A004CAF85 /* EDDAppDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EDDAppDefines.h; sourceTree = "<group>"; };
+		69A9936519623514004CAF85 /* EDDSlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSlideMenuController.h; sourceTree = "<group>"; };
+		69A9936619623514004CAF85 /* EDDSlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSlideMenuController.m; sourceTree = "<group>"; };
 		69BC42F6195C750C004FB716 /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
 		69BC42F7195C750C004FB716 /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
 		69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
@@ -495,7 +495,6 @@
 				69659CA616E8F286006BEE11 /* AFNetworking */,
 				34B65D5017559446009CFA73 /* BButton */,
 				34C207FD181EFBD000F7E02A /* BSModalPickerView */,
-				697FF7C416EB8EEC00D0BE91 /* NVSlideMenuController */,
 				34B65D4117554397009CFA73 /* SSToolkit */,
 				6961A8FA16F4C6D00042E7B9 /* SVProgressHUD */,
 				6961A93716F7726C0042E7B9 /* TDSemiModal */,
@@ -613,6 +612,8 @@
 			children = (
 				69A9936119623224004CAF85 /* EDDAnalytics.h */,
 				69A9936219623224004CAF85 /* EDDAnalytics.m */,
+				69A9936519623514004CAF85 /* EDDSlideMenuController.h */,
+				69A9936619623514004CAF85 /* EDDSlideMenuController.m */,
 				69659CEA16EA3B3E006BEE11 /* NSString+DateHelper.h */,
 				69659CEB16EA3B3E006BEE11 /* NSString+DateHelper.m */,
 				697FF7F216EBA21F00D0BE91 /* SettingsHelper.h */,
@@ -623,15 +624,6 @@
 				697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		697FF7C416EB8EEC00D0BE91 /* NVSlideMenuController */ = {
-			isa = PBXGroup;
-			children = (
-				697FF7C516EB8EEC00D0BE91 /* NVSlideMenuController.h */,
-				697FF7C616EB8EEC00D0BE91 /* NVSlideMenuController.m */,
-			);
-			path = NVSlideMenuController;
 			sourceTree = "<group>";
 		};
 		697FF7D516EB8FE400D0BE91 /* Cells */ = {
@@ -831,7 +823,6 @@
 				69659CF016EA3D1E006BEE11 /* SalesViewController.m in Sources */,
 				697FF7BE16EA871D00D0BE91 /* Product.m in Sources */,
 				697FF7C216EA8D2800D0BE91 /* ProductsViewController.m in Sources */,
-				697FF7C716EB8EEC00D0BE91 /* NVSlideMenuController.m in Sources */,
 				697FF7CA16EB8F0C00D0BE91 /* MenuViewController.m in Sources */,
 				697FF7CE16EB8F6A00D0BE91 /* AboutViewController.m in Sources */,
 				697FF7D316EB8F7A00D0BE91 /* SetupViewController.m in Sources */,
@@ -859,6 +850,7 @@
 				34B65D4917554397009CFA73 /* SSDrawingUtilities.m in Sources */,
 				34967FB318C2A63400ACE1BF /* CommissionsViewController.m in Sources */,
 				34B65D4A17554397009CFA73 /* SSGradientView.m in Sources */,
+				69A9936719623514004CAF85 /* EDDSlideMenuController.m in Sources */,
 				34B65D4E1755498C009CFA73 /* SitesViewController.m in Sources */,
 				34B65D5717559446009CFA73 /* BButton.m in Sources */,
 				34B65D5817559446009CFA73 /* NSString+FontAwesome.m in Sources */,

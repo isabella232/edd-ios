@@ -9,7 +9,7 @@
 #import "EDDBaseViewController.h"
 
 #import "EDDAnalytics.h"
-#import "NVSlideMenuController.h"
+#import "EDDSlideMenuController.h"
 #import "UIColor+Helpers.h"
 
 @implementation EDDBaseViewController
