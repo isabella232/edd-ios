@@ -47,8 +47,6 @@ enum {
         return nil;
     }
 	
-	[self setupNotifications];
-	
 	return self;
 }
 
@@ -65,14 +63,6 @@ enum {
 	[super viewWillAppear:animated];
     
 	[self.tableView reloadData];
-}
-
-- (void)setupNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(setupDismissalRequested:) name:@"ShowRecentSales" object: nil];
-}
-
-- (void)setupDismissalRequested:(NSNotification *) notification {
-	[self showSalesController];
 }
 
 - (UINib *)menuCellNib {

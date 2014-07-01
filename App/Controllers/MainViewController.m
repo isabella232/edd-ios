@@ -13,6 +13,7 @@
 #import "EDDAPIClient.h"
 #import "EDDSlideMenuController.h"
 #import "NSString+DateHelper.h"
+#import "SalesViewController.h"
 #import "SettingsHelper.h"
 #import "SetupViewController.h"
 #import "SVProgressHUD.h"
@@ -251,7 +252,8 @@
 #pragma mark - IBActions
 
 - (IBAction)salesButtonTapped:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ShowRecentSales" object:self];
+    SalesViewController *salesViewController = [[SalesViewController alloc] init];
+    [self.navigationController pushViewController:salesViewController animated:YES];
 }
 
 @end
