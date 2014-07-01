@@ -28,4 +28,6 @@
 
 + (void)globalSalesWithPage:(int)page andWithBlock:(void (^)(NSArray *sales, NSError *error))block;
 
++ (void)salesWithEmail:(NSString *)email page:(int)page block:(void (^)(NSArray *sales, NSError *error))block;
+
 @end

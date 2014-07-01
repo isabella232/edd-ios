@@ -97,7 +97,33 @@
         if (block) {
             block([NSArray arrayWithArray:mutableSales], nil);
         }
+        
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (block) {
+			block([NSArray array], error);
+		}
+	}];
+}
+
++ (void)salesWithEmail:(NSString *)email page:(int)page block:(void (^)(NSArray *sales, NSError *error))block {
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"sales" forKey:@"edd-api"];
+	[params setValue:email forKey:@"email"];
+	[params setValue:[NSString stringWithFormat:@"%i", page] forKey:@"page"];
 	
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+		NSArray *salesFromResponse = [JSON valueForKeyPath:@"sales"];
+        NSMutableArray *mutableSales = [NSMutableArray arrayWithCapacity:[salesFromResponse count]];
+		
+        for (NSDictionary *attributes in salesFromResponse) {
+            Sale *sale = [[Sale alloc] initWithAttributes:attributes];
+            [mutableSales addObject:sale];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutableSales], nil);
+        }
+        
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		if (block) {
 			block([NSArray array], error);

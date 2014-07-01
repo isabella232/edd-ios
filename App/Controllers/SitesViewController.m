@@ -11,13 +11,7 @@
 #import "SettingsHelper.h"
 #import "SetupViewController.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
-
-@interface SitesViewController ()
-
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-
-@end
+#import "UIView+EDDAdditions.h"
 
 @implementation SitesViewController
 
@@ -30,9 +24,6 @@
 	
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

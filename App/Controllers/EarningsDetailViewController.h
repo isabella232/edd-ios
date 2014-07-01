@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "EDDBaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
-@interface EarningsDetailViewController : EDDBaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface EarningsDetailViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
 - (id)initWithRange:(NSString *)range;
 

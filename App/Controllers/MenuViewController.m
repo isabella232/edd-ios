@@ -21,7 +21,7 @@
 #import "SettingsHelper.h"
 #import "SitesViewController.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 enum {
     MenuHomeRow = 0,
@@ -63,8 +63,7 @@ enum {
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
+    
 	[self.tableView reloadData];
 }
 

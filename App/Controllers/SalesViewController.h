@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "EDDBaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
-@interface SalesViewController : EDDBaseViewController<UITableViewDelegate, UITableViewDataSource> {	
+@interface SalesViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource> {
     NSInteger _currentPage;
     NSInteger _totalPages;
 }
+
+@property (nonatomic, strong) UIBarButtonItem *refresh;
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "EDDBaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
-@interface ProductsViewController : EDDBaseViewController<UITableViewDelegate, UITableViewDataSource> {
+@interface ProductsViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource> {
     NSInteger _currentPage;
     NSInteger _totalPages;
 }

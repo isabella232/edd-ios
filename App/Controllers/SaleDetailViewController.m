@@ -14,13 +14,11 @@
 #import "SaleDetailCell.h"
 #import "SettingsHelper.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 @interface SaleDetailViewController () {
 	Sale *_sale;
 }
-
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @end
 
@@ -46,10 +44,6 @@
 	self.title = [NSString stringWithFormat:@"Sale #%i", _sale.saleID];
 
 	[self.tableView registerNib:[self saleCellNib] forCellReuseIdentifier:@"SaleDetailCell"];
-//	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
 }
 
 - (UINib *)saleCellNib {

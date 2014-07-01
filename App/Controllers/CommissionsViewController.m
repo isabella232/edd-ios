@@ -13,7 +13,7 @@
 #import "SettingsHelper.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 @implementation CommissionsViewController
 
@@ -26,9 +26,6 @@
 	
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
 	
 	[self reload:nil];
 }
