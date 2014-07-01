@@ -111,8 +111,10 @@
 		697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F516EBA57000D0BE91 /* ipad-button-green.png */; };
 		697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */; };
 		697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */; };
+		69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9936219623224004CAF85 /* EDDAnalytics.m */; };
 		69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */; };
 		69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */; };
+		D938EBED0BBE488AB50D816F /* libPods-EDDSalesTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +153,7 @@
 		34C20809181F02F900F7E02A /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		34C7F53818BBE77200A03511 /* Commission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commission.h; sourceTree = "<group>"; };
 		34C7F53918BBE77200A03511 /* Commission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commission.m; sourceTree = "<group>"; };
+		5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.xcconfig"; path = "Pods/Pods-EDDSalesTracker.xcconfig"; sourceTree = "<group>"; };
 		6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue@2x.png"; sourceTree = "<group>"; };
 		6951D23716F7C3F100A24034 /* button-slice-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue.png"; sourceTree = "<group>"; };
 		6951D23C16F7FA0A00A24034 /* bg-only-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-only-568h.png"; sourceTree = "<group>"; };
@@ -276,11 +279,15 @@
 		697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-button-green@2x.png"; sourceTree = "<group>"; };
 		697FF7F916EBA6D500D0BE91 /* UIView+ViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ViewHelper.h"; sourceTree = "<group>"; };
 		697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ViewHelper.m"; sourceTree = "<group>"; };
+		69A9936119623224004CAF85 /* EDDAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDAnalytics.h; sourceTree = "<group>"; };
+		69A9936219623224004CAF85 /* EDDAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDAnalytics.m; sourceTree = "<group>"; };
+		69A993641962328A004CAF85 /* EDDAppDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EDDAppDefines.h; sourceTree = "<group>"; };
 		69BC42F6195C750C004FB716 /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
 		69BC42F7195C750C004FB716 /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
 		69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
 		69BC42F9195C750C004FB716 /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
 		69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
+		94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EDDSalesTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +302,7 @@
 				69659C7816E8ED62006BEE11 /* Foundation.framework in Frameworks */,
 				69659C7A16E8ED62006BEE11 /* CoreGraphics.framework in Frameworks */,
 				6951D26216FA099700A24034 /* Crashlytics.framework in Frameworks */,
+				D938EBED0BBE488AB50D816F /* libPods-EDDSalesTracker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +388,7 @@
 				69659C7416E8ED62006BEE11 /* Frameworks */,
 				69659C7316E8ED62006BEE11 /* Products */,
 				69659CA516E8F286006BEE11 /* Vendor */,
+				5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -401,6 +410,7 @@
 				69659C7516E8ED62006BEE11 /* UIKit.framework */,
 				69659C7716E8ED62006BEE11 /* Foundation.framework */,
 				69659C7916E8ED62006BEE11 /* CoreGraphics.framework */,
+				94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -466,6 +476,7 @@
 				69659C9B16E8ED99006BEE11 /* EDDSalesTracker-Info.plist */,
 				69659C9C16E8ED99006BEE11 /* EDDSalesTracker-Prefix.pch */,
 				69659C9D16E8ED99006BEE11 /* main.m */,
+				69A993641962328A004CAF85 /* EDDAppDefines.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -600,6 +611,8 @@
 		69659CE916EA3B3D006BEE11 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				69A9936119623224004CAF85 /* EDDAnalytics.h */,
+				69A9936219623224004CAF85 /* EDDAnalytics.m */,
 				69659CEA16EA3B3E006BEE11 /* NSString+DateHelper.h */,
 				69659CEB16EA3B3E006BEE11 /* NSString+DateHelper.m */,
 				697FF7F216EBA21F00D0BE91 /* SettingsHelper.h */,
@@ -647,10 +660,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69659C8F16E8ED63006BEE11 /* Build configuration list for PBXNativeTarget "EDDSalesTracker" */;
 			buildPhases = (
+				9386FA8C5D7840708BF991DE /* Check Pods Manifest.lock */,
 				69659C6E16E8ED62006BEE11 /* Sources */,
 				69659C6F16E8ED62006BEE11 /* Frameworks */,
 				69659C7016E8ED62006BEE11 /* Resources */,
 				6951D26016FA092D00A24034 /* ShellScript */,
+				A6FF933FDA4B409583B68BB3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -755,6 +770,36 @@
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run 907acff10b7b639198aadbeb5eca1950ffbfb149";
 		};
+		9386FA8C5D7840708BF991DE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A6FF933FDA4B409583B68BB3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-EDDSalesTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -816,6 +861,7 @@
 				34B65D4E1755498C009CFA73 /* SitesViewController.m in Sources */,
 				34B65D5717559446009CFA73 /* BButton.m in Sources */,
 				34B65D5817559446009CFA73 /* NSString+FontAwesome.m in Sources */,
+				69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */,
 				34B65D5917559446009CFA73 /* UIColor+BButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,6 +927,7 @@
 		};
 		69659C9016E8ED63006BEE11 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -897,6 +944,7 @@
 		};
 		69659C9116E8ED63006BEE11 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Charles Williamson";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Charles Williamson";

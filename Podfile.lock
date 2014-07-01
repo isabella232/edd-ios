@@ -1,0 +1,18 @@
+PODS:
+  - ARAnalytics/CoreIOS (2.7.2)
+  - ARAnalytics/Crashlytics (2.7.2):
+    - ARAnalytics/CoreIOS
+  - ARAnalytics/GoogleAnalytics (2.7.2):
+    - ARAnalytics/CoreIOS
+    - GoogleAnalytics-iOS-SDK
+  - GoogleAnalytics-iOS-SDK (3.0.7)
+
+DEPENDENCIES:
+  - ARAnalytics/Crashlytics
+  - ARAnalytics/GoogleAnalytics
+
+SPEC CHECKSUMS:
+  ARAnalytics: 9b56fa1385710cd8afca391b2ee578f81d6bb389
+  GoogleAnalytics-iOS-SDK: bb285d8eef15a682f1b82971becd0d22edd0e53b
+
+COCOAPODS: 0.33.1
