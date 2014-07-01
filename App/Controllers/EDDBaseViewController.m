@@ -27,6 +27,12 @@
 	[self.view setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.slideMenuController.panGestureEnabled = self.navigationItem.leftBarButtonItem != nil;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
