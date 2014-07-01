@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BaseViewController.h"
+#import "EDDBaseViewController.h"
 
-@interface MenuViewController : BaseViewController
+@interface MenuViewController : EDDBaseViewController
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 

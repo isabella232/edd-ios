@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseViewController.h"
 
 #import "Sale.h"
 
-@interface SaleDetailViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface SaleDetailViewController : EDDBaseViewController<UITableViewDelegate, UITableViewDataSource>
 
 - (id)initWithSale:(Sale *)sale;
 

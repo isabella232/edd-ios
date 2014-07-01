@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseViewController.h"
 
 #import "Commission.h"
 
-@interface CommissionDetailViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface CommissionDetailViewController : EDDBaseViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 

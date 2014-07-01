@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseViewController.h"
 
 #import "BButton.h"
 
-@interface SetupViewController : BaseViewController<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource> {
+@interface SetupViewController : EDDBaseViewController<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource> {
     BOOL keyboardShown;
     CGPoint point;
     CGRect keyboardRect;

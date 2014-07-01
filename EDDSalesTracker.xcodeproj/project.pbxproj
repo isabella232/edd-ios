@@ -105,7 +105,7 @@
 		697FF7DF16EB917200D0BE91 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7DE16EB917200D0BE91 /* MenuCell.xib */; };
 		697FF7E216EB929100D0BE91 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7E016EB929100D0BE91 /* list.png */; };
 		697FF7E316EB929100D0BE91 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7E116EB929100D0BE91 /* list@2x.png */; };
-		697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E516EB939700D0BE91 /* BaseViewController.m */; };
+		697FF7E616EB939700D0BE91 /* EDDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E516EB939700D0BE91 /* EDDBaseViewController.m */; };
 		697FF7EC16EB970300D0BE91 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7EB16EB970300D0BE91 /* Customer.m */; };
 		697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7F316EBA21F00D0BE91 /* SettingsHelper.m */; };
 		697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F516EBA57000D0BE91 /* ipad-button-green.png */; };
@@ -269,8 +269,8 @@
 		697FF7DE16EB917200D0BE91 /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		697FF7E016EB929100D0BE91 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		697FF7E116EB929100D0BE91 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
-		697FF7E416EB939700D0BE91 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		697FF7E516EB939700D0BE91 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		697FF7E416EB939700D0BE91 /* EDDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDBaseViewController.h; sourceTree = "<group>"; };
+		697FF7E516EB939700D0BE91 /* EDDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDBaseViewController.m; sourceTree = "<group>"; };
 		697FF7EA16EB970200D0BE91 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
 		697FF7EB16EB970300D0BE91 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
 		697FF7F216EBA21F00D0BE91 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
@@ -535,8 +535,6 @@
 				697FF7CB16EB8F6A00D0BE91 /* AboutViewController.h */,
 				697FF7CC16EB8F6A00D0BE91 /* AboutViewController.m */,
 				697FF7CD16EB8F6A00D0BE91 /* AboutViewController.xib */,
-				697FF7E416EB939700D0BE91 /* BaseViewController.h */,
-				697FF7E516EB939700D0BE91 /* BaseViewController.m */,
 				34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */,
 				34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */,
 				34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */,
@@ -552,6 +550,8 @@
 				6961A92916F688A90042E7B9 /* EarningsViewController.h */,
 				6961A92A16F688AA0042E7B9 /* EarningsViewController.m */,
 				6951D25E16F8F1FE00A24034 /* EarningsViewController.xib */,
+				697FF7E416EB939700D0BE91 /* EDDBaseViewController.h */,
+				697FF7E516EB939700D0BE91 /* EDDBaseViewController.m */,
 				697FF7D916EB90A400D0BE91 /* MainViewController.h */,
 				697FF7DA16EB90A400D0BE91 /* MainViewController.m */,
 				697FF7DB16EB90A500D0BE91 /* MainViewController.xib */,
@@ -837,7 +837,7 @@
 				697FF7D816EB8FF600D0BE91 /* MenuCell.m in Sources */,
 				34967FB818C2A9F400ACE1BF /* CommissionsListViewController.m in Sources */,
 				697FF7DC16EB90A500D0BE91 /* MainViewController.m in Sources */,
-				697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */,
+				697FF7E616EB939700D0BE91 /* EDDBaseViewController.m in Sources */,
 				34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */,
 				697FF7EC16EB970300D0BE91 /* Customer.m in Sources */,
 				697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */,
