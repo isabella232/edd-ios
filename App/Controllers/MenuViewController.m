@@ -17,9 +17,9 @@
 #import "MenuCell.h"
 #import "ProductsViewController.h"
 #import "SalesViewController.h"
+#import "SAMGradientView.h"
 #import "SettingsHelper.h"
 #import "SitesViewController.h"
-#import "SSGradientView.h"
 #import "UIColor+Helpers.h"
 #import "UIView+ViewHelper.h"
 
@@ -213,16 +213,16 @@ enum {
     label.font = [UIFont boldSystemFontOfSize:13];
     label.text = title;
     
-    SSGradientView *gradient = [[SSGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
+    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
     gradient.backgroundColor = [UIColor clearColor];
 	
     UIColor *first = [UIColor colorWithHexString:@"#ffffff"];
     UIColor *second = [UIColor colorWithHexString:@"#cccccc"];
-    gradient.colors = [NSArray arrayWithObjects:
+    gradient.gradientColors = [NSArray arrayWithObjects:
                        first,
                        second,
                        nil];
-    gradient.direction = SSGradientViewDirectionVertical;
+    gradient.gradientDirection = SAMGradientViewDirectionVertical;
     
     [gradient addSubview:label];
 	

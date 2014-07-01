@@ -36,6 +36,12 @@
 #define COCOAPODS_VERSION_MINOR_NVSlideMenuController 5
 #define COCOAPODS_VERSION_PATCH_NVSlideMenuController 6
 
+// SAMGradientView
+#define COCOAPODS_POD_AVAILABLE_SAMGradientView
+#define COCOAPODS_VERSION_MAJOR_SAMGradientView 0
+#define COCOAPODS_VERSION_MINOR_SAMGradientView 2
+#define COCOAPODS_VERSION_PATCH_SAMGradientView 1
+
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
