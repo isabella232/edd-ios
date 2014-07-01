@@ -11,4 +11,7 @@ target :EDDSalesTracker do
   # Hamburger Menu
   pod 'NVSlideMenuController', '~> 1.5.6'
 
+  # Progress indicator
+  pod 'SVProgressHUD', '~> 1.0'
+
 end

@@ -25,7 +25,6 @@
 		34C20802181EFBD000F7E02A /* BSModalDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C207FF181EFBD000F7E02A /* BSModalDatePickerView.m */; };
 		34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20801181EFBD000F7E02A /* BSModalPickerBase.m */; };
 		34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20804181EFBF800F7E02A /* BSModalPickerView.m */; };
-		34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */; };
 		34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C20809181F02F900F7E02A /* MenuViewController.xib */; };
 		34C7F53A18BBE77200A03511 /* Commission.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7F53918BBE77200A03511 /* Commission.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
@@ -46,7 +45,6 @@
 		6951D26216FA099700A24034 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951D26116FA099700A24034 /* Crashlytics.framework */; };
 		6961A8F816F4C47A0042E7B9 /* SaleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A8F616F4C4790042E7B9 /* SaleDetailViewController.m */; };
 		6961A8F916F4C47A0042E7B9 /* SaleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A8F716F4C4790042E7B9 /* SaleDetailViewController.xib */; };
-		6961A8FD16F4C6D00042E7B9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */; };
 		6961A8FF16F4C74E0042E7B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6961A8FE16F4C74E0042E7B9 /* QuartzCore.framework */; };
 		6961A90316F4C9BF0042E7B9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A90116F4C9BF0042E7B9 /* ProductDetailViewController.m */; };
 		6961A90416F4C9BF0042E7B9 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A90216F4C9BF0042E7B9 /* ProductDetailViewController.xib */; };
@@ -149,7 +147,6 @@
 		34C20801181EFBD000F7E02A /* BSModalPickerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSModalPickerBase.m; sourceTree = "<group>"; };
 		34C20804181EFBF800F7E02A /* BSModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSModalPickerView.m; sourceTree = "<group>"; };
 		34C20805181EFBF800F7E02A /* BSModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSModalPickerView.h; sourceTree = "<group>"; };
-		34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		34C20809181F02F900F7E02A /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		34C7F53818BBE77200A03511 /* Commission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commission.h; sourceTree = "<group>"; };
 		34C7F53918BBE77200A03511 /* Commission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commission.m; sourceTree = "<group>"; };
@@ -175,8 +172,6 @@
 		6961A8F516F4C4790042E7B9 /* SaleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleDetailViewController.h; sourceTree = "<group>"; };
 		6961A8F616F4C4790042E7B9 /* SaleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleDetailViewController.m; sourceTree = "<group>"; };
 		6961A8F716F4C4790042E7B9 /* SaleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaleDetailViewController.xib; sourceTree = "<group>"; };
-		6961A8FB16F4C6D00042E7B9 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		6961A8FE16F4C74E0042E7B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6961A90016F4C9BE0042E7B9 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		6961A90116F4C9BF0042E7B9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
@@ -356,16 +351,6 @@
 			path = BSModalPickerView;
 			sourceTree = "<group>";
 		};
-		6961A8FA16F4C6D00042E7B9 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */,
-				6961A8FB16F4C6D00042E7B9 /* SVProgressHUD.h */,
-				6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
 		6961A93716F7726C0042E7B9 /* TDSemiModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,7 +481,6 @@
 				34B65D5017559446009CFA73 /* BButton */,
 				34C207FD181EFBD000F7E02A /* BSModalPickerView */,
 				34B65D4117554397009CFA73 /* SSToolkit */,
-				6961A8FA16F4C6D00042E7B9 /* SVProgressHUD */,
 				6961A93716F7726C0042E7B9 /* TDSemiModal */,
 			);
 			path = Vendor;
@@ -737,7 +721,6 @@
 				697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
 				6951D24F16F7FABD00A24034 /* 114x114_mobile_icon.png in Resources */,
-				34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */,
 				6951D25516F8CD6600A24034 /* SaleDetailCell.xib in Resources */,
 				6951D25F16F8F1FE00A24034 /* EarningsViewController.xib in Resources */,
 				34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */,
@@ -835,7 +818,6 @@
 				697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */,
 				697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */,
 				6961A8F816F4C47A0042E7B9 /* SaleDetailViewController.m in Sources */,
-				6961A8FD16F4C6D00042E7B9 /* SVProgressHUD.m in Sources */,
 				34C20802181EFBD000F7E02A /* BSModalDatePickerView.m in Sources */,
 				6961A90316F4C9BF0042E7B9 /* ProductDetailViewController.m in Sources */,
 				6961A90716F4DF8A0042E7B9 /* UIColor+Helpers.m in Sources */,
