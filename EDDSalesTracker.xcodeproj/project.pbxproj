@@ -682,6 +682,7 @@
 		69659C6A16E8ED62006BEE11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = EDD;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Easy Digital Downloads";
 			};
