@@ -22,19 +22,38 @@ static NSString *cellIdentifier = @"SaleCell";
 
 - (id)init {
 	if (self = [super init]) {
+        self.customerEmail = nil;
+        
 		self.items = [NSMutableArray array];
+        
+        self.title = NSLocalizedString(@"Search Sales", nil);
 	}
 	return self;
 }
 
+- (id)initWithCustomerEmail:(NSString *)email {
+    if (self = [self init]) {
+        self.customerEmail = email;
+        
+        self.title = NSLocalizedString(@"Purchase History", nil);
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	self.title = NSLocalizedString(@"Search Sales", nil);
     
     self.navigationItem.leftBarButtonItem = nil;
 	
 	[self.tableView registerNib:[UINib nibWithNibName:cellIdentifier bundle:nil] forCellReuseIdentifier:cellIdentifier];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.customerEmail != nil) {
+        [self loadData];
+    }
 }
 
 - (void)setupInfiniteScrolling {
@@ -60,7 +79,9 @@ static NSString *cellIdentifier = @"SaleCell";
 
 - (void)loadData {
 	if (self.searchTerm == nil || [self.searchTerm isEqualToString:@""]) {
-		return;
+        if (self.customerEmail == nil) {
+            return;
+        }
 	}
 	
 	self.currentPage = 1;
@@ -75,7 +96,13 @@ static NSString *cellIdentifier = @"SaleCell";
 - (void)loadSearchResults {
 	[SVProgressHUD showWithStatus:@"Searching..." maskType:SVProgressHUDMaskTypeClear];
     
-    [Sale salesWithEmail:self.searchTerm page:self.currentPage block:^(NSArray *sales, NSError *error) {
+    NSString *searchTerm = self.searchTerm;
+    
+    if (searchTerm == nil || [searchTerm isEqualToString:@""]) {
+        searchTerm = self.customerEmail;
+    }
+    
+    [Sale salesWithEmail:searchTerm page:self.currentPage block:^(NSArray *sales, NSError *error) {
         if (error) {
             [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
         } else {
@@ -141,11 +168,11 @@ static NSString *cellIdentifier = @"SaleCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return 44.0f;
+	return self.customerEmail == nil ? 44.0f : 0.01f;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	return self.headerView;
+	return self.customerEmail == nil ? self.headerView : nil;
 }
 
 #pragma mark UISearchDisplayDelegate

@@ -8,6 +8,7 @@
 
 #import "SaleDetailViewController.h"
 
+#import "EDDSalesSearchViewController.h"
 #import "NSString+DateHelper.h"
 #import "SaleProduct.h"
 #import "SaleFee.h"
@@ -53,7 +54,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self hasFees] ? 3 : 2;
+	return [self hasFees] ? 4 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -62,17 +63,21 @@
 	switch (section) {
 		case 0:
 			rows = 3 + [_sale.products count];
+            
+            if (_sale.discounts.count > 0) {
+                rows++;
+            }
+            
 			break;
 		case 1:
 			rows = [self hasFees] ? [_sale.fees count] : 3;
 			break;
 		case 2:
-			rows = [self hasFees] ? 3 : 0;
+			rows = [self hasFees] ? 3 : 1;
 			break;
-	}
-	
-	if (_sale.discounts.count > 0) {
-		rows++;
+        case 3:
+            rows = 1;
+            break;
 	}
 	
 	return rows;
@@ -131,7 +136,10 @@
 		SaleFee *fee = [_sale.fees objectAtIndex:indexPath.row];
 		cell.textLabel.text = [NSString stringWithFormat:@"%@:", fee.name];
 		cell.detailTextLabel.text = [formatter stringFromNumber: [NSNumber numberWithFloat:fee.cost]];			
-	} else {
+	} else if (indexPath.section == 3 || (indexPath.section == 2 && ![self hasFees])) {
+        cell.textLabel.text = @"View Customer's Purchase History";
+        cell.detailTextLabel.text = @"";
+    } else {
 		// Cost Breakdown
 		if (indexPath.row == 0) {
 			cell.textLabel.text = @"Subtotal:";
@@ -165,6 +173,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 3 || (indexPath.section == 2 && ![self hasFees])) {
+        EDDSalesSearchViewController *searchViewController = [[EDDSalesSearchViewController alloc] initWithCustomerEmail:_sale.email];
+        [self.navigationController pushViewController:searchViewController animated:YES];
+    }
 }
 
 - (BOOL)hasFees {

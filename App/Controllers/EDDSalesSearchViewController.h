@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) IBOutlet UIView *headerView;
 
+@property (nonatomic, strong) IBOutlet EDDSearchBar *searchBar;
+
 @property (nonatomic, strong) NSMutableArray *items;
 
 @property (nonatomic, strong) NSString *searchTerm;
@@ -22,6 +24,8 @@
 
 @property (nonatomic) NSInteger totalPages;
 
-@property (nonatomic, strong) IBOutlet EDDSearchBar *searchBar;
+@property (nonatomic, strong) NSString *customerEmail;
+
+- (id)initWithCustomerEmail:(NSString *)email;
 
 @end
