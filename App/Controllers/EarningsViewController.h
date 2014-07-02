@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
-@interface EarningsViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface EarningsViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
 @end

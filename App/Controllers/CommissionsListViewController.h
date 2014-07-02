@@ -6,11 +6,9 @@
 //  Copyright (c) 2014 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
-@interface CommissionsListViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
-
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@interface CommissionsListViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *commissions;
 @property (nonatomic) float total;

@@ -6,13 +6,12 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
 #import "BButton.h"
 
-@interface MainViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface MainViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet BButton *salesButton;
 @property (nonatomic, retain) IBOutlet UILabel *siteName;
 @property (nonatomic, weak) IBOutlet UIView *footerView;

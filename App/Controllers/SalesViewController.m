@@ -8,12 +8,13 @@
 
 #import "SalesViewController.h"
 
+#import "EDDSalesSearchViewController.h"
 #import "Sale.h"
 #import "SaleCell.h"
 #import "SaleDetailViewController.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 const int kSalesLoadingCellTag = 1273;
 
@@ -22,7 +23,6 @@ const int kSalesLoadingCellTag = 1273;
 - (void)refresh:(id)sender;
 - (void)reload:(id)sender;
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *sales;
 
 @end
@@ -31,7 +31,39 @@ const int kSalesLoadingCellTag = 1273;
 
 @synthesize sales = _sales;
 
-- (void)refresh:(id)sender {	
+#pragma mark - UIView
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.sales = [NSMutableArray array];
+	
+    _currentPage = 0;
+	_totalPages = 99;
+    
+    self.title = NSLocalizedString(@"Sales", nil);
+    
+    [self setupRightBarButtonItems];
+    
+	[self.tableView setBackgroundView:nil];
+	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
+	
+    [self.tableView registerNib:[UINib nibWithNibName:@"SaleCell" bundle:nil] forCellReuseIdentifier:@"SaleCell"];
+	   
+    [self reload:nil];
+}
+
+- (void)setupRightBarButtonItems {
+    self.refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+    
+    UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+    
+    self.navigationItem.rightBarButtonItems = @[ search, self.refresh ];
+}
+
+#pragma mark - API
+
+- (void)refresh:(id)sender {
 	_currentPage = 0;
 	_totalPages = 99;
 	
@@ -41,11 +73,11 @@ const int kSalesLoadingCellTag = 1273;
 	[self.tableView reloadData];
 }
 
-- (void)reload:(id)sender {	
+- (void)reload:(id)sender {
 	if (_currentPage == 0) return;
 	
 	[SVProgressHUD showWithStatus:@"Loading Sales..." maskType:SVProgressHUDMaskTypeClear];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.refresh.enabled = NO;
     
     [Sale globalSalesWithPage:_currentPage andWithBlock:^(NSArray *sales, NSError *error) {
         if (error) {
@@ -63,42 +95,15 @@ const int kSalesLoadingCellTag = 1273;
             [self.tableView reloadData];
         }
 		[SVProgressHUD dismiss];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.refresh.enabled = YES;
     }];
 }
 
-#pragma mark - UIViewController
+#pragma mark - Navigation
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.sales = [NSMutableArray array];
-	
-    _currentPage = 0;
-	_totalPages = 99;
-    
-    self.title = NSLocalizedString(@"Sales", nil);
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-    
-	[self.tableView setBackgroundView:nil];
-	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
-	
-    [self.tableView registerNib:[self saleCellNib] forCellReuseIdentifier:@"SaleCell"];
-//	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
-	   
-    [self reload:nil];
-}
-
-- (UINib *)saleCellNib {
-    return [UINib nibWithNibName:@"SaleCell" bundle:nil];
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
+- (void)search:(id)sender {
+    EDDSalesSearchViewController *searchViewController = [[EDDSalesSearchViewController alloc] init];
+    [self.navigationController pushViewController:searchViewController animated:YES];
 }
 
 #pragma mark - Table view data source

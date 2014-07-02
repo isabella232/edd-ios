@@ -9,9 +9,11 @@
 #import "AppDelegate.h"
 
 #import "AFNetworkActivityIndicatorManager.h"
+#import "EDDAppDefines.h"
+#import "EDDAnalytics.h"
+#import "EDDSlideMenuController.h"
 #import "MainViewController.h"
 #import "MenuViewController.h"
-#import "NVSlideMenuController.h"
 #import "UIColor+Helpers.h"
 #import <Crashlytics/Crashlytics.h>
 
@@ -25,8 +27,11 @@
 //	[NSURLCache setSharedURLCache:URLCache];
 	
 	[[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-	
-	[Crashlytics startWithAPIKey:@"907acff10b7b639198aadbeb5eca1950ffbfb149"];
+    
+	[ARAnalytics setupWithAnalytics:@{
+									  ARCrashlyticsAPIKey : kCrashlyticsId,
+									  ARGoogleAnalyticsID : kAnalyticsTrackerId
+									  }];
 	
 	MainViewController *mainViewController = [[MainViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainViewController];
@@ -35,7 +40,6 @@
     MenuViewController *menuViewController = [[MenuViewController alloc] init];	
 	
     NVSlideMenuController *slideMenuController = [[NVSlideMenuController alloc] initWithMenuViewController:menuViewController andContentViewController:nav];
-    slideMenuController.panGestureEnabled = NO;
 	
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	

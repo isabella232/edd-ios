@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseViewController.h"
 
 #import "BButton.h"
 
-@interface AboutViewController : BaseViewController
+@interface AboutViewController : EDDBaseViewController
 
 @property (nonatomic, retain) IBOutlet UILabel *versionInfo;
 @property (nonatomic, retain) IBOutlet BButton *eddButton;

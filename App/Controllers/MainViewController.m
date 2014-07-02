@@ -11,13 +11,14 @@
 #import "Commission.h"
 #import "CommissionsListViewController.h"
 #import "EDDAPIClient.h"
+#import "EDDSlideMenuController.h"
 #import "NSString+DateHelper.h"
-#import "NVSlideMenuController.h"
+#import "SalesViewController.h"
 #import "SettingsHelper.h"
 #import "SetupViewController.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 @interface MainViewController () {
 	SetupViewController *setupViewController;
@@ -72,9 +73,6 @@
 	
 	[self.tableView setBackgroundView:nil];
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
 	
 	self.tableView.tableFooterView = self.footerView;
 	
@@ -254,7 +252,8 @@
 #pragma mark - IBActions
 
 - (IBAction)salesButtonTapped:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ShowRecentSales" object:self];
+    SalesViewController *salesViewController = [[SalesViewController alloc] init];
+    [self.navigationController pushViewController:salesViewController animated:YES];
 }
 
 @end

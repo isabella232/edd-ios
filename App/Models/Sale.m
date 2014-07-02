@@ -37,7 +37,7 @@
     _tax = [[attributes valueForKeyPath:@"tax"] floatValue];
 	
     _total = [[attributes valueForKeyPath:@"total"] floatValue];
-    _gateway = [attributes valueForKeyPath:@"gateway"];
+    _gateway = [[attributes valueForKeyPath:@"gateway"] capitalizedString];
     _email = [attributes valueForKeyPath:@"email"];
     _date = [[attributes objectForKey:@"date"] dateValue];
 
@@ -56,7 +56,7 @@
 	_fees = feesArray;
 	
 	NSMutableArray *discountsArray = [NSMutableArray array];
-	for (NSString *discount in [attributes valueForKeyPath:@"discounts"]) {
+	for (NSString *discount in [attributes valueForKeyPath:@"discount"]) {
 		[discountsArray addObject:discount];
 	}
 	
@@ -69,8 +69,13 @@
 	NSString *format = @"";
 	
 	for (NSString *discount in self.discounts) {
-		format = [NSString stringWithFormat:@"%@, %@", format, discount];
+        format = [format stringByAppendingString:[NSString stringWithFormat:@"%@,", discount]];
 	}
+    
+    // remove comma
+    if (format.length > 0) {
+        format = [format substringToIndex:[format length] - 1];
+    }
 	
 	return format;
 }
@@ -92,7 +97,33 @@
         if (block) {
             block([NSArray arrayWithArray:mutableSales], nil);
         }
+        
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (block) {
+			block([NSArray array], error);
+		}
+	}];
+}
+
++ (void)salesWithEmail:(NSString *)email page:(int)page block:(void (^)(NSArray *sales, NSError *error))block {
+	NSMutableDictionary *params = [EDDAPIClient defaultParams];
+	[params setValue:@"sales" forKey:@"edd-api"];
+	[params setValue:email forKey:@"email"];
+	[params setValue:[NSString stringWithFormat:@"%i", page] forKey:@"page"];
 	
+	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+		NSArray *salesFromResponse = [JSON valueForKeyPath:@"sales"];
+        NSMutableArray *mutableSales = [NSMutableArray arrayWithCapacity:[salesFromResponse count]];
+		
+        for (NSDictionary *attributes in salesFromResponse) {
+            Sale *sale = [[Sale alloc] initWithAttributes:attributes];
+            [mutableSales addObject:sale];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutableSales], nil);
+        }
+        
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		if (block) {
 			block([NSArray array], error);

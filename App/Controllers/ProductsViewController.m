@@ -15,7 +15,7 @@
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
 #import "UIImageView+AFNetworking.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 const int kProductsLoadingCellTag = 1273;
 
@@ -24,7 +24,6 @@ const int kProductsLoadingCellTag = 1273;
 - (void)refresh:(id)sender;
 - (void)reload:(id)sender;
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *products;
 
 @end
@@ -89,11 +88,7 @@ const int kProductsLoadingCellTag = 1273;
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	
     [self.tableView registerNib:[self productCellNib] forCellReuseIdentifier:@"ProductCell"];
-//	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
-    
+        
     [self reload:nil];
 }
 

@@ -10,13 +10,11 @@
 
 #import "EarningsDetailViewController.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 @interface EarningsViewController () {
 	NSArray *items;
 }
-
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
 
@@ -35,9 +33,6 @@
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	
 	items = [NSArray arrayWithObjects:@"Today", @"Yesterday", @"This Month", @"Last Month", @"This Quarter", @"Last Quarter", @"This Year", @"Last Year", @"Custom", nil];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
 }
 
 #pragma mark - Table view data source

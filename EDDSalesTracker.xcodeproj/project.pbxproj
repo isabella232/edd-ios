@@ -13,9 +13,6 @@
 		34967FB918C2A9F400ACE1BF /* CommissionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FB718C2A9F400ACE1BF /* CommissionsListViewController.xib */; };
 		34967FBD18C2AC3600ACE1BF /* CommissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */; };
 		34967FBE18C2AC3600ACE1BF /* CommissionDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */; };
-		34B65D4817554397009CFA73 /* SSBorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4317554397009CFA73 /* SSBorderedView.m */; };
-		34B65D4917554397009CFA73 /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4517554397009CFA73 /* SSDrawingUtilities.m */; };
-		34B65D4A17554397009CFA73 /* SSGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4717554397009CFA73 /* SSGradientView.m */; };
 		34B65D4E1755498C009CFA73 /* SitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D4C17554989009CFA73 /* SitesViewController.m */; };
 		34B65D4F1755498C009CFA73 /* SitesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B65D4D1755498A009CFA73 /* SitesViewController.xib */; };
 		34B65D5717559446009CFA73 /* BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B65D5217559446009CFA73 /* BButton.m */; };
@@ -25,9 +22,18 @@
 		34C20802181EFBD000F7E02A /* BSModalDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C207FF181EFBD000F7E02A /* BSModalDatePickerView.m */; };
 		34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20801181EFBD000F7E02A /* BSModalPickerBase.m */; };
 		34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C20804181EFBF800F7E02A /* BSModalPickerView.m */; };
-		34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */; };
 		34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34C20809181F02F900F7E02A /* MenuViewController.xib */; };
 		34C7F53A18BBE77200A03511 /* Commission.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7F53918BBE77200A03511 /* Commission.m */; };
+		690FB6AD1962E5C100D545CF /* EDDSalesSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6AB1962E5C100D545CF /* EDDSalesSearchViewController.m */; };
+		690FB6AE1962E5C100D545CF /* EDDSalesSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 690FB6AC1962E5C100D545CF /* EDDSalesSearchViewController.xib */; };
+		690FB6B11962E5D200D545CF /* EDDBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B01962E5D200D545CF /* EDDBaseTableViewController.m */; };
+		690FB6BC1962E62D00D545CF /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B41962E62D00D545CF /* SettingsHelper.m */; };
+		690FB6BD1962E62D00D545CF /* NSString+DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B71962E62D00D545CF /* NSString+DateHelper.m */; };
+		690FB6BE1962E62D00D545CF /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B91962E62D00D545CF /* UIColor+Helpers.m */; };
+		690FB6C21962E64100D545CF /* EDDSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C01962E64100D545CF /* EDDSlideMenuController.m */; };
+		690FB6C51962E66700D545CF /* UIView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */; };
+		690FB6C81962EBFB00D545CF /* EDDSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C71962EBFB00D545CF /* EDDSearchBar.m */; };
+		690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
 		6951D23916F7C3F100A24034 /* button-slice-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23716F7C3F100A24034 /* button-slice-blue.png */; };
 		6951D24516F7FA0A00A24034 /* bg-only-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23C16F7FA0A00A24034 /* bg-only-568h.png */; };
@@ -46,11 +52,9 @@
 		6951D26216FA099700A24034 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951D26116FA099700A24034 /* Crashlytics.framework */; };
 		6961A8F816F4C47A0042E7B9 /* SaleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A8F616F4C4790042E7B9 /* SaleDetailViewController.m */; };
 		6961A8F916F4C47A0042E7B9 /* SaleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A8F716F4C4790042E7B9 /* SaleDetailViewController.xib */; };
-		6961A8FD16F4C6D00042E7B9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */; };
 		6961A8FF16F4C74E0042E7B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6961A8FE16F4C74E0042E7B9 /* QuartzCore.framework */; };
 		6961A90316F4C9BF0042E7B9 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A90116F4C9BF0042E7B9 /* ProductDetailViewController.m */; };
 		6961A90416F4C9BF0042E7B9 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A90216F4C9BF0042E7B9 /* ProductDetailViewController.xib */; };
-		6961A90716F4DF8A0042E7B9 /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A90616F4DF8A0042E7B9 /* UIColor+Helpers.m */; };
 		6961A91316F648420042E7B9 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A91216F648420042E7B9 /* ProductCell.m */; };
 		6961A91516F6484D0042E7B9 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A91416F6484D0042E7B9 /* ProductCell.xib */; };
 		6961A91816F654CC0042E7B9 /* text-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 6961A91616F654CC0042E7B9 /* text-box.png */; };
@@ -64,8 +68,6 @@
 		6961A92D16F688AD0042E7B9 /* EarningsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A92B16F688AB0042E7B9 /* EarningsDetailViewController.xib */; };
 		6961A94016F7726C0042E7B9 /* TDDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A93916F7726C0042E7B9 /* TDDatePickerController.m */; };
 		6961A94116F7726C0042E7B9 /* TDDatePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6961A93A16F7726C0042E7B9 /* TDDatePickerController.xib */; };
-		6961A94216F7726C0042E7B9 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A93D16F7726C0042E7B9 /* TDSemiModalViewController.m */; };
-		6961A94316F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6961A93F16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m */; };
 		69659C7616E8ED62006BEE11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7516E8ED62006BEE11 /* UIKit.framework */; };
 		69659C7816E8ED62006BEE11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7716E8ED62006BEE11 /* Foundation.framework */; };
 		69659C7A16E8ED62006BEE11 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7916E8ED62006BEE11 /* CoreGraphics.framework */; };
@@ -88,14 +90,12 @@
 		69659CD916E8F3D6006BEE11 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659CD816E8F3D6006BEE11 /* MobileCoreServices.framework */; };
 		69659CE516EA32D7006BEE11 /* Sale.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659CE416EA32D7006BEE11 /* Sale.m */; };
 		69659CE816EA3402006BEE11 /* SaleProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659CE716EA3402006BEE11 /* SaleProduct.m */; };
-		69659CEC16EA3B3E006BEE11 /* NSString+DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659CEB16EA3B3E006BEE11 /* NSString+DateHelper.m */; };
 		69659CF016EA3D1E006BEE11 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659CEE16EA3D1E006BEE11 /* SalesViewController.m */; };
 		69659CF116EA3D1E006BEE11 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69659CEF16EA3D1E006BEE11 /* SalesViewController.xib */; };
 		697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 697866C21860826A00E19CB5 /* 120x120_mobile_icon.png */; };
 		697FF7BE16EA871D00D0BE91 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7BD16EA871D00D0BE91 /* Product.m */; };
 		697FF7C216EA8D2800D0BE91 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C016EA8D2800D0BE91 /* ProductsViewController.m */; };
 		697FF7C316EA8D2800D0BE91 /* ProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7C116EA8D2800D0BE91 /* ProductsViewController.xib */; };
-		697FF7C716EB8EEC00D0BE91 /* NVSlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C616EB8EEC00D0BE91 /* NVSlideMenuController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		697FF7CA16EB8F0C00D0BE91 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7C916EB8F0B00D0BE91 /* MenuViewController.m */; };
 		697FF7CE16EB8F6A00D0BE91 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7CC16EB8F6A00D0BE91 /* AboutViewController.m */; };
 		697FF7CF16EB8F6A00D0BE91 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7CD16EB8F6A00D0BE91 /* AboutViewController.xib */; };
@@ -107,15 +107,14 @@
 		697FF7DF16EB917200D0BE91 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7DE16EB917200D0BE91 /* MenuCell.xib */; };
 		697FF7E216EB929100D0BE91 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7E016EB929100D0BE91 /* list.png */; };
 		697FF7E316EB929100D0BE91 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7E116EB929100D0BE91 /* list@2x.png */; };
-		697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E516EB939700D0BE91 /* BaseViewController.m */; };
-		697FF7E916EB93EC00D0BE91 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */; };
+		697FF7E616EB939700D0BE91 /* EDDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7E516EB939700D0BE91 /* EDDBaseViewController.m */; };
 		697FF7EC16EB970300D0BE91 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7EB16EB970300D0BE91 /* Customer.m */; };
-		697FF7F016EB9AAB00D0BE91 /* CustomersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */; };
-		697FF7F116EB9AAB00D0BE91 /* CustomersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */; };
-		697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7F316EBA21F00D0BE91 /* SettingsHelper.m */; };
 		697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F516EBA57000D0BE91 /* ipad-button-green.png */; };
 		697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */; };
-		697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */; };
+		69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9936219623224004CAF85 /* EDDAnalytics.m */; };
+		69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */; };
+		69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */; };
+		D938EBED0BBE488AB50D816F /* libPods-EDDSalesTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,12 +127,6 @@
 		34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissionDetailViewController.h; sourceTree = "<group>"; };
 		34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissionDetailViewController.m; sourceTree = "<group>"; };
 		34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommissionDetailViewController.xib; sourceTree = "<group>"; };
-		34B65D4217554397009CFA73 /* SSBorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSBorderedView.h; sourceTree = "<group>"; };
-		34B65D4317554397009CFA73 /* SSBorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSBorderedView.m; sourceTree = "<group>"; };
-		34B65D4417554397009CFA73 /* SSDrawingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDrawingUtilities.h; sourceTree = "<group>"; };
-		34B65D4517554397009CFA73 /* SSDrawingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDrawingUtilities.m; sourceTree = "<group>"; };
-		34B65D4617554397009CFA73 /* SSGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGradientView.h; sourceTree = "<group>"; };
-		34B65D4717554397009CFA73 /* SSGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGradientView.m; sourceTree = "<group>"; };
 		34B65D4B17554989009CFA73 /* SitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SitesViewController.h; sourceTree = "<group>"; };
 		34B65D4C17554989009CFA73 /* SitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SitesViewController.m; sourceTree = "<group>"; };
 		34B65D4D1755498A009CFA73 /* SitesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SitesViewController.xib; sourceTree = "<group>"; };
@@ -150,10 +143,29 @@
 		34C20801181EFBD000F7E02A /* BSModalPickerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSModalPickerBase.m; sourceTree = "<group>"; };
 		34C20804181EFBF800F7E02A /* BSModalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSModalPickerView.m; sourceTree = "<group>"; };
 		34C20805181EFBF800F7E02A /* BSModalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSModalPickerView.h; sourceTree = "<group>"; };
-		34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		34C20809181F02F900F7E02A /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		34C7F53818BBE77200A03511 /* Commission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commission.h; sourceTree = "<group>"; };
 		34C7F53918BBE77200A03511 /* Commission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commission.m; sourceTree = "<group>"; };
+		5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.xcconfig"; path = "Pods/Pods-EDDSalesTracker.xcconfig"; sourceTree = "<group>"; };
+		690FB6AA1962E5C100D545CF /* EDDSalesSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSalesSearchViewController.h; sourceTree = "<group>"; };
+		690FB6AB1962E5C100D545CF /* EDDSalesSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSalesSearchViewController.m; sourceTree = "<group>"; };
+		690FB6AC1962E5C100D545CF /* EDDSalesSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDSalesSearchViewController.xib; sourceTree = "<group>"; };
+		690FB6AF1962E5D200D545CF /* EDDBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDBaseTableViewController.h; sourceTree = "<group>"; };
+		690FB6B01962E5D200D545CF /* EDDBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDBaseTableViewController.m; sourceTree = "<group>"; };
+		690FB6B31962E62D00D545CF /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
+		690FB6B41962E62D00D545CF /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsHelper.m; sourceTree = "<group>"; };
+		690FB6B61962E62D00D545CF /* NSString+DateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DateHelper.h"; sourceTree = "<group>"; };
+		690FB6B71962E62D00D545CF /* NSString+DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DateHelper.m"; sourceTree = "<group>"; };
+		690FB6B81962E62D00D545CF /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
+		690FB6B91962E62D00D545CF /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
+		690FB6C01962E64100D545CF /* EDDSlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSlideMenuController.m; sourceTree = "<group>"; };
+		690FB6C11962E64100D545CF /* EDDSlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSlideMenuController.h; sourceTree = "<group>"; };
+		690FB6C31962E66700D545CF /* UIView+EDDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+EDDAdditions.h"; sourceTree = "<group>"; };
+		690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+EDDAdditions.m"; sourceTree = "<group>"; };
+		690FB6C61962EBFB00D545CF /* EDDSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSearchBar.h; sourceTree = "<group>"; };
+		690FB6C71962EBFB00D545CF /* EDDSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSearchBar.m; sourceTree = "<group>"; };
+		690FB6C91962F03500D545CF /* UIScrollView+EDDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EDDAdditions.h"; sourceTree = "<group>"; };
+		690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EDDAdditions.m"; sourceTree = "<group>"; };
 		6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue@2x.png"; sourceTree = "<group>"; };
 		6951D23716F7C3F100A24034 /* button-slice-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue.png"; sourceTree = "<group>"; };
 		6951D23C16F7FA0A00A24034 /* bg-only-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-only-568h.png"; sourceTree = "<group>"; };
@@ -175,14 +187,10 @@
 		6961A8F516F4C4790042E7B9 /* SaleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleDetailViewController.h; sourceTree = "<group>"; };
 		6961A8F616F4C4790042E7B9 /* SaleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleDetailViewController.m; sourceTree = "<group>"; };
 		6961A8F716F4C4790042E7B9 /* SaleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaleDetailViewController.xib; sourceTree = "<group>"; };
-		6961A8FB16F4C6D00042E7B9 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		6961A8FE16F4C74E0042E7B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6961A90016F4C9BE0042E7B9 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		6961A90116F4C9BF0042E7B9 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		6961A90216F4C9BF0042E7B9 /* ProductDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailViewController.xib; sourceTree = "<group>"; };
-		6961A90516F4DF8A0042E7B9 /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
-		6961A90616F4DF8A0042E7B9 /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
 		6961A91116F648420042E7B9 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
 		6961A91216F648420042E7B9 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
 		6961A91416F6484D0042E7B9 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
@@ -201,11 +209,6 @@
 		6961A93816F7726C0042E7B9 /* TDDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePickerController.h; sourceTree = "<group>"; };
 		6961A93916F7726C0042E7B9 /* TDDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePickerController.m; sourceTree = "<group>"; };
 		6961A93A16F7726C0042E7B9 /* TDDatePickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDDatePickerController.xib; sourceTree = "<group>"; };
-		6961A93B16F7726C0042E7B9 /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
-		6961A93C16F7726C0042E7B9 /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
-		6961A93D16F7726C0042E7B9 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
-		6961A93E16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
-		6961A93F16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
 		69659C7216E8ED62006BEE11 /* EDDSalesTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EDDSalesTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69659C7516E8ED62006BEE11 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		69659C7716E8ED62006BEE11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -245,8 +248,6 @@
 		69659CE416EA32D7006BEE11 /* Sale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sale.m; sourceTree = "<group>"; };
 		69659CE616EA3402006BEE11 /* SaleProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleProduct.h; sourceTree = "<group>"; };
 		69659CE716EA3402006BEE11 /* SaleProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleProduct.m; sourceTree = "<group>"; };
-		69659CEA16EA3B3E006BEE11 /* NSString+DateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DateHelper.h"; sourceTree = "<group>"; };
-		69659CEB16EA3B3E006BEE11 /* NSString+DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DateHelper.m"; sourceTree = "<group>"; };
 		69659CED16EA3D1E006BEE11 /* SalesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesViewController.h; sourceTree = "<group>"; };
 		69659CEE16EA3D1E006BEE11 /* SalesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesViewController.m; sourceTree = "<group>"; };
 		69659CEF16EA3D1E006BEE11 /* SalesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SalesViewController.xib; sourceTree = "<group>"; };
@@ -256,8 +257,6 @@
 		697FF7BF16EA8D2800D0BE91 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		697FF7C016EA8D2800D0BE91 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		697FF7C116EA8D2800D0BE91 /* ProductsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductsViewController.xib; sourceTree = "<group>"; };
-		697FF7C516EB8EEC00D0BE91 /* NVSlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVSlideMenuController.h; sourceTree = "<group>"; };
-		697FF7C616EB8EEC00D0BE91 /* NVSlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVSlideMenuController.m; sourceTree = "<group>"; };
 		697FF7C816EB8F0B00D0BE91 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		697FF7C916EB8F0B00D0BE91 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		697FF7CB16EB8F6A00D0BE91 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -274,21 +273,21 @@
 		697FF7DE16EB917200D0BE91 /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		697FF7E016EB929100D0BE91 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		697FF7E116EB929100D0BE91 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
-		697FF7E416EB939700D0BE91 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		697FF7E516EB939700D0BE91 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		697FF7E716EB93EB00D0BE91 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
-		697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		697FF7E416EB939700D0BE91 /* EDDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDBaseViewController.h; sourceTree = "<group>"; };
+		697FF7E516EB939700D0BE91 /* EDDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDBaseViewController.m; sourceTree = "<group>"; };
 		697FF7EA16EB970200D0BE91 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
 		697FF7EB16EB970300D0BE91 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
-		697FF7ED16EB9AAA00D0BE91 /* CustomersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomersViewController.h; sourceTree = "<group>"; };
-		697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomersViewController.m; sourceTree = "<group>"; };
-		697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomersViewController.xib; sourceTree = "<group>"; };
-		697FF7F216EBA21F00D0BE91 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsHelper.h; sourceTree = "<group>"; };
-		697FF7F316EBA21F00D0BE91 /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsHelper.m; sourceTree = "<group>"; };
 		697FF7F516EBA57000D0BE91 /* ipad-button-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-button-green.png"; sourceTree = "<group>"; };
 		697FF7F616EBA57000D0BE91 /* ipad-button-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad-button-green@2x.png"; sourceTree = "<group>"; };
-		697FF7F916EBA6D500D0BE91 /* UIView+ViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ViewHelper.h"; sourceTree = "<group>"; };
-		697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ViewHelper.m"; sourceTree = "<group>"; };
+		69A9936119623224004CAF85 /* EDDAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDAnalytics.h; sourceTree = "<group>"; };
+		69A9936219623224004CAF85 /* EDDAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDAnalytics.m; sourceTree = "<group>"; };
+		69A993641962328A004CAF85 /* EDDAppDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EDDAppDefines.h; sourceTree = "<group>"; };
+		69BC42F6195C750C004FB716 /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
+		69BC42F7195C750C004FB716 /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
+		69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
+		69BC42F9195C750C004FB716 /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
+		69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
+		94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EDDSalesTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,25 +302,13 @@
 				69659C7816E8ED62006BEE11 /* Foundation.framework in Frameworks */,
 				69659C7A16E8ED62006BEE11 /* CoreGraphics.framework in Frameworks */,
 				6951D26216FA099700A24034 /* Crashlytics.framework in Frameworks */,
+				D938EBED0BBE488AB50D816F /* libPods-EDDSalesTracker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		34B65D4117554397009CFA73 /* SSToolkit */ = {
-			isa = PBXGroup;
-			children = (
-				34B65D4217554397009CFA73 /* SSBorderedView.h */,
-				34B65D4317554397009CFA73 /* SSBorderedView.m */,
-				34B65D4417554397009CFA73 /* SSDrawingUtilities.h */,
-				34B65D4517554397009CFA73 /* SSDrawingUtilities.m */,
-				34B65D4617554397009CFA73 /* SSGradientView.h */,
-				34B65D4717554397009CFA73 /* SSGradientView.m */,
-			);
-			path = SSToolkit;
-			sourceTree = "<group>";
-		};
 		34B65D5017559446009CFA73 /* BButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,14 +343,28 @@
 			path = BSModalPickerView;
 			sourceTree = "<group>";
 		};
-		6961A8FA16F4C6D00042E7B9 /* SVProgressHUD */ = {
+		690FB6B21962E62D00D545CF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				34C20807181EFE2200F7E02A /* SVProgressHUD.bundle */,
-				6961A8FB16F4C6D00042E7B9 /* SVProgressHUD.h */,
-				6961A8FC16F4C6D00042E7B9 /* SVProgressHUD.m */,
+				690FB6B31962E62D00D545CF /* SettingsHelper.h */,
+				690FB6B41962E62D00D545CF /* SettingsHelper.m */,
 			);
-			path = SVProgressHUD;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		690FB6B51962E62D00D545CF /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				690FB6B61962E62D00D545CF /* NSString+DateHelper.h */,
+				690FB6B71962E62D00D545CF /* NSString+DateHelper.m */,
+				690FB6B81962E62D00D545CF /* UIColor+Helpers.h */,
+				690FB6B91962E62D00D545CF /* UIColor+Helpers.m */,
+				690FB6C31962E66700D545CF /* UIView+EDDAdditions.h */,
+				690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */,
+				690FB6C91962F03500D545CF /* UIScrollView+EDDAdditions.h */,
+				690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		6961A93716F7726C0042E7B9 /* TDSemiModal */ = {
@@ -372,11 +373,11 @@
 				6961A93816F7726C0042E7B9 /* TDDatePickerController.h */,
 				6961A93916F7726C0042E7B9 /* TDDatePickerController.m */,
 				6961A93A16F7726C0042E7B9 /* TDDatePickerController.xib */,
-				6961A93B16F7726C0042E7B9 /* TDSemiModal.h */,
-				6961A93C16F7726C0042E7B9 /* TDSemiModalViewController.h */,
-				6961A93D16F7726C0042E7B9 /* TDSemiModalViewController.m */,
-				6961A93E16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.h */,
-				6961A93F16F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m */,
+				69BC42F6195C750C004FB716 /* TDSemiModal.h */,
+				69BC42F7195C750C004FB716 /* TDSemiModalViewController.h */,
+				69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */,
+				69BC42F9195C750C004FB716 /* UIViewController+TDSemiModalExtension.h */,
+				69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */,
 			);
 			path = TDSemiModal;
 			sourceTree = "<group>";
@@ -388,6 +389,7 @@
 				69659C7416E8ED62006BEE11 /* Frameworks */,
 				69659C7316E8ED62006BEE11 /* Products */,
 				69659CA516E8F286006BEE11 /* Vendor */,
+				5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -409,6 +411,7 @@
 				69659C7516E8ED62006BEE11 /* UIKit.framework */,
 				69659C7716E8ED62006BEE11 /* Foundation.framework */,
 				69659C7916E8ED62006BEE11 /* CoreGraphics.framework */,
+				94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				69659C9B16E8ED99006BEE11 /* EDDSalesTracker-Info.plist */,
 				69659C9C16E8ED99006BEE11 /* EDDSalesTracker-Prefix.pch */,
 				69659C9D16E8ED99006BEE11 /* main.m */,
+				69A993641962328A004CAF85 /* EDDAppDefines.h */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -482,6 +486,10 @@
 			isa = PBXGroup;
 			children = (
 				697FF7D516EB8FE400D0BE91 /* Cells */,
+				690FB6C61962EBFB00D545CF /* EDDSearchBar.h */,
+				690FB6C71962EBFB00D545CF /* EDDSearchBar.m */,
+				690FB6C11962E64100D545CF /* EDDSlideMenuController.h */,
+				690FB6C01962E64100D545CF /* EDDSlideMenuController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -492,9 +500,6 @@
 				69659CA616E8F286006BEE11 /* AFNetworking */,
 				34B65D5017559446009CFA73 /* BButton */,
 				34C207FD181EFBD000F7E02A /* BSModalPickerView */,
-				697FF7C416EB8EEC00D0BE91 /* NVSlideMenuController */,
-				34B65D4117554397009CFA73 /* SSToolkit */,
-				6961A8FA16F4C6D00042E7B9 /* SVProgressHUD */,
 				6961A93716F7726C0042E7B9 /* TDSemiModal */,
 			);
 			path = Vendor;
@@ -532,10 +537,6 @@
 				697FF7CB16EB8F6A00D0BE91 /* AboutViewController.h */,
 				697FF7CC16EB8F6A00D0BE91 /* AboutViewController.m */,
 				697FF7CD16EB8F6A00D0BE91 /* AboutViewController.xib */,
-				697FF7E716EB93EB00D0BE91 /* BaseTableViewController.h */,
-				697FF7E816EB93EC00D0BE91 /* BaseTableViewController.m */,
-				697FF7E416EB939700D0BE91 /* BaseViewController.h */,
-				697FF7E516EB939700D0BE91 /* BaseViewController.m */,
 				34967FBA18C2AC3600ACE1BF /* CommissionDetailViewController.h */,
 				34967FBB18C2AC3600ACE1BF /* CommissionDetailViewController.m */,
 				34967FBC18C2AC3600ACE1BF /* CommissionDetailViewController.xib */,
@@ -545,15 +546,19 @@
 				34967FB018C2A63400ACE1BF /* CommissionsViewController.h */,
 				34967FB118C2A63400ACE1BF /* CommissionsViewController.m */,
 				34967FB218C2A63400ACE1BF /* CommissionsViewController.xib */,
-				697FF7ED16EB9AAA00D0BE91 /* CustomersViewController.h */,
-				697FF7EE16EB9AAA00D0BE91 /* CustomersViewController.m */,
-				697FF7EF16EB9AAB00D0BE91 /* CustomersViewController.xib */,
 				6951D25B16F8F1EE00A24034 /* EarningsDetailViewController.h */,
 				6951D25C16F8F1EE00A24034 /* EarningsDetailViewController.m */,
 				6961A92B16F688AB0042E7B9 /* EarningsDetailViewController.xib */,
 				6961A92916F688A90042E7B9 /* EarningsViewController.h */,
 				6961A92A16F688AA0042E7B9 /* EarningsViewController.m */,
 				6951D25E16F8F1FE00A24034 /* EarningsViewController.xib */,
+				690FB6AF1962E5D200D545CF /* EDDBaseTableViewController.h */,
+				690FB6B01962E5D200D545CF /* EDDBaseTableViewController.m */,
+				697FF7E416EB939700D0BE91 /* EDDBaseViewController.h */,
+				697FF7E516EB939700D0BE91 /* EDDBaseViewController.m */,
+				690FB6AA1962E5C100D545CF /* EDDSalesSearchViewController.h */,
+				690FB6AB1962E5C100D545CF /* EDDSalesSearchViewController.m */,
+				690FB6AC1962E5C100D545CF /* EDDSalesSearchViewController.xib */,
 				697FF7D916EB90A400D0BE91 /* MainViewController.h */,
 				697FF7DA16EB90A400D0BE91 /* MainViewController.m */,
 				697FF7DB16EB90A500D0BE91 /* MainViewController.xib */,
@@ -613,25 +618,12 @@
 		69659CE916EA3B3D006BEE11 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				69659CEA16EA3B3E006BEE11 /* NSString+DateHelper.h */,
-				69659CEB16EA3B3E006BEE11 /* NSString+DateHelper.m */,
-				697FF7F216EBA21F00D0BE91 /* SettingsHelper.h */,
-				697FF7F316EBA21F00D0BE91 /* SettingsHelper.m */,
-				6961A90516F4DF8A0042E7B9 /* UIColor+Helpers.h */,
-				6961A90616F4DF8A0042E7B9 /* UIColor+Helpers.m */,
-				697FF7F916EBA6D500D0BE91 /* UIView+ViewHelper.h */,
-				697FF7FA16EBA6D500D0BE91 /* UIView+ViewHelper.m */,
+				690FB6B51962E62D00D545CF /* Categories */,
+				69A9936119623224004CAF85 /* EDDAnalytics.h */,
+				69A9936219623224004CAF85 /* EDDAnalytics.m */,
+				690FB6B21962E62D00D545CF /* Helpers */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		697FF7C416EB8EEC00D0BE91 /* NVSlideMenuController */ = {
-			isa = PBXGroup;
-			children = (
-				697FF7C516EB8EEC00D0BE91 /* NVSlideMenuController.h */,
-				697FF7C616EB8EEC00D0BE91 /* NVSlideMenuController.m */,
-			);
-			path = NVSlideMenuController;
 			sourceTree = "<group>";
 		};
 		697FF7D516EB8FE400D0BE91 /* Cells */ = {
@@ -660,10 +652,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69659C8F16E8ED63006BEE11 /* Build configuration list for PBXNativeTarget "EDDSalesTracker" */;
 			buildPhases = (
+				9386FA8C5D7840708BF991DE /* Check Pods Manifest.lock */,
 				69659C6E16E8ED62006BEE11 /* Sources */,
 				69659C6F16E8ED62006BEE11 /* Frameworks */,
 				69659C7016E8ED62006BEE11 /* Resources */,
 				6951D26016FA092D00A24034 /* ShellScript */,
+				A6FF933FDA4B409583B68BB3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -680,6 +674,7 @@
 		69659C6A16E8ED62006BEE11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = EDD;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Easy Digital Downloads";
 			};
@@ -716,7 +711,6 @@
 				697FF7DF16EB917200D0BE91 /* MenuCell.xib in Resources */,
 				697FF7E216EB929100D0BE91 /* list.png in Resources */,
 				697FF7E316EB929100D0BE91 /* list@2x.png in Resources */,
-				697FF7F116EB9AAB00D0BE91 /* CustomersViewController.xib in Resources */,
 				697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */,
 				697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */,
 				6961A8F916F4C47A0042E7B9 /* SaleDetailViewController.xib in Resources */,
@@ -736,6 +730,7 @@
 				6951D24616F7FA0A00A24034 /* bg-only.png in Resources */,
 				6951D24716F7FA0A00A24034 /* bg-only@2x.png in Resources */,
 				6951D24816F7FA0A00A24034 /* button-slice-blue-pressed.png in Resources */,
+				690FB6AE1962E5C100D545CF /* EDDSalesSearchViewController.xib in Resources */,
 				6951D24916F7FA0A00A24034 /* button-slice-blue-pressed@2x.png in Resources */,
 				6951D24A16F7FA0A00A24034 /* top-brand.png in Resources */,
 				6951D24B16F7FA0A00A24034 /* top-brand@2x.png in Resources */,
@@ -743,7 +738,6 @@
 				697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
 				6951D24F16F7FABD00A24034 /* 114x114_mobile_icon.png in Resources */,
-				34C20808181EFE2200F7E02A /* SVProgressHUD.bundle in Resources */,
 				6951D25516F8CD6600A24034 /* SaleDetailCell.xib in Resources */,
 				6951D25F16F8F1FE00A24034 /* EarningsViewController.xib in Resources */,
 				34C2080A181F02F900F7E02A /* MenuViewController.xib in Resources */,
@@ -769,6 +763,36 @@
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run 907acff10b7b639198aadbeb5eca1950ffbfb149";
 		};
+		9386FA8C5D7840708BF991DE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A6FF933FDA4B409583B68BB3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-EDDSalesTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -777,6 +801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69659CA216E8ED99006BEE11 /* AppDelegate.m in Sources */,
+				690FB6C81962EBFB00D545CF /* EDDSearchBar.m in Sources */,
 				34967FBD18C2AC3600ACE1BF /* CommissionDetailViewController.m in Sources */,
 				69659CA416E8ED99006BEE11 /* main.m in Sources */,
 				69659CBA16E8F286006BEE11 /* AFHTTPClient.m in Sources */,
@@ -789,49 +814,47 @@
 				69659CC116E8F286006BEE11 /* AFXMLRequestOperation.m in Sources */,
 				69659CC216E8F286006BEE11 /* UIImageView+AFNetworking.m in Sources */,
 				69659CCB16E8F2E0006BEE11 /* EDDAPIClient.m in Sources */,
+				69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */,
 				34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */,
+				69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */,
 				69659CE516EA32D7006BEE11 /* Sale.m in Sources */,
 				69659CE816EA3402006BEE11 /* SaleProduct.m in Sources */,
-				69659CEC16EA3B3E006BEE11 /* NSString+DateHelper.m in Sources */,
 				34C7F53A18BBE77200A03511 /* Commission.m in Sources */,
 				69659CF016EA3D1E006BEE11 /* SalesViewController.m in Sources */,
+				690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */,
 				697FF7BE16EA871D00D0BE91 /* Product.m in Sources */,
 				697FF7C216EA8D2800D0BE91 /* ProductsViewController.m in Sources */,
-				697FF7C716EB8EEC00D0BE91 /* NVSlideMenuController.m in Sources */,
 				697FF7CA16EB8F0C00D0BE91 /* MenuViewController.m in Sources */,
 				697FF7CE16EB8F6A00D0BE91 /* AboutViewController.m in Sources */,
 				697FF7D316EB8F7A00D0BE91 /* SetupViewController.m in Sources */,
+				690FB6BD1962E62D00D545CF /* NSString+DateHelper.m in Sources */,
 				697FF7D816EB8FF600D0BE91 /* MenuCell.m in Sources */,
+				690FB6BE1962E62D00D545CF /* UIColor+Helpers.m in Sources */,
 				34967FB818C2A9F400ACE1BF /* CommissionsListViewController.m in Sources */,
+				690FB6B11962E5D200D545CF /* EDDBaseTableViewController.m in Sources */,
 				697FF7DC16EB90A500D0BE91 /* MainViewController.m in Sources */,
-				697FF7E616EB939700D0BE91 /* BaseViewController.m in Sources */,
+				697FF7E616EB939700D0BE91 /* EDDBaseViewController.m in Sources */,
 				34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */,
-				697FF7E916EB93EC00D0BE91 /* BaseTableViewController.m in Sources */,
 				697FF7EC16EB970300D0BE91 /* Customer.m in Sources */,
-				697FF7F016EB9AAB00D0BE91 /* CustomersViewController.m in Sources */,
-				697FF7F416EBA21F00D0BE91 /* SettingsHelper.m in Sources */,
-				697FF7FB16EBA6D500D0BE91 /* UIView+ViewHelper.m in Sources */,
 				6961A8F816F4C47A0042E7B9 /* SaleDetailViewController.m in Sources */,
-				6961A8FD16F4C6D00042E7B9 /* SVProgressHUD.m in Sources */,
 				34C20802181EFBD000F7E02A /* BSModalDatePickerView.m in Sources */,
 				6961A90316F4C9BF0042E7B9 /* ProductDetailViewController.m in Sources */,
-				6961A90716F4DF8A0042E7B9 /* UIColor+Helpers.m in Sources */,
 				6961A91316F648420042E7B9 /* ProductCell.m in Sources */,
 				6961A92016F658570042E7B9 /* SaleCell.m in Sources */,
 				6961A92516F65C640042E7B9 /* SaleFee.m in Sources */,
 				6961A92C16F688AD0042E7B9 /* EarningsViewController.m in Sources */,
 				6961A94016F7726C0042E7B9 /* TDDatePickerController.m in Sources */,
-				6961A94216F7726C0042E7B9 /* TDSemiModalViewController.m in Sources */,
-				6961A94316F7726C0042E7B9 /* UIViewController+TDSemiModalExtension.m in Sources */,
 				6951D25216F8B77000A24034 /* SaleDetailCell.m in Sources */,
 				6951D25D16F8F1EE00A24034 /* EarningsDetailViewController.m in Sources */,
-				34B65D4817554397009CFA73 /* SSBorderedView.m in Sources */,
-				34B65D4917554397009CFA73 /* SSDrawingUtilities.m in Sources */,
+				690FB6C51962E66700D545CF /* UIView+EDDAdditions.m in Sources */,
+				690FB6BC1962E62D00D545CF /* SettingsHelper.m in Sources */,
+				690FB6C21962E64100D545CF /* EDDSlideMenuController.m in Sources */,
 				34967FB318C2A63400ACE1BF /* CommissionsViewController.m in Sources */,
-				34B65D4A17554397009CFA73 /* SSGradientView.m in Sources */,
+				690FB6AD1962E5C100D545CF /* EDDSalesSearchViewController.m in Sources */,
 				34B65D4E1755498C009CFA73 /* SitesViewController.m in Sources */,
 				34B65D5717559446009CFA73 /* BButton.m in Sources */,
 				34B65D5817559446009CFA73 /* NSString+FontAwesome.m in Sources */,
+				69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */,
 				34B65D5917559446009CFA73 /* UIColor+BButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -897,6 +920,7 @@
 		};
 		69659C9016E8ED63006BEE11 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -913,6 +937,7 @@
 		};
 		69659C9116E8ED63006BEE11 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Charles Williamson";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Charles Williamson";

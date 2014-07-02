@@ -13,7 +13,7 @@
 #import "SettingsHelper.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 @implementation CommissionsListViewController
 
@@ -41,11 +41,7 @@
 	self.navigationItem.leftBarButtonItem = nil;
 	
     [self.tableView setBackgroundView:nil];
-	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
-    self.tableView.scrollsToTop = YES;
-	
+	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];	
 	
 	[self.tableView reloadData];
 }

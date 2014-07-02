@@ -10,19 +10,18 @@
 
 #import "AboutViewController.h"
 #import "CommissionsViewController.h"
-#import "CustomersViewController.h"
 #import "EarningsViewController.h"
 #import "EDDAPIClient.h"
+#import "EDDSlideMenuController.h"
 #import "MainViewController.h"
 #import "MenuCell.h"
-#import "NVSlideMenuController.h"
 #import "ProductsViewController.h"
 #import "SalesViewController.h"
+#import "SAMGradientView.h"
 #import "SettingsHelper.h"
 #import "SitesViewController.h"
-#import "SSGradientView.h"
 #import "UIColor+Helpers.h"
-#import "UIView+ViewHelper.h"
+#import "UIView+EDDAdditions.h"
 
 enum {
     MenuHomeRow = 0,
@@ -48,8 +47,6 @@ enum {
         return nil;
     }
 	
-	[self setupNotifications];
-	
 	return self;
 }
 
@@ -64,17 +61,8 @@ enum {
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-    [self.view disableScrollsToTopPropertyOnMeAndAllSubviews];
+    
 	[self.tableView reloadData];
-}
-
-- (void)setupNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(setupDismissalRequested:) name:@"ShowRecentSales" object: nil];
-}
-
-- (void)setupDismissalRequested:(NSNotification *) notification {
-	[self showSalesController];
 }
 
 - (UINib *)menuCellNib {
@@ -214,16 +202,16 @@ enum {
     label.font = [UIFont boldSystemFontOfSize:13];
     label.text = title;
     
-    SSGradientView *gradient = [[SSGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
+    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
     gradient.backgroundColor = [UIColor clearColor];
 	
     UIColor *first = [UIColor colorWithHexString:@"#ffffff"];
     UIColor *second = [UIColor colorWithHexString:@"#cccccc"];
-    gradient.colors = [NSArray arrayWithObjects:
+    gradient.gradientColors = [NSArray arrayWithObjects:
                        first,
                        second,
                        nil];
-    gradient.direction = SSGradientViewDirectionVertical;
+    gradient.gradientDirection = SAMGradientViewDirectionVertical;
     
     [gradient addSubview:label];
 	

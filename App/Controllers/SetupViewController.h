@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
 #import "BButton.h"
 
-@interface SetupViewController : BaseViewController<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource> {
+@interface SetupViewController : EDDBaseTableViewController<UITextFieldDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource> {
     BOOL keyboardShown;
     CGPoint point;
     CGRect keyboardRect;
@@ -29,7 +29,6 @@
 
 @property (nonatomic) NSDictionary *siteForEditing;
 
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 
 @property (nonatomic, strong) id editingField;

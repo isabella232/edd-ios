@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
 #import "Product.h"
 
-@interface ProductDetailViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface ProductDetailViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
 - (id)initWithProduct:(Product *)product;
 

@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "EDDBaseTableViewController.h"
 
-@interface SitesViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface SitesViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
 @end
