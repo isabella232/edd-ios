@@ -1,5 +1,5 @@
 //
-//  MenuCell.h
+//  EDDMenuCell.h
 //  EDDSalesTracker
 //
 //  Created by Matthew Strickland on 3/9/13.

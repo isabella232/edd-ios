@@ -12,8 +12,8 @@
 #import "EDDAppDefines.h"
 #import "EDDAnalytics.h"
 #import "EDDSlideMenuController.h"
-#import "MainViewController.h"
-#import "MenuViewController.h"
+#import "EDDMainViewController.h"
+#import "EDDMenuViewController.h"
 #import "UIColor+Helpers.h"
 #import <Crashlytics/Crashlytics.h>
 
@@ -33,11 +33,11 @@
 									  ARGoogleAnalyticsID : kAnalyticsTrackerId
 									  }];
 	
-	MainViewController *mainViewController = [[MainViewController alloc] init];
+	EDDMainViewController *mainViewController = [[EDDMainViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainViewController];
 	nav.navigationBar.translucent = NO;
     
-    MenuViewController *menuViewController = [[MenuViewController alloc] init];	
+    EDDMenuViewController *menuViewController = [[EDDMenuViewController alloc] init];	
 	
     NVSlideMenuController *slideMenuController = [[NVSlideMenuController alloc] initWithMenuViewController:menuViewController andContentViewController:nav];
 	

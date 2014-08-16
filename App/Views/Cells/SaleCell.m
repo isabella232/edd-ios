@@ -8,7 +8,7 @@
 
 #import "SaleCell.h"
 
-#import "SettingsHelper.h"
+#import "EDDSettingsHelper.h"
 
 @implementation SaleCell
 
@@ -28,7 +28,7 @@
     // Configure the view for the selected state
 }
 
-- (void)initializeSale:(Sale *)sale {
+- (void)initializeSale:(EDDSale *)sale {
 	self.sale = sale;
 	
 	[self setupUserInterface];
@@ -37,7 +37,7 @@
 - (void)setupUserInterface {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-	[formatter setCurrencyCode:[SettingsHelper getCurrency]];
+	[formatter setCurrencyCode:[EDDSettingsHelper getCurrency]];
 	
 	self.total.text = [NSString stringWithFormat:@"%@", [formatter stringFromNumber: [NSNumber numberWithFloat:self.sale.total]]];
 	self.email.text = self.sale.email;
