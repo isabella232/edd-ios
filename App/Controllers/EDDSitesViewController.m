@@ -72,7 +72,7 @@
 	return [[[EDDSettingsHelper getSites] allKeys] count];
 }
 
-- (NSDictionary *)getSite:(int)index {
+- (NSDictionary *)getSite:(NSInteger)index {
 	NSArray *keys = [[EDDSettingsHelper getSites] allKeys];
 	id aKey = [keys objectAtIndex:index];
 	NSDictionary *site = [[EDDSettingsHelper getSites] objectForKey:aKey];
@@ -85,6 +85,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	NSDictionary *site = [self getSite:indexPath.row];
+    
 	[self selectSite:site];
 }
 
