@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDDCustomersSearchViewController">
+            <connections>
+                <outlet property="headerView" destination="VSD-Ki-r4W" id="i3F-3H-c3t"/>
+                <outlet property="searchBar" destination="Wqy-ep-xsU" id="FcF-pa-f5H"/>
+                <outlet property="tableView" destination="ppr-tj-93B" id="rHC-v1-ZZK"/>
+                <outlet property="view" destination="YGF-1Z-cyX" id="VBe-dH-x9t"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="YGF-1Z-cyX">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ppr-tj-93B">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="OvZ-rB-w68"/>
+                        <outlet property="delegate" destination="-1" id="fc5-Ma-2wW"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ppr-tj-93B" firstAttribute="top" secondItem="YGF-1Z-cyX" secondAttribute="top" id="M3V-3d-YqO"/>
+                <constraint firstAttribute="trailing" secondItem="ppr-tj-93B" secondAttribute="trailing" id="Z58-wV-EID"/>
+                <constraint firstAttribute="bottom" secondItem="ppr-tj-93B" secondAttribute="bottom" id="oqJ-uR-bkI"/>
+                <constraint firstItem="ppr-tj-93B" firstAttribute="leading" secondItem="YGF-1Z-cyX" secondAttribute="leading" id="u9p-Cv-zqx"/>
+            </constraints>
+        </view>
+        <view contentMode="scaleToFill" id="VSD-Ki-r4W" userLabel="Header View">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search by e-mail" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqy-ep-xsU" customClass="EDDSearchBar">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="ylr-RR-UM1"/>
+                    </connections>
+                </searchBar>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OiP-Bo-Gae">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Oy-0q-sST">
+                    <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

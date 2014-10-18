@@ -8,6 +8,9 @@ target :EDDSalesTracker do
   pod "ARAnalytics/Crashlytics"
   pod 'ARAnalytics/GoogleAnalytics'
 
+  # Gravatar
+  pod "RFGravatarImageView", "~> 1.0"
+
   # Hamburger Menu
   pod 'NVSlideMenuController', '~> 1.5.6'
 

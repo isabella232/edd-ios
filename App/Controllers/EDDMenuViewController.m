@@ -10,6 +10,7 @@
 
 #import "EDDAboutViewController.h"
 #import "EDDCommissionsViewController.h"
+#import "EDDCustomersListViewController.h"
 #import "EDDEarningsViewController.h"
 #import "EDDAPIClient.h"
 #import "EDDSlideMenuController.h"
@@ -26,8 +27,9 @@
 enum {
     MenuHomeRow = 0,
 	MenuEarningsRow,
-	MenuProductsRow,
-	MenuSalesRow,
+    MenuProductsRow,
+    MenuSalesRow,
+    MenuCustomersRow,
     MenuAboutRow,
     MenuSettingsRow,
     MenuRowCount
@@ -126,17 +128,20 @@ enum {
 				break;
 			case 2:
 				cell.label.text = @"Products";
-				break;
-			case 3:
-				cell.label.text = @"Sales";
-				break;
-			case 4:
+                break;
+            case 3:
+                cell.label.text = @"Sales";
+                break;
+            case 4:
+                cell.label.text = @"Customers";
+                break;
+			case 5:
 				cell.label.text = @"Commissions";
 				break;
-			case 5:
+			case 6:
 				cell.label.text = @"About";
 				break;
-			case 6:
+			case 7:
 				cell.label.text = @"Setup";
 				break;
 		}
@@ -150,14 +155,17 @@ enum {
 				break;
 			case 2:
 				cell.label.text = @"Products";
-				break;
-			case 3:
-				cell.label.text = @"Sales";
-				break;
-			case 4:
+                break;
+            case 3:
+                cell.label.text = @"Sales";
+                break;
+            case 4:
+                cell.label.text = @"Customers";
+                break;
+			case 5:
 				cell.label.text = @"About";
 				break;
-			case 5:
+			case 6:
 				cell.label.text = @"Setup";
 				break;
 		}
@@ -218,11 +226,11 @@ enum {
     return gradient;
 }
 
-- (int)siteCount {
+- (NSInteger)siteCount {
 	return [[[EDDSettingsHelper getSites] allKeys] count];
 }
 
-- (NSDictionary *)getSite:(int)index {
+- (NSDictionary *)getSite:(NSInteger)index {
 	NSArray *keys = [[EDDSettingsHelper getSites] allKeys];
 	id aKey = [keys objectAtIndex:index];
 	NSDictionary *site = [[EDDSettingsHelper getSites] objectForKey:aKey];
@@ -260,16 +268,19 @@ enum {
 					break;
 				case 3:
 					[self showSalesController];
-					break;
-				case 4:
+                    break;
+                case 4:
+                    [self showCustomersController];
+                    break;
+				case 5:
 					[self showCommissionsController];
 					break;
-				case 5:
-					[self showAboutController];
-					break;
 				case 6:
-					[self showSetupController];
-					break;
+					[self showAboutController];
+                    break;
+                case 7:
+                    [self showSetupController];
+                    break;
 			}
 		} else {
 			switch (indexPath.row) {
@@ -284,11 +295,14 @@ enum {
 					break;
 				case 3:
 					[self showSalesController];
-					break;
-				case 4:
+                    break;
+                case 4:
+                    [self showCustomersController];
+                    break;
+				case 5:
 					[self showAboutController];
 					break;
-				case 5:
+				case 6:
 					[self showSetupController];
 					break;
 			}
@@ -367,6 +381,10 @@ enum {
 
 - (void)showSalesController {
     [self showControllerClass:[EDDSalesViewController class]];
+}
+
+- (void)showCustomersController {
+    [self showControllerClass:[EDDCustomersListViewController class]];
 }
 
 - (void)showSetupController {

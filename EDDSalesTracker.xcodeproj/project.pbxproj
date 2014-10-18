@@ -114,6 +114,17 @@
 		69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A9936219623224004CAF85 /* EDDAnalytics.m */; };
 		69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */; };
 		69BC42FC195C750C004FB716 /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */; };
+		69D0C26B19F29EB1005230CC /* EDDCustomersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D0C26919F29EB1005230CC /* EDDCustomersListViewController.m */; };
+		69D0C26C19F29EB1005230CC /* EDDCustomersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D0C26A19F29EB1005230CC /* EDDCustomersListViewController.xib */; };
+		69D0C27019F29ECB005230CC /* EDDCustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D0C26E19F29ECB005230CC /* EDDCustomerDetailViewController.m */; };
+		69D0C27119F29ECB005230CC /* EDDCustomerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D0C26F19F29ECB005230CC /* EDDCustomerDetailViewController.xib */; };
+		69D0C27519F29F8A005230CC /* EDDCustomerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D0C27319F29F8A005230CC /* EDDCustomerTableViewCell.m */; };
+		69D0C27619F29F8A005230CC /* EDDCustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D0C27419F29F8A005230CC /* EDDCustomerTableViewCell.xib */; };
+		69D0C27A19F2A1B4005230CC /* EDDCustomersSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D0C27819F2A1B4005230CC /* EDDCustomersSearchViewController.m */; };
+		69D0C27B19F2A1B4005230CC /* EDDCustomersSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D0C27919F2A1B4005230CC /* EDDCustomersSearchViewController.xib */; };
+		69D0C27F19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D0C27D19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.m */; };
+		69D0C28019F2A2C4005230CC /* EDDCustomerDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D0C27E19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.xib */; };
+		69D0C28319F2A8DB005230CC /* EDDGravatarImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D0C28219F2A8DB005230CC /* EDDGravatarImageView.m */; };
 		D938EBED0BBE488AB50D816F /* libPods-EDDSalesTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */; };
 /* End PBXBuildFile section */
 
@@ -146,7 +157,6 @@
 		34C20809181F02F900F7E02A /* EDDMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDMenuViewController.xib; sourceTree = "<group>"; };
 		34C7F53818BBE77200A03511 /* EDDCommission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCommission.h; sourceTree = "<group>"; };
 		34C7F53918BBE77200A03511 /* EDDCommission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCommission.m; sourceTree = "<group>"; };
-		5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.xcconfig"; path = "Pods/Pods-EDDSalesTracker.xcconfig"; sourceTree = "<group>"; };
 		690FB6AA1962E5C100D545CF /* EDDSalesSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSalesSearchViewController.h; sourceTree = "<group>"; };
 		690FB6AB1962E5C100D545CF /* EDDSalesSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSalesSearchViewController.m; sourceTree = "<group>"; };
 		690FB6AC1962E5C100D545CF /* EDDSalesSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDSalesSearchViewController.xib; sourceTree = "<group>"; };
@@ -287,7 +297,26 @@
 		69BC42F8195C750C004FB716 /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
 		69BC42F9195C750C004FB716 /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
 		69BC42FA195C750C004FB716 /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
+		69D0C26819F29EB1005230CC /* EDDCustomersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCustomersListViewController.h; sourceTree = "<group>"; };
+		69D0C26919F29EB1005230CC /* EDDCustomersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCustomersListViewController.m; sourceTree = "<group>"; };
+		69D0C26A19F29EB1005230CC /* EDDCustomersListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDCustomersListViewController.xib; sourceTree = "<group>"; };
+		69D0C26D19F29ECB005230CC /* EDDCustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCustomerDetailViewController.h; sourceTree = "<group>"; };
+		69D0C26E19F29ECB005230CC /* EDDCustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCustomerDetailViewController.m; sourceTree = "<group>"; };
+		69D0C26F19F29ECB005230CC /* EDDCustomerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDCustomerDetailViewController.xib; sourceTree = "<group>"; };
+		69D0C27219F29F8A005230CC /* EDDCustomerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCustomerTableViewCell.h; sourceTree = "<group>"; };
+		69D0C27319F29F8A005230CC /* EDDCustomerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCustomerTableViewCell.m; sourceTree = "<group>"; };
+		69D0C27419F29F8A005230CC /* EDDCustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDCustomerTableViewCell.xib; sourceTree = "<group>"; };
+		69D0C27719F2A1B4005230CC /* EDDCustomersSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCustomersSearchViewController.h; sourceTree = "<group>"; };
+		69D0C27819F2A1B4005230CC /* EDDCustomersSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCustomersSearchViewController.m; sourceTree = "<group>"; };
+		69D0C27919F2A1B4005230CC /* EDDCustomersSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDCustomersSearchViewController.xib; sourceTree = "<group>"; };
+		69D0C27C19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCustomerDetailTableViewCell.h; sourceTree = "<group>"; };
+		69D0C27D19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCustomerDetailTableViewCell.m; sourceTree = "<group>"; };
+		69D0C27E19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDCustomerDetailTableViewCell.xib; sourceTree = "<group>"; };
+		69D0C28119F2A8DB005230CC /* EDDGravatarImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDGravatarImageView.h; sourceTree = "<group>"; };
+		69D0C28219F2A8DB005230CC /* EDDGravatarImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDGravatarImageView.m; sourceTree = "<group>"; };
 		94EF136C2EEC4A13B2164E85 /* libPods-EDDSalesTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EDDSalesTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C1AE673E48579BF5BE9F738 /* Pods-EDDSalesTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		BAFFA5A6D96C3386BBCA1E0F /* Pods-EDDSalesTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,7 +418,7 @@
 				69659C7416E8ED62006BEE11 /* Frameworks */,
 				69659C7316E8ED62006BEE11 /* Products */,
 				69659CA516E8F286006BEE11 /* Vendor */,
-				5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */,
+				D49E81AF1C409FFA7275344A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -490,6 +519,8 @@
 				690FB6C71962EBFB00D545CF /* EDDSearchBar.m */,
 				690FB6C11962E64100D545CF /* EDDSlideMenuController.h */,
 				690FB6C01962E64100D545CF /* EDDSlideMenuController.m */,
+				69D0C28119F2A8DB005230CC /* EDDGravatarImageView.h */,
+				69D0C28219F2A8DB005230CC /* EDDGravatarImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -550,15 +581,21 @@
 				34967FB018C2A63400ACE1BF /* EDDCommissionsViewController.h */,
 				34967FB118C2A63400ACE1BF /* EDDCommissionsViewController.m */,
 				34967FB218C2A63400ACE1BF /* EDDCommissionsViewController.xib */,
+				69D0C26D19F29ECB005230CC /* EDDCustomerDetailViewController.h */,
+				69D0C26E19F29ECB005230CC /* EDDCustomerDetailViewController.m */,
+				69D0C26F19F29ECB005230CC /* EDDCustomerDetailViewController.xib */,
+				69D0C26819F29EB1005230CC /* EDDCustomersListViewController.h */,
+				69D0C26919F29EB1005230CC /* EDDCustomersListViewController.m */,
+				69D0C26A19F29EB1005230CC /* EDDCustomersListViewController.xib */,
+				69D0C27719F2A1B4005230CC /* EDDCustomersSearchViewController.h */,
+				69D0C27819F2A1B4005230CC /* EDDCustomersSearchViewController.m */,
+				69D0C27919F2A1B4005230CC /* EDDCustomersSearchViewController.xib */,
 				6951D25B16F8F1EE00A24034 /* EDDEarningsDetailViewController.h */,
 				6951D25C16F8F1EE00A24034 /* EDDEarningsDetailViewController.m */,
 				6961A92B16F688AB0042E7B9 /* EDDEarningsDetailViewController.xib */,
 				6961A92916F688A90042E7B9 /* EDDEarningsViewController.h */,
 				6961A92A16F688AA0042E7B9 /* EDDEarningsViewController.m */,
 				6951D25E16F8F1FE00A24034 /* EDDEarningsViewController.xib */,
-				690FB6AA1962E5C100D545CF /* EDDSalesSearchViewController.h */,
-				690FB6AB1962E5C100D545CF /* EDDSalesSearchViewController.m */,
-				690FB6AC1962E5C100D545CF /* EDDSalesSearchViewController.xib */,
 				697FF7D916EB90A400D0BE91 /* EDDMainViewController.h */,
 				697FF7DA16EB90A400D0BE91 /* EDDMainViewController.m */,
 				697FF7DB16EB90A500D0BE91 /* EDDMainViewController.xib */,
@@ -574,6 +611,9 @@
 				6961A8F516F4C4790042E7B9 /* EDDSaleDetailViewController.h */,
 				6961A8F616F4C4790042E7B9 /* EDDSaleDetailViewController.m */,
 				6961A8F716F4C4790042E7B9 /* EDDSaleDetailViewController.xib */,
+				690FB6AA1962E5C100D545CF /* EDDSalesSearchViewController.h */,
+				690FB6AB1962E5C100D545CF /* EDDSalesSearchViewController.m */,
+				690FB6AC1962E5C100D545CF /* EDDSalesSearchViewController.xib */,
 				69659CED16EA3D1E006BEE11 /* EDDSalesViewController.h */,
 				69659CEE16EA3D1E006BEE11 /* EDDSalesViewController.m */,
 				69659CEF16EA3D1E006BEE11 /* EDDSalesViewController.xib */,
@@ -629,6 +669,12 @@
 		697FF7D516EB8FE400D0BE91 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				69D0C27C19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.h */,
+				69D0C27D19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.m */,
+				69D0C27E19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.xib */,
+				69D0C27219F29F8A005230CC /* EDDCustomerTableViewCell.h */,
+				69D0C27319F29F8A005230CC /* EDDCustomerTableViewCell.m */,
+				69D0C27419F29F8A005230CC /* EDDCustomerTableViewCell.xib */,
 				697FF7D616EB8FF600D0BE91 /* MenuCell.h */,
 				697FF7D716EB8FF600D0BE91 /* MenuCell.m */,
 				697FF7DE16EB917200D0BE91 /* MenuCell.xib */,
@@ -643,6 +689,15 @@
 				6951D25416F8CD6600A24034 /* SaleDetailCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D49E81AF1C409FFA7275344A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C1AE673E48579BF5BE9F738 /* Pods-EDDSalesTracker.debug.xcconfig */,
+				BAFFA5A6D96C3386BBCA1E0F /* Pods-EDDSalesTracker.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -704,18 +759,22 @@
 				69659CA016E8ED99006BEE11 /* Default.png in Resources */,
 				69659CA116E8ED99006BEE11 /* Default@2x.png in Resources */,
 				69659CF116EA3D1E006BEE11 /* EDDSalesViewController.xib in Resources */,
+				69D0C28019F2A2C4005230CC /* EDDCustomerDetailTableViewCell.xib in Resources */,
 				697FF7C316EA8D2800D0BE91 /* EDDProductsViewController.xib in Resources */,
 				697FF7CF16EB8F6A00D0BE91 /* EDDAboutViewController.xib in Resources */,
 				697FF7D416EB8F7A00D0BE91 /* EDDSetupViewController.xib in Resources */,
 				697FF7DD16EB90A500D0BE91 /* EDDMainViewController.xib in Resources */,
 				697FF7DF16EB917200D0BE91 /* MenuCell.xib in Resources */,
+				69D0C27619F29F8A005230CC /* EDDCustomerTableViewCell.xib in Resources */,
 				697FF7E216EB929100D0BE91 /* list.png in Resources */,
 				697FF7E316EB929100D0BE91 /* list@2x.png in Resources */,
 				697FF7F716EBA57000D0BE91 /* ipad-button-green.png in Resources */,
 				697FF7F816EBA57000D0BE91 /* ipad-button-green@2x.png in Resources */,
 				6961A8F916F4C47A0042E7B9 /* EDDSaleDetailViewController.xib in Resources */,
+				69D0C26C19F29EB1005230CC /* EDDCustomersListViewController.xib in Resources */,
 				6961A90416F4C9BF0042E7B9 /* EDDProductDetailViewController.xib in Resources */,
 				6961A91516F6484D0042E7B9 /* ProductCell.xib in Resources */,
+				69D0C27119F29ECB005230CC /* EDDCustomerDetailViewController.xib in Resources */,
 				6961A91816F654CC0042E7B9 /* text-box.png in Resources */,
 				6961A91916F654CC0042E7B9 /* text-box@2x.png in Resources */,
 				34967FB918C2A9F400ACE1BF /* EDDCommissionsListViewController.xib in Resources */,
@@ -741,6 +800,7 @@
 				6951D25516F8CD6600A24034 /* SaleDetailCell.xib in Resources */,
 				6951D25F16F8F1FE00A24034 /* EDDEarningsViewController.xib in Resources */,
 				34C2080A181F02F900F7E02A /* EDDMenuViewController.xib in Resources */,
+				69D0C27B19F2A1B4005230CC /* EDDCustomersSearchViewController.xib in Resources */,
 				34B65D4F1755498C009CFA73 /* EDDSitesViewController.xib in Resources */,
 				34B65D5C17559453009CFA73 /* FontAwesome.ttf in Resources */,
 				34967FBE18C2AC3600ACE1BF /* EDDCommissionDetailViewController.xib in Resources */,
@@ -790,7 +850,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-EDDSalesTracker-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -808,8 +868,11 @@
 				69659CBB16E8F286006BEE11 /* AFHTTPRequestOperation.m in Sources */,
 				69659CBC16E8F286006BEE11 /* AFImageRequestOperation.m in Sources */,
 				69659CBD16E8F286006BEE11 /* AFJSONRequestOperation.m in Sources */,
+				69D0C28319F2A8DB005230CC /* EDDGravatarImageView.m in Sources */,
 				69659CBE16E8F286006BEE11 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				69659CBF16E8F286006BEE11 /* AFPropertyListRequestOperation.m in Sources */,
+				69D0C26B19F29EB1005230CC /* EDDCustomersListViewController.m in Sources */,
+				69D0C27019F29ECB005230CC /* EDDCustomerDetailViewController.m in Sources */,
 				69659CC016E8F286006BEE11 /* AFURLConnectionOperation.m in Sources */,
 				69659CC116E8F286006BEE11 /* AFXMLRequestOperation.m in Sources */,
 				69659CC216E8F286006BEE11 /* UIImageView+AFNetworking.m in Sources */,
@@ -834,7 +897,9 @@
 				690FB6B11962E5D200D545CF /* EDDBaseTableViewController.m in Sources */,
 				697FF7DC16EB90A500D0BE91 /* EDDMainViewController.m in Sources */,
 				697FF7E616EB939700D0BE91 /* EDDBaseViewController.m in Sources */,
+				69D0C27519F29F8A005230CC /* EDDCustomerTableViewCell.m in Sources */,
 				34C20803181EFBD000F7E02A /* BSModalPickerBase.m in Sources */,
+				69D0C27F19F2A2C4005230CC /* EDDCustomerDetailTableViewCell.m in Sources */,
 				697FF7EC16EB970300D0BE91 /* EDDCustomer.m in Sources */,
 				6961A8F816F4C47A0042E7B9 /* EDDSaleDetailViewController.m in Sources */,
 				34C20802181EFBD000F7E02A /* BSModalDatePickerView.m in Sources */,
@@ -853,6 +918,7 @@
 				690FB6AD1962E5C100D545CF /* EDDSalesSearchViewController.m in Sources */,
 				34B65D4E1755498C009CFA73 /* EDDSitesViewController.m in Sources */,
 				34B65D5717559446009CFA73 /* BButton.m in Sources */,
+				69D0C27A19F2A1B4005230CC /* EDDCustomersSearchViewController.m in Sources */,
 				34B65D5817559446009CFA73 /* NSString+FontAwesome.m in Sources */,
 				69A9936319623224004CAF85 /* EDDAnalytics.m in Sources */,
 				34B65D5917559446009CFA73 /* UIColor+BButton.m in Sources */,
@@ -920,7 +986,7 @@
 		};
 		69659C9016E8ED63006BEE11 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */;
+			baseConfigurationReference = 9C1AE673E48579BF5BE9F738 /* Pods-EDDSalesTracker.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -929,7 +995,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "App/Supporting Files/EDDSalesTracker-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/App/Supporting Files/EDDSalesTracker-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -937,7 +1003,7 @@
 		};
 		69659C9116E8ED63006BEE11 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B4C90BEE98D4916B46AE882 /* Pods-EDDSalesTracker.xcconfig */;
+			baseConfigurationReference = BAFFA5A6D96C3386BBCA1E0F /* Pods-EDDSalesTracker.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Charles Williamson";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Charles Williamson";
@@ -948,7 +1014,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "App/Supporting Files/EDDSalesTracker-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/App/Supporting Files/EDDSalesTracker-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "62F37B4E-6A4C-4D35-9521-5962DE5B4724";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "62F37B4E-6A4C-4D35-9521-5962DE5B4724";

@@ -47,9 +47,12 @@
 	return self;
 }
 
-+ (void)globalCustomersWithBlock:(void (^)(NSArray *customers, NSError *error))block {
++ (void)globalCustomersWithPage:(NSInteger)page andWithBlock:(void (^)(NSArray *customers, NSError *error))block {
 	NSMutableDictionary *params = [EDDAPIClient defaultParams];
-	[params setValue:@"customers" forKey:@"edd-api"];
+    
+    [params setValue:@"customers" forKey:@"edd-api"];
+    
+    [params setValue:[NSString stringWithFormat:@"%li", (long)page] forKey:@"page"];
 	
 	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
 		NSArray *customersFromResponse = [JSON valueForKeyPath:@"customers"];
