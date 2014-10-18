@@ -34,4 +34,6 @@
 
 + (void)globalCustomersWithPage:(NSInteger)page andWithBlock:(void (^)(NSArray *customers, NSError *error))block;
 
++ (void)customersWithEmail:(NSString *)email page:(NSInteger)page block:(void (^)(NSArray *customers, NSError *error))block;
+
 @end

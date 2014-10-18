@@ -57,28 +57,52 @@
     
     [params setValue:[NSString stringWithFormat:@"%li", (long)page] forKey:@"page"];
 	
-	[[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
-		NSArray *customersFromResponse = [JSON valueForKeyPath:@"customers"];
+    [[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSArray *customersFromResponse = [JSON valueForKeyPath:@"customers"];
+        
         NSMutableArray *mutableCustomers = [NSMutableArray arrayWithCapacity:[customersFromResponse count]];
-		
-//		int count;
-		
+        
         for (NSDictionary *attributes in customersFromResponse) {
-//			NSDictionary *customerDict = [attributes valueForKeyPath:[NSString stringWithFormat:@"%i", count]];
             EDDCustomer *customer = [[EDDCustomer alloc] initWithAttributes:attributes];
             [mutableCustomers addObject:customer];
-//			count++;
         }
         
         if (block) {
             block([NSArray arrayWithArray:mutableCustomers], nil);
         }
-		
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		if (block) {
 			block([NSArray array], error);
 		}
 	}];
+}
+
++ (void)customersWithEmail:(NSString *)email page:(NSInteger)page block:(void (^)(NSArray *customers, NSError *error))block {
+    NSMutableDictionary *params = [EDDAPIClient defaultParams];
+    [params setValue:@"customers" forKey:@"edd-api"];
+    
+    [params setValue:email forKey:@"email"];
+    
+    [params setValue:[NSString stringWithFormat:@"%li", (long)page] forKey:@"page"];
+    
+    [[EDDAPIClient sharedClient] getPath:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSArray *customersFromResponse = [JSON valueForKeyPath:@"customers"];
+        
+        NSMutableArray *mutableCustomers = [NSMutableArray arrayWithCapacity:[customersFromResponse count]];
+        
+        for (NSDictionary *attributes in customersFromResponse) {
+            EDDCustomer *customer = [[EDDCustomer alloc] initWithAttributes:attributes];
+            [mutableCustomers addObject:customer];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:mutableCustomers], nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block([NSArray array], error);
+        }
+    }];
 }
 
 @end

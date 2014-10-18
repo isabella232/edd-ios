@@ -8,6 +8,7 @@
 
 #import "EDDBaseTableViewController.h"
 
+#import "EDDCustomerTableViewCell.h"
 #import "EDDSearchBar.h"
 
 @interface EDDCustomersSearchViewController : EDDBaseTableViewController<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -23,5 +24,7 @@
 @property (nonatomic) NSInteger currentPage;
 
 @property (nonatomic) NSInteger totalPages;
+
+@property (nonatomic, strong) EDDCustomerTableViewCell *customerCell;
 
 @end
