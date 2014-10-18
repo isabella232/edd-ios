@@ -78,6 +78,8 @@ const int kCustomersLoadingCellTag = 1273;
     [SVProgressHUD showWithStatus:@"Loading Customers..." maskType:SVProgressHUDMaskTypeClear];
     self.refresh.enabled = NO;
     
+    NSLog(@"Current Page %li", (long)_currentPage);
+    
     [EDDCustomer globalCustomersWithPage:_currentPage andWithBlock:^(NSArray *customers, NSError *error) {
         if (error) {
             [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];

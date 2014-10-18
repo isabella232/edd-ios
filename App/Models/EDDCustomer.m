@@ -29,9 +29,12 @@
         return nil;
     }
 	
-	NSDictionary *infoDict = [attributes valueForKey:@"info"];
+    NSDictionary *infoDict = [attributes valueForKey:@"info"];
     
-    _customerID = [[infoDict valueForKeyPath:@"id"] integerValue];
+    _customerID = [[infoDict valueForKeyPath:@"customer_id"] integerValue];
+    
+    _wordpressID = [[infoDict valueForKeyPath:@"id"] integerValue];
+    
     _userName = [infoDict valueForKeyPath:@"username"];
     _displayName = [infoDict valueForKeyPath:@"display_name"];
     _firstName = [infoDict valueForKeyPath:@"first_name"];

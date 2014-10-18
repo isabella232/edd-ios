@@ -8,9 +8,16 @@
 
 #import "EDDBaseTableViewController.h"
 
-#import "EDDCUstomer.h"
+#import "EDDCustomer.h"
+#import "EDDGravatarImageView.h"
 
 @interface EDDCustomerDetailViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, weak) IBOutlet UIView *headerView;
+
+@property (nonatomic, weak) IBOutlet UILabel *customerNameLabel;
+
+@property (nonatomic, weak) IBOutlet EDDGravatarImageView *gravatar;
 
 @property (nonatomic, strong) EDDCustomer *customer;
 
