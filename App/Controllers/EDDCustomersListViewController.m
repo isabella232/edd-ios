@@ -11,7 +11,6 @@
 #import "EDDCustomer.h"
 #import "EDDCustomerDetailViewController.h"
 #import "EDDCustomersSearchViewController.h"
-#import "EDDCustomerTableViewCell.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Helpers.h"
 #import "UIView+EDDAdditions.h"
@@ -128,9 +127,7 @@ const int kCustomersLoadingCellTag = 1273;
 - (UITableViewCell *)EDDCustomerTableViewCellForIndexPath:(NSIndexPath *)indexPath {
     EDDCustomerTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"EDDCustomerTableViewCell"];
     
-    EDDCustomer *customer = [self.customers objectAtIndex:indexPath.row];
-    
-    cell.customer = customer;
+    [self configureCell:cell forRowAtIndexPath:indexPath];
     
     return cell;
 }
@@ -159,6 +156,16 @@ const int kCustomersLoadingCellTag = 1273;
     }
 }
 
+- (void)configureCell:(id)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[EDDCustomerTableViewCell class]]) {
+        EDDCustomerTableViewCell *customerCell = (EDDCustomerTableViewCell *)cell;
+        
+        EDDCustomer *customer = [self.customers objectAtIndex:indexPath.row];
+        
+        customerCell.customer = customer;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (cell.tag == kCustomersLoadingCellTag) {
         _currentPage++;
@@ -167,7 +174,19 @@ const int kCustomersLoadingCellTag = 1273;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0f;
+    if (indexPath.row >= self.customers.count) {
+        return 44.0f;
+    }
+        
+    CGFloat height = [self heightForCell:self.customerCell identifier:@"EDDCustomerTableViewCell" indexPath:indexPath];
+    
+    CGFloat minHeight = [EDDCustomerTableViewCell minHeight];
+    
+    if (height < minHeight) {
+        height = minHeight;
+    }
+    
+    return height;
 }
 
 #pragma mark - Table view delegate

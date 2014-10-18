@@ -8,11 +8,15 @@
 
 #import "EDDBaseTableViewController.h"
 
+#import "EDDCustomerTableViewCell.h"
+
 @interface EDDCustomersListViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource> {
     NSInteger _currentPage;
     NSInteger _totalPages;
 }
 
 @property (nonatomic, strong) UIBarButtonItem *refresh;
+
+@property (nonatomic, strong) EDDCustomerTableViewCell *customerCell;
 
 @end

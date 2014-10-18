@@ -24,4 +24,8 @@
     self.emailLabel.text = self.customer.email;
 }
 
++ (CGFloat)minHeight {
+    return 60.0f;
+}
+
 @end
