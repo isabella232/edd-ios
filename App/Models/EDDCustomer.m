@@ -81,7 +81,7 @@
     NSMutableDictionary *params = [EDDAPIClient defaultParams];
     [params setValue:@"customers" forKey:@"edd-api"];
     
-    [params setValue:email forKey:@"email"];
+    [params setValue:email forKey:@"customer"];
     
     [params setValue:[NSString stringWithFormat:@"%li", (long)page] forKey:@"page"];
     
