@@ -17,7 +17,4 @@ target :EDDSalesTracker do
   # Gradients
   pod 'SAMGradientView', '~> 0.2'
 
-  # Progress indicator
-  pod 'SVProgressHUD', '~> 1.0'
-
 end

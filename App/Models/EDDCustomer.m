@@ -36,9 +36,14 @@
     _wordpressID = [[infoDict valueForKeyPath:@"id"] integerValue];
     
     _userName = [infoDict valueForKeyPath:@"username"];
-    _displayName = [infoDict valueForKeyPath:@"display_name"];
+    
     _firstName = [infoDict valueForKeyPath:@"first_name"];
+    
     _lastName = [infoDict valueForKeyPath:@"last_name"];
+    
+    NSString *displayName  = [infoDict valueForKeyPath:@"display_name"];
+    
+    _displayName ? displayName : [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
     _email = [infoDict valueForKeyPath:@"email"];
 	
 	NSDictionary *statsDict = [attributes valueForKey:@"stats"];
@@ -48,6 +53,10 @@
     _totalDownloads = [[statsDict valueForKeyPath:@"total_downloads"] integerValue];
 	
 	return self;
+}
+
+- (NSString *)displayName {
+    return _displayName ? _displayName : [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
 }
 
 + (void)globalCustomersWithPage:(NSInteger)page andWithBlock:(void (^)(NSArray *customers, NSError *error))block {

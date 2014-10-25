@@ -8,6 +8,7 @@
 
 #import "EDDMenuViewController.h"
 
+#import "AppDelegate.h"
 #import "EDDAboutViewController.h"
 #import "EDDAPIClient.h"
 #import "EDDCommissionsViewController.h"
@@ -363,12 +364,7 @@ enum {
 			[main reload:nil];
 			[self.slideMenuController toggleMenuAnimated:self];
 		} else {
-			id mainVC = [[EDDMainViewController alloc] init];
-			UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
-			nav.navigationBar.translucent = NO;
-			[self.slideMenuController closeMenuBehindContentViewController:nav
-																  animated:YES
-																completion:nil];
+            [self displayViewController:[[EDDMainViewController alloc] init]];
 		}
 	}
 }
@@ -389,16 +385,31 @@ enum {
     return NO;
 }
 
+- (void)displayViewController:(UIViewController *)controller {
+    if ([EDDHelpers isTablet]) {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        UINavigationController *nav = (UINavigationController *)appDelegate.splitViewController.viewControllers.lastObject;
+        
+        nav.viewControllers = @[controller];
+        
+        appDelegate.splitViewController.viewControllers = @[ self, nav ];
+    } else {
+        UINavigationController *nav = (UINavigationController *)self.slideMenuController.contentViewController;
+        
+        nav.viewControllers = @[controller];
+        
+        [self.slideMenuController closeMenuBehindContentViewController:nav animated:YES completion:nil];
+    }
+}
+
 - (void)showControllerClass:(Class)class {
     if ([self isShowingClass:class]) {
         [self.slideMenuController toggleMenuAnimated:self];
     } else {
         id mainVC = [[class alloc] init];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
-		nav.navigationBar.translucent = NO;
-		[self.slideMenuController closeMenuBehindContentViewController:nav
-															  animated:YES
-															completion:nil];
+        
+        [self displayViewController:mainVC];
     }
 }
 

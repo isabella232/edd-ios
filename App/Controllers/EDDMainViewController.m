@@ -68,6 +68,8 @@
     
     if ([EDDHelpers isHandset]) {
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-brand"]];
+    } else {
+        self.title = @"Home";
     }
     
     [self.salesButton setType:BButtonTypePrimary];

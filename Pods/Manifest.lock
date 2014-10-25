@@ -13,7 +13,6 @@ PODS:
   - SDWebImage (3.7.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.7.1)
-  - SVProgressHUD (1.0)
 
 DEPENDENCIES:
   - ARAnalytics/Crashlytics
@@ -21,7 +20,6 @@ DEPENDENCIES:
   - NVSlideMenuController (~> 1.5.6)
   - RFGravatarImageView (~> 1.0)
   - SAMGradientView (~> 0.2)
-  - SVProgressHUD (~> 1.0)
 
 SPEC CHECKSUMS:
   ARAnalytics: 9b56fa1385710cd8afca391b2ee578f81d6bb389
@@ -30,6 +28,5 @@ SPEC CHECKSUMS:
   RFGravatarImageView: 73a08e4464f077299494c8285cf8a0ddda0982c8
   SAMGradientView: 37ef027b0da8b5fd85bfdfef49801b5262160998
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
 
 COCOAPODS: 0.34.2

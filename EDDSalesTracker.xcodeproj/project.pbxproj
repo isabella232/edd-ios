@@ -37,6 +37,8 @@
 		6939195F19FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */; };
 		6939196019FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */; };
 		6939196219FC3933006B90B7 /* MenuCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6939196119FC3933006B90B7 /* MenuCell~ipad.xib */; };
+		6939196819FC46CA006B90B7 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6939196519FC46CA006B90B7 /* SVProgressHUD.bundle */; };
+		6939196919FC46CA006B90B7 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6939196719FC46CA006B90B7 /* SVProgressHUD.m */; };
 		693CAA2319FBE5620016C3D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 693CAA2219FBE5620016C3D7 /* Images.xcassets */; };
 		693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
@@ -185,6 +187,10 @@
 		6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDStoreCommissionsListViewController.m; sourceTree = "<group>"; };
 		6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDStoreCommissionsListViewController.xib; sourceTree = "<group>"; };
 		6939196119FC3933006B90B7 /* MenuCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MenuCell~ipad.xib"; sourceTree = "<group>"; };
+		6939196419FC46CA006B90B7 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		6939196519FC46CA006B90B7 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		6939196619FC46CA006B90B7 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		6939196719FC46CA006B90B7 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		693CAA2219FBE5620016C3D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EDDSalesTracker/Images.xcassets; sourceTree = "<group>"; };
 		693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDHelpers.h; sourceTree = "<group>"; };
 		693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDHelpers.m; sourceTree = "<group>"; };
@@ -410,6 +416,17 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		6939196319FC46CA006B90B7 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				6939196419FC46CA006B90B7 /* SVProgressHUD-Prefix.pch */,
+				6939196519FC46CA006B90B7 /* SVProgressHUD.bundle */,
+				6939196619FC46CA006B90B7 /* SVProgressHUD.h */,
+				6939196719FC46CA006B90B7 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		6961A93716F7726C0042E7B9 /* TDSemiModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +560,7 @@
 		69659CA516E8F286006BEE11 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				6939196319FC46CA006B90B7 /* SVProgressHUD */,
 				69659CA616E8F286006BEE11 /* AFNetworking */,
 				34B65D5017559446009CFA73 /* BButton */,
 				34C207FD181EFBD000F7E02A /* BSModalPickerView */,
@@ -816,6 +834,7 @@
 				6951D24B16F7FA0A00A24034 /* top-brand@2x.png in Resources */,
 				6939196019FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.xib in Resources */,
 				34967FB418C2A63400ACE1BF /* EDDCommissionsViewController.xib in Resources */,
+				6939196819FC46CA006B90B7 /* SVProgressHUD.bundle in Resources */,
 				697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
 				6951D24F16F7FABD00A24034 /* 114x114_mobile_icon.png in Resources */,
@@ -904,6 +923,7 @@
 				34C20806181EFBF800F7E02A /* BSModalPickerView.m in Sources */,
 				69BC42FB195C750C004FB716 /* TDSemiModalViewController.m in Sources */,
 				69659CE516EA32D7006BEE11 /* EDDSale.m in Sources */,
+				6939196919FC46CA006B90B7 /* SVProgressHUD.m in Sources */,
 				69659CE816EA3402006BEE11 /* EDDSaleProduct.m in Sources */,
 				34C7F53A18BBE77200A03511 /* EDDCommission.m in Sources */,
 				69659CF016EA3D1E006BEE11 /* EDDSalesViewController.m in Sources */,

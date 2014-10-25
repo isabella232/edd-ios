@@ -29,7 +29,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+    [super viewWillAppear:animated];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [appDelegate.menuViewController refreshMenu];
 	
 	[self.tableView reloadData];
 }
@@ -58,6 +62,7 @@
 
 - (void)selectSite:(NSDictionary *)site {
 	EDDSetupViewController *setupViewController = [[EDDSetupViewController alloc] initForSiteCreation:site];
+    
     [self.navigationController pushViewController:setupViewController animated:YES];	
 }
 

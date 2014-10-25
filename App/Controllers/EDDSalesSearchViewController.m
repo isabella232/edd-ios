@@ -9,10 +9,11 @@
 #import "EDDSalesSearchViewController.h"
 
 #import "EDDSale.h"
-#import "SaleCell.h"
 #import "EDDSaleDetailViewController.h"
+#import "SaleCell.h"
 #import "SVProgressHUD.h"
 #import "UIScrollView+EDDAdditions.h"
+#import "UIColor+Helpers.h"
 
 const int kSalesSearchLoadingCellTag = 1273;
 
@@ -44,6 +45,9 @@ static NSString *cellIdentifier = @"SaleCell";
 	[super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = nil;
+    
+    [self.tableView setBackgroundView:nil];
+    [self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	
 	[self.tableView registerNib:[UINib nibWithNibName:cellIdentifier bundle:nil] forCellReuseIdentifier:cellIdentifier];
 }
