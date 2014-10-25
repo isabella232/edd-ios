@@ -140,7 +140,15 @@ const int kCustomersLoadingCellTag = 1273;
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
                                                   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicator.center = cell.center;
+    
+    CGPoint viewCenter = self.view.center;
+    
+    CGPoint cellCenter = cell.center;
+    
+    cellCenter.x = viewCenter.x;
+    
+    activityIndicator.center = cellCenter;
+    
     [cell addSubview:activityIndicator];
     
     [activityIndicator startAnimating];
