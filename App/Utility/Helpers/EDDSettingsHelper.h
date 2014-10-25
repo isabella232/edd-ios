@@ -18,9 +18,10 @@
 #define KEY_FOR_CURRENCY			@"EDDCurrency"
 #define KEY_FOR_SITE_TYPE			@"EDDSiteType"
 
-#define KEY_FOR_SITE_TYPE_STANDARD					@"Standard"
-#define KEY_FOR_SITE_TYPE_COMMISSION_ONLY			@"Commission Only"
-#define KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION	@"Standard + Commission"
+#define KEY_FOR_SITE_TYPE_STANDARD                              @"Standard"
+#define KEY_FOR_SITE_TYPE_COMMISSION_ONLY                       @"Commission Only"
+#define KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION               @"Standard + Commission"
+#define KEY_FOR_SITE_TYPE_STANDARD_AND_STORE_COMMISSION         @"Standard + Store"
 
 @interface EDDSettingsHelper : NSObject
 
@@ -41,6 +42,7 @@
 + (BOOL)isStandardSite;
 + (BOOL)isCommissionOnlySite;
 + (BOOL)isStandardAndCommissionSite;
++ (BOOL)isStandardAndStoreCommissionSite;
 + (BOOL)requiresSetup;
 + (BOOL)requiresSetup:(NSDictionary *)site;
 

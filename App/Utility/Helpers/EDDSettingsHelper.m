@@ -130,11 +130,15 @@
 	
 	if ([self isCommissionOnlySite]) {
 		standard = NO;
-	}
-	
-	if ([self isStandardAndCommissionSite]) {
-		standard = NO;
-	}
+    }
+    
+    if ([self isStandardAndCommissionSite]) {
+        standard = NO;
+    }
+    
+    if ([self isStandardAndStoreCommissionSite]) {
+        standard = NO;
+    }
 	
 	return standard;
 }
@@ -153,6 +157,14 @@
 	
 	NSString *siteType = [site objectForKey:KEY_FOR_SITE_TYPE];
 	return siteType != nil && [siteType isEqualToString:KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION];
+}
+
++ (BOOL)isStandardAndStoreCommissionSite {
+    NSDictionary *site = [self getSiteForSiteID:[self getCurrentSiteID]];
+    if (site == nil) return NO;
+    
+    NSString *siteType = [site objectForKey:KEY_FOR_SITE_TYPE];
+    return siteType != nil && [siteType isEqualToString:KEY_FOR_SITE_TYPE_STANDARD_AND_STORE_COMMISSION];
 }
 
 + (BOOL)requiresSetup {
