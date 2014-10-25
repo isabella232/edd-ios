@@ -380,10 +380,10 @@
 		690FB6B21962E62D00D545CF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				690FB6B31962E62D00D545CF /* EDDSettingsHelper.h */,
-				690FB6B41962E62D00D545CF /* EDDSettingsHelper.m */,
 				693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */,
 				693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */,
+				690FB6B31962E62D00D545CF /* EDDSettingsHelper.h */,
+				690FB6B41962E62D00D545CF /* EDDSettingsHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
