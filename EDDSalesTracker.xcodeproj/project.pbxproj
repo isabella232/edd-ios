@@ -35,6 +35,7 @@
 		690FB6C81962EBFB00D545CF /* EDDSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C71962EBFB00D545CF /* EDDSearchBar.m */; };
 		690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */; };
 		693CAA2319FBE5620016C3D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 693CAA2219FBE5620016C3D7 /* Images.xcassets */; };
+		693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
 		6951D23916F7C3F100A24034 /* button-slice-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23716F7C3F100A24034 /* button-slice-blue.png */; };
 		6951D24516F7FA0A00A24034 /* bg-only-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23C16F7FA0A00A24034 /* bg-only-568h.png */; };
@@ -178,6 +179,8 @@
 		690FB6C91962F03500D545CF /* UIScrollView+EDDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EDDAdditions.h"; sourceTree = "<group>"; };
 		690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EDDAdditions.m"; sourceTree = "<group>"; };
 		693CAA2219FBE5620016C3D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EDDSalesTracker/Images.xcassets; sourceTree = "<group>"; };
+		693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDHelpers.h; sourceTree = "<group>"; };
+		693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDHelpers.m; sourceTree = "<group>"; };
 		6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue@2x.png"; sourceTree = "<group>"; };
 		6951D23716F7C3F100A24034 /* button-slice-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-slice-blue.png"; sourceTree = "<group>"; };
 		6951D23C16F7FA0A00A24034 /* bg-only-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-only-568h.png"; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 			children = (
 				690FB6B31962E62D00D545CF /* EDDSettingsHelper.h */,
 				690FB6B41962E62D00D545CF /* EDDSettingsHelper.m */,
+				693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */,
+				693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -891,6 +896,7 @@
 				690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */,
 				697FF7BE16EA871D00D0BE91 /* EDDProduct.m in Sources */,
 				697FF7C216EA8D2800D0BE91 /* EDDProductsViewController.m in Sources */,
+				693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */,
 				697FF7CA16EB8F0C00D0BE91 /* EDDMenuViewController.m in Sources */,
 				697FF7CE16EB8F6A00D0BE91 /* EDDAboutViewController.m in Sources */,
 				697FF7D316EB8F7A00D0BE91 /* EDDSetupViewController.m in Sources */,
