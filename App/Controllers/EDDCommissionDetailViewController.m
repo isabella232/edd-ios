@@ -42,7 +42,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 4;
+	return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,7 +84,19 @@
 			float rate = self.commission.rate / 100;			
 			cell.detailTextLabel.text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:rate]];
 			cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
-		}
+        }
+            break;
+        case 4: {
+            cell.textLabel.text = @"Status:";
+            cell.detailTextLabel.text = self.commission.status;
+            cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
+        }
+            break;
+        case 5: {
+            cell.textLabel.text = @"Date:";
+            cell.detailTextLabel.text = self.commission.date;
+            cell.detailTextLabel.textColor = [UIColor colorWithHexString:@"#000000"];
+        }
 			break;
 	}
 		
