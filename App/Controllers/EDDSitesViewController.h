@@ -10,4 +10,6 @@
 
 @interface EDDSitesViewController : EDDBaseTableViewController<UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) UIBarButtonItem *editButton;
+
 @end

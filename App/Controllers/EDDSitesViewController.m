@@ -19,10 +19,11 @@
 	[super viewDidLoad];
 	
     self.title = NSLocalizedString(@"Site Setup", nil);
-	
-	[self setupNewButton];
+    
+    [self setupNavButtons];
 	
 	[self.tableView setBackgroundView:nil];
+    
 	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 }
 
@@ -32,9 +33,22 @@
 	[self.tableView reloadData];
 }
 
-- (void)setupNewButton {
-	UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newSite)];
-	self.navigationItem.rightBarButtonItem = saveButton;
+- (void)setupNavButtons {
+    self.editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEdit)];
+    
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newSite)];
+    
+    self.navigationItem.rightBarButtonItems = @[ saveButton, self.editButton ];
+}
+
+- (void)toggleEdit {
+    BOOL isEditing = self.tableView.isEditing;
+    
+    NSString *title = isEditing ? @"Done" : @"Edit";
+    
+    self.editButton.title = title;
+    
+    [self.tableView setEditing:!self.tableView.isEditing animated:YES];
 }
 
 - (void)newSite {
