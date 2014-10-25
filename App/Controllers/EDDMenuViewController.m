@@ -9,18 +9,19 @@
 #import "EDDMenuViewController.h"
 
 #import "EDDAboutViewController.h"
+#import "EDDAPIClient.h"
 #import "EDDCommissionsViewController.h"
 #import "EDDCustomersListViewController.h"
 #import "EDDEarningsViewController.h"
-#import "EDDAPIClient.h"
-#import "EDDSlideMenuController.h"
 #import "EDDMainViewController.h"
-#import "MenuCell.h"
 #import "EDDProductsViewController.h"
 #import "EDDSalesViewController.h"
-#import "SAMGradientView.h"
 #import "EDDSettingsHelper.h"
+#import "EDDSlideMenuController.h"
+#import "EDDStoreCommissionsListViewController.h"
 #import "EDDSitesViewController.h"
+#import "MenuCell.h"
+#import "SAMGradientView.h"
 #import "UIColor+Helpers.h"
 #import "UIView+EDDAdditions.h"
 
@@ -85,7 +86,7 @@ enum {
 	if (section == 0) {
 		if ([EDDSettingsHelper isCommissionOnlySite]) {
 			return 3;
-		} else if ([EDDSettingsHelper isStandardAndCommissionSite]) {
+		} else if ([EDDSettingsHelper isStandardAndCommissionSite] || [EDDSettingsHelper isStandardAndStoreCommissionSite]) {
 			return MenuRowCount + 1;
 		} else {
 			return MenuRowCount;
@@ -118,7 +119,7 @@ enum {
 				cell.label.text = @"Setup";
 				break;
 		}
-	} else if ([EDDSettingsHelper isStandardAndCommissionSite]) {
+	} else if ([EDDSettingsHelper isStandardAndCommissionSite] || [EDDSettingsHelper isStandardAndStoreCommissionSite]) {
 		switch (indexPath.row) {
 			case 0:
 				cell.label.text = @"Home";
@@ -255,7 +256,7 @@ enum {
 					[self showSetupController];
 					break;
 			}
-		} else if ([EDDSettingsHelper isStandardAndCommissionSite]) {
+		} else if ([EDDSettingsHelper isStandardAndCommissionSite] || [EDDSettingsHelper isStandardAndStoreCommissionSite]) {
 			switch (indexPath.row) {
 				case 0:
 					[self showMainController];
@@ -364,7 +365,11 @@ enum {
 }
 
 - (void)showCommissionsController {
-	[self showControllerClass:[EDDCommissionsViewController class]];
+    if ([EDDSettingsHelper isStandardAndStoreCommissionSite]) {
+        [self showControllerClass:[EDDStoreCommissionsListViewController class]];
+    } else {
+        [self showControllerClass:[EDDCommissionsViewController class]];
+    }
 }
 
 - (void)showEarningsController {

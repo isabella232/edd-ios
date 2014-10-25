@@ -34,6 +34,8 @@
 		690FB6C51962E66700D545CF /* UIView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */; };
 		690FB6C81962EBFB00D545CF /* EDDSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C71962EBFB00D545CF /* EDDSearchBar.m */; };
 		690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */; };
+		6939195F19FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */; };
+		6939196019FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */; };
 		693CAA2319FBE5620016C3D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 693CAA2219FBE5620016C3D7 /* Images.xcassets */; };
 		693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
@@ -178,6 +180,9 @@
 		690FB6C71962EBFB00D545CF /* EDDSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSearchBar.m; sourceTree = "<group>"; };
 		690FB6C91962F03500D545CF /* UIScrollView+EDDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EDDAdditions.h"; sourceTree = "<group>"; };
 		690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EDDAdditions.m"; sourceTree = "<group>"; };
+		6939195C19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDStoreCommissionsListViewController.h; sourceTree = "<group>"; };
+		6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDStoreCommissionsListViewController.m; sourceTree = "<group>"; };
+		6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDStoreCommissionsListViewController.xib; sourceTree = "<group>"; };
 		693CAA2219FBE5620016C3D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EDDSalesTracker/Images.xcassets; sourceTree = "<group>"; };
 		693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDHelpers.h; sourceTree = "<group>"; };
 		693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDHelpers.m; sourceTree = "<group>"; };
@@ -631,6 +636,9 @@
 				34B65D4B17554989009CFA73 /* EDDSitesViewController.h */,
 				34B65D4C17554989009CFA73 /* EDDSitesViewController.m */,
 				34B65D4D1755498A009CFA73 /* EDDSitesViewController.xib */,
+				6939195C19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.h */,
+				6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */,
+				6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -802,6 +810,7 @@
 				6951D24916F7FA0A00A24034 /* button-slice-blue-pressed@2x.png in Resources */,
 				6951D24A16F7FA0A00A24034 /* top-brand.png in Resources */,
 				6951D24B16F7FA0A00A24034 /* top-brand@2x.png in Resources */,
+				6939196019FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.xib in Resources */,
 				34967FB418C2A63400ACE1BF /* EDDCommissionsViewController.xib in Resources */,
 				697866C31860826A00E19CB5 /* 120x120_mobile_icon.png in Resources */,
 				6951D24D16F7FA5000A24034 /* 57x57_mobile_icon.png in Resources */,
@@ -880,6 +889,7 @@
 				69D0C28319F2A8DB005230CC /* EDDGravatarImageView.m in Sources */,
 				69659CBE16E8F286006BEE11 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				69659CBF16E8F286006BEE11 /* AFPropertyListRequestOperation.m in Sources */,
+				6939195F19FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.m in Sources */,
 				69D0C26B19F29EB1005230CC /* EDDCustomersListViewController.m in Sources */,
 				69D0C27019F29ECB005230CC /* EDDCustomerDetailViewController.m in Sources */,
 				69659CC016E8F286006BEE11 /* AFURLConnectionOperation.m in Sources */,
