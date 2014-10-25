@@ -13,6 +13,7 @@
 #import "EDDCommissionsViewController.h"
 #import "EDDCustomersListViewController.h"
 #import "EDDEarningsViewController.h"
+#import "EDDHelpers.h"
 #import "EDDMainViewController.h"
 #import "EDDProductsViewController.h"
 #import "EDDSalesViewController.h"
@@ -36,8 +37,6 @@ enum {
     MenuRowCount
 };
 
-#define kSectionHeaderHeight 26.0f
-
 @interface EDDMenuViewController ()
 
 @end
@@ -59,13 +58,22 @@ enum {
     self.tableView.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
 	
     [self.tableView registerNib:[self menuCellNib] forCellReuseIdentifier:@"MenuCell"];
+    
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    self.tableView.scrollEnabled = [EDDHelpers isHandset];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     
 	[self.tableView reloadData];
+}
+
+- (void)refreshMenu {
+    if ([EDDHelpers isHandset]) return;
+    
+    [self.tableView reloadData];
 }
 
 - (UINib *)menuCellNib {
@@ -197,34 +205,58 @@ enum {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return ([self tableView:tableView titleForHeaderInSection:section]) ? kSectionHeaderHeight : 0;
+    CGFloat headerHeight = [self headerHeightForSection:section];
+    
+    return ([self tableView:tableView titleForHeaderInSection:section]) ? headerHeight : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
     if (title == nil) return nil;
 	
+    return [EDDHelpers isHandset] || section != 0 ? [self headerViewForHandset:section] : [self headerViewForTablet:section];
+}
+
+- (UIView *)headerViewForHandset:(NSInteger)section  {
     UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(10, 0, 300, kSectionHeaderHeight);
+    label.frame = CGRectMake(10, 0, 300, 26.0f);
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor colorWithHexString:@"#363b3f"];
     label.font = [UIFont boldSystemFontOfSize:13];
-    label.text = title;
+    label.text = [self tableView:self.tableView titleForHeaderInSection:section];
     
-    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
+    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 26.0f)];
     gradient.backgroundColor = [UIColor clearColor];
-	
+    
     UIColor *first = [UIColor colorWithHexString:@"#ffffff"];
     UIColor *second = [UIColor colorWithHexString:@"#cccccc"];
     gradient.gradientColors = [NSArray arrayWithObjects:
-                       first,
-                       second,
-                       nil];
+                               first,
+                               second,
+                               nil];
     gradient.gradientDirection = SAMGradientViewDirectionVertical;
     
     [gradient addSubview:label];
-	
+    
     return gradient;
+}
+
+- (UIView *)headerViewForTablet:(NSInteger)section  {
+    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20.0f)];
+    
+    gradient.backgroundColor = [UIColor colorWithHexString:@"#1c5585"];
+    
+    return gradient;
+}
+
+- (CGFloat)headerHeightForSection:(NSInteger)section {
+    CGFloat height = 26.0f;
+    
+    if ([EDDHelpers isTablet] && section == 0) {
+        height = 64.5f;
+    }
+    
+    return height;
 }
 
 - (NSInteger)siteCount {

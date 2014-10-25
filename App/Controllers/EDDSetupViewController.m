@@ -10,6 +10,7 @@
 
 #import "BSModalPickerView.h"
 #import "EDDAPIClient.h"
+#import "EDDHelpers.h"
 #import "NSString+DateHelper.h"
 #import "EDDSettingsHelper.h"
 #import "SVProgressHUD.h"
@@ -82,7 +83,9 @@
 }
 
 - (void)setupTextFields {
-	self.siteName = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, 180, 21)];
+    CGFloat width = [EDDHelpers isHandset] ? 180.0f : 510.0f;
+    
+	self.siteName = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, width, 21)];
 	[self.siteName setPlaceholder:@"My EDD Site"];
 	self.siteName.font = [UIFont fontWithName:@"System" size:12.0f];
 	[self.siteName setKeyboardType:UIKeyboardTypeAlphabet];
@@ -93,7 +96,7 @@
 	self.siteName.adjustsFontSizeToFitWidth = YES;
 	self.siteName.delegate = self;
 	
-	self.url = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, 180, 21)];
+	self.url = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, width, 21)];
 	[self.url setPlaceholder:@"http://yoursite.com/"];
 	self.url.font = [UIFont fontWithName:@"System" size:12.0f];
 	[self.url setKeyboardType:UIKeyboardTypeURL];
@@ -104,7 +107,7 @@
 	self.url.adjustsFontSizeToFitWidth = YES;
 	self.url.delegate = self;
 	
-	self.apiKey = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, 180, 21)];
+	self.apiKey = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, width, 21)];
 	[self.apiKey setPlaceholder:@"My API Key"];
 	self.apiKey.font = [UIFont fontWithName:@"System" size:12.0f];
 	[self.apiKey setKeyboardType:UIKeyboardTypeAlphabet];
@@ -115,7 +118,7 @@
 	self.apiKey.adjustsFontSizeToFitWidth = YES;
 	self.apiKey.delegate = self;
 	
-	self.token = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, 180, 21)];
+	self.token = [[UITextField alloc] initWithFrame:CGRectMake(120, 11, width, 21)];
 	[self.token setPlaceholder:@"My Token"];
 	self.token.font = [UIFont fontWithName:@"System" size:12.0f];
 	[self.token setKeyboardType:UIKeyboardTypeEmailAddress];

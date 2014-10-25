@@ -50,6 +50,8 @@
     
     EDDMenuViewController *menuViewController = [[EDDMenuViewController alloc] init];
     
+    self.menuViewController = menuViewController;
+    
     if ([EDDHelpers isHandset]) {
         NVSlideMenuController *slideMenuController = [[NVSlideMenuController alloc] initWithMenuViewController:menuViewController andContentViewController:nav];
         

@@ -8,6 +8,7 @@
 
 #import "EDDMainViewController.h"
 
+#import "AppDelegate.h"
 #import "EDDCommission.h"
 #import "EDDCommissionsListViewController.h"
 #import "EDDAPIClient.h"
@@ -198,9 +199,16 @@
 
 - (void)setupDismissalRequested:(NSNotification *) notification {
     [self setupSiteName];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+    
     setupIsPresent = NO;
+    
     [self reload:nil];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [appDelegate.menuViewController refreshMenu];
 }
 
 - (BOOL)shouldAutorotate {

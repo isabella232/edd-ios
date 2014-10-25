@@ -12,4 +12,6 @@
 
 @interface EDDMenuViewController : EDDBaseTableViewController
 
+- (void)refreshMenu;
+
 @end

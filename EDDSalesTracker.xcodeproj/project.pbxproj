@@ -36,6 +36,7 @@
 		690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */; };
 		6939195F19FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */; };
 		6939196019FC1EFA006B90B7 /* EDDStoreCommissionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */; };
+		6939196219FC3933006B90B7 /* MenuCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6939196119FC3933006B90B7 /* MenuCell~ipad.xib */; };
 		693CAA2319FBE5620016C3D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 693CAA2219FBE5620016C3D7 /* Images.xcassets */; };
 		693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */; };
 		6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6951D23616F7C3F100A24034 /* button-slice-blue@2x.png */; };
@@ -183,6 +184,7 @@
 		6939195C19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDStoreCommissionsListViewController.h; sourceTree = "<group>"; };
 		6939195D19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDStoreCommissionsListViewController.m; sourceTree = "<group>"; };
 		6939195E19FC1EF9006B90B7 /* EDDStoreCommissionsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDDStoreCommissionsListViewController.xib; sourceTree = "<group>"; };
+		6939196119FC3933006B90B7 /* MenuCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MenuCell~ipad.xib"; sourceTree = "<group>"; };
 		693CAA2219FBE5620016C3D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EDDSalesTracker/Images.xcassets; sourceTree = "<group>"; };
 		693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDHelpers.h; sourceTree = "<group>"; };
 		693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDHelpers.m; sourceTree = "<group>"; };
@@ -694,6 +696,7 @@
 				697FF7D616EB8FF600D0BE91 /* MenuCell.h */,
 				697FF7D716EB8FF600D0BE91 /* MenuCell.m */,
 				697FF7DE16EB917200D0BE91 /* MenuCell.xib */,
+				6939196119FC3933006B90B7 /* MenuCell~ipad.xib */,
 				6961A91116F648420042E7B9 /* ProductCell.h */,
 				6961A91216F648420042E7B9 /* ProductCell.m */,
 				6961A91416F6484D0042E7B9 /* ProductCell.xib */,
@@ -802,6 +805,7 @@
 				6961A94116F7726C0042E7B9 /* TDDatePickerController.xib in Resources */,
 				6951D23816F7C3F100A24034 /* button-slice-blue@2x.png in Resources */,
 				6951D23916F7C3F100A24034 /* button-slice-blue.png in Resources */,
+				6939196219FC3933006B90B7 /* MenuCell~ipad.xib in Resources */,
 				6951D24516F7FA0A00A24034 /* bg-only-568h.png in Resources */,
 				6951D24616F7FA0A00A24034 /* bg-only.png in Resources */,
 				6951D24716F7FA0A00A24034 /* bg-only@2x.png in Resources */,

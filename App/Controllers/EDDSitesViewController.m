@@ -8,6 +8,7 @@
 
 #import "EDDSitesViewController.h"
 
+#import "AppDelegate.h"
 #import "EDDSettingsHelper.h"
 #import "EDDSetupViewController.h"
 #import "UIColor+Helpers.h"
@@ -125,6 +126,10 @@
 			
 			// delete site and reload table data
 			[self.tableView reloadData];
+            
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            
+            [appDelegate.menuViewController refreshMenu];
 			
 		} else {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You must have at least one site" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
