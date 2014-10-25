@@ -66,9 +66,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-brand"]];
-    
-    self.title = NSLocalizedString(@"Home", nil);
+    if ([EDDHelpers isHandset]) {
+        self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-brand"]];
+    }
     
     [self.salesButton setType:BButtonTypePrimary];
     

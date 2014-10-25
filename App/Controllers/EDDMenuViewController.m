@@ -242,9 +242,19 @@ enum {
 }
 
 - (UIView *)headerViewForTablet:(NSInteger)section  {
-    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20.0f)];
+    SAMGradientView *gradient = [[SAMGradientView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64.5f)];
     
     gradient.backgroundColor = [UIColor colorWithHexString:@"#1c5585"];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-brand"]];
+    
+    CGPoint center = gradient.center;
+    
+    center.y += 10.0f;
+    
+    imageView.center = center;
+    
+    [gradient addSubview:imageView];
     
     return gradient;
 }
