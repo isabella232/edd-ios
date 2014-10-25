@@ -425,7 +425,7 @@
 }
 
 - (void)handleSiteTypeSelection {
-	BSModalPickerView *pickerView = [[BSModalPickerView alloc] initWithValues:@[ KEY_FOR_SITE_TYPE_STANDARD, KEY_FOR_SITE_TYPE_COMMISSION_ONLY, KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION ]];
+	BSModalPickerView *pickerView = [[BSModalPickerView alloc] initWithValues:@[ KEY_FOR_SITE_TYPE_STANDARD, KEY_FOR_SITE_TYPE_COMMISSION_ONLY, KEY_FOR_SITE_TYPE_STANDARD_AND_COMMISSION, KEY_FOR_SITE_TYPE_STANDARD_AND_STORE_COMMISSION ]];
     [pickerView presentInView:self.view withBlock:^(BOOL madeChoice) {
         NSLog(@"Selected value: %@", pickerView.selectedValue);
 		self.siteType = pickerView.selectedValue;
