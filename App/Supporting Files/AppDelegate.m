@@ -11,6 +11,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "EDDAppDefines.h"
 #import "EDDAnalytics.h"
+#import "EDDHelpers.h"
 #import "EDDSlideMenuController.h"
 #import "EDDMainViewController.h"
 #import "EDDMenuViewController.h"
@@ -33,22 +34,37 @@
 	[ARAnalytics setupWithAnalytics:@{
 									  ARCrashlyticsAPIKey : kCrashlyticsId,
 									  ARGoogleAnalyticsID : kAnalyticsTrackerId
-									  }];
+                                      }];
+    
+    [self applyStyleSheet];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
 	
 	EDDMainViewController *mainViewController = [[EDDMainViewController alloc] init];
+    
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    
 	nav.navigationBar.translucent = NO;
     
-    EDDMenuViewController *menuViewController = [[EDDMenuViewController alloc] init];	
-	
-    NVSlideMenuController *slideMenuController = [[NVSlideMenuController alloc] initWithMenuViewController:menuViewController andContentViewController:nav];
-	
-	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
-	[self applyStyleSheet];
-	
-	self.window.backgroundColor = [UIColor whiteColor];
-	self.window.rootViewController = slideMenuController;
+    EDDMenuViewController *menuViewController = [[EDDMenuViewController alloc] init];
+    
+    if ([EDDHelpers isHandset]) {
+        NVSlideMenuController *slideMenuController = [[NVSlideMenuController alloc] initWithMenuViewController:menuViewController andContentViewController:nav];
+        
+        self.window.rootViewController = slideMenuController;
+    } else {
+        
+        self.splitViewController = [[UISplitViewController alloc] init];
+        
+        self.splitViewController.viewControllers = @[ menuViewController, nav ];
+        
+        self.splitViewController.delegate = self;
+        
+        self.window.rootViewController = self.splitViewController;
+    }
+    
 	[self.window makeKeyAndVisible];
 	
     return YES;
@@ -81,6 +97,12 @@
 	navigationBar.tintColor = [UIColor whiteColor];
 	[navigationBar setBarTintColor:[UIColor colorWithHexString:@"#1c5585"]];
 	[navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+}
+
+#pragma mark - Split View Delegate
+
+- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+    return NO;
 }
 
 @end

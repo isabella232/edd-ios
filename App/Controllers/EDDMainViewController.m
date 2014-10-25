@@ -11,6 +11,7 @@
 #import "EDDCommission.h"
 #import "EDDCommissionsListViewController.h"
 #import "EDDAPIClient.h"
+#import "EDDHelpers.h"
 #import "EDDSlideMenuController.h"
 #import "NSString+DateHelper.h"
 #import "EDDSalesViewController.h"
@@ -183,8 +184,15 @@
 
 - (void)showSetup {
     setupViewController = [[EDDSetupViewController alloc] initForInitialSetup];
+    
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:setupViewController];
+    
     nav.navigationBar.translucent = NO;
+    
+    if ([EDDHelpers isTablet]) {
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    
     [self presentViewController:nav animated:YES completion:nil];
 }
 
