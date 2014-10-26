@@ -8,6 +8,7 @@
 
 #import "EDDSetupViewController.h"
 
+#import "AppDelegate.h"
 #import "BSModalPickerView.h"
 #import "EDDAPIClient.h"
 #import "EDDHelpers.h"
@@ -243,7 +244,11 @@
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Your settings were successfully saved." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 		[alert show];
-	}
+    }
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [appDelegate.menuViewController refreshMenu];
 }
 
 - (void)showError:(NSString *)message {
