@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDDSalesSearchViewController">
@@ -19,7 +19,6 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ppr-tj-93B">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <connections>
@@ -35,16 +34,13 @@
                 <constraint firstAttribute="bottom" secondItem="ppr-tj-93B" secondAttribute="bottom" id="oqJ-uR-bkI"/>
                 <constraint firstItem="ppr-tj-93B" firstAttribute="leading" secondItem="YGF-1Z-cyX" secondAttribute="leading" id="u9p-Cv-zqx"/>
             </constraints>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
         <view contentMode="scaleToFill" id="VSD-Ki-r4W" userLabel="Header View">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search by e-mail" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqy-ep-xsU" customClass="EDDSearchBar">
+                <searchBar contentMode="redraw" placeholder="Search by e-mail" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqy-ep-xsU" customClass="EDDSearchBar">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="barTintColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
@@ -52,21 +48,36 @@
                         <outlet property="delegate" destination="-1" id="ylr-RR-UM1"/>
                     </connections>
                 </searchBar>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OiP-Bo-Gae">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OiP-Bo-Gae">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Oy-0q-sST">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Oy-0q-sST">
                     <rect key="frame" x="0.0" y="43" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="trailing" secondItem="4Oy-0q-sST" secondAttribute="trailing" id="0FP-AZ-2Q5"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="leading" secondItem="OiP-Bo-Gae" secondAttribute="leading" id="8Qa-HW-GTz"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="top" secondItem="OiP-Bo-Gae" secondAttribute="top" id="8Rp-ES-fi7"/>
+                <constraint firstAttribute="centerX" secondItem="Wqy-ep-xsU" secondAttribute="centerX" id="A8t-er-cMh"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="leading" secondItem="VSD-Ki-r4W" secondAttribute="leading" id="Bvw-UF-RaX"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="top" secondItem="VSD-Ki-r4W" secondAttribute="top" id="EZg-g1-APM"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="leading" secondItem="4Oy-0q-sST" secondAttribute="leading" id="GNx-ct-tYd"/>
+                <constraint firstAttribute="bottom" secondItem="OiP-Bo-Gae" secondAttribute="bottom" constant="43" id="MFg-ca-mpy"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="bottom" secondItem="4Oy-0q-sST" secondAttribute="bottom" id="OJN-TK-W0N"/>
+                <constraint firstItem="4Oy-0q-sST" firstAttribute="top" secondItem="OiP-Bo-Gae" secondAttribute="bottom" constant="42" id="hHy-Sn-PU9"/>
+                <constraint firstItem="Wqy-ep-xsU" firstAttribute="trailing" secondItem="OiP-Bo-Gae" secondAttribute="trailing" id="tKP-Cf-L9S"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
