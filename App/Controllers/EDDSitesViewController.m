@@ -46,16 +46,6 @@
     self.navigationItem.rightBarButtonItems = @[ saveButton, self.editButton ];
 }
 
-- (void)toggleEdit {
-    BOOL isEditing = self.tableView.isEditing;
-    
-    NSString *title = isEditing ? @"Done" : @"Edit";
-    
-    self.editButton.title = title;
-    
-    [self.tableView setEditing:!self.tableView.isEditing animated:YES];
-}
-
 - (void)newSite {
 	[self selectSite:nil];
 }
@@ -90,6 +80,16 @@
 
 - (int)siteCount {
 	return [[[EDDSettingsHelper getSites] allKeys] count];
+}
+
+- (void)toggleEdit {    
+    [self.tableView setEditing:!self.tableView.isEditing animated:YES];
+    
+    BOOL isEditing = self.tableView.isEditing;
+    
+    NSString *title = isEditing ? @"Done" : @"Edit";
+    
+    self.editButton.title = title;
 }
 
 - (NSDictionary *)getSite:(NSInteger)index {
