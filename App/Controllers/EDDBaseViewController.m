@@ -9,6 +9,7 @@
 #import "EDDBaseViewController.h"
 
 #import "EDDAnalytics.h"
+#import "EDDHelpers.h"
 #import "EDDSlideMenuController.h"
 #import "UIColor+Helpers.h"
 
@@ -23,7 +24,10 @@
 	
 	self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"", nil) style:UIBarButtonItemStylePlain target:self action:nil];
     
-    self.navigationItem.leftBarButtonItem = [self slideOutBarButton];
+    if ([EDDHelpers isHandset]) {
+        self.navigationItem.leftBarButtonItem = [self slideOutBarButton];
+    }
+    
 	[self.view setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 }
 
@@ -47,7 +51,7 @@
 
 - (UIBarButtonItem *)slideOutBarButton {
     return [[UIBarButtonItem alloc] initWithImage:[self listImage]
-                                            style:UIBarButtonItemStyleBordered
+                                            style:UIBarButtonItemStylePlain
                                            target:self
                                            action:@selector(slideOut:)];
 }

@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "EDDMenuViewController.h"
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UISplitViewControllerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
+
 @property (nonatomic, strong) UINavigationController *navigationController;
+
+@property (nonatomic, strong) UISplitViewController *splitViewController;
+
+@property (nonatomic, strong) EDDMenuViewController *menuViewController;
 
 @end

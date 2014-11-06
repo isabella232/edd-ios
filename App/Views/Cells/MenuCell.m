@@ -9,7 +9,7 @@
 #import "MenuCell.h"
 
 #import "BButton.h"
-#import "SettingsHelper.h"
+#import "EDDSettingsHelper.h"
 #import "UIColor+Helpers.h"
 
 @implementation MenuCell
@@ -27,7 +27,7 @@
 	
 	self.labelCheckmark.font = [UIFont fontWithName:@"FontAwesome" size:14.0f];
 	
-	if ([[SettingsHelper getCurrentSiteID] isEqualToString:siteID]) {
+	if ([[EDDSettingsHelper getCurrentSiteID] isEqualToString:siteID]) {
 		self.labelCheckmark.text = [NSString stringFromAwesomeIcon:FAIconCheck];
 		self.labelCheckmark.hidden = NO;
 	} else {

@@ -9,7 +9,7 @@
 #import "EDDAPIClient.h"
 
 #import "AFJSONRequestOperation.h"
-#import "SettingsHelper.h"
+#import "EDDSettingsHelper.h"
 
 static EDDAPIClient *_sharedClient = nil;
 
@@ -18,7 +18,7 @@ static EDDAPIClient *_sharedClient = nil;
 + (EDDAPIClient *)sharedClient {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-		NSString *clientUrl = [SettingsHelper getUrlForClient];
+		NSString *clientUrl = [EDDSettingsHelper getUrlForClient];
 		NSURL *url = [NSURL URLWithString:clientUrl];
         _sharedClient = [[EDDAPIClient alloc] initWithBaseURL:url];
     });
@@ -28,8 +28,8 @@ static EDDAPIClient *_sharedClient = nil;
 
 + (NSMutableDictionary *)defaultParams {
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	[params setValue:[SettingsHelper getApiKey] forKey:@"key"];
-	[params setValue:[SettingsHelper getToken] forKey:@"token"];
+	[params setValue:[EDDSettingsHelper getApiKey] forKey:@"key"];
+	[params setValue:[EDDSettingsHelper getToken] forKey:@"token"];
 	return params;	
 }
 
@@ -48,7 +48,7 @@ static EDDAPIClient *_sharedClient = nil;
 }
 
 - (void)reload {
-	NSString *clientUrl = [SettingsHelper getUrlForClient];
+	NSString *clientUrl = [EDDSettingsHelper getUrlForClient];
 	NSURL *url = [NSURL URLWithString:clientUrl];
 	_sharedClient = [[EDDAPIClient alloc] initWithBaseURL:url];
 }

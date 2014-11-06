@@ -8,11 +8,12 @@
 
 #import "EDDSalesSearchViewController.h"
 
-#import "Sale.h"
+#import "EDDSale.h"
+#import "EDDSaleDetailViewController.h"
 #import "SaleCell.h"
-#import "SaleDetailViewController.h"
 #import "SVProgressHUD.h"
 #import "UIScrollView+EDDAdditions.h"
+#import "UIColor+Helpers.h"
 
 const int kSalesSearchLoadingCellTag = 1273;
 
@@ -44,6 +45,9 @@ static NSString *cellIdentifier = @"SaleCell";
 	[super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = nil;
+    
+    [self.tableView setBackgroundView:nil];
+    [self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
 	
 	[self.tableView registerNib:[UINib nibWithNibName:cellIdentifier bundle:nil] forCellReuseIdentifier:cellIdentifier];
 }
@@ -102,7 +106,7 @@ static NSString *cellIdentifier = @"SaleCell";
         searchTerm = self.customerEmail;
     }
     
-    [Sale salesWithEmail:searchTerm page:self.currentPage block:^(NSArray *sales, NSError *error) {
+    [EDDSale salesWithEmail:searchTerm page:self.currentPage block:^(NSArray *sales, NSError *error) {
         if (error) {
             [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
         } else {
@@ -110,7 +114,7 @@ static NSString *cellIdentifier = @"SaleCell";
 				_totalPages = _currentPage;
 			}
 			
-			for (Sale *sale in sales) {
+			for (EDDSale *sale in sales) {
 				if (![self.items containsObject:sale]) {
 					[self.items addObject:sale];
 				}
@@ -144,7 +148,7 @@ static NSString *cellIdentifier = @"SaleCell";
                                reuseIdentifier:cellIdentifier];
     }
     
-	Sale *sale = [self.items objectAtIndex:indexPath.row];
+	EDDSale *sale = [self.items objectAtIndex:indexPath.row];
 	[cell initializeSale:sale];
     
     return cell;
@@ -157,8 +161,8 @@ static NSString *cellIdentifier = @"SaleCell";
 	
 	[self clearSearchUI];
 	
-	Sale *sale = [self.items objectAtIndex:indexPath.row];
-	SaleDetailViewController *detailViewController = [[SaleDetailViewController alloc] initWithSale:sale];
+	EDDSale *sale = [self.items objectAtIndex:indexPath.row];
+	EDDSaleDetailViewController *detailViewController = [[EDDSaleDetailViewController alloc] initWithSale:sale];
 	
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

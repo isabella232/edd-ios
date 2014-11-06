@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Sale.h"
+#import "EDDSale.h"
 
 @interface SaleCell : UITableViewCell
 
@@ -15,8 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *email;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
-@property (strong, nonatomic) Sale *sale;
+@property (strong, nonatomic) EDDSale *sale;
 
-- (void)initializeSale:(Sale *)sale;
+- (void)initializeSale:(EDDSale *)sale;
 
 @end

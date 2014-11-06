@@ -1,0 +1,190 @@
+//
+//  EDDProductsViewController.m
+//  EDDproductsTracker
+//
+//  Created by Matthew Strickland on 3/8/13.
+//  Copyright (c) 2013 Easy Digital Downloads. All rights reserved.
+//
+
+#import "EDDProductsViewController.h"
+
+#import "NSString+DateHelper.h"
+#import "EDDProduct.h"
+#import "ProductCell.h"
+#import "EDDProductDetailViewController.h"
+#import "SVProgressHUD.h"
+#import "UIColor+Helpers.h"
+#import "UIImageView+AFNetworking.h"
+#import "UIView+EDDAdditions.h"
+
+const int kProductsLoadingCellTag = 1273;
+
+@interface EDDProductsViewController ()
+
+- (void)refresh:(id)sender;
+- (void)reload:(id)sender;
+
+@property (nonatomic, retain) NSMutableArray *products;
+
+@end
+
+@implementation EDDProductsViewController
+
+@synthesize products = _products;
+
+- (void)refresh:(id)sender {
+	_currentPage = 0;
+	_totalPages = 99;
+	
+	self.products = [NSMutableArray array];
+	
+	[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+	
+	[self.tableView reloadData];
+}
+
+- (void)reload:(id)sender {
+	if (_currentPage == 0) return;
+	
+	[SVProgressHUD showWithStatus:@"Loading Products..." maskType:SVProgressHUDMaskTypeClear];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    [EDDProduct globalProductsWithPage:_currentPage andWithBlock:^(NSArray *products, NSError *error) {
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+        } else {
+			if ([products count] != PAGING_RETURN) {
+				_totalPages = _currentPage;
+			}
+			
+			for (EDDProduct *product in products) {
+				if (![self.products containsObject:product]) {
+					[self.products addObject:product];
+				}
+			}
+            [self.tableView reloadData];
+        }
+        
+		[SVProgressHUD dismiss];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }];
+}
+
+#pragma mark - UIViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.products = [NSMutableArray array];
+	
+    _currentPage = 0;
+	_totalPages = 99;
+    
+    self.title = NSLocalizedString(@"Products", nil);
+   
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	
+	[self.tableView setBackgroundView:nil];
+	[self.tableView setBackgroundColor:[UIColor colorWithHexString:@"#ededed"]];
+	
+    [self.tableView registerNib:[self productCellNib] forCellReuseIdentifier:@"ProductCell"];
+        
+    [self reload:nil];
+}
+
+- (UINib *)productCellNib {
+    return [UINib nibWithNibName:@"ProductCell" bundle:nil];
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (_currentPage == 0) {
+        return 1;
+	}
+    
+    if (_currentPage < _totalPages) {
+        return [self.products count] + 1;
+    }
+	
+	return [self.products count];
+}
+
+- (UITableViewCell *)saleCellForIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"ProductCell";
+    ProductCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+	
+    if (!cell) {
+        cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+								  reuseIdentifier:cellIdentifier];
+    }
+    
+	EDDProduct *product = [self.products objectAtIndex:indexPath.row];
+	[cell initializeProduct:product];
+    
+    return cell;
+}
+
+- (UITableViewCell *)loadingCell {
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+												   reuseIdentifier:nil];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+                                                  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    CGPoint viewCenter = self.view.center;
+    
+    CGPoint cellCenter = cell.center;
+    
+    cellCenter.x = viewCenter.x;
+    
+    activityIndicator.center = cellCenter;
+    
+    [cell addSubview:activityIndicator];
+    
+    [activityIndicator startAnimating];
+    
+    cell.tag = kProductsLoadingCellTag;
+    
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < self.products.count) {
+        return [self saleCellForIndexPath:indexPath];
+    } else {
+        return [self loadingCell];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.tag == kProductsLoadingCellTag) {
+        _currentPage++;
+        [self reload:nil];
+    }
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	EDDProduct *product = [self.products objectAtIndex:indexPath.row];
+	EDDProductDetailViewController *detailViewController = [[EDDProductDetailViewController alloc] initWithProduct:product];
+	
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	return [[UIView alloc] init];
+}
+
+@end

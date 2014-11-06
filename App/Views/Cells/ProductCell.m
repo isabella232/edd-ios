@@ -8,7 +8,7 @@
 
 #import "ProductCell.h"
 
-#import "SettingsHelper.h"
+#import "EDDSettingsHelper.h"
 
 @implementation ProductCell
 
@@ -28,7 +28,7 @@
     // Configure the view for the selected state
 }
 
-- (void)initializeProduct:(Product *)product {
+- (void)initializeProduct:(EDDProduct *)product {
 	self.product = product;
 	
 	[self setupUserInterface];
@@ -37,7 +37,7 @@
 - (void)setupUserInterface {
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-	[formatter setCurrencyCode:[SettingsHelper getCurrency]];
+	[formatter setCurrencyCode:[EDDSettingsHelper getCurrency]];
 	
 	self.title.text = self.product.title;
 	self.earnings.text = [NSString stringWithFormat:@"%@", [formatter stringFromNumber: [NSNumber numberWithFloat:self.product.totalEarnings]]];

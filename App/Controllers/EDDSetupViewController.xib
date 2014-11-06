@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDDSetupViewController">
+            <connections>
+                <outlet property="footerView" destination="frW-nG-7wl" id="kD7-9n-w0s"/>
+                <outlet property="saveButton" destination="rX1-Ex-y5k" id="7Pj-Tm-9yW"/>
+                <outlet property="tableView" destination="25" id="26"/>
+                <outlet property="view" destination="1" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="25">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="3KT-RF-iXT"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="27"/>
+                        <outlet property="delegate" destination="-1" id="28"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="25" secondAttribute="trailing" id="ABg-Sn-nhv"/>
+                <constraint firstItem="25" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Msq-eJ-OvL"/>
+                <constraint firstAttribute="bottom" secondItem="25" secondAttribute="bottom" id="OVp-g2-RMk"/>
+                <constraint firstItem="25" firstAttribute="top" secondItem="1" secondAttribute="top" id="oYt-yV-VpQ"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <view contentMode="scaleToFill" id="frW-nG-7wl" userLabel="Footer View">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX1-Ex-y5k" customClass="BButton">
+                    <rect key="frame" x="80" y="20" width="160" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="K0p-do-cIQ"/>
+                        <constraint firstAttribute="height" constant="49" id="yfK-bG-osu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <state key="normal" title="Save">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="saveSettings:" destination="-1" eventType="touchUpInside" id="2l7-f5-mJL"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="rX1-Ex-y5k" firstAttribute="leading" secondItem="frW-nG-7wl" secondAttribute="leading" constant="80" id="LvM-Z4-m31"/>
+                <constraint firstItem="rX1-Ex-y5k" firstAttribute="top" secondItem="frW-nG-7wl" secondAttribute="top" constant="20" id="Ry7-SD-cL1"/>
+                <constraint firstAttribute="bottom" secondItem="rX1-Ex-y5k" secondAttribute="bottom" constant="20" id="SVM-nY-Vwf"/>
+                <constraint firstAttribute="trailing" secondItem="rX1-Ex-y5k" secondAttribute="trailing" constant="80" id="Wm6-ew-jzD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

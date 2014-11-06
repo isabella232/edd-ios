@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Product.h"
+#import "EDDProduct.h"
 
 @interface ProductCell : UITableViewCell
 
@@ -15,8 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *earnings;
 @property (weak, nonatomic) IBOutlet UILabel *sales;
 
-@property (strong, nonatomic) Product *product;
+@property (strong, nonatomic) EDDProduct *product;
 
-- (void)initializeProduct:(Product *)product;
+- (void)initializeProduct:(EDDProduct *)product;
 
 @end
