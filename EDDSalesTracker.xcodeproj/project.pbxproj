@@ -59,6 +59,8 @@
 		F5A051C11C2E12870078BCF5 /* EDDDashboardStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A051C01C2E12870078BCF5 /* EDDDashboardStaticTableViewCell.m */; };
 		F5A051C71C2E9DC20078BCF5 /* EDDUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A051C61C2E9DC20078BCF5 /* EDDUILabel.m */; };
 		F5A051CA1C31C6F90078BCF5 /* EDDLaunchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A051C91C31C6F90078BCF5 /* EDDLaunchCell.m */; };
+		F5A29D541CCC13B0000F999F /* EDDDiscount.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A29D531CCC13B0000F999F /* EDDDiscount.m */; };
+		F5A29D571CCC13B9000F999F /* EDDCommission.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A29D561CCC13B9000F999F /* EDDCommission.m */; };
 		F5F0E93B1C36E1210023B0E4 /* EDDProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E93A1C36E1210023B0E4 /* EDDProduct.m */; };
 		F5F0E93E1C36E2E50023B0E4 /* EDDSale.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E93D1C36E2E50023B0E4 /* EDDSale.m */; };
 		F5F0E9411C36E3B90023B0E4 /* EDDCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E9401C36E3B90023B0E4 /* EDDCustomer.m */; };
@@ -173,6 +175,10 @@
 		F5A051C61C2E9DC20078BCF5 /* EDDUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDUILabel.m; sourceTree = "<group>"; };
 		F5A051C81C31C6F90078BCF5 /* EDDLaunchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDLaunchCell.h; sourceTree = "<group>"; };
 		F5A051C91C31C6F90078BCF5 /* EDDLaunchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDLaunchCell.m; sourceTree = "<group>"; };
+		F5A29D521CCC13B0000F999F /* EDDDiscount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDDiscount.h; sourceTree = "<group>"; };
+		F5A29D531CCC13B0000F999F /* EDDDiscount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDDiscount.m; sourceTree = "<group>"; };
+		F5A29D551CCC13B9000F999F /* EDDCommission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCommission.h; sourceTree = "<group>"; };
+		F5A29D561CCC13B9000F999F /* EDDCommission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCommission.m; sourceTree = "<group>"; };
 		F5F0E9391C36E1210023B0E4 /* EDDProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDProduct.h; sourceTree = "<group>"; };
 		F5F0E93A1C36E1210023B0E4 /* EDDProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDProduct.m; sourceTree = "<group>"; };
 		F5F0E93C1C36E2E50023B0E4 /* EDDSale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSale.h; sourceTree = "<group>"; };
@@ -386,6 +392,10 @@
 				F5F0E93D1C36E2E50023B0E4 /* EDDSale.m */,
 				F5F0E93F1C36E3B90023B0E4 /* EDDCustomer.h */,
 				F5F0E9401C36E3B90023B0E4 /* EDDCustomer.m */,
+				F5A29D521CCC13B0000F999F /* EDDDiscount.h */,
+				F5A29D531CCC13B0000F999F /* EDDDiscount.m */,
+				F5A29D551CCC13B9000F999F /* EDDCommission.h */,
+				F5A29D561CCC13B9000F999F /* EDDCommission.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -641,6 +651,7 @@
 				F5182EB01C39E07900D0DF65 /* EDDEditDashboardViewController.m in Sources */,
 				F5A051A41C2D58A80078BCF5 /* EDDMoreViewController.m in Sources */,
 				F59623B41C3FC606009184D5 /* EDDPercentDrivenInteractiveTransition.m in Sources */,
+				F5A29D541CCC13B0000F999F /* EDDDiscount.m in Sources */,
 				F5A051CA1C31C6F90078BCF5 /* EDDLaunchCell.m in Sources */,
 				F5A0518E1C2C1ABC0078BCF5 /* UIImage+EDDUIImageCategory.m in Sources */,
 				690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */,
@@ -648,6 +659,7 @@
 				693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */,
 				690FB6BD1962E62D00D545CF /* NSString+DateHelper.m in Sources */,
 				F5F0E94E1C3700840023B0E4 /* BEMCircle.m in Sources */,
+				F5A29D571CCC13B9000F999F /* EDDCommission.m in Sources */,
 				690FB6BE1962E62D00D545CF /* UIColor+Helpers.m in Sources */,
 				F5F0E94F1C3700840023B0E4 /* BEMLine.m in Sources */,
 				F5A0519E1C2D588F0078BCF5 /* EDDCustomersViewController.m in Sources */,

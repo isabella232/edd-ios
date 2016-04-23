@@ -1,7 +1,0 @@
-#ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#endif
-
-#import "Pods-EDDSalesTracker-environment.h"
-#define AR_CRASHLYTICS_EXISTS 1
-#define AR_GOOGLEANALYTICS_EXISTS 1
