@@ -10,11 +10,9 @@
 
 @interface EDDDownload : NSObject <NSCoding>
 
-@property (nonatomic) NSInteger productID;
-@property (nonatomic, strong) NSString *slug;
+@property (nonatomic) NSInteger downloadID;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *created;
-@property (nonatomic, strong) NSDate *modififed;
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic) BOOL hasThumbnail;
 @property (nonatomic, strong) NSString *thumbnailURL;
@@ -28,5 +26,7 @@
 @property (nonatomic, strong) NSDictionary *pricing;
 @property (nonatomic) BOOL hasFiles;
 @property (nonatomic, strong) NSDictionary *files;
+@property (nonatomic) BOOL hasLicensing;
+@property (nonatomic, strong) NSDictionary *licensing;
 
 @end
