@@ -61,7 +61,7 @@
 		F5A051CA1C31C6F90078BCF5 /* EDDLaunchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A051C91C31C6F90078BCF5 /* EDDLaunchCell.m */; };
 		F5A29D541CCC13B0000F999F /* EDDDiscount.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A29D531CCC13B0000F999F /* EDDDiscount.m */; };
 		F5A29D571CCC13B9000F999F /* EDDCommission.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A29D561CCC13B9000F999F /* EDDCommission.m */; };
-		F5F0E93B1C36E1210023B0E4 /* EDDProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E93A1C36E1210023B0E4 /* EDDProduct.m */; };
+		F5F0E93B1C36E1210023B0E4 /* EDDDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E93A1C36E1210023B0E4 /* EDDDownload.m */; };
 		F5F0E93E1C36E2E50023B0E4 /* EDDSale.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E93D1C36E2E50023B0E4 /* EDDSale.m */; };
 		F5F0E9411C36E3B90023B0E4 /* EDDCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E9401C36E3B90023B0E4 /* EDDCustomer.m */; };
 		F5F0E94D1C3700840023B0E4 /* BEMAverageLine.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F0E9441C3700840023B0E4 /* BEMAverageLine.m */; };
@@ -179,8 +179,8 @@
 		F5A29D531CCC13B0000F999F /* EDDDiscount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDDiscount.m; sourceTree = "<group>"; };
 		F5A29D551CCC13B9000F999F /* EDDCommission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCommission.h; sourceTree = "<group>"; };
 		F5A29D561CCC13B9000F999F /* EDDCommission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDCommission.m; sourceTree = "<group>"; };
-		F5F0E9391C36E1210023B0E4 /* EDDProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDProduct.h; sourceTree = "<group>"; };
-		F5F0E93A1C36E1210023B0E4 /* EDDProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDProduct.m; sourceTree = "<group>"; };
+		F5F0E9391C36E1210023B0E4 /* EDDDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDDownload.h; sourceTree = "<group>"; };
+		F5F0E93A1C36E1210023B0E4 /* EDDDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDDownload.m; sourceTree = "<group>"; };
 		F5F0E93C1C36E2E50023B0E4 /* EDDSale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSale.h; sourceTree = "<group>"; };
 		F5F0E93D1C36E2E50023B0E4 /* EDDSale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSale.m; sourceTree = "<group>"; };
 		F5F0E93F1C36E3B90023B0E4 /* EDDCustomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDCustomer.h; sourceTree = "<group>"; };
@@ -386,8 +386,8 @@
 				F5A051911C2C20A40078BCF5 /* EDDSite.m */,
 				F5A051931C2CA8340078BCF5 /* EDDSites.h */,
 				F5A051941C2CA8340078BCF5 /* EDDSites.m */,
-				F5F0E9391C36E1210023B0E4 /* EDDProduct.h */,
-				F5F0E93A1C36E1210023B0E4 /* EDDProduct.m */,
+				F5F0E9391C36E1210023B0E4 /* EDDDownload.h */,
+				F5F0E93A1C36E1210023B0E4 /* EDDDownload.m */,
 				F5F0E93C1C36E2E50023B0E4 /* EDDSale.h */,
 				F5F0E93D1C36E2E50023B0E4 /* EDDSale.m */,
 				F5F0E93F1C36E3B90023B0E4 /* EDDCustomer.h */,
@@ -645,7 +645,7 @@
 				F5182EAD1C39827500D0DF65 /* EDDSiteSwitchViewController.m in Sources */,
 				F5A051951C2CA8340078BCF5 /* EDDSites.m in Sources */,
 				F5060F091C3920EE00165E7C /* EDDDashboardGraphTableViewCell.m in Sources */,
-				F5F0E93B1C36E1210023B0E4 /* EDDProduct.m in Sources */,
+				F5F0E93B1C36E1210023B0E4 /* EDDDownload.m in Sources */,
 				F556BDE41C334A1B00DBDE9A /* EDDReviewsViewController.m in Sources */,
 				F5FB87481B8E1B3B0011C8B4 /* UIColor+EDDUIColorCategory.m in Sources */,
 				F5182EB01C39E07900D0DF65 /* EDDEditDashboardViewController.m in Sources */,

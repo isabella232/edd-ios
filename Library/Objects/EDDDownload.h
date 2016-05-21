@@ -1,5 +1,5 @@
 //
-//  EDDProduct.h
+//  EDDDownload.h
 //  EDDSalesTracker
 //
 //  Created by Sunny Ratilal on 01/01/2016.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EDDProduct : NSObject <NSCoding>
+@interface EDDDownload : NSObject <NSCoding>
 
 @property (nonatomic) NSInteger productID;
 @property (nonatomic, strong) NSString *slug;

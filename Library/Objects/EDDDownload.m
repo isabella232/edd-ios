@@ -1,14 +1,14 @@
 //
-//  EDDProduct.m
+//  EDDDownload.m
 //  EDDSalesTracker
 //
 //  Created by Sunny Ratilal on 01/01/2016.
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
-#import "EDDProduct.h"
+#import "EDDDownload.h"
 
-@implementation EDDProduct
+@implementation EDDDownload
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
