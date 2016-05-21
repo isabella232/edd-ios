@@ -10,7 +10,7 @@
 
 @interface EDDSale : NSObject <NSCoding>
 
-@property (nonatomic) NSInteger *saleID;
+@property (nonatomic) NSInteger saleID;
 @property (nonatomic, strong) NSString *transactionID;
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic) BOOL hasDiscount;
