@@ -15,8 +15,8 @@
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic) BOOL hasDiscount;
 @property (nonatomic, strong) NSDictionary *discount;
-@property (nonatomic) long subtotal;
-@property (nonatomic) long tax;
+@property (nonatomic) double subtotal;
+@property (nonatomic) double tax;
 @property (nonatomic) BOOL hasFees;
 @property (nonatomic, strong) NSDictionary *fees;
 @property (nonatomic, strong) NSString *gateway;
