@@ -23,4 +23,8 @@ target 'EDDSalesTracker' do
   pod 'Mantle', '~> 2.0'
   pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
   pod 'MZFormSheetPresentationController', '~> 2.4'
+  pod 'SSKeychain'
+  pod 'SVProgressHUD'
+  pod 'TTTAttributedLabel'
+  pod 'Underscore.m'
 end
