@@ -26,8 +26,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
     
-    self.internetReachable = [Reachability reachabilityForInternetConnection];
-    [self.internetReachable startNotifier];
+//    self.internetReachable = [Reachability reachabilityForInternetConnection];
+//    [self.internetReachable startNotifier];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -35,21 +35,13 @@
     [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.internetReachable stopNotifier];
 }
-
 
 - (void)checkNetworkStatus:(NSNotification *)notice
 {
     NetworkStatus internetStatus = [self.internetReachable currentReachabilityStatus];
-    
-    if (internetStatus == ReachableViaWiFi) {
-        NSLog(@"internet works! :D");
-    }
-    
-    if (internetStatus == NotReachable) {
-        NSLog(@"internet broke! :(");
-        [self showNoInternetMessage];
-    }
+//    [self.networkStatusDelegate networkStatus:internetStatus];
 }
 
 - (void)showNoInternetMessage

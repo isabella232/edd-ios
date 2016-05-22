@@ -8,13 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		34B65D5C17559453009CFA73 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34B65D5B17559453009CFA73 /* FontAwesome.ttf */; };
-		690FB6BC1962E62D00D545CF /* EDDSettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B41962E62D00D545CF /* EDDSettingsHelper.m */; };
-		690FB6BD1962E62D00D545CF /* NSString+DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B71962E62D00D545CF /* NSString+DateHelper.m */; };
-		690FB6BE1962E62D00D545CF /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6B91962E62D00D545CF /* UIColor+Helpers.m */; };
-		690FB6C51962E66700D545CF /* UIView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */; };
-		690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */; };
+		3D22103E08697D8913154FD6 /* Pods_EDDSalesTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3D2B98A10F16E08382921D3 /* Pods_EDDSalesTracker.framework */; };
 		693CAA2319FBE5620016C3D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 693CAA2219FBE5620016C3D7 /* Images.xcassets */; };
-		693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */; };
 		6951D26216FA099700A24034 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951D26116FA099700A24034 /* Crashlytics.framework */; };
 		6961A8FF16F4C74E0042E7B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6961A8FE16F4C74E0042E7B9 /* QuartzCore.framework */; };
 		69659C7616E8ED62006BEE11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69659C7516E8ED62006BEE11 /* UIKit.framework */; };
@@ -76,19 +71,7 @@
 
 /* Begin PBXFileReference section */
 		34B65D5B17559453009CFA73 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
-		690FB6B31962E62D00D545CF /* EDDSettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSettingsHelper.h; sourceTree = "<group>"; };
-		690FB6B41962E62D00D545CF /* EDDSettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDSettingsHelper.m; sourceTree = "<group>"; };
-		690FB6B61962E62D00D545CF /* NSString+DateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DateHelper.h"; sourceTree = "<group>"; };
-		690FB6B71962E62D00D545CF /* NSString+DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DateHelper.m"; sourceTree = "<group>"; };
-		690FB6B81962E62D00D545CF /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
-		690FB6B91962E62D00D545CF /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
-		690FB6C31962E66700D545CF /* UIView+EDDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+EDDAdditions.h"; sourceTree = "<group>"; };
-		690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+EDDAdditions.m"; sourceTree = "<group>"; };
-		690FB6C91962F03500D545CF /* UIScrollView+EDDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EDDAdditions.h"; sourceTree = "<group>"; };
-		690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EDDAdditions.m"; sourceTree = "<group>"; };
 		693CAA2219FBE5620016C3D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EDDSalesTracker/Images.xcassets; sourceTree = "<group>"; };
-		693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDHelpers.h; sourceTree = "<group>"; };
-		693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDHelpers.m; sourceTree = "<group>"; };
 		6951D26116FA099700A24034 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6961A8FE16F4C74E0042E7B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		69659C7216E8ED62006BEE11 /* EDDSalesTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EDDSalesTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +86,9 @@
 		69659CD616E8F3CA006BEE11 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		69659CD816E8F3D6006BEE11 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		69A993641962328A004CAF85 /* EDDAppDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EDDAppDefines.h; sourceTree = "<group>"; };
+		836681D464BA663C7180F39A /* Pods-EDDSalesTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		92E16D17FB07A3D250F709B5 /* Pods-EDDSalesTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDDSalesTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker.release.xcconfig"; sourceTree = "<group>"; };
+		E3D2B98A10F16E08382921D3 /* Pods_EDDSalesTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EDDSalesTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5060F071C3920EE00165E7C /* EDDDashboardGraphTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDDashboardGraphTableViewCell.h; sourceTree = "<group>"; };
 		F5060F081C3920EE00165E7C /* EDDDashboardGraphTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDDashboardGraphTableViewCell.m; sourceTree = "<group>"; };
 		F5060F0D1C39328400165E7C /* EDDSalesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDSalesTableViewCell.h; sourceTree = "<group>"; };
@@ -221,6 +207,7 @@
 				69659C7A16E8ED62006BEE11 /* CoreGraphics.framework in Frameworks */,
 				6951D26216FA099700A24034 /* Crashlytics.framework in Frameworks */,
 				F515128C1C32F2F200455593 /* libGoogleAnalyticsServices.a in Frameworks */,
+				3D22103E08697D8913154FD6 /* Pods_EDDSalesTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,30 +222,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		690FB6B21962E62D00D545CF /* Helpers */ = {
+		67990B7F603125CCA634E53F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				693CAA2419FBFCBD0016C3D7 /* EDDHelpers.h */,
-				693CAA2519FBFCBD0016C3D7 /* EDDHelpers.m */,
-				690FB6B31962E62D00D545CF /* EDDSettingsHelper.h */,
-				690FB6B41962E62D00D545CF /* EDDSettingsHelper.m */,
+				836681D464BA663C7180F39A /* Pods-EDDSalesTracker.debug.xcconfig */,
+				92E16D17FB07A3D250F709B5 /* Pods-EDDSalesTracker.release.xcconfig */,
 			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		690FB6B51962E62D00D545CF /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				690FB6B61962E62D00D545CF /* NSString+DateHelper.h */,
-				690FB6B71962E62D00D545CF /* NSString+DateHelper.m */,
-				690FB6B81962E62D00D545CF /* UIColor+Helpers.h */,
-				690FB6B91962E62D00D545CF /* UIColor+Helpers.m */,
-				690FB6C31962E66700D545CF /* UIView+EDDAdditions.h */,
-				690FB6C41962E66700D545CF /* UIView+EDDAdditions.m */,
-				690FB6C91962F03500D545CF /* UIScrollView+EDDAdditions.h */,
-				690FB6CA1962F03500D545CF /* UIScrollView+EDDAdditions.m */,
-			);
-			path = Categories;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		69659C6916E8ED62006BEE11 = {
@@ -269,9 +239,9 @@
 				F5FB87111B8E10FA0011C8B4 /* UI */,
 				69659C9316E8ED99006BEE11 /* Resources */,
 				69659C9816E8ED99006BEE11 /* Supporting Files */,
-				69659CE916EA3B3D006BEE11 /* Utility */,
 				69659C7416E8ED62006BEE11 /* Frameworks */,
 				69659C7316E8ED62006BEE11 /* Products */,
+				67990B7F603125CCA634E53F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -298,6 +268,7 @@
 				69659C7516E8ED62006BEE11 /* UIKit.framework */,
 				69659C7716E8ED62006BEE11 /* Foundation.framework */,
 				69659C7916E8ED62006BEE11 /* CoreGraphics.framework */,
+				E3D2B98A10F16E08382921D3 /* Pods_EDDSalesTracker.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -323,15 +294,6 @@
 				69A993641962328A004CAF85 /* EDDAppDefines.h */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		69659CE916EA3B3D006BEE11 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				690FB6B51962E62D00D545CF /* Categories */,
-				690FB6B21962E62D00D545CF /* Helpers */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		F54F74151C32EDFD0078517A /* GoogleAnalytics */ = {
@@ -540,10 +502,10 @@
 		F5FB87441B8E1A870011C8B4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				F5A051AF1C2DDA260078BCF5 /* Vendor */,
-				F5A051AB1C2DD86E0078BCF5 /* Services */,
-				F5A0518F1C2C20920078BCF5 /* Objects */,
 				F5FB87451B8E1A980011C8B4 /* Categories */,
+				F5A0518F1C2C20920078BCF5 /* Objects */,
+				F5A051AB1C2DD86E0078BCF5 /* Services */,
+				F5A051AF1C2DDA260078BCF5 /* Vendor */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -566,9 +528,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69659C8F16E8ED63006BEE11 /* Build configuration list for PBXNativeTarget "EDDSalesTracker" */;
 			buildPhases = (
+				9FEA6D238E0CFAC9B36CF939 /* 📦 Check Pods Manifest.lock */,
 				69659C6E16E8ED62006BEE11 /* Sources */,
 				69659C6F16E8ED62006BEE11 /* Frameworks */,
 				69659C7016E8ED62006BEE11 /* Resources */,
+				72B6F0DEC1419A38ABD3CB2C /* 📦 Embed Pods Frameworks */,
+				3DB54BC6638388796C712BD0 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -630,6 +595,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3DB54BC6638388796C712BD0 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72B6F0DEC1419A38ABD3CB2C /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDDSalesTracker/Pods-EDDSalesTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FEA6D238E0CFAC9B36CF939 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		69659C6E16E8ED62006BEE11 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -654,13 +667,9 @@
 				F5A29D541CCC13B0000F999F /* EDDDiscount.m in Sources */,
 				F5A051CA1C31C6F90078BCF5 /* EDDLaunchCell.m in Sources */,
 				F5A0518E1C2C1ABC0078BCF5 /* UIImage+EDDUIImageCategory.m in Sources */,
-				690FB6CB1962F03500D545CF /* UIScrollView+EDDAdditions.m in Sources */,
 				F5A051C11C2E12870078BCF5 /* EDDDashboardStaticTableViewCell.m in Sources */,
-				693CAA2619FBFCBD0016C3D7 /* EDDHelpers.m in Sources */,
-				690FB6BD1962E62D00D545CF /* NSString+DateHelper.m in Sources */,
 				F5F0E94E1C3700840023B0E4 /* BEMCircle.m in Sources */,
 				F5A29D571CCC13B9000F999F /* EDDCommission.m in Sources */,
-				690FB6BE1962E62D00D545CF /* UIColor+Helpers.m in Sources */,
 				F5F0E94F1C3700840023B0E4 /* BEMLine.m in Sources */,
 				F5A0519E1C2D588F0078BCF5 /* EDDCustomersViewController.m in Sources */,
 				F5F0E9411C36E3B90023B0E4 /* EDDCustomer.m in Sources */,
@@ -677,8 +686,6 @@
 				F5060F0F1C39328400165E7C /* EDDSalesTableViewCell.m in Sources */,
 				F5F0E93E1C36E2E50023B0E4 /* EDDSale.m in Sources */,
 				F5F0E9511C3700840023B0E4 /* BEMSimpleLineGraphView.m in Sources */,
-				690FB6C51962E66700D545CF /* UIView+EDDAdditions.m in Sources */,
-				690FB6BC1962E62D00D545CF /* EDDSettingsHelper.m in Sources */,
 				F5FB871D1B8E125B0011C8B4 /* EDDLaunchController.m in Sources */,
 				F5A0518B1C2C056A0078BCF5 /* EDDPickerViewController.m in Sources */,
 				F5060F121C39411B00165E7C /* EDDCachingAgent.m in Sources */,
@@ -748,6 +755,7 @@
 		};
 		69659C9016E8ED63006BEE11 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 836681D464BA663C7180F39A /* Pods-EDDSalesTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -776,6 +784,7 @@
 		};
 		69659C9116E8ED63006BEE11 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92E16D17FB07A3D250F709B5 /* Pods-EDDSalesTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

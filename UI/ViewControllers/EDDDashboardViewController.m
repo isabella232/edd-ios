@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "Reachability.h"
 
 #import "EDDNetworkService.h"
 #import "EDDDashboardViewController.h"
@@ -32,6 +33,8 @@
 @property (nonatomic) BOOL earningsStatsCompleted;
 @property (nonatomic) BOOL commissionsStatsCompleted;
 @property (nonatomic) BOOL storeCommissionsStatsCompleted;
+
+@property (nonatomic, strong) Reachability *internetReachable;
 
 @end
 
@@ -97,6 +100,27 @@
     [self.refreshControl setBackgroundColor:[UIColor whiteColor]];
     [self.tableView addSubview:self.refreshControl];
     [self.tableView sendSubviewToBack:self.refreshControl];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)checkNetworkStatus:(NSNotification *)notice
+{
+    NetworkStatus internetStatus = [self.internetReachable currentReachabilityStatus];
+    if (internetStatus == ReachableViaWiFi) {
+        NSLog(@"Reachable via Wi-Fi");
+    }
+    
+    if (internetStatus == NotReachable) {
+        NSLog(@"Not reachable");
+    }
 }
 
 - (void)dealloc
@@ -412,6 +436,13 @@
 - (void)statusBarTapped
 {
     [self.tableView setContentOffset:CGPointZero animated:YES];
+}
+
+# pragma mark - EDDNetworkStatus Protocol
+
+- (void)networkStatus:(NetworkStatus)status
+{
+    NSLog(@"%ld", (long)status);
 }
 
 @end

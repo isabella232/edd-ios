@@ -11,7 +11,6 @@
 
 #import "EDDAppDelegate.h"
 #import "EDDAppDefines.h"
-#import "EDDHelpers.h"
 #import "EDDLaunchController.h"
 #import "EDDSiteController.h"
 #import "EDDSites.h"
@@ -241,8 +240,6 @@ static NSString *const kTrackingId = @"UA-52425914-1";
     self.internetReachability = [Reachability reachabilityForInternetConnection];
     
     [self.internetReachability startNotifier];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
