@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import SSKeychain
 
 let CreatedTimestampKey = "createdAt"
 
@@ -55,6 +56,29 @@ public final class Site: ManagedObject {
     public static func predicateForDefaultSite() -> NSPredicate {
         let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")!
         return NSPredicate(format: "uid == %@", defaultSiteId)
+    }
+    
+    public static func defaultSite(moc: NSManagedObjectContext) -> Site {
+        let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")
+        
+        let fetchRequest = NSFetchRequest(entityName: "Site")
+        let predicate = NSPredicate(format: "uid == %@", defaultSiteId!)
+        fetchRequest.predicate = predicate
+        
+        let site: Site = Site.fetchSingleObjectInContext(moc, cacheKey: "defauleSiteObject") { (request) in
+            request.predicate = self.predicateForDefaultSite()
+            request.fetchLimit = 1
+            }!
+
+        let auth = SSKeychain.accountsForService(site.uid)
+        let data = auth[0] as NSDictionary
+        let acct = data.objectForKey("acct") as! String
+        let password = SSKeychain.passwordForService(site.uid, account: acct)
+        
+        site.key = acct
+        site.token = password
+
+        return site
     }
 
 }

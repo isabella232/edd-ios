@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let sharedInstance = AppDelegate()
     
     var window: UIWindow?
-    var defaultSite: Site?
-    
+
     let managedObjectContext = createEDDMainContext()
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
@@ -55,8 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = login
         } else {
             setupShortcutItems()
-            setupDefaultSite()
-            site = SiteTabBarController(site: defaultSite!)
+            site = SiteTabBarController(site: Site.defaultSite(managedObjectContext))
             self.window?.rootViewController = site
         }
         
@@ -104,29 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             return false
         }
-    }
-    
-    private func setupDefaultSite() {
-        let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")
-
-        let fetchRequest = NSFetchRequest(entityName: "Site")
-        let predicate = NSPredicate(format: "uid == %@", defaultSiteId!)
-        fetchRequest.predicate = predicate
-        
-        let site: Site = Site.fetchSingleObjectInContext(managedObjectContext, cacheKey: "defauleSiteObject") { (request) in
-            request.predicate = Site.predicateForDefaultSite()
-            request.fetchLimit = 1
-        }!
-
-        let auth = SSKeychain.accountsForService(site.uid)
-        let data = auth[0] as NSDictionary
-        let acct = data.objectForKey("acct") as! String
-        let password = SSKeychain.passwordForService(site.uid, account: acct)
-
-        site.key = acct
-        site.token = password
-        
-        self.defaultSite = site
     }
     
     func configureGlobalAppearance() {
