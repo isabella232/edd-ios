@@ -78,14 +78,6 @@ public final class Site: ManagedObject {
 
         return site
     }
-    
-    public static func lastActiveSite() -> String? {
-        guard let activeSite = NSUserDefaults.standardUserDefaults().stringForKey("activeSite") else {
-            return nil
-        }
-
-        return activeSite
-    }
 
 }
 
