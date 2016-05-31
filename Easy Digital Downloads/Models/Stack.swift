@@ -8,7 +8,7 @@
 
 import CoreData
 
-private let StoreURL = NSURL.documentsURL.URLByAppendingPathComponent("EDD.edd")
+private let StoreURL = NSURL.documentsURL.URLByAppendingPathComponent("EDD.momd")
 
 public func createEDDMainContext() -> NSManagedObjectContext {
     let bundles = [NSBundle(forClass: Site.self)]
