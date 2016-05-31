@@ -96,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         managedObjectContext.performSaveOrRollback()
     }
     
+    // MARK: Private
+    
     private func noSitesSetup() -> Bool {
         if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
             return true
@@ -104,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func configureGlobalAppearance() {
+    private func configureGlobalAppearance() {
         let navigationBar = UINavigationBar.appearance()
         navigationBar.translucent = false
         navigationBar.barStyle = .BlackTranslucent
