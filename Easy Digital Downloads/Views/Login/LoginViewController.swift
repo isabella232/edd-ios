@@ -17,8 +17,7 @@ import SafariServices
 class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ManagedObjectContextSettable {
     
     var managedObjectContext: NSManagedObjectContext!
-    
-    var site = [NSManagedObject]()
+    var site: Site!
     
     var currencies = ["USD", "AFN", "ALL", "ANG", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BGN", "BMD", "BND", "BOB", "BRL", "BSD", "BWP", "BYR", "BZD", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CUP", "CZK", "DKK", "DOP", "EEK", "EGP", "EUR", "FJD", "FKP", "GBP", "GGP", "GHC", "GIP", "GTQ", "GYD", "HKD", "HNL", "HRK", "HUF", "IDR", "ILS", "IMP", "INR", "IRR", "ISK", "JEP", "JMD", "JPY", "KGS", "KHR", "KPW", "KRW", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LTL", "LVL", "MKD", "MNT", "MUR", "MXN", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "SAR", "SBD", "SCR", "SEK", "SGD", "SHP", "SOS", "SRD", "SVC", "SYP", "THB", "TRL", "TRY", "TTD", "TVD", "TWD", "UAH", "UYU", "UZS", "VEF", "VND", "XCD", "YER", "ZAR", "ZWD"]
     var types = ["Standard", "Commission Only", "Standard & Commission", "Standard & Store"]
@@ -379,7 +378,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                         let json = JSON(response.result.value!)
                         if json["products"].arrayObject != nil {
                             self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
-//                            let site = self.addSite()
+                            let uid = NSUUID().UUIDString
+                            var type: Int16
+                            
+                            switch self._type {
+                            case "Standard":
+                                type = SiteType.Standard.rawValue
+                            case "Commission Only":
+                                type = SiteType.Commission.rawValue
+                            case "Standard & Commission" :
+                                type = SiteType.StandardCommission.rawValue
+                            case "Standard & Store":
+                                type = SiteType.StandardStore.rawValue
+                            default:
+                                type = SiteType.Standard.rawValue
+                            }
+                            
+                            SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
+                            
+                            if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
+                                NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
+                            }
+                            
+                            let siteVal = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")
+                            NSLog(siteVal!)
+                            
+                            self.managedObjectContext.performChanges {
+                                Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency)
+                                self.managedObjectContext.performSaveOrRollback()
+                            }
+
                             UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
                                 self.logo.transform = CGAffineTransformMakeTranslation(0, -200)
                                 self.addButton.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
@@ -421,57 +449,37 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         let regEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
         return NSPredicate(format: "SELF MATCHES %@", regEx).evaluateWithObject(urlString)
     }
-
     
-//    func addSite() -> Site {
-//        let uuid = NSUUID().UUIDString
-//
-//        SSKeychain.setPassword(token.text, forService: uuid, account: apiKey.text)
-//
-//        if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
-//            NSUserDefaults.standardUserDefaults().setValue(uuid, forKey: "defaultSite")
-//        }
-//        
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedObjectContext = appDelegate.managedObjectContext
-//        let entity = NSEntityDescription.entityForName("Site", inManagedObjectContext: managedObjectContext)
-//        let site = Site(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
-//        
-//        site.uid = uuid
-//        site.name = siteName.text
-//        site.url = siteURL.text
-//        site.currency = _currency
-//        
-//        if _type == "Standard" {
-//            site.typeEnum = SiteType.Standard
-//        }
-//        
-//        if _type == "Commission Only" {
-//            site.typeEnum = SiteType.Commission
-//        }
-//        
-//        if _type == "Standard & Commission" {
-//            site.typeEnum = SiteType.StandardCommission
-//        }
-//        
-//        if _type == "Standard & Store" {
-//            site.typeEnum = SiteType.StandardStore
-//        }
-//        
-//        do {
-//            try managedObjectContext.save()
-//            self.site.append(site)
-//        } catch {
-//            NSLog("error")
-//        }
-//        
-//        let siteObject = Site()
-//        siteObject.uid = site.uid
-//        siteObject.name = site.name
-//        siteObject.url = site.url
-//        siteObject.currency = site.currency
-//        siteObject.typeEnum = site.typeEnum
-//        
-//        return siteObject
-//    }
+    // MARK: Persisting
+    
+    func addSite() -> Site? {
+        let uid = NSUUID().UUIDString
+        var type: Int16
+        
+        switch self._type {
+        case "Standard":
+            type = SiteType.Standard.rawValue
+        case "Commission Only":
+            type = SiteType.Commission.rawValue
+        case "Standard & Commission" :
+            type = SiteType.StandardCommission.rawValue
+        case "Standard & Store":
+            type = SiteType.StandardStore.rawValue
+        default:
+            type = SiteType.Standard.rawValue
+        }
+        
+        SSKeychain.setPassword(token.text, forService: uid, account: apiKey.text)
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
+            NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
+        }
+
+        self.managedObjectContext.performChanges {
+            NSLog("performChanges block")
+            Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency)
+        }
+        
+        return Site()
+    }
 }

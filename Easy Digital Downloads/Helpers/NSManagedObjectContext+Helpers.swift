@@ -9,7 +9,7 @@
 import CoreData
 
 extension NSManagedObjectContext {
-
+    
     private var store: NSPersistentStore {
         guard let psc = persistentStoreCoordinator else { fatalError("PSC missing") }
         guard let store = psc.persistentStores.first else { fatalError("No Store") }
@@ -36,6 +36,7 @@ extension NSManagedObjectContext {
     }
     
     public func insertObject<A: ManagedObject where A: ManagedObjectType>() -> A {
+        NSLog("insertObject called")
         guard let obj = NSEntityDescription.insertNewObjectForEntityForName(A.entityName, inManagedObjectContext: self) as? A else { fatalError("Wrong object type") }
         return obj
     }
@@ -51,8 +52,7 @@ extension NSManagedObjectContext {
         context.persistentStoreCoordinator = persistentStoreCoordinator
         return context
     }
-    
-    
+
     public func saveOrRollback() -> Bool {
         do {
             try save()
@@ -82,7 +82,7 @@ extension NSManagedObjectContext {
         }
         return nil
     }
-
+    
 }
 
 private let SingleObjectCacheKey = "SingleObjectCache"
@@ -100,4 +100,3 @@ extension NSManagedObjectContext {
         return cache[key]
     }
 }
-

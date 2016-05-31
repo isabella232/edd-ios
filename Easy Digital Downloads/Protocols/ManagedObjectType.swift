@@ -73,7 +73,6 @@ extension ManagedObjectType where Self: ManagedObject {
         return obj
     }
     
-    
     public static func findOrFetchInContext(moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate) -> Self? {
         guard let obj = materializedObjectInContext(moc, matchingPredicate: predicate) else {
             return fetchInContext(moc) { request in

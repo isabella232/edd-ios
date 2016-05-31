@@ -41,9 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDASLLogger())
         DDLog.addLogger(DDTTYLogger())
         DDLogVerbose("didFinishLaunchingWithOptions state: \(application.applicationState)")
+        
+        let defaultSiteObject = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite")
+        NSLog("defaultSite: \(defaultSiteObject)")
 
-        let domainName = NSBundle.mainBundle().bundleIdentifier!
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
+//        let domainName = NSBundle.mainBundle().bundleIdentifier!
+//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
         
         NetworkActivityIndicatorManager.sharedManager.isEnabled = true
         
@@ -109,10 +112,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func noSitesSetup() -> Bool {
-        if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") != nil {
-            return false
-        } else {
+        if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
             return true
+        } else {
+            return false
         }
     }
     

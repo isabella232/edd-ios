@@ -56,6 +56,7 @@
         <attribute name="total" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
     </entity>
     <entity name="Site" representedClassName=".Site" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="currency" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -67,11 +68,11 @@
         <attribute name="sales" attributeType="Transformable" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Site" positionX="-54" positionY="-9" width="128" height="120"/>
-        <element name="Sale" positionX="-54" positionY="27" width="128" height="195"/>
-        <element name="Product" positionX="-45" positionY="36" width="128" height="240"/>
         <element name="Customer" positionX="-27" positionY="45" width="128" height="180"/>
         <element name="Discount" positionX="-9" positionY="54" width="128" height="270"/>
+        <element name="Product" positionX="-45" positionY="36" width="128" height="240"/>
+        <element name="Sale" positionX="-54" positionY="27" width="128" height="195"/>
+        <element name="Site" positionX="-54" positionY="-9" width="128" height="135"/>
         <element name="Stats" positionX="9" positionY="63" width="128" height="75"/>
     </elements>
 </model>
