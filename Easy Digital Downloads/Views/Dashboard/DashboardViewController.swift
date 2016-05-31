@@ -59,6 +59,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         tableView.bounces = true
         tableView.separatorStyle = .None
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
