@@ -35,6 +35,9 @@
 		F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3D41CFBA32A00F9F1FF /* ConfigurableCell.swift */; };
 		F5FAF3D71CFBA6EF00F9F1FF /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3D61CFBA6EF00F9F1FF /* DataSource.swift */; };
 		F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3D81CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift */; };
+		F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3DA1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift */; };
+		F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3DC1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift */; };
+		F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3DE1CFDBB2300F9F1FF /* SequenceType+Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +84,9 @@
 		F5FAF3D41CFBA32A00F9F1FF /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		F5FAF3D61CFBA6EF00F9F1FF /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		F5FAF3D81CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Helpers.swift"; sourceTree = "<group>"; };
+		F5FAF3DA1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
+		F5FAF3DC1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Observers.swift"; sourceTree = "<group>"; };
+		F5FAF3DE1CFDBB2300F9F1FF /* SequenceType+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SequenceType+Utilities.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +253,8 @@
 				F5EF5E9D1CF314FA00298841 /* Branding.swift */,
 				F5FAF3C21CFB5FCC00F9F1FF /* NSURL+Utilities.swift */,
 				F5FAF3D81CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift */,
+				F5FAF3DC1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift */,
+				F5FAF3DE1CFDBB2300F9F1FF /* SequenceType+Utilities.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -268,6 +276,7 @@
 				F5FAF3CE1CFBA1B800F9F1FF /* DataProvider.swift */,
 				F5FAF3D21CFBA30800F9F1FF /* TableViewDataSource.swift */,
 				F5FAF3D61CFBA6EF00F9F1FF /* DataSource.swift */,
+				F5FAF3DA1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift */,
 			);
 			path = "Data Sources and Providers";
 			sourceTree = "<group>";
@@ -409,13 +418,16 @@
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
+				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
 				F5FAF3C31CFB5FCC00F9F1FF /* NSURL+Utilities.swift in Sources */,
 				F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */,
 				F5FAF3CD1CFBA18100F9F1FF /* FetchedResultsDataProvider.swift in Sources */,
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
+				F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */,
 				F5FAF3CA1CFB64C800F9F1FF /* ManagedObjectType.swift in Sources */,
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
+				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
 				F5FAF3C81CFB628A00F9F1FF /* ManagedObjectContextSettable.swift in Sources */,
 				F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */,
 			);
