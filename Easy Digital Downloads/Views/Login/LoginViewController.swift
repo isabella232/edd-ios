@@ -119,7 +119,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         siteName.placeholder = NSLocalizedString("Site Name", comment: "")
         siteName.delegate = self
         siteName.accessibilityIdentifier = "Site Name"
-        siteName.text = "Easy Digital Downloads"
         
         siteURL.tag = 2
         siteURL.placeholder = NSLocalizedString("Site URL", comment: "")
@@ -127,20 +126,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         siteURL.accessibilityIdentifier = "Site URL"
         siteURL.autocapitalizationType = .None
         siteURL.keyboardType = .URL
-        siteURL.text = "https://easydigitaldownloads.com/"
         
         apiKey.tag = 3
         apiKey.placeholder = NSLocalizedString("API Key", comment: "")
         apiKey.delegate = self
         apiKey.accessibilityIdentifier = "API Key"
         apiKey.autocapitalizationType = .None
-        apiKey.text = "854248159bdfbeea97c82cd00e764565"
         
         token.tag = 4
         token.placeholder = NSLocalizedString("Token", comment: "")
         token.delegate = self
         token.accessibilityIdentifier = "Token"
-        token.text = "1eeb8e8833d7057b81feea3b45d2e19b"
         
         currency.tag = 5
         currency.placeholder = NSLocalizedString("Currency", comment: "")
@@ -149,7 +145,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         currency.inputAccessoryView = toolBar
         currency.accessibilityIdentifier = "Currency"
         currency.disableEditing = true
-        currency.text = "Currency: USD"
 
         type.tag = 6
         type.placeholder = NSLocalizedString("Type of Site", comment: "")
@@ -158,7 +153,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         type.inputAccessoryView = toolBar
         type.accessibilityIdentifier = "Type of Site"
         type.disableEditing = true
-        type.text = "Type of Site: Standard"
         
         addButton.addTarget(self, action: #selector(LoginViewController.addButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         addButton.setTitle("Add Site", forState: UIControlState.Normal)
