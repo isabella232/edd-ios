@@ -1,30 +1,20 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-install! 'cocoapods',
-         :deterministic_uuids => false
-         
+inhibit_all_warnings!
 use_frameworks!
 
 platform :ios, '9.0'
 
-
-target 'EDDSalesTracker' do
-  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
-
-  # Pods for EDDSalesTracker
-  pod '1PasswordExtension', '~> 1.8.1'
-  pod 'AFNetworking', '~> 3.1'
-  pod 'Reachability', '~> 3.2'
+target 'Easy Digital Downloads' do
+  pod 'Alamofire', '~> 3.4'
+  pod 'AlamofireNetworkActivityIndicator', '~> 1.0'
+  pod 'BEMSimpleLineGraph'
+  pod 'CocoaLumberjack/Swift'
   pod 'Gridicons', :podspec => 'https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec'
-  pod 'BZGFormViewController', '~> 2.4'
-  pod 'GBDeviceInfo', '~> 3.5'
-  pod 'iRate', '~> 1.11'
-  pod 'Mantle', '~> 2.0'
   pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
   pod 'MZFormSheetPresentationController', '~> 2.4'
   pod 'SSKeychain'
   pod 'SVProgressHUD'
+  pod 'SwiftyJSON', '~> 2.3'
   pod 'TTTAttributedLabel'
-  pod 'Underscore.m'
 end

@@ -1,100 +1,37 @@
 PODS:
-  - 1PasswordExtension (1.8.1)
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
-  - BZGFormViewController (2.4.5):
-    - libextobjc (~> 0.4)
-    - libPhoneNumber-iOS (~> 0.7)
-    - ReactiveCocoa (~> 2.3)
-  - GBDeviceInfo (3.8.0):
-    - GBDeviceInfo/Core (= 3.8.0)
-  - GBDeviceInfo/Core (3.8.0)
+  - Alamofire (3.4.0)
+  - AlamofireNetworkActivityIndicator (1.0.1):
+    - Alamofire (~> 3.3)
+  - BEMSimpleLineGraph (4.1)
+  - CocoaLumberjack/Core (2.3.0)
+  - CocoaLumberjack/Default (2.3.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.3.0):
+    - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.3.0):
+    - CocoaLumberjack/Extensions
   - Gridicons (0.2)
-  - iRate (1.11.4)
-  - libextobjc (0.4.1):
-    - libextobjc/EXTADT (= 0.4.1)
-    - libextobjc/EXTConcreteProtocol (= 0.4.1)
-    - libextobjc/EXTKeyPathCoding (= 0.4.1)
-    - libextobjc/EXTNil (= 0.4.1)
-    - libextobjc/EXTSafeCategory (= 0.4.1)
-    - libextobjc/EXTScope (= 0.4.1)
-    - libextobjc/EXTSelectorChecking (= 0.4.1)
-    - libextobjc/EXTSynthesize (= 0.4.1)
-    - libextobjc/NSInvocation+EXT (= 0.4.1)
-    - libextobjc/NSMethodSignature+EXT (= 0.4.1)
-    - libextobjc/RuntimeExtensions (= 0.4.1)
-    - libextobjc/UmbrellaHeader (= 0.4.1)
-  - libextobjc/EXTADT (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTConcreteProtocol (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTKeyPathCoding (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTNil (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSafeCategory (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTScope (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSelectorChecking (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSynthesize (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/NSInvocation+EXT (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/NSMethodSignature+EXT (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.4.1)
-  - libextobjc/UmbrellaHeader (0.4.1)
-  - libPhoneNumber-iOS (0.8.12)
-  - Mantle (2.0.7):
-    - Mantle/extobjc (= 2.0.7)
-  - Mantle/extobjc (2.0.7)
   - MCDateExtensions (1.0.2)
   - MZAppearance (1.1.6)
   - MZFormSheetPresentationController (2.4.0):
     - MZAppearance
-  - Reachability (3.2)
-  - ReactiveCocoa (2.5):
-    - ReactiveCocoa/UI (= 2.5)
-  - ReactiveCocoa/Core (2.5):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.5)
-  - ReactiveCocoa/UI (2.5):
-    - ReactiveCocoa/Core
   - SSKeychain (1.4.0)
   - SVProgressHUD (2.0.3)
+  - SwiftyJSON (2.3.2)
   - TTTAttributedLabel (2.0.0)
-  - Underscore.m (0.3.0)
 
 DEPENDENCIES:
-  - 1PasswordExtension (~> 1.8.1)
-  - AFNetworking (~> 3.1)
-  - BZGFormViewController (~> 2.4)
-  - GBDeviceInfo (~> 3.5)
+  - Alamofire (~> 3.4)
+  - AlamofireNetworkActivityIndicator (~> 1.0)
+  - BEMSimpleLineGraph
+  - CocoaLumberjack/Swift
   - Gridicons (from `https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec`)
-  - iRate (~> 1.11)
-  - Mantle (~> 2.0)
   - MCDateExtensions (from `https://github.com/mirego/MCDateExtensions.git`)
   - MZFormSheetPresentationController (~> 2.4)
-  - Reachability (~> 3.2)
   - SSKeychain
   - SVProgressHUD
+  - SwiftyJSON (~> 2.3)
   - TTTAttributedLabel
-  - Underscore.m
 
 EXTERNAL SOURCES:
   Gridicons:
@@ -108,25 +45,19 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mirego/MCDateExtensions.git
 
 SPEC CHECKSUMS:
-  1PasswordExtension: 00d6f4caae77c19ba33045b8569fbeb9689f0d1d
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  BZGFormViewController: dbb4092b3dfd66d6ddcc3d8dd3d7c8eb4b37075c
-  GBDeviceInfo: 614c1088c04a634593e3ab51e5b884a0bb1b7e50
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
+  BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
+  CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   Gridicons: 5c33065054b19e56a47d252b52e321746b97a414
-  iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
-  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  libPhoneNumber-iOS: 3f1889b70403cf7848c0e4136780a0d0aef9016d
-  Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   MCDateExtensions: 93f067b198405405f12c73208619caa436e30bee
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetPresentationController: 3b9b6d76adc9f81c2defd0bb59e0f3dc2431e41e
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
-  Underscore.m: dc9ca06fe2c9a79d01ce20c3d2c1e8f91f2d92dc
 
-PODFILE CHECKSUM: 262304a06560a93b25ed2325343cf931d00e4548
+PODFILE CHECKSUM: 156509a4401cf667f8b0ac212e0e521a21352cfb
 
 COCOAPODS: 1.0.0
