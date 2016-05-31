@@ -28,7 +28,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.init(style: .Plain)
 
         self.site = site
-        
+
         title = NSLocalizedString("Dashboard", comment: "Dashboard title")
         tableView.delegate = self
         tableView.dataSource = self

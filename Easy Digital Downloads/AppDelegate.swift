@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetworkActivityIndicatorManager.sharedManager.isEnabled = true
         
+        EDDAPIWrapper.sharedInstance
+        
         let site: SiteTabBarController?
         let login: LoginViewController?
         
@@ -54,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = login
         } else {
             setupShortcutItems()
-            site = SiteTabBarController(site: Site.defaultSite(managedObjectContext))
+            site = SiteTabBarController(site: Site.defaultSite())
             self.window?.rootViewController = site
         }
         
