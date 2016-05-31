@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+let CreatedTimestampKey = "createdAt"
+
 enum SiteType: Int16 {
     case Standard = 0
     case Store = 1
@@ -24,6 +26,7 @@ public final class Site: ManagedObject {
     @NSManaged public private(set) var url: String?
     @NSManaged public private(set) var type: NSNumber?
     @NSManaged public private(set) var currency: String?
+    @NSManaged public private(set) var date: NSDate?
 
     var key: String = ""
     var token: String = ""
@@ -54,6 +57,14 @@ extension Site: ManagedObjectType {
     
     public static var entityName: String {
         return "Site"
+    }
+    
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: CreatedTimestampKey, ascending: false)]
+    }
+    
+    public static var defaultPredicate: NSPredicate {
+        return NSPredicate()
     }
     
 }
