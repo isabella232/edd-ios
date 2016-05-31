@@ -72,8 +72,15 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        tableView.reloadData()
-        refreshControl.endRefreshing()
+        if refreshControl.refreshing {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                // refresh code
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                    refreshControl.performSelector(#selector(refreshControl.endRefreshing), withObject: nil, afterDelay: 0.05)
+                })
+            })
+        }
     }
     
     private func setupTableView() {
@@ -107,4 +114,5 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         return cell
     }
+
 }
