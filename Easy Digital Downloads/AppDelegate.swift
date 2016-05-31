@@ -42,9 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDTTYLogger())
         DDLogVerbose("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
-        let defaultSiteObject = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite")
-        NSLog("defaultSite: \(defaultSiteObject)")
-
 //        let domainName = NSBundle.mainBundle().bundleIdentifier!
 //        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
         

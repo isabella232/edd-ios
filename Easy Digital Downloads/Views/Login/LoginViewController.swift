@@ -400,11 +400,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                                 NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
                             }
                             
-                            let siteVal = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")
-                            NSLog(siteVal!)
+                            var site: Site?
                             
                             self.managedObjectContext.performChanges {
-                                Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency)
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency)
                                 self.managedObjectContext.performSaveOrRollback()
                             }
 
@@ -417,9 +416,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                                     field.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
                                 }
                                 }, completion: { (finished: Bool) -> Void in
-//                                    let tabBarController = SiteTabBarController(site: site)
-//                                    tabBarController.modalPresentationStyle = .OverCurrentContext
-//                                    self.presentViewController(tabBarController, animated: true, completion:nil)
+                                    let tabBarController = SiteTabBarController(site: site!)
+                                    tabBarController.modalPresentationStyle = .OverCurrentContext
+                                    self.presentViewController(tabBarController, animated: true, completion:nil)
                             })
                         }
                         break;
@@ -449,37 +448,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         let regEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
         return NSPredicate(format: "SELF MATCHES %@", regEx).evaluateWithObject(urlString)
     }
-    
-    // MARK: Persisting
-    
-    func addSite() -> Site? {
-        let uid = NSUUID().UUIDString
-        var type: Int16
-        
-        switch self._type {
-        case "Standard":
-            type = SiteType.Standard.rawValue
-        case "Commission Only":
-            type = SiteType.Commission.rawValue
-        case "Standard & Commission" :
-            type = SiteType.StandardCommission.rawValue
-        case "Standard & Store":
-            type = SiteType.StandardStore.rawValue
-        default:
-            type = SiteType.Standard.rawValue
-        }
-        
-        SSKeychain.setPassword(token.text, forService: uid, account: apiKey.text)
-        
-        if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
-            NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
-        }
 
-        self.managedObjectContext.performChanges {
-            NSLog("performChanges block")
-            Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency)
-        }
-        
-        return Site()
-    }
 }
