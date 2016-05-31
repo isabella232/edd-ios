@@ -77,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(application: UIApplication) {
         managedObjectContext.refreshAllObjects()
+        managedObjectContext.performSaveOrRollback()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -94,18 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        self.saveContext()
-    }
-    
-    func saveContext () {
-        if managedObjectContext.hasChanges {
-            do {
-                try managedObjectContext.save()
-            } catch {
-                let nserror = error as NSError
-                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
+        managedObjectContext.performSaveOrRollback()
     }
     
     private func noSitesSetup() -> Bool {
@@ -123,22 +113,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let predicate = NSPredicate(format: "uid == %@", defaultSiteId!)
         fetchRequest.predicate = predicate
         
-        do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
-            let site = results[0] as! Site
-            
-            let auth = SSKeychain.accountsForService(site.uid)
-            let data = auth[0] as NSDictionary
-            let acct = data.objectForKey("acct") as! String
-            let password = SSKeychain.passwordForService(site.uid, account: acct)
+        let site: Site = Site.fetchSingleObjectInContext(managedObjectContext, cacheKey: "defauleSiteObject") { (request) in
+            request.predicate = Site.predicateForDefaultSite()
+            request.fetchLimit = 1
+        }!
 
-            site.key = acct
-            site.token = password
-            
-            self.defaultSite = site
-        } catch {
-            NSLog("error")
-        }
+        let auth = SSKeychain.accountsForService(site.uid)
+        let data = auth[0] as NSDictionary
+        let acct = data.objectForKey("acct") as! String
+        let password = SSKeychain.passwordForService(site.uid, account: acct)
+
+        site.key = acct
+        site.token = password
+        
+        self.defaultSite = site
     }
     
     func configureGlobalAppearance() {

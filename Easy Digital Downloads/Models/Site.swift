@@ -51,6 +51,11 @@ public final class Site: ManagedObject {
         site.createdAt = NSDate()
         return site
     }
+    
+    public static func predicateForDefaultSite() -> NSPredicate {
+        let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")!
+        return NSPredicate(format: "uid == %@", defaultSiteId)
+    }
 
 }
 
