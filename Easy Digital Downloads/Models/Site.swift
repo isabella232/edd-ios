@@ -55,7 +55,9 @@ public final class Site: ManagedObject {
     }
     
     public static func predicateForDefaultSite() -> NSPredicate {
-        let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")!
+        guard let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite") else {
+            fatalError("No default site set")
+        }
         return NSPredicate(format: "uid == %@", defaultSiteId)
     }
     
