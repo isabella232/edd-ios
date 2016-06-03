@@ -27,7 +27,8 @@ public final class EDDAPIWrapper: NSObject {
         case Sales = "sales"
         case Earnings = "earnings"
         case Commissions = "commissions"
-        case Reviews = "Reviews"
+        case Reviews = "reviews"
+        case Subscriptions = "subscriptions"
     }
     
     private override init() {
@@ -102,6 +103,20 @@ public final class EDDAPIWrapper: NSObject {
                     failure(error)
                 }
         }
+    }
+    
+    public func hasRecurringPaymentsIntegration() -> Bool {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Subscriptions.rawValue
+        var ret: Bool = false
+
+        requestGETURL(baseURL, parameters: [:], success: { (response) -> Void in
+            print(response)
+            ret = true
+        }) { (error) -> Void in
+            print(error)
+        }
+        
+        return ret
     }
 
 }

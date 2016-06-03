@@ -50,6 +50,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         setupTableView()
         
         NSLog("Dashboard loaded")
+        NSLog("\(EDDAPIWrapper.sharedInstance.hasRecurringPaymentsIntegration())")
         
         view.backgroundColor = .EDDGreyColor()
         tableView.backgroundColor = .EDDGreyColor()
