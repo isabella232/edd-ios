@@ -41,23 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDTTYLogger())
         DDLogVerbose("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
-//        let domainName = NSBundle.mainBundle().bundleIdentifier!
-//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
+        let domainName = NSBundle.mainBundle().bundleIdentifier!
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
         
         NetworkActivityIndicatorManager.sharedManager.isEnabled = true
         
-        EDDAPIWrapper.sharedInstance
-        
-        let site: SiteTabBarController?
-        let login: LoginViewController?
+        NSLog("Default site \(self.noSitesSetup())")
         
         if self.noSitesSetup() {
-            login = LoginViewController()
-            self.window?.rootViewController = login
+            self.window?.rootViewController = LoginViewController()
         } else {
+            EDDAPIWrapper.sharedInstance
             setupShortcutItems()
-            site = SiteTabBarController(site: Site.defaultSite())
-            self.window?.rootViewController = site
+            self.window?.rootViewController = SiteTabBarController(site: Site.defaultSite())
         }
         
         guard let vc = window?.rootViewController as? ManagedObjectContextSettable else {
@@ -101,11 +97,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Private
     
     private func noSitesSetup() -> Bool {
-        if NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") == nil {
+        guard let _ = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite") else {
             return true
-        } else {
-            return false
         }
+        
+        NSLog("Default site ID: \(NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")!)")
+        
+        return false
     }
     
     private func configureGlobalAppearance() {
