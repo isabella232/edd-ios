@@ -12,6 +12,7 @@
 		F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */; };
 		F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */; };
 		F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB541CFAD228001A6A51 /* HighlightButton.swift */; };
+		F51F68291D02C01600F09B9D /* SyncCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F68281D02C01600F09B9D /* SyncCoordinator.swift */; };
 		F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */; };
 		F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */; };
 		F52825251CFE41B000AB62D9 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */; };
@@ -62,6 +63,7 @@
 		F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SalesViewController.swift; path = Sales/SalesViewController.swift; sourceTree = "<group>"; };
 		F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersViewController.swift; sourceTree = "<group>"; };
 		F50DEB541CFAD228001A6A51 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
+		F51F68281D02C01600F09B9D /* SyncCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncCoordinator.swift; sourceTree = "<group>"; };
 		F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDAPIWrapper.swift; sourceTree = "<group>"; };
 		F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				F5FAF3D61CFBA6EF00F9F1FF /* DataSource.swift */,
 				F5FAF3DA1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift */,
 				F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */,
+				F51F68281D02C01600F09B9D /* SyncCoordinator.swift */,
 			);
 			path = "Data Sources and Providers";
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
+				F51F68291D02C01600F09B9D /* SyncCoordinator.swift in Sources */,
 				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
 				F5FAF3C31CFB5FCC00F9F1FF /* NSURL+Utilities.swift in Sources */,
 				F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */,
