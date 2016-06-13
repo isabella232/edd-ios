@@ -18,6 +18,7 @@ enum DashboardCell: Int {
 
 class DashboardTableViewCell: UITableViewCell {
     var hasSetupConstraints = false
+    var data: NSArray?
     
     let type: DashboardCell = .Sales
     
@@ -92,6 +93,7 @@ class DashboardTableViewCell: UITableViewCell {
         
         titleLabel.textColor = .whiteColor()
         titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+//        titleLabel.text = data?.objectAtIndex(1) as? String
         
         statLabel.textColor = .whiteColor()
         statLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
@@ -121,7 +123,6 @@ class DashboardTableViewCell: UITableViewCell {
         constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
         
         NSLayoutConstraint.activateConstraints(constraints)
-
     }
     
     required init?(coder aDecoder: NSCoder) {

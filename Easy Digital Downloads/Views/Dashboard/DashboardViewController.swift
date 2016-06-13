@@ -17,11 +17,11 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     var managedObjectContext: NSManagedObjectContext!
     
     var site: Site?
-    var cells:NSDictionary = [
-        "sales" : ["title": NSLocalizedString("Sales", comment: ""), "type": 1],
-        "earnings" : ["title": NSLocalizedString("Earnings", comment: ""), "type": 2],
-        "commissions" : ["title": NSLocalizedString("Commissions", comment: ""), "type": 3],
-        "reviews" : ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
+    var cells: NSArray = [
+        ["title": NSLocalizedString("Sales", comment: ""), "type": 1],
+        ["title": NSLocalizedString("Earnings", comment: ""), "type": 2],
+        ["title": NSLocalizedString("Commissions", comment: ""), "type": 3],
+        ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
     ]
     
     init(site: Site) {
@@ -110,8 +110,9 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = DashboardTableViewCell()
         
-        cell.title = "Sales"
-        cell.stat = "$20"
+//        cell.title = "Sales"
+//        cell.stat = "$20"
+        cell.data = cells.objectAtIndex(indexPath.row) as? NSArray
         
         return cell
     }
