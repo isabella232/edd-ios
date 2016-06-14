@@ -22,7 +22,7 @@ struct Stats {
     }
     
     static func decode() -> Stats? {
-        let statsClassObject = NSKeyedUnarchiver.unarchiveObjectWithFile(StatsStorageAgent.path()) as? Stats
+        let statsClassObject = NSKeyedUnarchiver.unarchiveObjectWithFile(StatsStorageAgent.path()) as? StatsStorageAgent
         
         return statsClassObject?.stats
     }
