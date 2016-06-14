@@ -19,6 +19,7 @@
 		F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */; };
 		F56B88E71CFADD5700DCF41F /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E51CFADD5700DCF41F /* Site.swift */; };
 		F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */; };
+		F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5890D151D0FF2C1004F2B37 /* Stats.swift */; };
 		F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */; };
 		F5A312901CF1DAE1000F4F6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */; };
 		F5A312931CF1DAE1000F4F6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */; };
@@ -70,6 +71,7 @@
 		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
 		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
+		F5890D151D0FF2C1004F2B37 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy Digital Downloads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				F5EF5E9A1CF2FD9E00298841 /* EDD.xcdatamodeld */,
+				F5890D151D0FF2C1004F2B37 /* Stats.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F52825251CFE41B000AB62D9 /* Dictionary+Helpers.swift in Sources */,
+				F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */,
 				F56B88E71CFADD5700DCF41F /* Site.swift in Sources */,
 				F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */,
 				F5FAF3C11CFB5E0800F9F1FF /* ManagedObject.swift in Sources */,
