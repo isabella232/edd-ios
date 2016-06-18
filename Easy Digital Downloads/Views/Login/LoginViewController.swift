@@ -205,6 +205,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         stackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -25).active = true
     }
     
+    func fillInFields(components: [NSURLQueryItem]) {
+        for item in components {
+            if item.name == "siteurl" {
+                siteURL.text = item.value
+            }
+            
+            if item.name == "sitename" {
+                siteName.text = item.value
+            }
+            
+            if item.name == "key" {
+                apiKey.text = item.value
+            }
+            
+            if item.name == "token" {
+                token.text = item.value
+            }
+        }
+    }
+    
     func appearance() {
         view.backgroundColor = UIColor.EDDBlackColor()
     }
