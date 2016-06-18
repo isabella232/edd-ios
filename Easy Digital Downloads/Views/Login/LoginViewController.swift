@@ -222,6 +222,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             if item.name == "token" {
                 token.text = item.value
             }
+            
+            if item.name == "currency" {
+                let curr = item.value!
+
+                if currencies.contains(curr) {
+                    _currency = curr
+                    currency.text = "Currency: " + curr
+                }
+            }
         }
     }
     
