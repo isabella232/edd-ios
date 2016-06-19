@@ -27,7 +27,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
         stack.axis = .Vertical
-        stack.distribution = .FillProportionally
+        stack.distribution = .Fill
         stack.alignment = .Fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +40,18 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         stack.alignment = .Center
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        return stack
+    }()
+    
+    lazy var middleStackView : UIStackView! = {
+        let stack = UIStackView()
+        stack.alignment = .Center
+        stack.spacing = 3.0
+        stack.alignment = .Fill
+        stack.distribution = .FillProportionally
+        stack.axis = .Horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
         return stack
     }()
     
@@ -135,7 +147,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             graph.enableReferenceXAxisLines = false
             graph.enableReferenceYAxisLines = true
             graph.enableReferenceAxisFrame = false
-            graph.animationGraphStyle = .None
+            graph.animationGraphStyle = .Draw
             graph.colorBackgroundXaxis = UIColor.clearColor()
             graph.colorBackgroundYaxis = UIColor.clearColor()
             graph.colorTop = UIColor.clearColor()
@@ -149,22 +161,26 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             graph.enableTouchReport = true
             graph.translatesAutoresizingMaskIntoConstraints = false
             self.graph = graph
-            stackView.addArrangedSubview(graph)
+            middleStackView.addArrangedSubview(graph)
+            graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
         }
         
+        stackView.addArrangedSubview(middleStackView)
+
         containerView.addSubview(stackView)
-        contentView.addSubview(containerView)
-        
+
         topStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
         if graph != nil {
-            graph!.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
-            graph!.heightAnchor.constraintEqualToConstant(120).active = true
+            
+//            graph!.heightAnchor.constraintEqualToConstant(120).active = true
         }
-        
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.layoutMarginsRelativeArrangement = true
         stackView.alignment = .Top
         
+        contentView.addSubview(containerView)
+
         var constraints = [NSLayoutConstraint]()
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
@@ -174,7 +190,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
         constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
         constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
-        
+
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
@@ -184,6 +200,8 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         guard let cellStats = stats else {
             return
         }
+        
+        print(data)
         
         _dates = dates
         
@@ -242,7 +260,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     }
     
     func lineGraph(graph: BEMSimpleLineGraphView, labelOnXAxisForIndex index: Int) -> String {
-        return _dates![index]
+        return _dates![index] as String
     }
     
 }
