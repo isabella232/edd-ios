@@ -25,6 +25,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
     ]
     var stats: Stats?
+    var graphData = [JSON]()
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -54,10 +55,18 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                 fatalError()
         }
         
-        EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ (json) in
-            print(json)
+        EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
+            self.graphData.append(json)
+            self.tableView.reloadData()
+        }) { (error) in
+            fatalError()
+        }
+        
+        EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
+            self.graphData.append(json)
+            self.tableView.reloadData()
             }) { (error) in
-                
+                fatalError()
         }
     }
     
@@ -65,9 +74,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.viewDidLoad()
         
         setupTableView()
-        
-        NSLog("Dashboard loaded")
-//        NSLog("Recurring payments: \(EDDAPIWrapper.sharedInstance.hasRecurringPaymentsIntegration())")
         
         view.backgroundColor = .EDDGreyColor()
         tableView.backgroundColor = .EDDGreyColor()
@@ -126,7 +132,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = DashboardTableViewCell()
 
-        cell.configure((cells.objectAtIndex(indexPath.row) as? NSDictionary)!, stats: stats)
+        cell.configure((cells.objectAtIndex(indexPath.row) as? NSDictionary)!, stats: stats, graphData: graphData)
         
         return cell
     }

@@ -70,8 +70,6 @@ public final class Site: ManagedObject {
             request.fetchLimit = 1
         }
 
-        NSLog("Fetched site: \(site)")
-
         let auth = SSKeychain.accountsForService(site!.uid)
         let data = auth[0] as NSDictionary
         let acct = data.objectForKey("acct") as! String

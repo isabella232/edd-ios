@@ -45,8 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
         
         NetworkActivityIndicatorManager.sharedManager.isEnabled = true
-
-        NSLog("Default site \(self.noSitesSetup())")
         
         if self.noSitesSetup() {
             self.window?.rootViewController = LoginViewController()
@@ -112,12 +110,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Private
     
     private func noSitesSetup() -> Bool {
-        guard let defaultSite = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") as? String else {
+        guard let _ = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") as? String else {
             return true
         }
-        
-        NSLog("Default site ID: \(defaultSite)")
-        
+
         return false
     }
     

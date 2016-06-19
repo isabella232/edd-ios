@@ -17,8 +17,6 @@ class SalesViewController: UITableViewController, ManagedObjectContextSettable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NSLog("Sales loaded")
     }
     
     override func didReceiveMemoryWarning() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 import BEMSimpleLineGraph
 
 enum DashboardCell: Int {
@@ -84,7 +85,7 @@ class DashboardTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.mainScreen().scale
         layer.opaque = true
@@ -92,7 +93,7 @@ class DashboardTableViewCell: UITableViewCell {
         
         backgroundColor = .clearColor()
         contentView.backgroundColor = .clearColor()
-        
+
         titleLabel.textColor = .whiteColor()
         titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
         titleLabel.text = data?.objectAtIndex(1) as? String
@@ -135,14 +136,14 @@ class DashboardTableViewCell: UITableViewCell {
         
     }
     
-    func configure(cellData: NSDictionary, stats: Stats?) {
+    func configure(cellData: NSDictionary, stats: Stats?, graphData: [JSON]?) {
         title = cellData["title"] as! String
         
-        
-        guard let cellStats = stats else {
-            NSLog("not loaded yet")
+        guard let cellStats = stats, cellGraphData = graphData else {
             return
         }
+        
+        NSLog("\(cellGraphData)")
         
         // Sales
         if cellData["type"] as! Int == 1 {
