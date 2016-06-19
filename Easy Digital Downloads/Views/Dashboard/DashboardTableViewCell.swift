@@ -57,7 +57,6 @@ class DashboardTableViewCell: UITableViewCell {
     
     private var _title: String = ""
     private var _stat: String = ""
-    private var _graphData = [JSON]()
     
     private let site: Site = Site.defaultSite()
     
@@ -139,14 +138,12 @@ class DashboardTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure(cellData: NSDictionary, stats: Stats?, graphData: [JSON]?) {
+    func configure<T>(cellData: NSDictionary, stats: Stats?, data: Array<T>, dates: Array<String>) {
         title = cellData["title"] as! String
         
-        guard let cellStats = stats, cellGraphData = graphData else {
+        guard let cellStats = stats else {
             return
         }
-        
-        _graphData = cellGraphData
         
         // Sales
         if cellData["type"] as! Int == 1 {

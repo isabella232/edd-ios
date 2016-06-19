@@ -197,8 +197,20 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         if cell == nil {
             cell = DashboardTableViewCell()
         }
-
-        cell!.configure((cells.objectAtIndex(indexPath.row) as? NSDictionary)!, stats: stats, graphData: [])
+        
+        let config = (cells.objectAtIndex(indexPath.row) as? NSDictionary)!
+        
+        switch config["type"] as! Int {
+            case 1:
+                cell!.configure(config, stats: stats, data: salesGraphData, dates: salesGraphDates)
+                break
+            case 2:
+                cell!.configure(config, stats: stats, data: earningsGraphData, dates: earningsGraphDates)
+                break
+            default:
+                break
+        }
+        
         cell!.layout()
         
         return cell!
