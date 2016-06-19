@@ -53,6 +53,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             }) { (error) in
                 fatalError()
         }
+        
+        EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ (json) in
+            print(json)
+            }) { (error) in
+                
+        }
     }
     
     override func viewDidLoad() {
@@ -61,7 +67,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         setupTableView()
         
         NSLog("Dashboard loaded")
-        NSLog("Recurring payments: \(EDDAPIWrapper.sharedInstance.hasRecurringPaymentsIntegration())")
+//        NSLog("Recurring payments: \(EDDAPIWrapper.sharedInstance.hasRecurringPaymentsIntegration())")
         
         view.backgroundColor = .EDDGreyColor()
         tableView.backgroundColor = .EDDGreyColor()

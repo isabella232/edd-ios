@@ -157,7 +157,6 @@ class DashboardTableViewCell: UITableViewCell {
             let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
             let locale = NSLocale(localeIdentifier: localeIdentifier)
             let currencySymbol = locale.objectForKey(NSLocaleCurrencySymbol) as! String
-
             
             stat = "\(currencySymbol)\(cellStats.earnings["today"]!)"
         }

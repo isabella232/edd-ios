@@ -47,6 +47,38 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
+    public func requestSalesStatsGraphData(success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Stats.rawValue
+        
+        let sevenDaysAgo = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -6, toDate: NSDate(), options: [])! as NSDate
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let startDate = dateFormatter.stringFromDate(sevenDaysAgo)
+        let endDate = dateFormatter.stringFromDate(NSDate())
+        
+        requestGETURL(baseURL, parameters: ["type" : "sales", "date" : "range", "startdate" : startDate, "enddate" : endDate], success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestEarningsStatsGraphData(success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Stats.rawValue
+        
+        let sevenDaysAgo = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -6, toDate: NSDate(), options: [])! as NSDate
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let startDate = dateFormatter.stringFromDate(sevenDaysAgo)
+        let endDate = dateFormatter.stringFromDate(NSDate())
+        
+        requestGETURL(baseURL, parameters: ["type" : "earnings", "date" : "range", "startdate" : startDate, "enddate" : endDate], success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
     public func requestSales(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Sales.rawValue
         
@@ -90,7 +122,7 @@ public final class EDDAPIWrapper: NSObject {
 
         passedParameters.update(parameters)
         
-        Alamofire.request(.GET, strURL, parameters: auth)
+        Alamofire.request(.GET, strURL, parameters: passedParameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
