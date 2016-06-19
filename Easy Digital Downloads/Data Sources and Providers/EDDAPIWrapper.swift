@@ -40,9 +40,9 @@ public final class EDDAPIWrapper: NSObject {
     public func requestStats(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Stats.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
-            print(response)
+            success(response)
         }) { (error) -> Void in
-            print(error)
+            failure(error)
         }
     }
     
@@ -50,36 +50,36 @@ public final class EDDAPIWrapper: NSObject {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Sales.rawValue
         
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
-            print(response)
+            success(response)
         }) { (error) -> Void in
-            print(error)
+            failure(error)
         }
     }
     
     public func requestEarnings(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Earnings.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
-            print(response)
+            success(response)
         }) { (error) -> Void in
-            print(error)
+            failure(error)
         }
     }
     
     public func requestCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Commissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
-            print(response)
+            success(response)
         }) { (error) -> Void in
-            print(error)
+            failure(error)
         }
     }
     
     public func requestReviews(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Reviews.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
-            print(response)
+            success(response)
         }) { (error) -> Void in
-            print(error)
+            failure(error)
         }
     }
     
@@ -110,10 +110,9 @@ public final class EDDAPIWrapper: NSObject {
         var ret: Bool = false
 
         requestGETURL(baseURL, parameters: [:], success: { (response) -> Void in
-            print(response)
             ret = true
         }) { (error) -> Void in
-            print(error)
+            ret = false
         }
         
         return ret

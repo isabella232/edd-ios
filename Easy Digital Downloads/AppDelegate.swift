@@ -75,10 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             self.window?.rootViewController = login
             
-            return true;
+            return true
         }
         
-        return false;
+        return false
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -112,11 +112,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Private
     
     private func noSitesSetup() -> Bool {
-        guard let _ = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") as? String else {
+        guard let defaultSite = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") as? String else {
             return true
         }
         
-        NSLog("Default site ID: \(NSUserDefaults.standardUserDefaults().stringForKey("defaultSite")!)")
+        NSLog("Default site ID: \(defaultSite)")
         
         return false
     }

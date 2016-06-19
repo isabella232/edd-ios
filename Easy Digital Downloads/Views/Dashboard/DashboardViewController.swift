@@ -42,6 +42,14 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        EDDAPIWrapper.sharedInstance.requestStats([:], success: { (json) in
+//            let stats = Stats(sales: json["stats"]["sales"], earnings: json["stats"]["earnings"], updatedAt: NSDate())
+//            Stats.encode(stats)
+            NSLog("Earnings: \(json["sales"]["earnings"])")
+            }) { (error) in
+                NSLog("failed")
+        }
     }
     
     override func viewDidLoad() {
@@ -50,7 +58,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         setupTableView()
         
         NSLog("Dashboard loaded")
-        NSLog("\(EDDAPIWrapper.sharedInstance.hasRecurringPaymentsIntegration())")
+        NSLog("Recurring payments: \(EDDAPIWrapper.sharedInstance.hasRecurringPaymentsIntegration())")
         
         view.backgroundColor = .EDDGreyColor()
         tableView.backgroundColor = .EDDGreyColor()
@@ -75,7 +83,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     func handleRefresh(refreshControl: UIRefreshControl) {
         if refreshControl.refreshing {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                // refresh code
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                     refreshControl.performSelector(#selector(refreshControl.endRefreshing), withObject: nil, afterDelay: 0.05)

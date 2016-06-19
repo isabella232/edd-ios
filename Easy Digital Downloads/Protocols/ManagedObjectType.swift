@@ -121,7 +121,7 @@ extension ManagedObjectType where Self: ManagedObject {
         return cached
     }
     
-    private static func fetchSingleObjectInContext(moc: NSManagedObjectContext, configure: NSFetchRequest -> ()) -> Self? {
+    public static func fetchSingleObjectInContext(moc: NSManagedObjectContext, configure: NSFetchRequest -> ()) -> Self? {
         let result = fetchInContext(moc) { request in
             configure(request)
             request.fetchLimit = 2

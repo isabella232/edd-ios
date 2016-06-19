@@ -65,20 +65,22 @@ public final class Site: ManagedObject {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
-        let site: Site = Site.fetchSingleObjectInContext(managedObjectContext, cacheKey: "defauleSiteObject") { (request) in
+        let site = Site.fetchSingleObjectInContext(managedObjectContext) { request in
             request.predicate = self.predicateForDefaultSite()
             request.fetchLimit = 1
-            }!
+        }
 
-        let auth = SSKeychain.accountsForService(site.uid)
+        NSLog("Fetched site: \(site)")
+
+        let auth = SSKeychain.accountsForService(site!.uid)
         let data = auth[0] as NSDictionary
         let acct = data.objectForKey("acct") as! String
-        let password = SSKeychain.passwordForService(site.uid, account: acct)
+        let password = SSKeychain.passwordForService(site!.uid, account: acct)
         
-        site.key = acct
-        site.token = password
+        site!.key = acct
+        site!.token = password
 
-        return site
+        return site!
     }
 
 }
