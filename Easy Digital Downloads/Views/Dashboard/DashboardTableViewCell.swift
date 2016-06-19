@@ -47,7 +47,6 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         let stack = UIStackView()
         stack.alignment = .Center
         stack.spacing = 3.0
-        stack.alignment = .Fill
         stack.distribution = .FillProportionally
         stack.axis = .Horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -137,6 +136,8 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         topStackView.addArrangedSubview(statLabel)
         
         stackView.addArrangedSubview(topStackView)
+        stackView.addArrangedSubview(middleStackView)
+        
         // Create graphs for Sales and Earnings cells
         if type == DashboardCell.Sales || type == DashboardCell.Earnings {
             let graph = BEMSimpleLineGraphView()
@@ -163,17 +164,12 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             self.graph = graph
             middleStackView.addArrangedSubview(graph)
             graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+            graph.heightAnchor.constraintEqualToConstant(115).active = true
         }
-        
-        stackView.addArrangedSubview(middleStackView)
 
         containerView.addSubview(stackView)
 
         topStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
-        if graph != nil {
-            
-//            graph!.heightAnchor.constraintEqualToConstant(120).active = true
-        }
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.layoutMarginsRelativeArrangement = true
@@ -200,8 +196,6 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         guard let cellStats = stats else {
             return
         }
-        
-        print(data)
         
         _dates = dates
         

@@ -182,11 +182,11 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             case SiteType.Standard:
                 return 2
             case SiteType.Commission:
-                return 1
+                return 2
             case SiteType.StandardCommission, SiteType.StandardStore:
-                return 4
+                return 2
             default:
-                return 3
+                return 2
         }
     }
     
