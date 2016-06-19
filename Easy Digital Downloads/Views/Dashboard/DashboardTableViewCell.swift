@@ -15,13 +15,14 @@ enum DashboardCell: Int {
     case Earnings = 2
     case Commissions = 3
     case Reviews = 4
+    case None = 5
 }
 
-class DashboardTableViewCell: UITableViewCell {
+class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSimpleLineGraphDataSource {
     var hasSetupConstraints = false
     var data: NSArray?
     
-    private var type: DashboardCell = .Sales
+    private var type: DashboardCell = .None
     
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
@@ -59,6 +60,7 @@ class DashboardTableViewCell: UITableViewCell {
     private var _stat: String = ""
     private var _salesData: Array<Int>?
     private var _earningsData: Array<Double>?
+    private var _dates: Array<String>?
     
     private let site: Site = Site.defaultSite()
     
@@ -84,6 +86,8 @@ class DashboardTableViewCell: UITableViewCell {
     
     let titleLabel = UILabel(frame: CGRectZero)
     let statLabel = UILabel(frame: CGRectZero)
+    
+    private var graph: BEMSimpleLineGraphView?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -109,7 +113,11 @@ class DashboardTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         
+        self.type = .None
+        
+        self.graph?.removeFromSuperview()
     }
     
     func layout() {
@@ -117,11 +125,41 @@ class DashboardTableViewCell: UITableViewCell {
         topStackView.addArrangedSubview(statLabel)
         
         stackView.addArrangedSubview(topStackView)
+        // Create graphs for Sales and Earnings cells
+        if type == DashboardCell.Sales || type == DashboardCell.Earnings {
+            let graph = BEMSimpleLineGraphView()
+            graph.dataSource = self
+            graph.delegate = self
+            graph.enableYAxisLabel = true
+            graph.autoScaleYAxis = true
+            graph.enableReferenceXAxisLines = false
+            graph.enableReferenceYAxisLines = true
+            graph.enableReferenceAxisFrame = false
+            graph.animationGraphStyle = .None
+            graph.colorBackgroundXaxis = UIColor.clearColor()
+            graph.colorBackgroundYaxis = UIColor.clearColor()
+            graph.colorTop = UIColor.clearColor()
+            graph.colorBottom = UIColor.clearColor()
+            graph.backgroundColor = UIColor.clearColor()
+            graph.tintColor = UIColor.clearColor()
+            graph.colorYaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
+            graph.colorXaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
+            graph.alwaysDisplayDots = true
+            graph.enablePopUpReport = true
+            graph.enableTouchReport = true
+            graph.translatesAutoresizingMaskIntoConstraints = false
+            self.graph = graph
+            stackView.addArrangedSubview(graph)
+        }
         
         containerView.addSubview(stackView)
         contentView.addSubview(containerView)
         
         topStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        if graph != nil {
+            graph!.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+            graph!.heightAnchor.constraintEqualToConstant(120).active = true
+        }
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.layoutMarginsRelativeArrangement = true
@@ -147,6 +185,8 @@ class DashboardTableViewCell: UITableViewCell {
             return
         }
         
+        _dates = dates
+        
         // Sales
         if cellData["type"] as! Int == 1 {
             stat = "\(cellStats.sales["today"]!)"
@@ -171,6 +211,38 @@ class DashboardTableViewCell: UITableViewCell {
             })
             type = .Earnings
         }
+    }
+    
+    // MARK: BEMSimpleLineGraph
+    
+    func numberOfPointsInLineGraph(graph: BEMSimpleLineGraphView) -> Int {
+        switch type {
+            case .Sales:
+                return _salesData!.count
+            case .Earnings:
+                return _earningsData!.count
+            default:
+                return 0
+        }
+    }
+    
+    func lineGraph(graph: BEMSimpleLineGraphView, valueForPointAtIndex index: Int) -> CGFloat {
+        switch type {
+            case .Sales:
+                return CGFloat(_salesData![index])
+            case .Earnings:
+                return CGFloat(_earningsData![index])
+            default:
+                return 0
+        }
+    }
+    
+    func numberOfGapsBetweenLabelsOnLineGraph(graph: BEMSimpleLineGraphView) -> Int {
+        return 2
+    }
+    
+    func lineGraph(graph: BEMSimpleLineGraphView, labelOnXAxisForIndex index: Int) -> String {
+        return _dates![index]
     }
     
 }
