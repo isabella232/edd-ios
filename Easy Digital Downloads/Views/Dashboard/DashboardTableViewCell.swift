@@ -226,6 +226,10 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
                 return Item as! Int
             })
             type = .Sales
+            
+            firstStatLabel.text = "Current Month: \(cellStats.sales["current_month"]!)"
+            secondStatLabel.text = "Last Month: \(cellStats.sales["last_month"]!)"
+            thirdStatLabel.text = "Total: \(cellStats.sales["totals"]!)"
         }
         
         // Earnings
@@ -242,6 +246,14 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
                 return Item as! Double
             })
             type = .Earnings
+            
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = .CurrencyStyle
+            
+            
+            firstStatLabel.text = "Current Month: \(formatter.stringFromNumber(cellStats.earnings["current_month"] as! NSNumber)!)"
+            secondStatLabel.text = "Last Month: \(formatter.stringFromNumber(cellStats.earnings["last_month"] as! NSNumber)!)"
+            thirdStatLabel.text = "Total: \(formatter.stringFromNumber(cellStats.earnings["totals"] as! NSNumber)!)"
         }
     }
     
