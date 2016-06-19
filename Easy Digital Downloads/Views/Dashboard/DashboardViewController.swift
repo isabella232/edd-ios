@@ -49,6 +49,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
             let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
             self.stats = Stats(sales: sales, earnings: earnings, updatedAt: NSDate())
+            self.tableView.reloadData()
             }) { (error) in
                 fatalError()
         }
@@ -118,10 +119,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     // MARK: Table View Data Source
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = DashboardTableViewCell()
-        
-//        cell.title = "Sales"
-//        cell.stat = "$20"
-        cell.data = cells.objectAtIndex(indexPath.row) as? NSArray
+
+        cell.configure((cells.objectAtIndex(indexPath.row) as? NSDictionary)!, stats: stats)
         
         return cell
     }

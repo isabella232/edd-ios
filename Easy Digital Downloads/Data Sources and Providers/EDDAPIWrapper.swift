@@ -22,13 +22,14 @@ public final class EDDAPIWrapper: NSObject {
     private let site: Site!
     
     private enum Endpoints: String {
-        case Base = "/edd-api/"
+        case Base = "/edd-api/v2/"
         case Stats = "stats"
         case Sales = "sales"
         case Earnings = "earnings"
         case Commissions = "commissions"
         case Reviews = "reviews"
         case Subscriptions = "subscriptions"
+        case Info = "info"
     }
     
     private override init() {

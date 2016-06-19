@@ -57,6 +57,8 @@ class DashboardTableViewCell: UITableViewCell {
     private var _title: String = ""
     private var _stat: String = ""
     
+    private let site: Site = Site.defaultSite()
+    
     var title:String {
         get {
             return _title
@@ -93,7 +95,7 @@ class DashboardTableViewCell: UITableViewCell {
         
         titleLabel.textColor = .whiteColor()
         titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
-//        titleLabel.text = data?.objectAtIndex(1) as? String
+        titleLabel.text = data?.objectAtIndex(1) as? String
         
         statLabel.textColor = .whiteColor()
         statLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
@@ -131,6 +133,34 @@ class DashboardTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         
+    }
+    
+    func configure(cellData: NSDictionary, stats: Stats?) {
+        title = cellData["title"] as! String
+        
+        
+        guard let cellStats = stats else {
+            NSLog("not loaded yet")
+            return
+        }
+        
+        // Sales
+        if cellData["type"] as! Int == 1 {
+            stat = "\(cellStats.sales["today"]!)"
+        }
+        
+        // Earnings
+        if cellData["type"] as! Int == 2 {
+            let currency = site.currency!
+            
+            let localeComponents = [NSLocaleCurrencyCode: currency]
+            let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
+            let locale = NSLocale(localeIdentifier: localeIdentifier)
+            let currencySymbol = locale.objectForKey(NSLocaleCurrencySymbol) as! String
+
+            
+            stat = "\(currencySymbol)\(cellStats.earnings["today"]!)"
+        }
     }
     
 }

@@ -344,6 +344,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         if pickerView.tag == 1 {
             currency.text = "Currency: " + currencies[row]
             _currency = currencies[row]
+            NSLog("Selected currency: \(_currency)")
         } else {
             type.text = "Type: " + types[row]
             _type = types[row]
