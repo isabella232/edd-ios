@@ -158,33 +158,31 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         stackView.addArrangedSubview(middleStackView)
         
         // Create graphs for Sales and Earnings cells
-        if type == DashboardCell.Sales || type == DashboardCell.Earnings {
-            let graph = BEMSimpleLineGraphView()
-            graph.dataSource = self
-            graph.delegate = self
-            graph.enableYAxisLabel = true
-            graph.autoScaleYAxis = true
-            graph.enableReferenceXAxisLines = false
-            graph.enableReferenceYAxisLines = true
-            graph.enableReferenceAxisFrame = false
-            graph.animationGraphStyle = .Draw
-            graph.colorBackgroundXaxis = UIColor.clearColor()
-            graph.colorBackgroundYaxis = UIColor.clearColor()
-            graph.colorTop = UIColor.clearColor()
-            graph.colorBottom = UIColor.clearColor()
-            graph.backgroundColor = UIColor.clearColor()
-            graph.tintColor = UIColor.clearColor()
-            graph.colorYaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
-            graph.colorXaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
-            graph.alwaysDisplayDots = true
-            graph.enablePopUpReport = true
-            graph.enableTouchReport = true
-            graph.translatesAutoresizingMaskIntoConstraints = false
-            self.graph = graph
-            middleStackView.addArrangedSubview(graph)
-            graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
-            graph.heightAnchor.constraintEqualToConstant(115).active = true
-        }
+        let graph = BEMSimpleLineGraphView()
+        graph.dataSource = self
+        graph.delegate = self
+        graph.enableYAxisLabel = true
+        graph.autoScaleYAxis = true
+        graph.enableReferenceXAxisLines = false
+        graph.enableReferenceYAxisLines = true
+        graph.enableReferenceAxisFrame = false
+        graph.animationGraphStyle = .None
+        graph.colorBackgroundXaxis = UIColor.clearColor()
+        graph.colorBackgroundYaxis = UIColor.clearColor()
+        graph.colorTop = UIColor.clearColor()
+        graph.colorBottom = UIColor.clearColor()
+        graph.backgroundColor = UIColor.clearColor()
+        graph.tintColor = UIColor.clearColor()
+        graph.colorYaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
+        graph.colorXaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
+        graph.alwaysDisplayDots = true
+        graph.enablePopUpReport = true
+        graph.enableTouchReport = true
+        graph.translatesAutoresizingMaskIntoConstraints = false
+        self.graph = graph
+        middleStackView.addArrangedSubview(graph)
+        graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        graph.heightAnchor.constraintEqualToConstant(115).active = true
 
         containerView.addSubview(stackView)
         
@@ -249,7 +247,6 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             
             let formatter = NSNumberFormatter()
             formatter.numberStyle = .CurrencyStyle
-            
             
             firstStatLabel.text = "Current Month: \(formatter.stringFromNumber(cellStats.earnings["current_month"] as! NSNumber)!)"
             secondStatLabel.text = "Last Month: \(formatter.stringFromNumber(cellStats.earnings["last_month"] as! NSNumber)!)"
