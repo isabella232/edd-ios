@@ -57,6 +57,7 @@ class DashboardTableViewCell: UITableViewCell {
     
     private var _title: String = ""
     private var _stat: String = ""
+    private var _graphData = [JSON]()
     
     private let site: Site = Site.defaultSite()
     
@@ -100,7 +101,17 @@ class DashboardTableViewCell: UITableViewCell {
         
         statLabel.textColor = .whiteColor()
         statLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func prepareForReuse() {
         
+    }
+    
+    func layout() {
         topStackView.addArrangedSubview(titleLabel)
         topStackView.addArrangedSubview(statLabel)
         
@@ -128,14 +139,6 @@ class DashboardTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func prepareForReuse() {
-        
-    }
-    
     func configure(cellData: NSDictionary, stats: Stats?, graphData: [JSON]?) {
         title = cellData["title"] as! String
         
@@ -143,7 +146,7 @@ class DashboardTableViewCell: UITableViewCell {
             return
         }
         
-        NSLog("\(cellGraphData)")
+        _graphData = cellGraphData
         
         // Sales
         if cellData["type"] as! Int == 1 {

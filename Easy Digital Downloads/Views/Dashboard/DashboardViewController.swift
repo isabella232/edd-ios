@@ -25,7 +25,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
     ]
     var stats: Stats?
-    var graphData = [JSON]()
+    var salesGraphDates: Array<String> = []
+    var salesGraphData: Array<Int> = []
+    var earningsGraphDates: Array<String> = []
+    var earningsGraphData: Array<Double> = []
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -56,14 +59,14 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         }
         
         EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
-            self.graphData.append(json)
+            self.processSalesGraphData(json)
             self.tableView.reloadData()
         }) { (error) in
             fatalError()
         }
         
         EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
-            self.graphData.append(json)
+            self.processEarningsGraphData(json)
             self.tableView.reloadData()
             }) { (error) in
                 fatalError()
@@ -108,6 +111,65 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     private func setupTableView() {
     }
+    
+    private func processSalesGraphData(json: JSON) {
+//        let sales = NSDictionary(dictionary: json["sales"].dictionaryObject!) as! Dictionary<String, AnyObject>
+        let sales = json["sales"].dictionaryObject
+        
+        let keys = sales?.keys
+        let sorted = keys?.sort {
+            return $0 < $1
+        }
+        
+        var salesGraphData: Array<Int> = []
+        for key in sorted! {
+            salesGraphData.append(sales![key]!.integerValue)
+            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
+            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
+            
+            let date = key[dateRange]
+            let month = Int(key[monthRange])
+            
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let months = dateFormatter.shortMonthSymbols
+            let monthSymbol = months[month!-1] 
+            
+            let dateString = "\(date) \(monthSymbol)"
+            
+            self.salesGraphDates.append(dateString)
+        }
+        
+        self.salesGraphData = salesGraphData
+    }
+
+    private func processEarningsGraphData(json: JSON) {
+        let earnings = json["earnings"].dictionaryObject
+        
+        let keys = earnings?.keys
+        let sorted = keys?.sort {
+            return $0 < $1
+        }
+        
+        var earningsGraphData: Array<Double> = []
+        for key in sorted! {
+            earningsGraphData.append(earnings![key]!.doubleValue)
+            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
+            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
+            
+            let date = key[dateRange]
+            let month = Int(key[monthRange])
+            
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let months = dateFormatter.shortMonthSymbols
+            let monthSymbol = months[month!-1]
+            
+            let dateString = "\(date) \(monthSymbol)"
+            
+            self.earningsGraphDates.append(dateString)
+        }
+        
+        self.earningsGraphData = earningsGraphData
+    }
 
     
     // MARK: Table View Delegate
@@ -130,11 +192,16 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     // MARK: Table View Data Source
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = DashboardTableViewCell()
-
-        cell.configure((cells.objectAtIndex(indexPath.row) as? NSDictionary)!, stats: stats, graphData: graphData)
+        var cell: DashboardTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dashboardCell") as! DashboardTableViewCell?
         
-        return cell
+        if cell == nil {
+            cell = DashboardTableViewCell()
+        }
+
+        cell!.configure((cells.objectAtIndex(indexPath.row) as? NSDictionary)!, stats: stats, graphData: [])
+        cell!.layout()
+        
+        return cell!
     }
 
 }
