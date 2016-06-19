@@ -45,10 +45,10 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     
     lazy var middleStackView : UIStackView! = {
         let stack = UIStackView()
-        stack.alignment = .Center
+        stack.alignment = .Fill
+        stack.distribution = .Fill
         stack.spacing = 3.0
-        stack.distribution = .FillProportionally
-        stack.axis = .Horizontal
+        stack.axis = .Vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
         return stack
@@ -97,6 +97,9 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     
     let titleLabel = UILabel(frame: CGRectZero)
     let statLabel = UILabel(frame: CGRectZero)
+    let firstStatLabel = UILabel(frame: CGRectZero)
+    let secondStatLabel = UILabel(frame: CGRectZero)
+    let thirdStatLabel = UILabel(frame: CGRectZero)
     
     private var graph: BEMSimpleLineGraphView?
 
@@ -117,6 +120,18 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         
         statLabel.textColor = .whiteColor()
         statLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+        
+        firstStatLabel.textColor = .whiteColor()
+        firstStatLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        firstStatLabel.text = "Current Month:"
+        
+        secondStatLabel.textColor = .whiteColor()
+        secondStatLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        secondStatLabel.text = "Last Month:"
+        
+        thirdStatLabel.textColor = .whiteColor()
+        thirdStatLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        thirdStatLabel.text = "Total:"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,6 +149,10 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     func layout() {
         topStackView.addArrangedSubview(titleLabel)
         topStackView.addArrangedSubview(statLabel)
+        
+        middleStackView.addArrangedSubview(firstStatLabel)
+        middleStackView.addArrangedSubview(secondStatLabel)
+        middleStackView.addArrangedSubview(thirdStatLabel)
         
         stackView.addArrangedSubview(topStackView)
         stackView.addArrangedSubview(middleStackView)
@@ -168,8 +187,9 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
 
         containerView.addSubview(stackView)
-
+        
         topStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        middleStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.layoutMarginsRelativeArrangement = true
