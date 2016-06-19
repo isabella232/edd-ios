@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftyJSON
 
 let estimatedHeight: CGFloat = 150
 let reuseIdentifier: String = "dashboardCell"
@@ -23,6 +24,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         ["title": NSLocalizedString("Commissions", comment: ""), "type": 3],
         ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
     ]
+    var stats: Stats?
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -44,11 +46,11 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.viewWillAppear(animated)
         
         EDDAPIWrapper.sharedInstance.requestStats([:], success: { (json) in
-//            let stats = Stats(sales: json["stats"]["sales"], earnings: json["stats"]["earnings"], updatedAt: NSDate())
-//            Stats.encode(stats)
-            NSLog("Earnings: \(json["sales"]["earnings"])")
+            let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
+            let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
+            self.stats = Stats(sales: sales, earnings: earnings, updatedAt: NSDate())
             }) { (error) in
-                NSLog("failed")
+                fatalError()
         }
     }
     
