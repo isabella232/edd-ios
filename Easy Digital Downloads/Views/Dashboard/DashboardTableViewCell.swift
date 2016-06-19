@@ -21,7 +21,7 @@ class DashboardTableViewCell: UITableViewCell {
     var hasSetupConstraints = false
     var data: NSArray?
     
-    let type: DashboardCell = .Sales
+    private var type: DashboardCell = .Sales
     
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
@@ -57,6 +57,8 @@ class DashboardTableViewCell: UITableViewCell {
     
     private var _title: String = ""
     private var _stat: String = ""
+    private var _salesData: Array<Int>?
+    private var _earningsData: Array<Double>?
     
     private let site: Site = Site.defaultSite()
     
@@ -148,6 +150,10 @@ class DashboardTableViewCell: UITableViewCell {
         // Sales
         if cellData["type"] as! Int == 1 {
             stat = "\(cellStats.sales["today"]!)"
+            _salesData = data.map({ Item -> Int in
+                return Item as! Int
+            })
+            type = .Sales
         }
         
         // Earnings
@@ -160,6 +166,10 @@ class DashboardTableViewCell: UITableViewCell {
             let currencySymbol = locale.objectForKey(NSLocaleCurrencySymbol) as! String
             
             stat = "\(currencySymbol)\(cellStats.earnings["today"]!)"
+            _earningsData = data.map({ Item -> Double in
+                return Item as! Double
+            })
+            type = .Earnings
         }
     }
     
