@@ -202,6 +202,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             cell = DashboardTableViewCell()
         }
         
+        cell?.selectionStyle = .None
+        
         let config = (cells.objectAtIndex(indexPath.row) as? NSDictionary)!
         
         switch config["type"] as! Int {
