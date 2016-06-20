@@ -25,6 +25,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
     ]
     var stats: Stats?
+    var commissionsStats: NSDictionary?
     var salesGraphDates: Array<String> = []
     var salesGraphData: Array<Int> = []
     var earningsGraphDates: Array<String> = []
@@ -67,6 +68,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
             self.processEarningsGraphData(json)
+            self.tableView.reloadData()
+            }) { (error) in
+                fatalError()
+        }
+        
+        EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
+            self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
             self.tableView.reloadData()
             }) { (error) in
                 fatalError()
@@ -126,7 +134,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             salesGraphData.append(sales![key]!.integerValue)
             let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
             let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
-            
+
             let date = key[dateRange]
             let month = Int(key[monthRange])
             
@@ -213,6 +221,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             case 2:
                 cell!.configure(config, stats: stats, data: earningsGraphData, dates: earningsGraphDates)
                 break
+            case 3:
+                cell!.configureStaticCell(config, data: commissionsStats!)
             default:
                 break
         }

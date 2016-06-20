@@ -254,6 +254,15 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
     }
     
+    func configureStaticCell(cellData: NSDictionary, data: NSDictionary) {
+        title = cellData["title"] as! String
+        
+        // Commissions
+        if cellData["type"] as! Int == 3 {
+            type = .Commissions
+        }
+    }
+    
     // MARK: BEMSimpleLineGraph
     
     func numberOfPointsInLineGraph(graph: BEMSimpleLineGraphView) -> Int {
