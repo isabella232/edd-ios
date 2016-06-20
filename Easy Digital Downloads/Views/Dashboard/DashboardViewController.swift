@@ -188,13 +188,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch site!.typeEnum  {
             case SiteType.Standard:
-                return 2
+                return 3
             case SiteType.Commission:
-                return 2
+                return 3
             case SiteType.StandardCommission, SiteType.StandardStore:
-                return 2
+                return 3
             default:
-                return 2
+                return 3
         }
     }
     
@@ -222,7 +222,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                 cell!.configure(config, stats: stats, data: earningsGraphData, dates: earningsGraphDates)
                 break
             case 3:
-                cell!.configureStaticCell(config, data: commissionsStats!)
+                cell!.configureStaticCell(config, data: commissionsStats)
             default:
                 break
         }

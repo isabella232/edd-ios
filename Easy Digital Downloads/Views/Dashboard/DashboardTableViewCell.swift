@@ -183,6 +183,11 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         middleStackView.addArrangedSubview(graph)
         graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
         graph.heightAnchor.constraintEqualToConstant(115).active = true
+        
+        if type == .Commissions {
+            middleStackView.removeArrangedSubview(graph)
+            graph.removeFromSuperview()
+        }
 
         containerView.addSubview(stackView)
         
@@ -254,12 +259,25 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
     }
     
-    func configureStaticCell(cellData: NSDictionary, data: NSDictionary) {
+    func configureStaticCell(cellData: NSDictionary, data: NSDictionary?) {
         title = cellData["title"] as! String
         
         // Commissions
         if cellData["type"] as! Int == 3 {
             type = .Commissions
+            
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = .CurrencyStyle
+            
+            if data != nil {
+                let unpaid = (data!["unpaid"] as! NSString).doubleValue
+                let paid = (data!["paid"] as! NSString).doubleValue
+                let revoked = (data!["revoked"] as! NSString).doubleValue
+                
+                firstStatLabel.text = "Unpaid: \(formatter.stringFromNumber(unpaid)!)"
+                secondStatLabel.text = "Paid: \(formatter.stringFromNumber(paid)!)"
+                thirdStatLabel.text = "Revoked: \(formatter.stringFromNumber(revoked)!)"
+            }
         }
     }
     
