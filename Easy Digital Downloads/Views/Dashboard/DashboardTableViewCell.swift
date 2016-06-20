@@ -14,8 +14,9 @@ enum DashboardCell: Int {
     case Sales = 1
     case Earnings = 2
     case Commissions = 3
-    case Reviews = 4
-    case None = 5
+    case StoreCommissions = 4
+    case Reviews = 5
+    case None = 6
 }
 
 class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSimpleLineGraphDataSource {
@@ -150,9 +151,11 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         topStackView.addArrangedSubview(titleLabel)
         topStackView.addArrangedSubview(statLabel)
         
-        middleStackView.addArrangedSubview(firstStatLabel)
-        middleStackView.addArrangedSubview(secondStatLabel)
-        middleStackView.addArrangedSubview(thirdStatLabel)
+        if type != .StoreCommissions {
+            middleStackView.addArrangedSubview(firstStatLabel)
+            middleStackView.addArrangedSubview(secondStatLabel)
+            middleStackView.addArrangedSubview(thirdStatLabel)
+        }
         
         stackView.addArrangedSubview(topStackView)
         stackView.addArrangedSubview(middleStackView)
@@ -184,9 +187,19 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
         graph.heightAnchor.constraintEqualToConstant(115).active = true
         
-        if type == .Commissions {
+        if type == .Commissions || type == .StoreCommissions {
             middleStackView.removeArrangedSubview(graph)
             graph.removeFromSuperview()
+        }
+        
+        if type == .StoreCommissions {
+            middleStackView.removeArrangedSubview(firstStatLabel)
+            middleStackView.removeArrangedSubview(secondStatLabel)
+            middleStackView.removeArrangedSubview(thirdStatLabel)
+            
+            firstStatLabel.removeFromSuperview()
+            secondStatLabel.removeFromSuperview()
+            thirdStatLabel.removeFromSuperview()
         }
 
         containerView.addSubview(stackView)
@@ -259,6 +272,24 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
     }
     
+    func configureSmallStaticCell(cellData: NSDictionary, cellStat: String?) {
+        title = cellData["title"] as! String
+        
+        guard let _cellStat = cellStat else {
+            return
+        }
+        
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        
+        stat = formatter.stringFromNumber((_cellStat as NSString).doubleValue)!
+        
+        // Store Commissions
+        if cellData["type"] as! Int == 4 {
+            type = .StoreCommissions
+        }
+    }
+    
     func configureStaticCell(cellData: NSDictionary, data: NSDictionary?) {
         title = cellData["title"] as! String
         
@@ -273,6 +304,8 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
                 let unpaid = (data!["unpaid"] as! NSString).doubleValue
                 let paid = (data!["paid"] as! NSString).doubleValue
                 let revoked = (data!["revoked"] as! NSString).doubleValue
+                
+                stat = formatter.stringFromNumber(unpaid)!
                 
                 firstStatLabel.text = "Unpaid: \(formatter.stringFromNumber(unpaid)!)"
                 secondStatLabel.text = "Paid: \(formatter.stringFromNumber(paid)!)"

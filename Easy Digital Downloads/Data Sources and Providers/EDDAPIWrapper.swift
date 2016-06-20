@@ -27,6 +27,7 @@ public final class EDDAPIWrapper: NSObject {
         case Sales = "sales"
         case Earnings = "earnings"
         case Commissions = "commissions"
+        case StoreCommissions = "store-commissions"
         case Reviews = "reviews"
         case Subscriptions = "subscriptions"
         case Info = "info"
@@ -100,6 +101,15 @@ public final class EDDAPIWrapper: NSObject {
     
     public func requestCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Commissions.rawValue
+        requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestStoreCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.StoreCommissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in

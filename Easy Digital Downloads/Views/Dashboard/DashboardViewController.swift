@@ -22,7 +22,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         ["title": NSLocalizedString("Sales", comment: ""), "type": 1],
         ["title": NSLocalizedString("Earnings", comment: ""), "type": 2],
         ["title": NSLocalizedString("Commissions", comment: ""), "type": 3],
-        ["title": NSLocalizedString("Reviews", comment: ""), "type": 4],
+        ["title": NSLocalizedString("Store Commissions", comment: ""), "type": 4],
+        ["title": NSLocalizedString("Reviews", comment: ""), "type": 5],
     ]
     var stats: Stats?
     var commissionsStats: NSDictionary?
@@ -30,6 +31,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     var salesGraphData: Array<Int> = []
     var earningsGraphDates: Array<String> = []
     var earningsGraphData: Array<Double> = []
+    var storeCommission: String?
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -78,6 +80,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             }) { (error) in
                 fatalError()
+        }
+        
+        EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
+            self.storeCommission = json["total_unpaid"].stringValue
+            self.tableView.reloadData()
+        }) { (error) in
+            fatalError()
         }
     }
     
@@ -188,13 +197,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch site!.typeEnum  {
             case SiteType.Standard:
-                return 3
+                return 4
             case SiteType.Commission:
-                return 3
+                return 4
             case SiteType.StandardCommission, SiteType.StandardStore:
-                return 3
+                return 4
             default:
-                return 3
+                return 4
         }
     }
     
@@ -223,6 +232,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                 break
             case 3:
                 cell!.configureStaticCell(config, data: commissionsStats)
+                break
+            case 4:
+                cell!.configureSmallStaticCell(config, cellStat: storeCommission)
+                break
             default:
                 break
         }
