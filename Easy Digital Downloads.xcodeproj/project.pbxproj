@@ -23,6 +23,7 @@
 		F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */; };
 		F5A312901CF1DAE1000F4F6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */; };
 		F5A312931CF1DAE1000F4F6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */; };
+		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
 		F5EF5E8F1CF2EE0800298841 /* SiteTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8E1CF2EE0800298841 /* SiteTabBarController.swift */; };
@@ -77,6 +78,7 @@
 		F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5A312921CF1DAE1000F4F6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5A312941CF1DAE1000F4F6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
 		F5EF5E8E1CF2EE0800298841 /* SiteTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteTabBarController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				F5EF5E891CF26E4700298841 /* DashboardViewController.swift */,
 				F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */,
+				F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
 				F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */,
 				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
+				F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */,
 				F5FAF3C81CFB628A00F9F1FF /* ManagedObjectContextSettable.swift in Sources */,
 				F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */,
 			);
