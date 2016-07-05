@@ -419,6 +419,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                             
                             SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                             
+                            
+                            
                             NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
                             NSUserDefaults.standardUserDefaults().synchronize()
                             

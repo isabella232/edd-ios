@@ -107,15 +107,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         managedObjectContext.performSaveOrRollback()
     }
     
-    // MARK: Private
-    
-    private func noSitesSetup() -> Bool {
+    func noSitesSetup() -> Bool {
         guard let _ = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") as? String else {
             return true
         }
 
         return false
     }
+    
+    // MARK: Private
     
     private func configureGlobalAppearance() {
         let navigationBar = UINavigationBar.appearance()
