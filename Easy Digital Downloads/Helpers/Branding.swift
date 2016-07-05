@@ -44,5 +44,9 @@ extension UIColor {
     class func errorColor() -> UIColor {
         return UIColor.colorWithHex(0x7c1d2d)
     }
+    
+    class func separatorColor() -> UIColor {
+        return UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
+    }
 
 }
