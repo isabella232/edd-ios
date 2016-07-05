@@ -77,7 +77,6 @@
     <entity name="Site" representedClassName=".Site" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="currency" attributeType="String" syncable="YES"/>
-        <attribute name="dashboardOrder" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="hasCommissions" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="hasFES" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="hasRecurring" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -110,7 +109,7 @@
         <element name="Product" positionX="-45" positionY="36" width="128" height="28"/>
         <element name="Review" positionX="-27" positionY="180" width="128" height="30"/>
         <element name="Sale" positionX="-54" positionY="27" width="128" height="240"/>
-        <element name="Site" positionX="-54" positionY="-9" width="128" height="210"/>
+        <element name="Site" positionX="-54" positionY="-9" width="128" height="195"/>
         <element name="Subscription" positionX="-18" positionY="135" width="128" height="255"/>
     </elements>
 </model>
