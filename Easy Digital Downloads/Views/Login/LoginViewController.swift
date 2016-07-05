@@ -419,10 +419,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                             
                             SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                             
-                            
-                            
-                            NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
-                            NSUserDefaults.standardUserDefaults().synchronize()
+                            // Only set the defaultSite if this is the first site being added
+                            let appDelegate = AppDelegate()
+                            if appDelegate.noSitesSetup() {
+                                NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
+                                NSUserDefaults.standardUserDefaults().synchronize()
+                            }
                             
                             var site: Site?
                             
