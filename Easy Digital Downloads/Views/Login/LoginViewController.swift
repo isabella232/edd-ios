@@ -400,6 +400,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                     case .Success:
                         let json = JSON(response.result.value!)
                         if json["info"] != nil {
+                            let info = json["info"]
                             self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
                             let uid = NSUUID().UUIDString
                             var type: Int16
@@ -417,6 +418,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                                 type = SiteType.Standard.rawValue
                             }
                             
+                            var hasReviews = false
+                            var hasCommissions = false
+                            var hasFES = false
+                            var hasRecurring = false
+                            
+                            let integrations = info["integrations"]
+                            for (key, value) : (String, JSON) in integrations {
+                                if key == "reviews" && value.boolValue == true {
+                                    hasReviews = true
+                                }
+                                
+                                if key == "commissions" && value.boolValue == true {
+                                    hasCommissions = true
+                                }
+                                
+                                if key == "fes" && value.boolValue == true {
+                                    hasFES = true
+                                }
+                                
+                                if key == "recurring" && value.boolValue == true {
+                                    hasRecurring = true
+                                }
+                            }
+                            
                             SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                             
                             // Only set the defaultSite if this is the first site being added
@@ -429,7 +454,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                             var site: Site?
                             
                             self.managedObjectContext.performChanges {
-                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency)
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews)
                                 self.managedObjectContext.performSaveOrRollback()
                             }
 

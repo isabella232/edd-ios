@@ -28,6 +28,10 @@ public final class Site: ManagedObject {
     @NSManaged public private(set) var url: String?
     @NSManaged public private(set) var type: NSNumber?
     @NSManaged public private(set) var currency: String?
+    @NSManaged public private(set) var hasCommissions: NSNumber?
+    @NSManaged public private(set) var hasFES: NSNumber?
+    @NSManaged public private(set) var hasRecurring: NSNumber?
+    @NSManaged public private(set) var hasReviews: NSNumber?
     @NSManaged public private(set) var createdAt: NSDate?
 
     var key: String = ""
@@ -43,7 +47,7 @@ public final class Site: ManagedObject {
         }
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, type: Int16, currency: String) -> Site {
+    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, type: Int16, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid
         site.name = name
@@ -51,6 +55,10 @@ public final class Site: ManagedObject {
         site.type = NSNumber(short: type)
         site.currency = currency
         site.createdAt = NSDate()
+        site.hasCommissions = hasCommissions
+        site.hasFES = hasFES
+        site.hasRecurring = hasRecurring
+        site.hasReviews = hasReviews
         return site
     }
     
