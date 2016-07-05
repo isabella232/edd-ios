@@ -25,7 +25,7 @@ class EditDashboardLayoutViewController: UIViewController {
         navigationBar.translucent = true
         navigationBar.barStyle = .BlackTranslucent
         
-        tableView = UITableView(frame: CGRectMake(0, 0, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
+        tableView = UITableView(frame: CGRectMake(0, navigationBar.frame.height, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
         tableView.scrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
@@ -43,8 +43,8 @@ class EditDashboardLayoutViewController: UIViewController {
         title = NSLocalizedString("Edit Dashboard", comment: "")
         
         view.addSubview(visualEffectView)
-        view.addSubview(navigationBar)
         view.addSubview(tableView)
+        view.addSubview(navigationBar)
     }
     
     init(site: Site) {
