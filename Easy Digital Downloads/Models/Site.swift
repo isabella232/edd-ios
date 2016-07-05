@@ -47,6 +47,30 @@ public final class Site: ManagedObject {
         }
     }
     
+    var isCommissionActive: Bool {
+        get {
+            return Bool(hasCommissions!)
+        }
+    }
+    
+    var isFESActive: Bool {
+        get {
+            return Bool(hasFES!)
+        }
+    }
+    
+    var isRecurringActive: Bool {
+        get {
+            return Bool(hasRecurring!)
+        }
+    }
+    
+    var isReviewsActive: Bool {
+        get {
+            return Bool(hasReviews!)
+        }
+    }
+    
     public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, type: Int16, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid
