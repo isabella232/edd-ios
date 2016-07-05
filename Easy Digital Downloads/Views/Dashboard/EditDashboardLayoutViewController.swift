@@ -35,7 +35,7 @@ class EditDashboardLayoutViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.editing = true
         
-        let navigationItem = UINavigationItem(title: NSLocalizedString("Edit Dashboard", comment: ""))
+        let navigationItem = UINavigationItem(title: NSLocalizedString("Edit Dashboard Layout", comment: ""))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(EditDashboardLayoutViewController.doneButtonPressed))
         navigationItem.rightBarButtonItem = doneButton
         navigationBar.items = [navigationItem]
