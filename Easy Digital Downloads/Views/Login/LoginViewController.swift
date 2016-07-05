@@ -392,14 +392,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             self.connectionTest.hidden = false
         }
         
-        Alamofire.request(.GET, siteURL.text! + "/edd-api/products", parameters: ["key": apiKey.text!, "token": token.text!, "number": 1])
+        Alamofire.request(.GET, siteURL.text! + "/edd-api/info", parameters: ["key": apiKey.text!, "token": token.text!])
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 switch response.result {
                     case .Success:
                         let json = JSON(response.result.value!)
-                        if json["products"].arrayObject != nil {
+                        if json["info"] != nil {
                             self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
                             let uid = NSUUID().UUIDString
                             var type: Int16
