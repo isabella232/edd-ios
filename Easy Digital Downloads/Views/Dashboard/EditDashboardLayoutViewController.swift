@@ -16,33 +16,57 @@ class EditDashboardLayoutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let blurEffect = UIBlurEffect(style: .Dark)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = view.bounds
+        
+        navigationBar = UINavigationBar(frame: CGRectMake(0, 0, view.frame.width, 64))
+        navigationBar.translucent = true
+        navigationBar.barStyle = .BlackTranslucent
+        
+        tableView = UITableView(frame: CGRectMake(0, 0, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
+        tableView.scrollEnabled = true
+        tableView.bounces = true
+        tableView.showsVerticalScrollIndicator = true
+        tableView.userInteractionEnabled = true
+        tableView.backgroundColor = .clearColor()
+        tableView.separatorColor = UIColor.separatorColor()
+        tableView.tableFooterView = UIView()
+        tableView.editing = true
+        
+        let navigationItem = UINavigationItem(title: NSLocalizedString("Edit Dashboard", comment: ""))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(EditDashboardLayoutViewController.doneButtonPressed))
+        navigationItem.rightBarButtonItem = doneButton
+        navigationBar.items = [navigationItem]
+        
+        title = NSLocalizedString("Edit Dashboard", comment: "")
+        
+        view.addSubview(visualEffectView)
+        view.addSubview(navigationBar)
+        view.addSubview(tableView)
     }
     
     init(site: Site) {
         self.site = site
         
         super.init(nibName: nil, bundle: nil)
-        
-        navigationBar = UINavigationBar(frame: CGRectMake(0, 0, view.frame.width, 64))
-        tableView = UITableView(frame: CGRectMake(0, 0, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
-        
-        let navigationItem = UINavigationItem(title: NSLocalizedString("Edit Dashboard", comment: ""))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(EditDashboardLayoutViewController.doneButtonPressed(_:)))
-        navigationItem.rightBarButtonItem = doneButton
-        navigationBar.items = [navigationItem]
-        
-        title = NSLocalizedString("Edit Dashboard", comment: "")
-        
-        view.addSubview(navigationBar)
-        view.addSubview(tableView)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func doneButtonPressed(sender: UIButton!) {
-        
+    func doneButtonPressed() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return false
     }
 
 }

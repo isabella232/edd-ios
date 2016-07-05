@@ -109,6 +109,18 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl = refreshControl
+        
+        let rightNavigationItemImage = UIImage(named: "NavigationBar-EditLayout")
+        let rightNavigationItemButton = HighlightButton(type: .Custom)
+        rightNavigationItemButton.tintColor = .whiteColor()
+        rightNavigationItemButton.setImage(rightNavigationItemImage, forState: .Normal)
+        rightNavigationItemButton.addTarget(self, action: Selector("editDashboardButtonPressed"), forControlEvents: .TouchUpInside)
+        rightNavigationItemButton.sizeToFit()
+        
+        let rightNavigationBarButton = UIBarButtonItem(customView: rightNavigationItemButton)
+        rightNavigationBarButton.accessibilityIdentifier = "Edit Layout"
+        
+        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
     }
     
     override func didReceiveMemoryWarning() {
@@ -243,6 +255,16 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         cell!.layout()
         
         return cell!
+    }
+    
+    // MARK: Buttons
+    
+    func editDashboardButtonPressed() {
+        let editDashboardViewController = EditDashboardLayoutViewController(site: self.site!)
+        editDashboardViewController.view.backgroundColor = .clearColor()
+        editDashboardViewController.modalPresentationStyle = .OverFullScreen
+        editDashboardViewController.modalPresentationCapturesStatusBarAppearance = true
+        presentViewController(editDashboardViewController, animated: true, completion: nil)
     }
 
 }

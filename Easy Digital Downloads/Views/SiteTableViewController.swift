@@ -22,16 +22,6 @@ class SiteTableViewController: UITableViewController {
         let leftNavigationBarButton = UIBarButtonItem(customView: leftNavigationItemButton)
         leftNavigationBarButton.accessibilityIdentifier = "Switch Site"
         navigationItem.leftBarButtonItems = [leftNavigationBarButton]
-        
-        let rightNavigationItemImage = UIImage(named: "NavigationBar-EditLayout")
-        let rightNavigationItemButton = HighlightButton(type: .Custom)
-        rightNavigationItemButton.tintColor = .whiteColor()
-        rightNavigationItemButton.setImage(rightNavigationItemImage, forState: .Normal)
-        rightNavigationItemButton.sizeToFit()
-        
-        let rightNavigationBarButton = UIBarButtonItem(customView: rightNavigationItemButton)
-        rightNavigationBarButton.accessibilityIdentifier = "Edit Layout"
-        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
     }
     
     override func viewWillAppear(animated: Bool) {
