@@ -186,8 +186,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         stackView.addArrangedSubview(siteURL)
         stackView.addArrangedSubview(apiKey)
         stackView.addArrangedSubview(token)
-        stackView.addArrangedSubview(currency)
-        stackView.addArrangedSubview(type)
         stackView.addArrangedSubview(buttonSpacerView)
         stackView.addArrangedSubview(addButton)
         stackView.addArrangedSubview(labelSpacerView)
