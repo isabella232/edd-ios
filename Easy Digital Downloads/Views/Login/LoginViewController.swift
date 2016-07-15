@@ -198,7 +198,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         view.addSubview(stackView)
         
         stackView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        stackView.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 50).active = true
+        stackView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
         stackView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 25).active = true
         stackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -25).active = true
     }
@@ -302,7 +302,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
     }
     
     func validateInputs() {
-        if siteName.hasText() && siteURL.hasText() && canOpenURL(siteURL.text) && apiKey.hasText() && token.hasText() && currency.hasText() && type.hasText() {
+        if siteName.hasText() && siteURL.hasText() && canOpenURL(siteURL.text) && apiKey.hasText() && token.hasText() {
             UIView.animateWithDuration(0.5, animations: {
                 self.addButton.layer.opacity = 1
                 self.addButton.enabled = true
