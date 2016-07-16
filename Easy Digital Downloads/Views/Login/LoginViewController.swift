@@ -371,6 +371,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         let button = sender as! LoginSubmitButton
         button.showActivityIndicator(true)
         
+        connectionTest.text = "Connecting to " + siteName.text! + "..."
+        
         let textFields = [siteName, siteURL, apiKey, token, currency, type]
         
         for textField in textFields {
