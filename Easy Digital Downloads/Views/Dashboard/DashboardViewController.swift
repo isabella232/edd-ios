@@ -52,41 +52,62 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        let networkOperationGroup = dispatch_group_create()
+        
+        dispatch_group_enter(networkOperationGroup)
+        
         EDDAPIWrapper.sharedInstance.requestStats([:], success: { (json) in
             let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
             let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
             self.stats = Stats(sales: sales, earnings: earnings, updatedAt: NSDate())
             self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
             }) { (error) in
                 fatalError()
         }
+        
+        dispatch_group_enter(networkOperationGroup)
         
         EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
             self.processSalesGraphData(json)
             self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
         }) { (error) in
             fatalError()
         }
+        
+        dispatch_group_enter(networkOperationGroup)
         
         EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
             self.processEarningsGraphData(json)
             self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
             }) { (error) in
                 fatalError()
         }
+        
+        dispatch_group_enter(networkOperationGroup)
         
         EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
             self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
             self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
             }) { (error) in
                 fatalError()
         }
         
+        dispatch_group_enter(networkOperationGroup)
+        
         EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
             self.storeCommission = json["total_unpaid"].stringValue
             self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
         }) { (error) in
             fatalError()
+        }
+        
+        dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
+            Stats.encode(self.stats!)
         }
     }
     
