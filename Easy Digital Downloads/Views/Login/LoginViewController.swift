@@ -14,7 +14,7 @@ import SSKeychain
 import Gridicons
 import SafariServices
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ManagedObjectContextSettable {
+class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectContextSettable {
     
     var managedObjectContext: NSManagedObjectContext!
     var site: Site!
@@ -31,23 +31,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
     let siteURL = LoginTextField()
     let apiKey = LoginTextField()
     let token = LoginTextField()
-    let currency = LoginTextField()
-    let type = LoginTextField()
     let connectionTest = UILabel()
     
     let addButton = LoginSubmitButton()
-
-    var editingCurrency = false
-    var editingType = false
-    
-    private var _currency: String = ""
-    private var _type: String = ""
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.appearance()
         
-        let textFields = [siteName, siteURL, apiKey, token, currency, type]
+        let textFields = [siteName, siteURL, apiKey, token]
         
         var index = 0;
         
@@ -78,25 +70,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        currencyPickerView.delegate = self
-        currencyPickerView.dataSource = self
-        currencyPickerView.tag = 1
-        currencyPickerView.showsSelectionIndicator = true
-        
-        typePickerView.delegate = self
-        typePickerView.dataSource = self
-        typePickerView.tag = 2
-        typePickerView.showsSelectionIndicator = true
-        
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: #selector(LoginViewController.doneButtonPressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        
-        toolBar.setItems([spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
         
         logo.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
         logo.contentMode = .ScaleAspectFit
@@ -137,22 +110,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         token.placeholder = NSLocalizedString("Token", comment: "")
         token.delegate = self
         token.accessibilityIdentifier = "Token"
-        
-        currency.tag = 5
-        currency.placeholder = NSLocalizedString("Currency", comment: "")
-        currency.delegate = self
-        currency.inputView = currencyPickerView
-        currency.inputAccessoryView = toolBar
-        currency.accessibilityIdentifier = "Currency"
-        currency.disableEditing = true
-
-        type.tag = 6
-        type.placeholder = NSLocalizedString("Type of Site", comment: "")
-        type.delegate = self
-        type.inputView = typePickerView
-        type.inputAccessoryView = toolBar
-        type.accessibilityIdentifier = "Type of Site"
-        type.disableEditing = true
         
         addButton.addTarget(self, action: #selector(LoginViewController.addButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         addButton.setTitle("Add Site", forState: UIControlState.Normal)
@@ -221,14 +178,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                 token.text = item.value
             }
             
-            if item.name == "currency" {
-                let curr = item.value!
-
-                if currencies.contains(curr) {
-                    _currency = curr
-                    currency.text = "Currency: " + curr
-                }
-            }
         }
     }
     
@@ -251,31 +200,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.tag == 5 {
-            editingCurrency = true
-        } else {
-            editingCurrency = false
-        }
-        
-        if textField.tag == 6 {
-            editingType = true
-        } else {
-            editingType = false
-        }
-        
         validateInputs()
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         let textField = textField as! LoginTextField
-        
-        if textField.tag == 5 && !currency.hasText() {
-            currency.text = "Currency: " + currencies[0]
-        }
-        
-        if textField.tag == 6 && !type.hasText() {
-            type.text = "Type: " + types[0]
-        }
         
         guard ( textField.tag == 2 && canOpenURL(textField.text) ) ||
               ( textField.tag != 2 && textField.hasText() ) else {
@@ -292,7 +221,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         let nextTag = textField.tag + 1
         let nextResponder: UIResponder = (textField.superview?.viewWithTag(nextTag))!
         
-        if nextResponder.canBecomeFirstResponder() && nextTag < 6 {
+        if nextResponder.canBecomeFirstResponder() && nextTag < 5 {
             nextResponder.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
@@ -314,40 +243,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             })
         }
     }
-    
-    // MARK: UIPickerViewDelegate
 
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1;
-    }
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 1 {
-            return currencies.count
-        } else {
-            return types.count
-        }
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == 1 {
-            return currencies[row]
-        } else {
-            return types[row]
-        }
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView.tag == 1 {
-            currency.text = "Currency: " + currencies[row]
-            _currency = currencies[row]
-        } else {
-            type.text = "Type: " + types[row]
-            _type = types[row]
-        }
-    }
-    
     // MARK: Button Handlers
     
     func handleHelpButtonTapped(sender: UIButton) {
@@ -357,23 +253,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         self.presentViewController(svc, animated: true, completion: nil)
     }
     
-    func doneButtonPressed() {
-        if editingType {
-            type.resignFirstResponder()
-        }
-        
-        if editingCurrency {
-            currency.resignFirstResponder()
-        }
-    }
-    
     func addButtonPressed(sender: UIButton!) {
         let button = sender as! LoginSubmitButton
         button.showActivityIndicator(true)
         
         connectionTest.text = "Connecting to " + siteName.text! + "..."
         
-        let textFields = [siteName, siteURL, apiKey, token, currency, type]
+        let textFields = [siteName, siteURL, apiKey, token]
         
         for textField in textFields {
             textField.enabled = false
@@ -386,8 +272,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             self.siteURL.layer.opacity = 0.3
             self.apiKey.layer.opacity = 0.3
             self.token.layer.opacity = 0.3
-            self.currency.layer.opacity = 0.3
-            self.type.layer.opacity = 0.3
             
             self.connectionTest.hidden = false
         }
@@ -403,20 +287,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                             let info = json["info"]
                             self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
                             let uid = NSUUID().UUIDString
-                            var type: Int16
-                            
-                            switch self._type {
-                            case "Standard":
-                                type = SiteType.Standard.rawValue
-                            case "Commission Only":
-                                type = SiteType.Commission.rawValue
-                            case "Standard & Commission" :
-                                type = SiteType.StandardCommission.rawValue
-                            case "Standard & Store":
-                                type = SiteType.StandardStore.rawValue
-                            default:
-                                type = SiteType.Standard.rawValue
-                            }
                             
                             var hasReviews = false
                             var hasCommissions = false
@@ -442,6 +312,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                                 }
                             }
                             
+                            let currency = "\(info["currency"])"
+                            
                             SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                             
                             // Only set the defaultSite if this is the first site being added
@@ -454,7 +326,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                             var site: Site?
                             
                             self.managedObjectContext.performChanges {
-                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, type: type, currency: self._currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews)
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews)
                                 self.managedObjectContext.performSaveOrRollback()
                             }
 

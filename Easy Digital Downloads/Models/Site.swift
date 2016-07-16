@@ -71,12 +71,11 @@ public final class Site: ManagedObject {
         }
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, type: Int16, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool) -> Site {
+    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid
         site.name = name
         site.url = url
-        site.type = NSNumber(short: type)
         site.currency = currency
         site.createdAt = NSDate()
         site.hasCommissions = hasCommissions
