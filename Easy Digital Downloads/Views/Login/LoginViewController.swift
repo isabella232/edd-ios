@@ -71,7 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
             index += 1
         }
         
-        UIView.animateWithDuration(1.5, delay: 0.8, options: [], animations: {
+        UIView.animateWithDuration(1.0, delay: 0.6, options: [], animations: {
             self.addButton.layer.opacity = 1
             }, completion: nil)
     }
