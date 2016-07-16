@@ -26,27 +26,17 @@ public final class Site: ManagedObject {
     @NSManaged public private(set) var name: String?
     @NSManaged public private(set) var uid: String?
     @NSManaged public private(set) var url: String?
-    @NSManaged public private(set) var type: NSNumber?
     @NSManaged public private(set) var currency: String?
     @NSManaged public private(set) var hasCommissions: NSNumber?
     @NSManaged public private(set) var hasFES: NSNumber?
     @NSManaged public private(set) var hasRecurring: NSNumber?
     @NSManaged public private(set) var hasReviews: NSNumber?
     @NSManaged public private(set) var createdAt: NSDate?
+    @NSManaged public private(set) var permissions: NSData?
 
     var key: String = ""
     var token: String = ""
-    
-    var typeEnum: SiteType {
-        get {
-            return SiteType(rawValue: self.type!.shortValue) ?? .Standard
-        }
         
-        set {
-            self.type = NSNumber(short: newValue.rawValue)
-        }
-    }
-    
     var isCommissionActive: Bool {
         get {
             return Bool(hasCommissions!)
@@ -71,7 +61,7 @@ public final class Site: ManagedObject {
         }
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool) -> Site {
+    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool, permissions: NSData) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid
         site.name = name
@@ -82,6 +72,7 @@ public final class Site: ManagedObject {
         site.hasFES = hasFES
         site.hasRecurring = hasRecurring
         site.hasReviews = hasReviews
+        site.permissions = permissions;
         return site
     }
     

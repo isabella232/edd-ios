@@ -207,16 +207,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch site!.typeEnum  {
-            case SiteType.Standard:
-                return 4
-            case SiteType.Commission:
-                return 4
-            case SiteType.StandardCommission, SiteType.StandardStore:
-                return 4
-            default:
-                return 4
-        }
+        return 4;
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

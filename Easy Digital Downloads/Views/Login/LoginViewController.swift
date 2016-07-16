@@ -312,7 +312,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                                 }
                             }
                             
-                            let currency = "\(info["currency"])"
+                            let currency = "\(info["site"]["currency"])"
+                            
+                            let permissions: NSData = NSKeyedArchiver.archivedDataWithRootObject(json["permissions"].dictionaryObject!)
                             
                             SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                             
@@ -326,7 +328,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             var site: Site?
                             
                             self.managedObjectContext.performChanges {
-                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews)
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, permissions: permissions)
                                 self.managedObjectContext.performSaveOrRollback()
                             }
 
