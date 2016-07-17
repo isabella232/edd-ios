@@ -21,12 +21,18 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
         let frc = NSFetchedResultsController(fetchRequest: fetchRequset, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         frc.delegate = self
         return frc
-    }
+    }()
 
     var site: Site?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("An error occurred")
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,5 +67,6 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
                 fatalError()
         }
     }
+
 
 }
