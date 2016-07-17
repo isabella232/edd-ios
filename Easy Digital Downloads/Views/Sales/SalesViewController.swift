@@ -10,12 +10,18 @@ import UIKit
 import CoreData
 
 class SalesViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectContextSettable {
+
+    var managedObjectContext: NSManagedObjectContext!
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequset = NSFetchRequest(entityName: "Sale")
+        let sortDescriptor = NSSortDescriptor(key: "ID", ascending: false)
+        fetchRequset.sortDescriptors = [sortDescriptor]
+        
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequset, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
     }
-    
-    var managedObjectContext: NSManagedObjectContext!
 
     var site: Site?
     
