@@ -83,6 +83,13 @@ public final class Site: ManagedObject {
         return NSPredicate(format: "uid == %@", defaultSiteId)
     }
     
+    public static func predicateForActiveSite() -> NSPredicate {
+        guard let activeSiteId = NSUserDefaults.standardUserDefaults().stringForKey("activeSite") else {
+            fatalError("No activte site set")
+        }
+        return NSPredicate(format: "uid == %@", activeSiteId)
+    }
+    
     public static func defaultSite() -> Site {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext

@@ -282,5 +282,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         editDashboardViewController.modalPresentationCapturesStatusBarAppearance = true
         presentViewController(editDashboardViewController, animated: true, completion: nil)
     }
+    
+    // MARK: Loading
+    
+    func showActivityIndicator() {
+        
+
+    }
 
 }
