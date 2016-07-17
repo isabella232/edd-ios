@@ -38,7 +38,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.init(style: .Plain)
 
         self.site = site
-
+        
         title = NSLocalizedString("Dashboard", comment: "Dashboard title")
         tableView.delegate = self
         tableView.dataSource = self
@@ -212,14 +212,15 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             case 2:
                 cell!.configure(config, stats: stats, data: earningsGraphData, dates: earningsGraphDates)
                 break
-            case 3:
-                cell!.configureStaticCell(config, data: commissionsStats)
-                break
             case 4:
                 cell!.configureSmallStaticCell(config, cellStat: storeCommission)
                 break
             default:
                 break
+        }
+        
+        if ((site?.hasCommissions) != false) {
+            cell!.configureStaticCell(config, data: commissionsStats)
         }
         
         cell!.layout()

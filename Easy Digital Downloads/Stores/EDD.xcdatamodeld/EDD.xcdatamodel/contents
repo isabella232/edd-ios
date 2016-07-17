@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="16A239m" minimumToolsVersion="Xcode 7.0">
     <entity name="Commission" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,6 +10,7 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Customer" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,6 +26,7 @@
     <entity name="Discount" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="code" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="did" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="expiryDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="globalDiscount" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -42,6 +44,7 @@
     </entity>
     <entity name="Product" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="files" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="hasVariablePricing" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -60,6 +63,7 @@
     </entity>
     <entity name="Review" syncable="YES"/>
     <entity name="Sale" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="date" attributeType="Date" syncable="YES"/>
         <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="fees" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -104,11 +108,11 @@
     </entity>
     <elements>
         <element name="Commission" positionX="-9" positionY="189" width="128" height="30"/>
-        <element name="Customer" positionX="-27" positionY="45" width="128" height="210"/>
-        <element name="Discount" positionX="-9" positionY="54" width="128" height="285"/>
-        <element name="Product" positionX="-45" positionY="36" width="128" height="28"/>
+        <element name="Customer" positionX="-27" positionY="45" width="128" height="225"/>
+        <element name="Discount" positionX="-9" positionY="54" width="128" height="300"/>
+        <element name="Product" positionX="-45" positionY="36" width="128" height="300"/>
         <element name="Review" positionX="-27" positionY="180" width="128" height="45"/>
-        <element name="Sale" positionX="-54" positionY="27" width="128" height="240"/>
+        <element name="Sale" positionX="-54" positionY="27" width="128" height="255"/>
         <element name="Site" positionX="-54" positionY="-9" width="128" height="195"/>
         <element name="Subscription" positionX="-18" positionY="135" width="128" height="255"/>
     </elements>

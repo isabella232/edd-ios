@@ -9,7 +9,11 @@
 import UIKit
 import CoreData
 
-class SalesViewController: UITableViewController, ManagedObjectContextSettable {
+class SalesViewController: UITableViewController, NSFetchedResultsControllerDelegate, ManagedObjectContextSettable {
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequset = NSFetchRequest(entityName: "Sale")
+    }
     
     var managedObjectContext: NSManagedObjectContext!
 
@@ -39,14 +43,17 @@ class SalesViewController: UITableViewController, ManagedObjectContextSettable {
         super.init(coder: aDecoder)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        var sales: NSDictionary = NSDictionary()
+        
+        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
+            sales = NSDictionary(dictionary: json.dictionaryObject!)
+            print(sales)
+            }) { (error) in
+                fatalError()
+        }
     }
-    */
 
 }
