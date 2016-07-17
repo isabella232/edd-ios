@@ -129,6 +129,12 @@ public final class Site: ManagedObject {
         
         return site!
     }
+    
+    public static func decodePermissionsForActiveSite() -> NSDictionary {
+        let site = Site.activeSite()
+        let permissions: NSDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(site.permissions!)! as! NSDictionary
+        return permissions
+    }
 
 }
 
