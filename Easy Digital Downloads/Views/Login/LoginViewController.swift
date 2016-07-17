@@ -322,6 +322,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             let appDelegate = AppDelegate()
                             if appDelegate.noSitesSetup() {
                                 NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
+                                NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "activeSite")
                                 NSUserDefaults.standardUserDefaults().synchronize()
                             }
                             
