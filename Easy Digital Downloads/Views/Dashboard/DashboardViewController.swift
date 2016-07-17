@@ -25,6 +25,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         ["title": NSLocalizedString("Store Commissions", comment: ""), "type": 4],
         ["title": NSLocalizedString("Reviews", comment: ""), "type": 5],
     ]
+    var cachedGraphData: GraphData?
     var stats: Stats?
     var commissionsStats: NSDictionary?
     var salesGraphDates: Array<String> = []
@@ -55,6 +56,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         if Stats.hasStatsForActiveSite() {
             processCachedStats()
         }
+        
+        if GraphData.hasGraphDataForActiveSite() {
+            processCachedGraphData()
+        }
+        
+        self.tableView.reloadData()
         
         let networkOperationGroup = dispatch_group_create()
         
@@ -115,7 +122,9 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
             self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
+            self.cachedGraphData = GraphData(salesGraphDates: self.salesGraphDates, salesGraphData: self.salesGraphData, earningsGraphDates: self.earningsGraphDates, earningsGraphData: self.earningsGraphData)
             Stats.encode(self.stats!)
+            GraphData.encode(self.cachedGraphData!)
             self.tableView.reloadData()
         }
     }
@@ -239,7 +248,17 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     private func processCachedStats() {
         stats = Stats.decode()
-        tableView.reloadData()
+    }
+    
+    private func processCachedGraphData() {
+        guard let data = GraphData.decode() else {
+            return
+        }
+        
+        self.salesGraphData = data.salesGraphData
+        self.salesGraphDates = data.salesGraphDates
+        self.earningsGraphData = data.earningsGraphData
+        self.earningsGraphDates = data.earningsGraphDates
     }
     
     private func processSalesGraphData(json: JSON) {

@@ -26,6 +26,16 @@ struct GraphData {
         
         return graphDataClassObject?.graphData
     }
+    
+    static func hasGraphDataForActiveSite() -> Bool {
+        let path = GraphDataStorageAgent.path()
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            return true
+        } else {
+            return false
+        }
+    }
 
 }
 
