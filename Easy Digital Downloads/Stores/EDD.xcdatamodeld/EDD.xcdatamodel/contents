@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="16A239m" minimumToolsVersion="Xcode 7.0">
-    <entity name="Commission" syncable="YES">
+    <entity name="Commission" representedClassName="Commission" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -9,7 +9,7 @@
         <attribute name="renewal" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Customer" syncable="YES">
+    <entity name="Customer" representedClassName="Customer" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
@@ -23,7 +23,7 @@
         <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="customer" inverseEntity="Sale" syncable="YES"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="customer" inverseEntity="Subscription" syncable="YES"/>
     </entity>
-    <entity name="Discount" syncable="YES">
+    <entity name="Discount" representedClassName="Discount" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="code" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
@@ -42,7 +42,7 @@
         <attribute name="uses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="discount" inverseEntity="Sale" syncable="YES"/>
     </entity>
-    <entity name="Product" syncable="YES">
+    <entity name="Product" representedClassName="Product" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -60,7 +60,7 @@
         <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="products" inverseEntity="Sale" syncable="YES"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="product" inverseEntity="Subscription" syncable="YES"/>
     </entity>
-    <entity name="Sale" syncable="YES">
+    <entity name="Sale" representedClassName="Sale" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="date" attributeType="Date" syncable="YES"/>
         <attribute name="email" attributeType="String" syncable="YES"/>
@@ -88,7 +88,7 @@
         <attribute name="uid" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="url" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Subscription" syncable="YES">
+    <entity name="Subscription" representedClassName="Subscription" syncable="YES">
         <attribute name="billTimes" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="expiration" optional="YES" attributeType="Date" syncable="YES"/>

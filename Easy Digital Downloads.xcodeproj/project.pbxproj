@@ -18,6 +18,12 @@
 		F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */; };
 		F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */; };
 		F52825251CFE41B000AB62D9 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */; };
+		F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724F91D3C3ABC009D5E8D /* Commission.swift */; };
+		F54724FC1D3C3AD1009D5E8D /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724FB1D3C3AD1009D5E8D /* Customer.swift */; };
+		F54724FE1D3C3AD6009D5E8D /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724FD1D3C3AD6009D5E8D /* Discount.swift */; };
+		F54725001D3C3ADC009D5E8D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724FF1D3C3ADC009D5E8D /* Product.swift */; };
+		F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725011D3C3AE2009D5E8D /* Sale.swift */; };
+		F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725031D3C3AEA009D5E8D /* Subscription.swift */; };
 		F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */; };
 		F56B88E71CFADD5700DCF41F /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E51CFADD5700DCF41F /* Site.swift */; };
 		F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */; };
@@ -73,6 +79,12 @@
 		F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDAPIWrapper.swift; sourceTree = "<group>"; };
 		F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		F54724F91D3C3ABC009D5E8D /* Commission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commission.swift; sourceTree = "<group>"; };
+		F54724FB1D3C3AD1009D5E8D /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		F54724FD1D3C3AD6009D5E8D /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
+		F54724FF1D3C3ADC009D5E8D /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		F54725011D3C3AE2009D5E8D /* Sale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sale.swift; sourceTree = "<group>"; };
+		F54725031D3C3AEA009D5E8D /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
 		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,6 +251,12 @@
 				F56B88E51CFADD5700DCF41F /* Site.swift */,
 				F5FAF3C01CFB5E0800F9F1FF /* ManagedObject.swift */,
 				F5FAF3C41CFB619800F9F1FF /* Stack.swift */,
+				F54724F91D3C3ABC009D5E8D /* Commission.swift */,
+				F54724FB1D3C3AD1009D5E8D /* Customer.swift */,
+				F54724FD1D3C3AD6009D5E8D /* Discount.swift */,
+				F54724FF1D3C3ADC009D5E8D /* Product.swift */,
+				F54725011D3C3AE2009D5E8D /* Sale.swift */,
+				F54725031D3C3AEA009D5E8D /* Subscription.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -451,8 +469,12 @@
 				F5EF5E9C1CF2FD9E00298841 /* EDD.xcdatamodeld in Sources */,
 				F5FAF3BF1CFB077500F9F1FF /* SiteTableViewController.swift in Sources */,
 				F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */,
+				F54725001D3C3ADC009D5E8D /* Product.swift in Sources */,
+				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
+				F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
+				F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
 				F51F68291D02C01600F09B9D /* SyncCoordinator.swift in Sources */,
 				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
@@ -464,6 +486,8 @@
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
 				F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */,
 				F5FAF3CA1CFB64C800F9F1FF /* ManagedObjectType.swift in Sources */,
+				F54724FC1D3C3AD1009D5E8D /* Customer.swift in Sources */,
+				F54724FE1D3C3AD6009D5E8D /* Discount.swift in Sources */,
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
 				F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */,
 				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
@@ -577,10 +601,13 @@
 			baseConfigurationReference = 82B99EF72DAA8AE69B865C56 /* Pods-Easy Digital Downloads.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.easydigitaldownloads.Easy-Digital-Downloads";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Models/Easy Digital Downloads-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -589,10 +616,12 @@
 			baseConfigurationReference = 5882D613D54F927F6699E1E9 /* Pods-Easy Digital Downloads.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.easydigitaldownloads.Easy-Digital-Downloads";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Models/Easy Digital Downloads-Bridging-Header.h";
 			};
 			name = Release;
 		};
