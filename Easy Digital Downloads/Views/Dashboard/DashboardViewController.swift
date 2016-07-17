@@ -56,10 +56,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         dispatch_group_enter(networkOperationGroup)
         
+        var sales: NSDictionary = NSDictionary()
+        var earnings: NSDictionary = NSDictionary()
+        
         EDDAPIWrapper.sharedInstance.requestStats([:], success: { (json) in
-            let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
-            let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
-            self.stats = Stats(sales: sales, earnings: earnings, updatedAt: NSDate())
+            earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
+            sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
+            
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
             }) { (error) in
@@ -107,6 +110,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         }
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
+            self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
             Stats.encode(self.stats!)
         }
     }
