@@ -29,6 +29,16 @@ struct Stats {
         return statsClassObject?.stats
     }
     
+    static func hasStatsForActiveSite() -> Bool {
+        let path = StatsStorageAgent.path()
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 }
 
 extension Stats {
@@ -44,7 +54,10 @@ extension Stats {
         
         class func path() -> String {
             let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
-            let path = documentsPath?.stringByAppendingString("/Stats")
+            let activeSite = Site.activeSite()
+            let activeSiteUID = activeSite.uid!
+            let fileName = String(format: "/Stats-%@", activeSiteUID)
+            let path = documentsPath?.stringByAppendingString(fileName)
             return path!
         }
         

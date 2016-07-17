@@ -52,6 +52,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        if Stats.hasStatsForActiveSite() {
+            processCachedStats()
+        }
+        
         let networkOperationGroup = dispatch_group_create()
         
         dispatch_group_enter(networkOperationGroup)
@@ -112,6 +116,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
             self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
             Stats.encode(self.stats!)
+            self.tableView.reloadData()
         }
     }
     
@@ -165,66 +170,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     private func setupTableView() {
     }
-    
-    private func processSalesGraphData(json: JSON) {
-//        let sales = NSDictionary(dictionary: json["sales"].dictionaryObject!) as! Dictionary<String, AnyObject>
-        let sales = json["sales"].dictionaryObject
-        
-        let keys = sales?.keys
-        let sorted = keys?.sort {
-            return $0 < $1
-        }
-        
-        var salesGraphData: Array<Int> = []
-        for key in sorted! {
-            salesGraphData.append(sales![key]!.integerValue)
-            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
-            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
-
-            let date = key[dateRange]
-            let month = Int(key[monthRange])
-            
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
-            let months = dateFormatter.shortMonthSymbols
-            let monthSymbol = months[month!-1] 
-            
-            let dateString = "\(date) \(monthSymbol)"
-            
-            self.salesGraphDates.append(dateString)
-        }
-        
-        self.salesGraphData = salesGraphData
-    }
-
-    private func processEarningsGraphData(json: JSON) {
-        let earnings = json["earnings"].dictionaryObject
-        
-        let keys = earnings?.keys
-        let sorted = keys?.sort {
-            return $0 < $1
-        }
-        
-        var earningsGraphData: Array<Double> = []
-        for key in sorted! {
-            earningsGraphData.append(earnings![key]!.doubleValue)
-            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
-            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
-            
-            let date = key[dateRange]
-            let month = Int(key[monthRange])
-            
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
-            let months = dateFormatter.shortMonthSymbols
-            let monthSymbol = months[month!-1]
-            
-            let dateString = "\(date) \(monthSymbol)"
-            
-            self.earningsGraphDates.append(dateString)
-        }
-        
-        self.earningsGraphData = earningsGraphData
-    }
-
     
     // MARK: Table View Delegate
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -288,6 +233,71 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     func showActivityIndicator() {
         
 
+    }
+    
+    // MARK: Stats
+    
+    private func processCachedStats() {
+        stats = Stats.decode()
+        tableView.reloadData()
+    }
+    
+    private func processSalesGraphData(json: JSON) {
+        let sales = json["sales"].dictionaryObject
+        
+        let keys = sales?.keys
+        let sorted = keys?.sort {
+            return $0 < $1
+        }
+        
+        var salesGraphData: Array<Int> = []
+        for key in sorted! {
+            salesGraphData.append(sales![key]!.integerValue)
+            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
+            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
+            
+            let date = key[dateRange]
+            let month = Int(key[monthRange])
+            
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let months = dateFormatter.shortMonthSymbols
+            let monthSymbol = months[month!-1]
+            
+            let dateString = "\(date) \(monthSymbol)"
+            
+            self.salesGraphDates.append(dateString)
+        }
+        
+        self.salesGraphData = salesGraphData
+    }
+    
+    private func processEarningsGraphData(json: JSON) {
+        let earnings = json["earnings"].dictionaryObject
+        
+        let keys = earnings?.keys
+        let sorted = keys?.sort {
+            return $0 < $1
+        }
+        
+        var earningsGraphData: Array<Double> = []
+        for key in sorted! {
+            earningsGraphData.append(earnings![key]!.doubleValue)
+            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
+            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
+            
+            let date = key[dateRange]
+            let month = Int(key[monthRange])
+            
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let months = dateFormatter.shortMonthSymbols
+            let monthSymbol = months[month!-1]
+            
+            let dateString = "\(date) \(monthSymbol)"
+            
+            self.earningsGraphDates.append(dateString)
+        }
+        
+        self.earningsGraphData = earningsGraphData
     }
 
 }
