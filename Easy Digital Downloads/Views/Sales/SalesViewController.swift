@@ -14,7 +14,7 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
     var managedObjectContext: NSManagedObjectContext!
 
     var site: Site?
-    var sales = [Sales]()
+//    var sales = [Sales]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
