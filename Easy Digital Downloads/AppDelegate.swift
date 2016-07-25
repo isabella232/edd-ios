@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         DDLog.addLogger(DDASLLogger())
         DDLog.addLogger(DDTTYLogger())
-        DDLogVerbose("didFinishLaunchingWithOptions state: \(application.applicationState)")
+        DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
 //        let domainName = NSBundle.mainBundle().bundleIdentifier!
 //        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)

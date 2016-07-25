@@ -7,3 +7,22 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
+
+public final class SyncCoordinator: NSObject {
+    
+    public static let sharedInstance: SyncCoordinator = {
+        return SyncCoordinator()
+    }()
+    
+    private let managedObjectContext: NSManagedObjectContext!
+    private let site: Site!
+    
+    private override init() {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        managedObjectContext = appDelegate.managedObjectContext
+        site = Site.activeSite()
+    }
+    
+}

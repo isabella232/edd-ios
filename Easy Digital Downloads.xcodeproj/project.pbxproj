@@ -25,6 +25,7 @@
 		F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725011D3C3AE2009D5E8D /* Sale.swift */; };
 		F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725031D3C3AEA009D5E8D /* Subscription.swift */; };
 		F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */; };
+		F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */; };
 		F56B88E71CFADD5700DCF41F /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E51CFADD5700DCF41F /* Site.swift */; };
 		F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */; };
 		F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5890D151D0FF2C1004F2B37 /* Stats.swift */; };
@@ -86,6 +87,7 @@
 		F54725011D3C3AE2009D5E8D /* Sale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sale.swift; sourceTree = "<group>"; };
 		F54725031D3C3AEA009D5E8D /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
+		F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		F56622B41D460523006E8648 /* Easy Digital Downloads-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Easy Digital Downloads-Bridging-Header.h"; sourceTree = "<group>"; };
 		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				F5FAF3DA1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift */,
 				F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */,
 				F51F68281D02C01600F09B9D /* SyncCoordinator.swift */,
+				F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */,
 			);
 			path = "Data Sources and Providers";
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */,
 				F5FAF3C11CFB5E0800F9F1FF /* ManagedObject.swift in Sources */,
 				F5FAF3CF1CFBA1B800F9F1FF /* DataProvider.swift in Sources */,
+				F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */,
 				F5FAF3C51CFB619800F9F1FF /* Stack.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
 				F5FAF3D71CFBA6EF00F9F1FF /* DataSource.swift in Sources */,
