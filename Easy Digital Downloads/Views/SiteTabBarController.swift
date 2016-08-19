@@ -25,6 +25,9 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
     var customersViewController: CustomersViewController?
     var customersNavigationController: UINavigationController?
     
+    var moreViewController: MoreViewController?
+    var moreViewNavigationController: UINavigationController?
+    
     init(site: Site) {
         super.init(nibName: nil, bundle: nil)
         
@@ -34,13 +37,17 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         dashboardViewController?.managedObjectContext = managedObjectContext
         dashboardNavigationController = UINavigationController(rootViewController: dashboardViewController!)
         
+        salesViewController = SalesViewController(site: site)
+        salesViewController?.managedObjectContext = managedObjectContext
+        salesNavigationController = UINavigationController(rootViewController: salesViewController!)
+        
         customersViewController = CustomersViewController(site: site)
         customersViewController?.managedObjectContext = managedObjectContext
         customersNavigationController = UINavigationController(rootViewController: customersViewController!)
         
-        salesViewController = SalesViewController(site: site)
-        salesViewController?.managedObjectContext = managedObjectContext
-        salesNavigationController = UINavigationController(rootViewController: salesViewController!)
+        moreViewController = MoreViewController(site: site)
+        moreViewController?.managedObjectContext = managedObjectContext
+        moreViewNavigationController = UINavigationController(rootViewController: moreViewController!)
         
         initViewControllers()
     }
@@ -64,8 +71,9 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         dashboardNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Dashboard")
         salesNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Sales")
         customersNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Customers")
+        moreViewNavigationController!.tabBarItem.image = UIImage(named: "TabBar-More")
         
-        self.viewControllers = [dashboardNavigationController!, salesNavigationController!, customersNavigationController!]
+        self.viewControllers = [dashboardNavigationController!, salesNavigationController!, customersNavigationController!, moreViewNavigationController!]
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
