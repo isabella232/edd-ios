@@ -17,6 +17,17 @@ enum DashboardCell: Int {
     case StoreCommissions = 4
     case Reviews = 5
     case None = 6
+    
+    func label() -> String {
+        switch self {
+            case Sales: return "Sales"
+            case Earnings: return "Earnings"
+            case Commissions: return "Commissions"
+            case StoreCommissions: return "Store Commissions"
+            case Reviews: return "Reviews"
+            case None: return "None"
+        }
+    }
 }
 
 class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSimpleLineGraphDataSource {
