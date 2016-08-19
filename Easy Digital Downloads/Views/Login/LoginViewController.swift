@@ -283,17 +283,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                 switch response.result {
                     case .Success:
                         let json = JSON(response.result.value!)
+                        
                         if json["info"] != nil {
                             let info = json["info"]
-                            self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
+                            let integrations = info["integrations"]
+                            let currency = "\(info["site"]["currency"])"
+                            let permissions: NSData = NSKeyedArchiver.archivedDataWithRootObject(info["permissions"].dictionaryObject!)
                             let uid = NSUUID().UUIDString
+                            let appDelegate = AppDelegate()
+
+                            self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
                             
                             var hasReviews = false
                             var hasCommissions = false
                             var hasFES = false
                             var hasRecurring = false
                             
-                            let integrations = info["integrations"]
                             for (key, value) : (String, JSON) in integrations {
                                 if key == "reviews" && value.boolValue == true {
                                     hasReviews = true
@@ -312,29 +317,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                                 }
                             }
                             
-                            let currency = "\(info["site"]["currency"])"
-                            
-                            let permissions: NSData = NSKeyedArchiver.archivedDataWithRootObject(json["permissions"].dictionaryObject!)
-                            
                             SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                             
                             // Only set the defaultSite if this is the first site being added
-                            let appDelegate = AppDelegate()
                             if appDelegate.noSitesSetup() {
                                 NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
                                 NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "activeSite")
                                 NSUserDefaults.standardUserDefaults().synchronize()
                             }
                             
+                            // Create the dashboard layout based on the permissions granted
+                            let dashboardLayout: NSMutableArray = [1, 2];
+                            if hasCommissions {
+                                dashboardLayout.addObject(3);
+                            }
+                            
+                            if hasRecurring {
+                                dashboardLayout.addObject(4);
+                            }
+                            
+                            let dashboardOrder: NSData = NSKeyedArchiver.archivedDataWithRootObject(dashboardLayout);
+                            
                             var site: Site?
                             
                             self.managedObjectContext.performChanges {
-                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, permissions: permissions)
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, permissions: permissions, dashboardOrder: dashboardOrder);
                                 self.managedObjectContext.performSaveOrRollback()
                             }
 
                             UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                                self.logo.transform = CGAffineTransformMakeTranslation(0, -200)
+                                self.logo.transform = CGAffineTransformMakeTranslation(0, -400)
                                 self.addButton.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
                                 self.helpButton.transform = CGAffineTransformMakeTranslation(200, 0)
                                 self.connectionTest.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
