@@ -15,6 +15,7 @@
 		F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */; };
 		F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22491D3B948600D114E8 /* GraphData.swift */; };
 		F51F68291D02C01600F09B9D /* SyncCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F68281D02C01600F09B9D /* SyncCoordinator.swift */; };
+		F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523F2211D6650DB000AB028 /* MoreViewController.swift */; };
 		F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */; };
 		F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */; };
 		F52825251CFE41B000AB62D9 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */; };
@@ -77,6 +78,7 @@
 		F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteViewController.swift; sourceTree = "<group>"; };
 		F51F22491D3B948600D114E8 /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		F51F68281D02C01600F09B9D /* SyncCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncCoordinator.swift; sourceTree = "<group>"; };
+		F523F2211D6650DB000AB028 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDAPIWrapper.swift; sourceTree = "<group>"; };
 		F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		F54724FF1D3C3ADC009D5E8D /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		F54725011D3C3AE2009D5E8D /* Sale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sale.swift; sourceTree = "<group>"; };
 		F54725031D3C3AEA009D5E8D /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		F555ED911D65EBA300C02C0B /* Easy Digital Downloads.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Easy Digital Downloads.entitlements"; sourceTree = "<group>"; };
 		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
 		F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		F56622B41D460523006E8648 /* Easy Digital Downloads-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Easy Digital Downloads-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -212,6 +215,14 @@
 			path = Sites;
 			sourceTree = "<group>";
 		};
+		F523F2201D6650B7000AB028 /* Integrations */ = {
+			isa = PBXGroup;
+			children = (
+				F523F2211D6650DB000AB028 /* MoreViewController.swift */,
+			);
+			path = Integrations;
+			sourceTree = "<group>";
+		};
 		F5A3127C1CF1DAE1000F4F6F = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +244,7 @@
 		F5A312871CF1DAE1000F4F6F /* Easy Digital Downloads */ = {
 			isa = PBXGroup;
 			children = (
+				F555ED911D65EBA300C02C0B /* Easy Digital Downloads.entitlements */,
 				F5FAF3CB1CFBA16500F9F1FF /* Data Sources and Providers */,
 				F5FAF3C61CFB627600F9F1FF /* Protocols */,
 				F5A3129E1CF20231000F4F6F /* Helpers */,
@@ -268,6 +280,7 @@
 		F5A3129B1CF2021B000F4F6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F523F2201D6650B7000AB028 /* Integrations */,
 				F51F22461D3B7BED00D114E8 /* Sites */,
 				F50DEB531CFAD210001A6A51 /* Buttons */,
 				F50DEB501CFA4EE8001A6A51 /* Customers */,
@@ -371,6 +384,15 @@
 				TargetAttributes = {
 					F5A312841CF1DAE1000F4F6F = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = H7B3257R6N;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -494,6 +516,7 @@
 				F5FAF3CA1CFB64C800F9F1FF /* ManagedObjectType.swift in Sources */,
 				F54724FC1D3C3AD1009D5E8D /* Customer.swift in Sources */,
 				F54724FE1D3C3AD6009D5E8D /* Discount.swift in Sources */,
+				F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */,
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
 				F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */,
 				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
@@ -608,9 +631,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.easydigitaldownloads.Easy-Digital-Downloads";
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -623,9 +647,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.easydigitaldownloads.Easy-Digital-Downloads";
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
 			};
