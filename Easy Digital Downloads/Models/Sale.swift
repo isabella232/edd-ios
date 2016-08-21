@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SwiftyJSON
 
 public final class Sale: ManagedObject {
 
@@ -16,7 +17,7 @@ public final class Sale: ManagedObject {
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var date: NSDate
     @NSManaged public private(set) var email: String
-    @NSManaged public private(set) var fees: NSDictionary
+    @NSManaged public private(set) var fees: [String: AnyObject]?
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var key: String
     @NSManaged public private(set) var sid: Int16
@@ -36,7 +37,7 @@ public final class Sale: ManagedObject {
         createdAt = NSDate()
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: NSDictionary, gateway: String, key: String, sid: Int16, subtotal: Double, tax: Double, total: Double, transactionId: String) -> Sale {
+    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int16, subtotal: Double, tax: Double, total: Double, transactionId: String) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.date = date
         sale.email = email
@@ -48,7 +49,7 @@ public final class Sale: ManagedObject {
         sale.tax = tax
         sale.total = total
         sale.transactionId = transactionId
-        sale.site = Site.activeSite()
+        sale.site = Site.fetchActiveSite(inContext: moc)
         return sale
     }
     
