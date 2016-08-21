@@ -42,7 +42,7 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="discount" inverseEntity="Sale" syncable="YES"/>
+        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="discounts" inverseEntity="Sale" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="discounts" inverseEntity="Site" syncable="YES"/>
     </entity>
     <entity name="Product" representedClassName="Product" syncable="YES">
@@ -77,7 +77,7 @@
         <attribute name="total" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="transactionId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="sales" inverseEntity="Customer" syncable="YES"/>
-        <relationship name="discount" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Discount" inverseName="sales" inverseEntity="Discount" syncable="YES"/>
+        <relationship name="discounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Discount" inverseName="sales" inverseEntity="Discount" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="sales" inverseEntity="Product" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="sales" inverseEntity="Site" syncable="YES"/>
     </entity>

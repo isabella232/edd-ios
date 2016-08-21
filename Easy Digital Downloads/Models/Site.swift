@@ -23,6 +23,7 @@ enum SiteType: Int16 {
 
 public final class Site: ManagedObject {
     
+    // Attributes
     @NSManaged public private(set) var name: String?
     @NSManaged public private(set) var uid: String?
     @NSManaged public private(set) var url: String?
@@ -33,6 +34,15 @@ public final class Site: ManagedObject {
     @NSManaged public private(set) var hasReviews: NSNumber?
     @NSManaged public private(set) var createdAt: NSDate?
     @NSManaged public private(set) var permissions: NSData?
+    @NSManaged public private(set) var dashboardOrder: NSData?
+    
+    // Relationships
+    @NSManaged private(set) var commissions: Set<Commission>
+    @NSManaged private(set) var customers: Set<Customer>
+    @NSManaged private(set) var discounts: Set<Discount>
+    @NSManaged private(set) var products: Set<Product>
+    @NSManaged private(set) var sales: Set<Sale>
+    @NSManaged private(set) var subscriptions: Set<Subscription>
 
     var key: String = ""
     var token: String = ""
@@ -61,7 +71,7 @@ public final class Site: ManagedObject {
         }
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool, permissions: NSData) -> Site {
+    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool, permissions: NSData, dashboardOrder: NSData) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid
         site.name = name
@@ -73,6 +83,7 @@ public final class Site: ManagedObject {
         site.hasRecurring = hasRecurring
         site.hasReviews = hasReviews
         site.permissions = permissions;
+        site.dashboardOrder = dashboardOrder;
         return site
     }
     
@@ -134,6 +145,12 @@ public final class Site: ManagedObject {
         let site = Site.activeSite()
         let permissions: NSDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(site.permissions!)! as! NSDictionary
         return permissions
+    }
+    
+    public static func getDashboardOrderForActiveSite() -> [Int] {
+        let site = Site.activeSite()
+        let dashboardOrder: [Int] = NSKeyedUnarchiver.unarchiveObjectWithData(site.dashboardOrder!)! as! [Int]
+        return dashboardOrder
     }
 
 }
