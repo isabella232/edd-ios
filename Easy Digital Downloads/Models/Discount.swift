@@ -15,7 +15,6 @@ public final class Discount: ManagedObject {
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var amount: Double
     @NSManaged public private(set) var code: String
-    @NSManaged public private(set) var createdAt: NSDate
     @NSManaged public private(set) var did: Int16
     @NSManaged public private(set) var expiryDate: NSDate
     @NSManaged public private(set) var globalDiscount: NSNumber
