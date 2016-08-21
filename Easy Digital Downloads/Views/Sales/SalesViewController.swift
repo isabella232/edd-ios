@@ -14,6 +14,7 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
     var managedObjectContext: NSManagedObjectContext!
 
     var site: Site?
+    var sales: NSDictionary?
 //    var sales = [Sales]()
     
     override func viewDidLoad() {
@@ -43,15 +44,19 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        var sales: NSDictionary = NSDictionary()
+        sales = NSDictionary()
         
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
             sales = NSDictionary(dictionary: json.dictionaryObject!)
-            print(sales)
+            saveSales()
             }) { (error) in
                 fatalError()
         }
     }
-
-
+    
+    private func saveSales() {
+        guard let sales = sales_ else { return nil }
+        
+        
+    }
 }
