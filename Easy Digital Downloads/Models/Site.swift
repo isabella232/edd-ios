@@ -96,7 +96,7 @@ public final class Site: ManagedObject {
     
     public static func predicateForActiveSite() -> NSPredicate {
         guard let activeSiteId = NSUserDefaults.standardUserDefaults().stringForKey("activeSite") else {
-            fatalError("No activte site set")
+            fatalError("No active site set")
         }
         return NSPredicate(format: "uid == %@", activeSiteId)
     }
@@ -151,6 +151,14 @@ public final class Site: ManagedObject {
         let site = Site.activeSite()
         let dashboardOrder: [Int] = NSKeyedUnarchiver.unarchiveObjectWithData(site.dashboardOrder!)! as! [Int]
         return dashboardOrder
+    }
+    
+    public static func fetchActiveSite(inContext moc: NSManagedObjectContext) -> Site {
+        let site = Site.fetchSingleObjectInContext(moc) { request in
+            request.predicate = self.predicateForDefaultSite()
+            request.fetchLimit = 1
+        }
+        return site!
     }
 
 }
