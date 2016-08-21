@@ -7,7 +7,27 @@
 //
 
 import UIKit
+import CoreData
 
-class Subscription: ManagedObject {
+public final class Subscription: ManagedObject {
 
+    // Attributes
+    @NSManaged public private(set) var billTimes: Int16
+    @NSManaged public private(set) var created: NSDate
+    @NSManaged public private(set) var expiration: NSDate
+    @NSManaged public private(set) var gateway: String
+    @NSManaged public private(set) var initialAmount: Double
+    @NSManaged public private(set) var parentPaymentID: Int16
+    @NSManaged public private(set) var period: String
+    @NSManaged public private(set) var pid: Int16
+    @NSManaged public private(set) var profileID: String
+    @NSManaged public private(set) var recurringAmount: Double
+    @NSManaged public private(set) var sid: Int16
+    @NSManaged public private(set) var status: String
+    
+    // Relationships
+    @NSManaged public private(set) var site: Site
+    @NSManaged public private(set) var product: Product
+    @NSManaged public private(set) var  cusomer: Customer
+    
 }
