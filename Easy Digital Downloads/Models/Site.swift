@@ -160,6 +160,12 @@ public final class Site: ManagedObject {
         }
         return site!
     }
+    
+    public static func fetchSalesForActiveSite(inContext moc: NSManagedObjectContext) {
+        let site = Site.fetchRecordForActiveSite(inContext: moc)
+        
+        print(site)
+    }
 
 }
 

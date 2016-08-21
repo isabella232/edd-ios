@@ -54,7 +54,7 @@ public final class Sale: ManagedObject {
     }
     
     public static func predicateForTransactionId(transactionId: String) -> NSPredicate {
-        return NSPredicate(format: "transactionId == %@", transactionId)
+        return NSPredicate(format: "%K == %@", Sale.Keys.TransactionID.rawValue, transactionId)
     }
     
     public static func saleForTransactionId(transactionId: String) -> Sale {
@@ -67,6 +67,14 @@ public final class Sale: ManagedObject {
         }
         
         return sale!
+    }
+    
+    public static func defaultFetchRequest() -> NSFetchRequest {
+        let request = NSFetchRequest(entityName: "Sale")
+        request.fetchLimit = 20
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        return request
     }
     
 }

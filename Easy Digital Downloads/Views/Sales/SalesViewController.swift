@@ -19,7 +19,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     return formatter
 }()
 
-class SalesViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class SalesViewController: UITableViewController {
 
     var managedObjectContext: NSManagedObjectContext!
 
@@ -28,6 +28,7 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,10 +42,6 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Sales", comment: "Sales title")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.estimatedRowHeight = estimatedHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,15 +53,15 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
         
         sales = [JSON]()
         
-        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
-            if let items = json["sales"].array {
-                self.sales = items
-                self.persistSales()
-            }
-
-            }) { (error) in
-                fatalError()
-        }
+//        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
+//            if let items = json["sales"].array {
+//                self.sales = items
+//                self.persistSales()
+//            }
+//
+//            }) { (error) in
+//                fatalError()
+//        }
     }
     
     private func persistSales() {
@@ -73,18 +70,50 @@ class SalesViewController: UITableViewController, NSFetchedResultsControllerDele
         }
         
         for item in sales_ {
-            Sale.insertIntoContext(managedObjectContext, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: [ : ], gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int16(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue)
+            Sale.insertIntoContext(managedObjectContext, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].dictionaryObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int16(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue)
         }
         
         do {
-          try managedObjectContext.save()
+            try managedObjectContext.save()
+            managedObjectContext.processPendingChanges()
         } catch {
             fatalError("Failure to save context: \(error)")
         }
     }
     
-    // MARK: Table View Delegate
+    // MARK: Private
     
+    private typealias Data = FetchedResultsDataProvider<SalesViewController>
+    private var dataSource: TableViewDataSource<SalesViewController, Data, SalesTableViewCell>!
     
-    // MARK: Table View Data Source
+    private func setupTableView() {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.registerClass(SalesTableViewCell.self, forCellReuseIdentifier: "SaleCell")
+        setupDataSource()
+    }
+    
+    private func setupDataSource() {
+        let request = Sale.defaultFetchRequest()
+        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
+        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
+    }
+    
+}
+
+extension SalesViewController: DataProviderDelegate {
+
+    func dataProviderDidUpdate(updates: [DataProviderUpdate<Sale>]?) {
+        dataSource.processUpdates(updates)
+    }
+
+}
+
+extension SalesViewController: DataSourceDelegate {
+    
+    func cellIdentifierForObject(object: Sale) -> String {
+        return "SaleCell"
+    }
+    
 }
