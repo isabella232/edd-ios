@@ -8,10 +8,17 @@
 
 import UIKit
 
-class SwitchSiteViewController: UIViewController {
+class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private var tableView: UITableView!
     private var navigationBar: UINavigationBar!
+    private var sites: [Site]?
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        sites = Site.fetchAll(inContext: AppDelegate.sharedInstance.managedObjectContext)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +40,14 @@ class SwitchSiteViewController: UIViewController {
         tableView.separatorColor = UIColor.separatorColor()
         tableView.editing = true
         tableView.tableFooterView = UIView()
-//        tableView.dataSource = self
-//        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
         
         let navigationItem = UINavigationItem(title: NSLocalizedString("Switch Site", comment: ""))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(EditDashboardLayoutViewController.doneButtonPressed))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(SwitchSiteViewController.doneButtonPressed))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(SwitchSiteViewController.addButtonPressed))
         navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = addButton
         navigationBar.items = [navigationItem]
         
         title = NSLocalizedString("Edit Dashboard", comment: "")
@@ -52,12 +61,45 @@ class SwitchSiteViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func addButtonPressed() {
+        
+    }
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return false
+    }
+    
+    // MARK: Table View Delegate
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sites?.count ?? 0
+    }
+    
+    // MARK: Table View Data Source
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier("SwitchSiteCell")
+        
+        if (cell == nil) {
+            cell = UITableViewCell(style: .Default, reuseIdentifier: "SwitchSiteCell")
+        }
+        
+        cell?.backgroundColor = UIColor.clearColor()
+        cell?.textLabel?.textColor = UIColor.whiteColor()
+        
+        let site = sites![indexPath.row] as Site
+        
+        cell?.textLabel?.text = site.name!
+        
+        return cell!
     }
     
 }
