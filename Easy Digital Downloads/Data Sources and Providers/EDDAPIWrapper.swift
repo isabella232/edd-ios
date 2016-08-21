@@ -31,6 +31,7 @@ public final class EDDAPIWrapper: NSObject {
         case Reviews = "reviews"
         case Subscriptions = "subscriptions"
         case Info = "info"
+        case Customers = "customers"
     }
     
     private override init() {
@@ -110,6 +111,15 @@ public final class EDDAPIWrapper: NSObject {
     
     public func requestStoreCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.StoreCommissions.rawValue
+        requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestCustomers(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Customers.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
