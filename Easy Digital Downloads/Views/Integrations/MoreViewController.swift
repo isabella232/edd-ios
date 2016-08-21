@@ -9,11 +9,25 @@
 import UIKit
 import CoreData
 
-class MoreViewController: SiteTableViewController, ManagedObjectContextSettable {
+class MoreViewController: UITableViewController, ManagedObjectContextSettable {
 
     var managedObjectContext: NSManagedObjectContext!
     
     var site: Site?
+    var section1Cells = [
+        [
+            "title": "Commissions"
+        ],
+        [
+            "title": "Store Commissions"
+        ]
+    ]
+    
+    var section2Cells = [
+        [
+            "title": "File Download Logs"
+        ]
+    ]
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -21,14 +35,63 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         self.site = site
         
         title = NSLocalizedString("More", comment: "Dashboard title")
+        tableView.scrollEnabled = true
+        tableView.bounces = true
+        tableView.showsVerticalScrollIndicator = true
+        tableView.userInteractionEnabled = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    // MARK: Table View Delegate
 
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 2
+        } else if section == 1 {
+            return 2
+        } else {
+            return 1
+        }
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Site Info"
+        } else if section == 1 {
+            return "Commissions"
+        } else {
+            return "Logs"
+        }
+    }
+    
+    // MARK: Table View Data Source
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier("MoreCell")
+        
+        if (cell == nil) {
+            cell = UITableViewCell(style: .Default, reuseIdentifier: "MoreCell")
+        }
+        
+        if indexPath.section == 1 {
+            cell?.textLabel?.text = section1Cells[indexPath.row]["title"]
+        } else if indexPath.section == 2 {
+            cell?.textLabel?.text = section2Cells[indexPath.row]["title"]
+        }
+        
+        return cell!
+    }
+    
 }
