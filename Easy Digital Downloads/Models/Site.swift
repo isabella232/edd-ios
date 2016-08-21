@@ -166,6 +166,11 @@ public final class Site: ManagedObject {
         
         print(site)
     }
+    
+    public static func fetchAll(inContext moc: NSManagedObjectContext) -> [Site]? {
+        let results = Site.fetchInContext(moc)
+        return results
+    }
 
 }
 
