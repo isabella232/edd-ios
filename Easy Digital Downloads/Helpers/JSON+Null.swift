@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import SwiftyJSON
+
+extension JSON {
+    public var isNull: Bool {
+        get {
+            return self.type == .Null;
+        }
+    }
+}

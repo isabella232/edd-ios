@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = SiteTabBarController(site: Site.defaultSite())
         }
         
-        guard let vc = window?.rootViewController as? ManagedObjectContextSettable else {
+        guard let vc = self.window?.rootViewController as? ManagedObjectContextSettable else {
             fatalError("Wrong view controller type")
         }
         vc.managedObjectContext = managedObjectContext

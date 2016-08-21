@@ -38,7 +38,6 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         dashboardNavigationController = UINavigationController(rootViewController: dashboardViewController!)
         
         salesViewController = SalesViewController(site: site)
-        salesViewController?.managedObjectContext = managedObjectContext
         salesNavigationController = UINavigationController(rootViewController: salesViewController!)
         
         customersViewController = CustomersViewController(site: site)

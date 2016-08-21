@@ -65,7 +65,7 @@
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="products" inverseEntity="Site" syncable="YES"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="product" inverseEntity="Subscription" syncable="YES"/>
     </entity>
-    <entity name="Sale" representedClassName="Sale" syncable="YES">
+    <entity name="Sale" representedClassName=".Sale" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="date" attributeType="Date" syncable="YES"/>
         <attribute name="email" attributeType="String" syncable="YES"/>

@@ -87,8 +87,9 @@ extension Sale: ManagedObjectType {
 }
 
 extension Sale: KeyCodable {
+
     public enum Keys: String {
-        case createdAt = "createdAt"
+        case CreatedAt = "createdAt"
         case Date = "date"
         case Email = "email"
         case Fees = "fees"
@@ -100,4 +101,5 @@ extension Sale: KeyCodable {
         case Total = "total"
         case TransactionID = "transactionId"
     }
+
 }
