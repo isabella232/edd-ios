@@ -20,9 +20,9 @@ public final class Sale: ManagedObject {
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var key: String
     @NSManaged public private(set) var sid: Int16
-    @NSManaged public private(set) var subtotal: Double
-    @NSManaged public private(set) var tax: Double
-    @NSManaged public private(set) var total: Double
+    @NSManaged public private(set) var subtotal: NSNumber
+    @NSManaged public private(set) var tax: NSNumber
+    @NSManaged public private(set) var total: NSNumber
     @NSManaged public private(set) var transactionId: String
     
     // Relationships
@@ -48,6 +48,7 @@ public final class Sale: ManagedObject {
         sale.tax = tax
         sale.total = total
         sale.transactionId = transactionId
+        sale.site = Site.activeSite()
         return sale
     }
     
@@ -63,6 +64,8 @@ public final class Sale: ManagedObject {
             request.predicate = self.predicateForTransactionId(transactionId)
             request.fetchLimit = 1
         }
+        
+        return sale!
     }
     
 }
@@ -81,4 +84,20 @@ extension Sale: ManagedObjectType {
         return NSPredicate()
     }
     
+}
+
+extension Sale: KeyCodable {
+    public enum Keys: String {
+        case createdAt = "createdAt"
+        case Date = "date"
+        case Email = "email"
+        case Fees = "fees"
+        case Gateway = "gateway"
+        case Key = "key"
+        case ID = "sid"
+        case Subtotal = "subtotal"
+        case Tax = "tax"
+        case Total = "total"
+        case TransactionID = "transactionId"
+    }
 }
