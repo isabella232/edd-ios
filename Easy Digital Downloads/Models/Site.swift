@@ -153,7 +153,7 @@ public final class Site: ManagedObject {
         return dashboardOrder
     }
     
-    public static func fetchActiveSite(inContext moc: NSManagedObjectContext) -> Site {
+    public static func fetchRecordForActiveSite(inContext moc: NSManagedObjectContext) -> Site {
         let site = Site.fetchSingleObjectInContext(moc) { request in
             request.predicate = self.predicateForDefaultSite()
             request.fetchLimit = 1

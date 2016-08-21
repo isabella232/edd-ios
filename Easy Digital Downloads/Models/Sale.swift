@@ -49,7 +49,7 @@ public final class Sale: ManagedObject {
         sale.tax = tax
         sale.total = total
         sale.transactionId = transactionId
-        sale.site = Site.fetchActiveSite(inContext: moc)
+        sale.site = Site.fetchRecordForActiveSite(inContext: moc)
         return sale
     }
     
