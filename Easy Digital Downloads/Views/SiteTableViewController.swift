@@ -17,10 +17,12 @@ class SiteTableViewController: UITableViewController {
         let leftNavigationItemButton = HighlightButton(type: .Custom)
         leftNavigationItemButton.tintColor = .whiteColor()
         leftNavigationItemButton.setImage(leftNavigationItemImage, forState: .Normal)
+        leftNavigationItemButton.addTarget(self, action: #selector(SiteTableViewController.editSwitchSiteButtonPressed), forControlEvents: .TouchUpInside)
         leftNavigationItemButton.sizeToFit()
         
         let leftNavigationBarButton = UIBarButtonItem(customView: leftNavigationItemButton)
         leftNavigationBarButton.accessibilityIdentifier = "Switch Site"
+        
         navigationItem.leftBarButtonItems = [leftNavigationBarButton]
     }
     
@@ -28,6 +30,14 @@ class SiteTableViewController: UITableViewController {
         view.backgroundColor = .EDDGreyColor()
         
         animateTable()
+    }
+    
+    func editSwitchSiteButtonPressed() {
+        let switchSiteViewController = SwitchSiteViewController()
+        switchSiteViewController.view.backgroundColor = .clearColor()
+        switchSiteViewController.modalPresentationStyle = .OverFullScreen
+        switchSiteViewController.modalPresentationCapturesStatusBarAppearance = true
+        presentViewController(switchSiteViewController, animated: true, completion: nil)
     }
     
     func animateTable() {
