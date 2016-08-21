@@ -2,6 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="16A286a" minimumToolsVersion="Xcode 7.0">
     <entity name="Commission" representedClassName="Commission" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="item" optional="YES" attributeType="String" syncable="YES"/>
@@ -103,6 +104,7 @@
     <entity name="Subscription" representedClassName="Subscription" syncable="YES">
         <attribute name="billTimes" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="expiration" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="gateway" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="initialAmount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -118,12 +120,12 @@
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="subscriptions" inverseEntity="Site" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Commission" positionX="-9" positionY="189" width="128" height="165"/>
+        <element name="Commission" positionX="-9" positionY="189" width="128" height="180"/>
         <element name="Customer" positionX="-27" positionY="45" width="128" height="240"/>
         <element name="Discount" positionX="-9" positionY="54" width="128" height="315"/>
         <element name="Product" positionX="-45" positionY="36" width="128" height="300"/>
         <element name="Sale" positionX="-54" positionY="27" width="128" height="270"/>
         <element name="Site" positionX="-54" positionY="-9" width="128" height="300"/>
-        <element name="Subscription" positionX="-18" positionY="135" width="128" height="270"/>
+        <element name="Subscription" positionX="-18" positionY="135" width="128" height="285"/>
     </elements>
 </model>

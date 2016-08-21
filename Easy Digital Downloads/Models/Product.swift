@@ -13,7 +13,7 @@ public final class Product: ManagedObject {
 
     // Attributes
     @NSManaged public private(set) var content: String
-    @NSManaged public private(set) var createdAt: NSDate
+    @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var createdDate: NSDate
     @NSManaged public private(set) var files: NSDictionary
     @NSManaged public private(set) var hasVariablePricing: NSNumber
@@ -31,5 +31,10 @@ public final class Product: ManagedObject {
     @NSManaged private(set) var subscriptions: Set<Subscription>
     @NSManaged public private(set) var site: Site
     @NSManaged private(set) var sales: Set<Sale>
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        createdAt = NSDate()
+    }
     
 }

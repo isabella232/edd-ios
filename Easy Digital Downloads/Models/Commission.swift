@@ -12,6 +12,7 @@ import CoreData
 public final class Commission: ManagedObject {
 
     // Attributes
+    @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var amount: NSNumber
     @NSManaged public private(set) var currency: String
     @NSManaged public private(set) var date: NSDate
@@ -22,5 +23,10 @@ public final class Commission: ManagedObject {
     
     // Relationships
     @NSManaged public private(set) var site: Site
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        createdAt = NSDate()
+    }
     
 }

@@ -12,6 +12,7 @@ import CoreData
 public final class Subscription: ManagedObject {
 
     // Attributes
+    @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var billTimes: Int16
     @NSManaged public private(set) var created: NSDate
     @NSManaged public private(set) var expiration: NSDate
@@ -29,5 +30,10 @@ public final class Subscription: ManagedObject {
     @NSManaged public private(set) var site: Site
     @NSManaged public private(set) var product: Product
     @NSManaged public private(set) var  cusomer: Customer
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        createdAt = NSDate()
+    }
     
 }
