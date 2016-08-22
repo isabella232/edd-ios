@@ -14,7 +14,17 @@ class MoreViewController: UITableViewController, ManagedObjectContextSettable {
     var managedObjectContext: NSManagedObjectContext!
     
     var site: Site?
-    var section1Cells = [
+
+    let section0Cells = [
+        [
+            "title": "Site Information",
+        ],
+        [
+            "title": "Manage Sites"
+        ]
+    ]
+
+    let section1Cells = [
         [
             "title": "Commissions"
         ],
@@ -23,9 +33,15 @@ class MoreViewController: UITableViewController, ManagedObjectContextSettable {
         ]
     ]
     
-    var section2Cells = [
+    let section2Cells = [
         [
             "title": "File Download Logs"
+        ]
+    ]
+    
+    let section3Cells = [
+        [
+            "title": "Reviews"
         ]
     ]
     
@@ -34,7 +50,7 @@ class MoreViewController: UITableViewController, ManagedObjectContextSettable {
         
         self.site = site
         
-        title = NSLocalizedString("More", comment: "Dashboard title")
+        title = NSLocalizedString("More", comment: "More View Controller title")
         tableView.scrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
@@ -53,7 +69,11 @@ class MoreViewController: UITableViewController, ManagedObjectContextSettable {
     // MARK: Table View Delegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        if (Site.activeSite().hasReviews != nil) {
+            return 4
+        } else {
+            return 3
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,11 +88,15 @@ class MoreViewController: UITableViewController, ManagedObjectContextSettable {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Site Info"
+            return "General"
         } else if section == 1 {
             return "Commissions"
-        } else {
+        } else if section == 2 {
             return "Logs"
+        } else if section == 3 {
+            return "Integrations"
+        } else {
+            return nil
         }
     }
     
@@ -85,10 +109,14 @@ class MoreViewController: UITableViewController, ManagedObjectContextSettable {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "MoreCell")
         }
         
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
+            cell?.textLabel?.text = section0Cells[indexPath.row]["title"]
+        } else if indexPath.section == 1 {
             cell?.textLabel?.text = section1Cells[indexPath.row]["title"]
         } else if indexPath.section == 2 {
             cell?.textLabel?.text = section2Cells[indexPath.row]["title"]
+        } else if indexPath.section == 3 {
+            cell?.textLabel?.text = section3Cells[indexPath.row]["title"]
         }
         
         return cell!
