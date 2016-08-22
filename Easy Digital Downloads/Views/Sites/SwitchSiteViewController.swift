@@ -62,7 +62,11 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func addButtonPressed() {
-        
+        let newSiteViewController = NewSiteViewController()
+        newSiteViewController.view.backgroundColor = .clearColor()
+        newSiteViewController.modalPresentationStyle = .OverFullScreen
+        newSiteViewController.modalPresentationCapturesStatusBarAppearance = true
+        presentViewController(newSiteViewController, animated: true, completion: nil)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
