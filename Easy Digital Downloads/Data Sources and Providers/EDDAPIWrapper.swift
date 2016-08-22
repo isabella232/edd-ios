@@ -112,7 +112,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestStoreCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue+ Endpoints.StoreCommissions.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.StoreCommissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
