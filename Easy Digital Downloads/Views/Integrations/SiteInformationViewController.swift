@@ -6,8 +6,13 @@
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
-import Cocoa
+import UIKit
+import CoreData
 
-class SiteInformationViewController: UITableViewCell {
+class SiteInformationViewController: UITableViewController, ManagedObjectContextSettable {
 
+    var managedObjectContext: NSManagedObjectContext!
+    
+    var site: Site?
+    
 }
