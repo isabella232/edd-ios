@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CustomersViewController: UITableViewController, ManagedObjectContextSettable {
+class CustomersViewController: SiteTableViewController, ManagedObjectContextSettable {
 
     var managedObjectContext: NSManagedObjectContext!
     

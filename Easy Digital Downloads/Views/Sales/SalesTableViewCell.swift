@@ -9,11 +9,15 @@
 import UIKit
 
 class SalesTableViewCell: UITableViewCell {
+    
+    
 
 }
 
 extension SalesTableViewCell: ConfigurableCell {
+
     func configureForObject(object: Sale) {
         print(object)
     }
+
 }

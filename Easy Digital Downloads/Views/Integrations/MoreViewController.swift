@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MoreViewController: UITableViewController, ManagedObjectContextSettable {
+class MoreViewController: SiteTableViewController, ManagedObjectContextSettable {
 
     var managedObjectContext: NSManagedObjectContext!
     

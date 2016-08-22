@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FileDownloadLogsController: UITableViewController, ManagedObjectContextSettable {
+class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextSettable {
 
     var managedObjectContext: NSManagedObjectContext!
     

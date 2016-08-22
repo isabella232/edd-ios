@@ -19,7 +19,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     return formatter
 }()
 
-class SalesViewController: UITableViewController {
+class SalesViewController: SiteTableViewController {
 
     var managedObjectContext: NSManagedObjectContext!
 
