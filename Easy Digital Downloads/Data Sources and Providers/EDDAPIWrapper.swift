@@ -33,6 +33,7 @@ public final class EDDAPIWrapper: NSObject {
         case Subscriptions = "subscriptions"
         case Info = "info"
         case Customers = "customers"
+        case Logs = "file-download-logs"
     }
     
     private override init() {
@@ -42,7 +43,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestStats(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Stats.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Stats.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
@@ -51,7 +52,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestSalesStatsGraphData(success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Stats.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Stats.rawValue
         
         let sevenDaysAgo = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -6, toDate: NSDate(), options: [])! as NSDate
         let dateFormatter = NSDateFormatter()
@@ -67,7 +68,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestEarningsStatsGraphData(success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Stats.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Stats.rawValue
         
         let sevenDaysAgo = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -6, toDate: NSDate(), options: [])! as NSDate
         let dateFormatter = NSDateFormatter()
@@ -83,7 +84,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestSales(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Sales.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Sales.rawValue
         
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -93,7 +94,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestEarnings(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Earnings.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Earnings.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
@@ -102,7 +103,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Commissions.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Commissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
@@ -111,7 +112,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestStoreCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.StoreCommissions.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue+ Endpoints.StoreCommissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
@@ -120,7 +121,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestCustomers(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Customers.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Customers.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
@@ -129,7 +130,25 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestReviews(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Reviews.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Reviews.rawValue
+        requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestFileDownloadLogs(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Logs.rawValue
+        requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestSubscriptions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Subscriptions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in
@@ -160,7 +179,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func hasRecurringPaymentsIntegration() -> Bool {
-        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Subscriptions.rawValue
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Subscriptions.rawValue
         var ret: Bool = false
 
         requestGETURL(baseURL, parameters: [:], success: { (response) -> Void in
