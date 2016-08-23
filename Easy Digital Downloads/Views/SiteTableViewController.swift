@@ -23,13 +23,11 @@ class SiteTableViewController: UITableViewController {
         let leftNavigationBarButton = UIBarButtonItem(customView: leftNavigationItemButton)
         leftNavigationBarButton.accessibilityIdentifier = "Switch Site"
         
-        navigationItem.leftBarButtonItems = [leftNavigationBarButton]
+//        navigationItem.leftBarButtonItems = [leftNavigationBarButton]
     }
     
     override func viewWillAppear(animated: Bool) {
         view.backgroundColor = .EDDGreyColor()
-        
-        animateTable()
     }
     
     func editSwitchSiteButtonPressed() {
