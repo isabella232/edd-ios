@@ -53,6 +53,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        super.animateTable()
+        
         if Stats.hasStatsForActiveSite() {
             processCachedStats()
         }
@@ -131,6 +133,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        super.leftBarButtonItem = true
         
         setupTableView()
         

@@ -9,10 +9,22 @@
 import UIKit
 
 class SiteTableViewController: UITableViewController {
+    
+    var leftBarButtonItem : Bool? {
+        didSet {
+            setupSwitchSiteIcon()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        view.backgroundColor = .EDDGreyColor()
+    }
+    
+    private func setupSwitchSiteIcon() {
         let leftNavigationItemImage = UIImage(named: "NavigationBar-SwitchSite")
         let leftNavigationItemButton = HighlightButton(type: .Custom)
         leftNavigationItemButton.tintColor = .whiteColor()
@@ -23,11 +35,7 @@ class SiteTableViewController: UITableViewController {
         let leftNavigationBarButton = UIBarButtonItem(customView: leftNavigationItemButton)
         leftNavigationBarButton.accessibilityIdentifier = "Switch Site"
         
-//        navigationItem.leftBarButtonItems = [leftNavigationBarButton]
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        view.backgroundColor = .EDDGreyColor()
+        navigationItem.leftBarButtonItems = [leftNavigationBarButton]
     }
     
     func editSwitchSiteButtonPressed() {

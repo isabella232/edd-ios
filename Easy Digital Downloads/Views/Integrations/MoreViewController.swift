@@ -107,6 +107,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .Reviews:
                 self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
     }
     
