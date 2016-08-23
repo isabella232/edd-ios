@@ -10,40 +10,33 @@ import UIKit
 import CoreData
 
 class MoreViewController: SiteTableViewController, ManagedObjectContextSettable {
+    
+    private enum SectionType {
+        case General
+        case Commissions
+        case Logs
+        case Integrations
+    }
+    
+    private enum Item {
+        case SiteInformation
+        case ManageSites
+        case Commissions
+        case StoreCommissions
+        case FileDownloadLogs
+        case Reviews
+    }
+    
+    private struct Section {
+        var type: SectionType
+        var items: [Item]
+    }
+    
+    private var sections = [Section]()
 
     var managedObjectContext: NSManagedObjectContext!
     
     var site: Site?
-
-    let section0Cells = [
-        [
-            "title": "Site Information",
-        ],
-        [
-            "title": "Manage Sites"
-        ]
-    ]
-
-    let section1Cells = [
-        [
-            "title": "Commissions"
-        ],
-        [
-            "title": "Store Commissions"
-        ]
-    ]
-    
-    let section2Cells = [
-        [
-            "title": "File Download Logs"
-        ]
-    ]
-    
-    let section3Cells = [
-        [
-            "title": "Reviews"
-        ]
-    ]
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -60,6 +53,13 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
+        
+        sections = [
+            Section(type: .General, items: [.SiteInformation, .ManageSites]),
+            Section(type: .Commissions, items: [.Commissions, .StoreCommissions]),
+            Section(type: .Logs, items: [.FileDownloadLogs]),
+            Section(type: .Integrations, items: [.Reviews])
+        ]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,35 +69,45 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
     // MARK: Table View Delegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if (Site.activeSite().hasReviews != nil) {
-            return 4
-        } else {
-            return 3
-        }
+        return sections.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 2
-        } else if section == 1 {
-            return 2
-        } else {
-            return 1
-        }
+        return sections[section].items.count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "General"
-        } else if section == 1 {
-            return "Commissions"
-        } else if section == 2 {
-            return "Logs"
-        } else if section == 3 {
-            return "Integrations"
-        } else {
-            return nil
+        switch sections[section].type {
+            case .General:
+                return NSLocalizedString("General", comment: "")
+
+            case .Commissions:
+                return NSLocalizedString("Commissions", comment: "")
+
+            case .Logs:
+                return NSLocalizedString("Logs", comment: "")
+
+            case .Integrations:
+                return NSLocalizedString("Integrations", comment: "")
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch sections[indexPath.section].items[indexPath.row] {
+            case .SiteInformation:
+                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+            case .ManageSites:
+                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+            case .FileDownloadLogs:
+                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+            case .Commissions:
+                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+            case .StoreCommissions:
+                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+            case .Reviews:
+                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+        }
+
     }
     
     // MARK: Table View Data Source
@@ -109,14 +119,21 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             cell = UITableViewCell(style: .Default, reuseIdentifier: "MoreCell")
         }
         
-        if indexPath.section == 0 {
-            cell?.textLabel?.text = section0Cells[indexPath.row]["title"]
-        } else if indexPath.section == 1 {
-            cell?.textLabel?.text = section1Cells[indexPath.row]["title"]
-        } else if indexPath.section == 2 {
-            cell?.textLabel?.text = section2Cells[indexPath.row]["title"]
-        } else if indexPath.section == 3 {
-            cell?.textLabel?.text = section3Cells[indexPath.row]["title"]
+        cell?.accessoryType = .DisclosureIndicator
+        
+        switch sections[indexPath.section].items[indexPath.row] {
+            case .SiteInformation:
+                cell?.textLabel?.text = NSLocalizedString("Site Information", comment: "")
+            case .ManageSites:
+                cell?.textLabel?.text = NSLocalizedString("Manage Sites", comment: "")
+            case .FileDownloadLogs:
+                cell?.textLabel?.text = NSLocalizedString("File Download Logs", comment: "")
+            case .Commissions:
+                cell?.textLabel?.text = NSLocalizedString("Commissions", comment: "")
+            case .StoreCommissions:
+                cell?.textLabel?.text = NSLocalizedString("Store Commissions", comment: "")
+            case .Reviews:
+                cell?.textLabel?.text = NSLocalizedString("Reviews", comment: "")
         }
         
         return cell!
