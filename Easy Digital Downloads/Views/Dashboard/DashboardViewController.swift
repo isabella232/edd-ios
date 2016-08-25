@@ -53,7 +53,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        super.animateTable()
+        if !NSUserDefaults.standardUserDefaults().boolForKey("DashboardLoaded") {
+            super.animateTable()
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "DashboardLoaded")
+        }
         
         if Stats.hasStatsForActiveSite() {
             processCachedStats()

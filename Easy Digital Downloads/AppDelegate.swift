@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDTTYLogger())
         DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
+        if NSUserDefaults.standardUserDefaults().boolForKey("DashboardLoaded") {
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: "DashboardLoaded")
+        }
+        
 //        let domainName = NSBundle.mainBundle().bundleIdentifier!
 //        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
         
