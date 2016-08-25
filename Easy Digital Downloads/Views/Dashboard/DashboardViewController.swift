@@ -277,8 +277,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         var salesGraphData: Array<Int> = []
         for key in sorted! {
             salesGraphData.append(sales![key]!.integerValue)
-            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
-            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
+            
+            let dateR = key.endIndex.advancedBy(-2) ..< key.endIndex
+            let dateRange = Range(dateR)
+            
+            let monthR = key.startIndex.advancedBy(4) ..< key.startIndex.advancedBy(6)
+            let monthRange = Range(monthR)
             
             let date = key[dateRange]
             let month = Int(key[monthRange])
@@ -306,8 +310,11 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         var earningsGraphData: Array<Double> = []
         for key in sorted! {
             earningsGraphData.append(earnings![key]!.doubleValue)
-            let dateRange = Range(start: key.endIndex.advancedBy(-2), end: key.endIndex)
-            let monthRange = Range(start: key.startIndex.advancedBy(4), end: key.startIndex.advancedBy(6))
+            let dateR = key.endIndex.advancedBy(-2) ..< key.endIndex
+            let dateRange = Range(dateR)
+            
+            let monthR = key.startIndex.advancedBy(4) ..< key.startIndex.advancedBy(6)
+            let monthRange = Range(monthR)
             
             let date = key[dateRange]
             let month = Int(key[monthRange])
