@@ -25,7 +25,8 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
     var customersViewController: CustomersViewController?
     var customersNavigationController: UINavigationController?
     
-    var subscriptionsViewController: SubscriptionsTableViewController?
+    var subscriptionsViewController: SubscriptionsViewController?
+    var subscriptionsNavigationController: UINavigationController?
     
     var moreViewController: MoreViewController?
     var moreViewNavigationController: UINavigationController?
@@ -45,6 +46,12 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         customersViewController = CustomersViewController(site: site)
         customersViewController?.managedObjectContext = managedObjectContext
         customersNavigationController = UINavigationController(rootViewController: customersViewController!)
+        
+        if (site.hasRecurring != nil) {
+            subscriptionsViewController = SubscriptionsViewController(site: site)
+            subscriptionsViewController?.managedObjectContext = managedObjectContext
+            subscriptionsNavigationController = UINavigationController(rootViewController: subscriptionsViewController!)
+        }
         
         moreViewController = MoreViewController(site: site)
         moreViewController?.managedObjectContext = managedObjectContext
@@ -72,9 +79,14 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         dashboardNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Dashboard")
         salesNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Sales")
         customersNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Customers")
+        subscriptionsNavigationController!.tabBarItem.image = UIImage(named: "TabBar-Subscriptions")
         moreViewNavigationController!.tabBarItem.image = UIImage(named: "TabBar-More")
         
         self.viewControllers = [dashboardNavigationController!, salesNavigationController!, customersNavigationController!, moreViewNavigationController!]
+        
+        if (site?.hasRecurring != nil) {
+            self.viewControllers?.insert(subscriptionsNavigationController!, atIndex: 3);
+        }
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
