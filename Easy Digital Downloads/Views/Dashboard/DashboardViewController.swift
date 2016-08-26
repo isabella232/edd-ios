@@ -66,7 +66,9 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             processCachedGraphData()
         }
         
-        tableView.reloadData()
+        if Stats.hasStatsForActiveSite() || GraphData.hasGraphDataForActiveSite() {
+            tableView.reloadData()
+        }
         
         networkOperations()
     }
