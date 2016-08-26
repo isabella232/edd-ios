@@ -1,5 +1,5 @@
 //
-//  SubscriptionsTableViewController.swift
+//  SubscriptionsViewController.swift
 //  Easy Digital Downloads
 //
 //  Created by Sunny Ratilal on 26/08/2016.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SubscriptionsTableViewController: SiteTableViewController {
+class SubscriptionsViewController: SiteTableViewController {
 
     
     

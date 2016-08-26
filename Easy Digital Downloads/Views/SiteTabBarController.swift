@@ -25,6 +25,8 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
     var customersViewController: CustomersViewController?
     var customersNavigationController: UINavigationController?
     
+    var subscriptionsViewController: SubscriptionsTableViewController?
+    
     var moreViewController: MoreViewController?
     var moreViewNavigationController: UINavigationController?
     
