@@ -66,72 +66,9 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             processCachedGraphData()
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
         
-        let networkOperationGroup = dispatch_group_create()
-        
-        dispatch_group_enter(networkOperationGroup)
-        
-        var sales: NSDictionary = NSDictionary()
-        var earnings: NSDictionary = NSDictionary()
-        
-        EDDAPIWrapper.sharedInstance.requestStats([:], success: { (json) in
-            earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
-            sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
-            
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-            }) { (error) in
-                fatalError()
-        }
-        
-        dispatch_group_enter(networkOperationGroup)
-        
-        EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
-            self.processSalesGraphData(json)
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-        }) { (error) in
-            fatalError()
-        }
-        
-        dispatch_group_enter(networkOperationGroup)
-        
-        EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
-            self.processEarningsGraphData(json)
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-            }) { (error) in
-                fatalError()
-        }
-        
-        dispatch_group_enter(networkOperationGroup)
-        
-        EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
-            self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-            }) { (error) in
-                fatalError()
-        }
-        
-        dispatch_group_enter(networkOperationGroup)
-        
-        EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
-            self.storeCommission = json["total_unpaid"].stringValue
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-        }) { (error) in
-            fatalError()
-        }
-        
-        dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
-            self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
-            self.cachedGraphData = GraphData(salesGraphDates: self.salesGraphDates, salesGraphData: self.salesGraphData, earningsGraphDates: self.earningsGraphDates, earningsGraphData: self.earningsGraphData)
-            Stats.encode(self.stats!)
-            GraphData.encode(self.cachedGraphData!)
-            self.tableView.reloadData()
-        }
+        networkOperations()
     }
     
     override func viewDidLoad() {
@@ -177,6 +114,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         if refreshControl.refreshing {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.networkOperations()
                     self.tableView.reloadData()
                     refreshControl.performSelector(#selector(refreshControl.endRefreshing), withObject: nil, afterDelay: 0.05)
                 })
@@ -246,6 +184,73 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     }
     
     // MARK: Loading
+    
+    private func networkOperations() {
+        let networkOperationGroup = dispatch_group_create()
+        
+        dispatch_group_enter(networkOperationGroup)
+        
+        var sales: NSDictionary = NSDictionary()
+        var earnings: NSDictionary = NSDictionary()
+        
+        EDDAPIWrapper.sharedInstance.requestStats([:], success: { (json) in
+            earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
+            sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
+            
+            self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
+        }) { (error) in
+            fatalError()
+        }
+        
+        dispatch_group_enter(networkOperationGroup)
+        
+        EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
+            self.processSalesGraphData(json)
+            self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
+        }) { (error) in
+            fatalError()
+        }
+        
+        dispatch_group_enter(networkOperationGroup)
+        
+        EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
+            self.processEarningsGraphData(json)
+            self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
+        }) { (error) in
+            fatalError()
+        }
+        
+        dispatch_group_enter(networkOperationGroup)
+        
+        EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
+            self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
+            self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
+        }) { (error) in
+            fatalError()
+        }
+        
+        dispatch_group_enter(networkOperationGroup)
+        
+        EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
+            self.storeCommission = json["total_unpaid"].stringValue
+            self.tableView.reloadData()
+            dispatch_group_leave(networkOperationGroup)
+        }) { (error) in
+            fatalError()
+        }
+        
+        dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
+            self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
+            self.cachedGraphData = GraphData(salesGraphDates: self.salesGraphDates, salesGraphData: self.salesGraphData, earningsGraphDates: self.earningsGraphDates, earningsGraphData: self.earningsGraphData)
+            Stats.encode(self.stats!)
+            GraphData.encode(self.cachedGraphData!)
+            self.tableView.reloadData()
+        }
+    }
     
     func showActivityIndicator() {
         
