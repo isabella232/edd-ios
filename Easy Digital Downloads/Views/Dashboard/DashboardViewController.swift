@@ -72,8 +72,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             tableView.reloadData()
         }
         
-        self.hasNoInternetConnection = true
-        
         networkOperations()
     }
     
@@ -206,7 +204,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            fatalError()
+            self.hasNoInternetConnection = true
+            NSLog(error.localizedDescription)
         }
         
         dispatch_group_enter(networkOperationGroup)
@@ -216,7 +215,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            fatalError()
+            self.hasNoInternetConnection = true
+            NSLog(error.localizedDescription)
         }
         
         dispatch_group_enter(networkOperationGroup)
@@ -226,7 +226,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            fatalError()
+            self.hasNoInternetConnection = true
+            NSLog(error.localizedDescription)
         }
         
         dispatch_group_enter(networkOperationGroup)
@@ -236,7 +237,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            fatalError()
+            self.hasNoInternetConnection = true
+            NSLog(error.localizedDescription)
         }
         
         dispatch_group_enter(networkOperationGroup)
@@ -246,7 +248,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            fatalError()
+            self.hasNoInternetConnection = true
+            NSLog(error.localizedDescription)
         }
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {

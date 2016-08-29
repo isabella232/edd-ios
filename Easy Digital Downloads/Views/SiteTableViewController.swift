@@ -18,6 +18,12 @@ class SiteTableViewController: UITableViewController {
     
     var hasNoInternetConnection : Bool? {
         didSet {
+            for view in self.view.subviews {
+                if view.tag == 1 {
+                    return
+                }
+            }
+            
             displayNoNetworkConnectionView()
         }
     }
@@ -44,6 +50,7 @@ class SiteTableViewController: UITableViewController {
         let offlineView = UIView(frame: CGRectMake(0, 0, width, height))
         offlineView.backgroundColor = .errorColor()
         offlineView.transform = CGAffineTransformMakeTranslation(0, -80)
+        offlineView.tag == 1
         
         let offlineLabel = UILabel(frame: CGRectMake(0, 0, width, height))
         offlineLabel.text = NSLocalizedString("No network connection", comment: "")
