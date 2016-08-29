@@ -63,15 +63,15 @@ class SalesViewController: SiteTableViewController {
             fatalError()
         }
         
-//        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
-//            if let items = json["sales"].array {
-//                self.sales = items
-//                self.persistSales()
-//            }
-//
-//            }) { (error) in
-//                fatalError()
-//        }
+        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
+            if let items = json["sales"].array {
+                self.sales = items
+                self.persistSales()
+            }
+
+            }) { (error) in
+                fatalError()
+        }
     }
     
     private func persistSales() {
@@ -80,6 +80,10 @@ class SalesViewController: SiteTableViewController {
         }
         
         for item in sales_ {
+            if Sale.saleForTransactionId(item["transaction_id"].stringValue) !== nil {
+                continue
+            }
+            
             Sale.insertIntoContext(managedObjectContext, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].dictionaryObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int16(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue)
         }
         

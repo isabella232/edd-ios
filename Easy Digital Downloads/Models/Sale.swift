@@ -57,16 +57,20 @@ public final class Sale: ManagedObject {
         return NSPredicate(format: "%K == %@", Sale.Keys.TransactionID.rawValue, transactionId)
     }
     
-    public static func saleForTransactionId(transactionId: String) -> Sale {
+    public static func saleForTransactionId(transactionId: String) -> Sale? {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
-        let sale = Sale.fetchSingleObjectInContext(managedObjectContext) { request in
+        let sale = Sale.fetchInContext(managedObjectContext) { (request) in
             request.predicate = self.predicateForTransactionId(transactionId)
             request.fetchLimit = 1
         }
         
-        return sale!
+        if sale.count > 0 {
+            return sale[0]
+        } else {
+            return nil
+        }
     }
     
     public static func defaultFetchRequest() -> NSFetchRequest {
@@ -89,7 +93,7 @@ public final class Sale: ManagedObject {
         
         return sale!
     }
-    
+
 }
 
 extension Sale: ManagedObjectType {
