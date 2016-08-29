@@ -24,11 +24,19 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     var site: Site?
     var log: [String: AnyObject]?
     
+    var paymentId: Int = 0
+    var customerId: Int = 0
+    var productId: Int = 0
+    
     init(log: [String: AnyObject]) {
         super.init(style: .Plain)
         
         self.site = Site.activeSite()
         self.log = log
+        
+        self.paymentId = log["payment_id"] as! Int
+        self.customerId = log["customer_id"] as! Int
+        self.productId = log["product_id"] as! Int
         
         title = log["product_name"] as? String
         
@@ -58,15 +66,6 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        switch cells[indexPath.row] {
-//            case .Meta:
-//            case .Customer:
-//            case .Payment:
-//            case .Product:
-//        }
     }
     
     // MARK: Table View Delegate
