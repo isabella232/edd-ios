@@ -163,7 +163,7 @@ public final class Site: ManagedObject {
     
     public static func fetchSalesForActiveSite(inContext moc: NSManagedObjectContext) {
         let site = Site.fetchRecordForActiveSite(inContext: moc)
-        
+         
         print(site)
     }
     

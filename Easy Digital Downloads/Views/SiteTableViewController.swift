@@ -16,6 +16,14 @@ class SiteTableViewController: UITableViewController {
         }
     }
     
+    var hasNoInternetConnection : Bool? {
+        didSet {
+            displayNoNetworkConnectionView()
+        }
+    }
+    
+    var topLayoutAnchor: CGFloat = 0.0
+    
     lazy var activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         
@@ -26,6 +34,25 @@ class SiteTableViewController: UITableViewController {
         activityIndicator.color = .EDDBlueColor()
         
         return activityIndicator
+    }()
+    
+    lazy var noInternetConnection: UIView = {
+        let bounds: CGRect = UIScreen.mainScreen().bounds
+        let width: CGFloat = bounds.width
+        let height: CGFloat = 30.0
+        
+        let offlineView = UIView(frame: CGRectMake(0, 0, width, height))
+        offlineView.backgroundColor = .errorColor()
+        offlineView.transform = CGAffineTransformMakeTranslation(0, -80)
+        
+        let offlineLabel = UILabel(frame: CGRectMake(0, 0, width, height))
+        offlineLabel.text = NSLocalizedString("No network connection", comment: "")
+        offlineLabel.textColor = .whiteColor()
+        offlineLabel.textAlignment = .Center
+        
+        offlineView.addSubview(offlineLabel)
+
+        return offlineView
     }()
     
     override func viewDidLoad() {
@@ -62,11 +89,11 @@ class SiteTableViewController: UITableViewController {
         tableView.reloadData()
         
         let navigationBar = navigationController?.navigationBar
-        navigationBar?.transform = CGAffineTransformMakeTranslation(0, -80);
+        navigationBar?.transform = CGAffineTransformMakeTranslation(0, -80)
         navigationBar?.layer.opacity = 0.5
         
         let tabBar = tabBarController?.tabBar
-        tabBar?.transform = CGAffineTransformMakeTranslation(0, 80);
+        tabBar?.transform = CGAffineTransformMakeTranslation(0, 80)
         tabBar?.layer.opacity = 0.5
         
         let cells = tableView.visibleCells
@@ -90,11 +117,19 @@ class SiteTableViewController: UITableViewController {
         for a in cells {
             let cell: UITableViewCell = a as UITableViewCell
             UIView.animateWithDuration(1.5, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+                cell.transform = CGAffineTransformMakeTranslation(0, 0)
                 }, completion: nil)
             
             index += 1
         }
+    }
+    
+    func displayNoNetworkConnectionView() {
+        view.addSubview(noInternetConnection)
+        
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            self.noInternetConnection.transform = CGAffineTransformMakeTranslation(0, self.topLayoutAnchor)
+            }, completion: nil)
     }
 
 }

@@ -44,6 +44,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         tableView.dataSource = self
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        topLayoutAnchor = -10.0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,6 +71,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         if Stats.hasStatsForActiveSite() || GraphData.hasGraphDataForActiveSite() {
             tableView.reloadData()
         }
+        
+        self.hasNoInternetConnection = true
         
         networkOperations()
     }
