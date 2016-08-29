@@ -54,23 +54,27 @@ class SalesViewController: SiteTableViewController {
         
         sales = [JSON]()
         
-        EDDAPIWrapper.sharedInstance.requestSales([ "page": 2 ], success: { (json) in
-            if let items = json["sales"].array {
-                print(items)
-            }
-            
-        }) { (error) in
-            fatalError()
-        }
-        
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
             if let items = json["sales"].array {
                 self.sales = items
-                self.persistSales()
+                self.requestNextPage()
             }
 
             }) { (error) in
                 fatalError()
+        }
+    }
+    
+    private func requestNextPage() {
+        EDDAPIWrapper.sharedInstance.requestSales([ "page": 2 ], success: { (json) in
+            if let items = json["sales"].array {
+                for item in items {
+                    self.sales?.append(item)
+                }
+            }
+            self.persistSales()
+        }) { (error) in
+            fatalError()
         }
     }
     
@@ -79,8 +83,10 @@ class SalesViewController: SiteTableViewController {
             return
         }
         
+        print(sales_)
+        
         for item in sales_ {
-            if Sale.saleForTransactionId(item["transaction_id"].stringValue) !== nil {
+            if Sale.saleForId(item["ID"].stringValue) !== nil {
                 continue
             }
             

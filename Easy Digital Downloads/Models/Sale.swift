@@ -57,12 +57,32 @@ public final class Sale: ManagedObject {
         return NSPredicate(format: "%K == %@", Sale.Keys.TransactionID.rawValue, transactionId)
     }
     
+    public static func predicateForId(id: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", Sale.Keys.ID.rawValue, id)
+    }
+    
     public static func saleForTransactionId(transactionId: String) -> Sale? {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let sale = Sale.fetchInContext(managedObjectContext) { (request) in
             request.predicate = self.predicateForTransactionId(transactionId)
+            request.fetchLimit = 1
+        }
+        
+        if sale.count > 0 {
+            return sale[0]
+        } else {
+            return nil
+        }
+    }
+    
+    public static func saleForId(Id: String) -> Sale? {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+        
+        let sale = Sale.fetchInContext(managedObjectContext) { (request) in
+            request.predicate = self.predicateForId(Id)
             request.fetchLimit = 1
         }
         

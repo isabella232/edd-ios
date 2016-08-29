@@ -17,7 +17,7 @@ class SalesTableViewCell: UITableViewCell {
 extension SalesTableViewCell: ConfigurableCell {
 
     func configureForObject(object: Sale) {
-        print(object)
+        print(object.sid)
     }
 
 }
