@@ -20,7 +20,7 @@ private let sharedDateFormatter: NSDateFormatter = {
 }()
 
 class SalesViewController: SiteTableViewController {
-
+    
     var managedObjectContext: NSManagedObjectContext!
 
     var site: Site?
@@ -28,6 +28,7 @@ class SalesViewController: SiteTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupInfiniteScrollView()
         setupTableView()
     }
     
@@ -52,6 +53,15 @@ class SalesViewController: SiteTableViewController {
         super.viewWillAppear(animated)
         
         sales = [JSON]()
+        
+        EDDAPIWrapper.sharedInstance.requestSales([ "page": 2 ], success: { (json) in
+            if let items = json["sales"].array {
+                print(items)
+            }
+            
+        }) { (error) in
+            fatalError()
+        }
         
 //        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
 //            if let items = json["sales"].array {
@@ -78,6 +88,20 @@ class SalesViewController: SiteTableViewController {
             managedObjectContext.processPendingChanges()
         } catch {
             fatalError("Failure to save context: \(error)")
+        }
+    }
+    
+    // MARK: Scroll View Delegate
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let actualPosition: CGFloat = scrollView.contentOffset.y
+        let contentHeight: CGFloat = scrollView.contentSize.height - 44;
+        
+        print(actualPosition)
+        print(contentHeight)
+        
+        if actualPosition >= contentHeight {
+            NSLog("Time to load more data")
         }
     }
     
@@ -114,6 +138,24 @@ extension SalesViewController: DataSourceDelegate {
     
     func cellIdentifierForObject(object: Sale) -> String {
         return "SaleCell"
+    }
+    
+}
+
+extension SalesViewController : InfiniteScrollingTableView {
+    
+    func setupInfiniteScrollView() {
+        let bounds = UIScreen.mainScreen().bounds
+        let width = bounds.size.width
+        
+        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
+        footerView.backgroundColor = .clearColor()
+        
+        activityIndicatorView.startAnimating()
+        
+        footerView.addSubview(activityIndicatorView)
+        
+        tableView.tableFooterView = footerView
     }
     
 }

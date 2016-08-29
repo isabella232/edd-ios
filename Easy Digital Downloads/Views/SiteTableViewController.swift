@@ -15,7 +15,19 @@ class SiteTableViewController: UITableViewController {
             setupSwitchSiteIcon()
         }
     }
-
+    
+    lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        
+        let bounds = UIScreen.mainScreen().bounds
+        let width = bounds.size.width
+        
+        activityIndicator.center = CGPointMake(width / 2, 22)
+        activityIndicator.color = .EDDBlueColor()
+        
+        return activityIndicator
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

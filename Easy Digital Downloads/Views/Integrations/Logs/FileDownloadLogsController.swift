@@ -27,8 +27,10 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 120.0
+        tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +39,9 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+    }
+    
+    override func viewDidLoad() {
         networkOperations()
     }
     
@@ -49,7 +53,6 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
             if let items = json["download_logs"].array {
                 self.logs = items
-                self.tableView.reloadData()
             }
             self.tableView.reloadData()
             }) { (error) in
@@ -64,26 +67,31 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.logs?.count)!
+        return self.logs?.count ?? 0
     }
     
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogCell")
-
+        var cell: FileDownloadLogsTableViewCell? = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogCell") as! FileDownloadLogsTableViewCell?
+        
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "FileDownloadLogCell")
+            cell = FileDownloadLogsTableViewCell()
         }
         
         let logData = self.logs![indexPath.row].dictionaryObject!
         
-        cell?.textLabel?.text = logData["product_name"] as? String
+        cell!.configure(logData)
+        
+        cell!.layout()
         
         return cell!
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let logData = self.logs![indexPath.row].dictionaryObject!
+        navigationController?.pushViewController(FileDownloadLogsDetailViewController(log: logData), animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
 }
