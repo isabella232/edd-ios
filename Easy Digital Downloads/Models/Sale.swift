@@ -77,6 +77,19 @@ public final class Sale: ManagedObject {
         return request
     }
     
+    public static func fetchMostRecentSale() -> Sale {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+        
+        let sale = Sale.fetchSingleObjectInContext(managedObjectContext) { request in
+            request.returnsObjectsAsFaults = false
+            request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+            request.fetchLimit = 1
+        }
+        
+        return sale!
+    }
+    
 }
 
 extension Sale: ManagedObjectType {
