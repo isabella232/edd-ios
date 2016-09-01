@@ -34,6 +34,7 @@ public final class EDDAPIWrapper: NSObject {
         case Info = "info"
         case Customers = "customers"
         case Logs = "file-download-logs"
+        case Products = "products"
     }
     
     private override init() {
@@ -122,6 +123,15 @@ public final class EDDAPIWrapper: NSObject {
     
     public func requestCustomers(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Customers.rawValue
+        requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestProducts(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Products.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in

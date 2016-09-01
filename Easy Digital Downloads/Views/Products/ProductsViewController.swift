@@ -7,29 +7,114 @@
 //
 
 import UIKit
+import CoreData
+import SwiftyJSON
 
-class ProductsViewController: SiteTableViewController {
+class ProductsViewController: SiteTableViewController, ManagedObjectContextSettable {
 
+    var managedObjectContext: NSManagedObjectContext!
+    
+    var site: Site?
+    var products: [JSON]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        setupInfiniteScrollView()
+        setupTableView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
-    */
+    
+    init(site: Site) {
+        super.init(style: .Plain)
+        
+        self.site = site
+        self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
+        
+        title = NSLocalizedString("Products", comment: "Products title")
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        products = [JSON]()
+        
+        EDDAPIWrapper.sharedInstance.requestProducts([:], success: { (json) in
+            print(json)
+        }) { (error) in
+            NSLog(error.localizedDescription)
+        }
+    }
+    
+    // MARK: Private
+    
+    private func requestNextPage() {
+        
+    }
+    
+    private func persistCustomers() {
+        guard products != nil else {
+            return
+        }
+    }
+    
+    private typealias Data = FetchedResultsDataProvider<ProductsViewController>
+    private var dataSource: TableViewDataSource<ProductsViewController, Data, ProductsTableViewCell>!
+    
+    private func setupTableView() {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.registerClass(CustomersTableViewCell.self, forCellReuseIdentifier: "ProductCell")
+        setupDataSource()
+    }
+    
+    private func setupDataSource() {
+        let request = Customer.defaultFetchRequest()
+        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
+        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
+    }
 
+}
+
+extension ProductsViewController: DataProviderDelegate {
+    
+    func dataProviderDidUpdate(updates: [DataProviderUpdate<Product>]?) {
+        dataSource.processUpdates(updates)
+    }
+    
+}
+
+extension ProductsViewController: DataSourceDelegate {
+    
+    func cellIdentifierForObject(object: Product) -> String {
+        return "ProductCell"
+    }
+    
+}
+
+
+extension ProductsViewController : InfiniteScrollingTableView {
+    
+    func setupInfiniteScrollView() {
+        let bounds = UIScreen.mainScreen().bounds
+        let width = bounds.size.width
+        
+        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
+        footerView.backgroundColor = .clearColor()
+        
+        activityIndicatorView.startAnimating()
+        
+        footerView.addSubview(activityIndicatorView)
+        
+        tableView.tableFooterView = footerView
+    }
+    
 }
