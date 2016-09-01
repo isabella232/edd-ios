@@ -16,8 +16,8 @@ class ProductsTableViewCell: UITableViewCell {
 
 extension ProductsTableViewCell: ConfigurableCell {
     
-    func configureForObject(object: Sale) {
-        print(object.sid)
+    func configureForObject(object: Product) {
+        print(object.pid)
     }
     
 }

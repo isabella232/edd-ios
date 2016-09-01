@@ -71,12 +71,12 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     private func setupTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
-        tableView.registerClass(CustomersTableViewCell.self, forCellReuseIdentifier: "ProductCell")
+        tableView.registerClass(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductCell")
         setupDataSource()
     }
     
     private func setupDataSource() {
-        let request = Customer.defaultFetchRequest()
+        let request = Product.defaultFetchRequest()
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
         dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
