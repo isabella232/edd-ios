@@ -34,3 +34,36 @@ public final class Customer: ManagedObject {
     }
 
 }
+
+extension Customer: ManagedObjectType {
+    
+    public static var entityName: String {
+        return "Customer"
+    }
+    
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: CreatedTimestampKey, ascending: false)]
+    }
+    
+    public static var defaultPredicate: NSPredicate {
+        return NSPredicate()
+    }
+    
+}
+
+extension Customer: KeyCodable {
+    
+    public enum Keys: String {
+        case CreatedAt = "createdAt"
+        case DisplayName = "displayName"
+        case Email = "email"
+        case FirstName = "firstName"
+        case LastName = "lastName"
+        case TotalDownloads = "totalDownloads"
+        case TotalPurchases = "totalPurchases"
+        case TotalSpent = "totalSpent"
+        case ID = "uid"
+        case Username = "username"
+    }
+    
+}
