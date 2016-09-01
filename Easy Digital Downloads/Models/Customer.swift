@@ -49,6 +49,14 @@ extension Customer: ManagedObjectType {
         return NSPredicate()
     }
     
+    public static func defaultFetchRequest() -> NSFetchRequest {
+        let request = NSFetchRequest(entityName: self.entityName)
+        request.fetchLimit = 20
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keys.CreatedAt.rawValue, ascending: false)]
+        return request
+    }
+    
 }
 
 extension Customer: KeyCodable {
