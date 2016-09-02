@@ -38,3 +38,48 @@ public final class Product: ManagedObject {
     }
     
 }
+
+extension Product: ManagedObjectType {
+    
+    public static var entityName: String {
+        return "Product"
+    }
+    
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: CreatedTimestampKey, ascending: false)]
+    }
+    
+    public static var defaultPredicate: NSPredicate {
+        return NSPredicate()
+    }
+    
+    public static func defaultFetchRequest() -> NSFetchRequest {
+        let request = NSFetchRequest(entityName: self.entityName)
+        request.fetchLimit = 20
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedAt.rawValue, ascending: false)]
+        return request
+    }
+    
+}
+
+extension Product: KeyCodable {
+    
+    public enum Keys: String {
+        case Content = "content"
+        case CreatedAt = "createdAt"
+        case CreatedDate = "createdDate"
+        case Files = "files"
+        case HasVariablePricing = "hasVariablePricing"
+        case Link = "link"
+        case ModifiedDate = "modifiedDate"
+        case Notes = "notes"
+        case ID = "pid"
+        case Pricing = "pricing"
+        case Stats = "stats"
+        case Status = "status"
+        case Thumbnmail = "thumbnail"
+        case Title = "title"
+    }
+    
+}
