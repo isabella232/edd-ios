@@ -47,7 +47,12 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         products = [JSON]()
         
         EDDAPIWrapper.sharedInstance.requestProducts([:], success: { (json) in
-            print(json)
+            if let items = json["products"].array {
+                for item in items {
+                    self.products?.append(item)
+                }
+            }
+            self.persistProducts()
         }) { (error) in
             NSLog(error.localizedDescription)
         }
@@ -59,7 +64,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         
     }
     
-    private func persistCustomers() {
+    private func persistProducts() {
         guard products != nil else {
             return
         }
