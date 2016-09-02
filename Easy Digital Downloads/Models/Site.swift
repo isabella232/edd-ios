@@ -161,10 +161,34 @@ public final class Site: ManagedObject {
         return site!
     }
     
-    public static func fetchSalesForActiveSite(inContext moc: NSManagedObjectContext) {
+    public static func fetchSalesForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Sale> {
         let site = Site.fetchRecordForActiveSite(inContext: moc)
-         
-        print(site)
+        return site.sales
+    }
+    
+    public static func fetchSubscriptionsForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Subscription> {
+        let site = Site.fetchRecordForActiveSite(inContext: moc)
+        return site.subscriptions
+    }
+    
+    public static func fetchProductsForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Product> {
+        let site = Site.fetchRecordForActiveSite(inContext: moc)
+        return site.products
+    }
+    
+    public static func fetchDiscountsForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Discount> {
+        let site = Site.fetchRecordForActiveSite(inContext: moc)
+        return site.discounts
+    }
+    
+    public static func fetchCustomersForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Customer> {
+        let site = Site.fetchRecordForActiveSite(inContext: moc)
+        return site.customers
+    }
+    
+    public static func fetchCommissionsForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Commission> {
+        let site = Site.fetchRecordForActiveSite(inContext: moc)
+        return site.commissions
     }
     
     public static func fetchAll(inContext moc: NSManagedObjectContext) -> [Site]? {
