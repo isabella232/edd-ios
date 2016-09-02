@@ -83,8 +83,6 @@ class SalesViewController: SiteTableViewController {
             return
         }
         
-        print(sales_)
-        
         for item in sales_ {
             if Sale.saleForId(item["ID"].stringValue) !== nil {
                 continue
@@ -105,10 +103,7 @@ class SalesViewController: SiteTableViewController {
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
-        let contentHeight: CGFloat = scrollView.contentSize.height - 44;
-        
-        print(actualPosition)
-        print(contentHeight)
+        let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
         if actualPosition >= contentHeight {
             NSLog("Time to load more data")
