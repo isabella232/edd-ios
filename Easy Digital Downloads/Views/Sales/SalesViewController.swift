@@ -26,8 +26,23 @@ class SalesViewController: SiteTableViewController {
     var site: Site?
     var sales: [JSON]?
     
+    var hasMoreSales: Bool = true {
+        didSet {
+            if (!hasMoreSales) {
+                activityIndicatorView.stopAnimating()
+            } else {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+    
+    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        super.leftBarButtonItem = true
+        
         setupInfiniteScrollView()
         setupTableView()
     }
@@ -52,30 +67,46 @@ class SalesViewController: SiteTableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        networkOperations()
+    }
+    
+    private func networkOperations() {
         sales = [JSON]()
         
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
             if let items = json["sales"].array {
                 self.sales = items
+                self.updateLastDownloadedPage()
                 self.requestNextPage()
             }
-
-            }) { (error) in
-                fatalError()
+            
+        }) { (error) in
+            fatalError()
         }
     }
     
     private func requestNextPage() {
-        EDDAPIWrapper.sharedInstance.requestSales([ "page": 2 ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestSales([ "page": lastDownloadedPage ], success: { (json) in
             if let items = json["sales"].array {
+                if items.count == 50 {
+                    self.hasMoreSales = true
+                } else {
+                    self.hasMoreSales = false
+                }
                 for item in items {
                     self.sales?.append(item)
                 }
+                self.updateLastDownloadedPage()
             }
             self.persistSales()
         }) { (error) in
             fatalError()
         }
+    }
+    
+    private func updateLastDownloadedPage() {
+        self.lastDownloadedPage = self.lastDownloadedPage + 1;
+        NSUserDefaults.standardUserDefaults().setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
     }
     
     private func persistSales() {
@@ -106,7 +137,7 @@ class SalesViewController: SiteTableViewController {
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
         if actualPosition >= contentHeight {
-            NSLog("Time to load more data")
+            self.requestNextPage()
         }
     }
     
