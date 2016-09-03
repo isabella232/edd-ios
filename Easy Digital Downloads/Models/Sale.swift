@@ -95,7 +95,6 @@ public final class Sale: ManagedObject {
     
     public static func defaultFetchRequest() -> NSFetchRequest {
         let request = NSFetchRequest(entityName: "Sale")
-        request.fetchLimit = 20
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
         return request
