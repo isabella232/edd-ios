@@ -189,6 +189,7 @@ public final class Site: ManagedObject {
     public static func fetchCommissionsForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Commission> {
         let site = Site.fetchRecordForActiveSite(inContext: moc)
         return site.commissions
+        
     }
     
     public static func fetchAll(inContext moc: NSManagedObjectContext) -> [Site]? {

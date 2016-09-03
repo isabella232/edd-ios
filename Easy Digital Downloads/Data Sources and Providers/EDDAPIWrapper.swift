@@ -167,7 +167,7 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestGETURL(strURL: String, parameters: [String: AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let auth : [String : AnyObject] = ["key": site.key, "token": site.token]
+        let auth : [String : AnyObject] = ["key": site.key, "token": site.token, "number" : 50]
         var passedParameters : [String: AnyObject] = auth
 
         passedParameters.update(parameters)
