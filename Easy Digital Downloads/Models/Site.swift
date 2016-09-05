@@ -21,6 +21,13 @@ enum SiteType: Int16 {
     case StandardCommission = 4
 }
 
+private let sharedNumberFormatter: NSNumberFormatter = {
+    let formatter = NSNumberFormatter()
+    formatter.numberStyle = .CurrencyStyle
+    formatter.currencyCode = Site.activeSite().currency!
+    return formatter
+}()
+
 public final class Site: ManagedObject {
     
     // Attributes
@@ -159,6 +166,10 @@ public final class Site: ManagedObject {
             request.fetchLimit = 1
         }
         return site!
+    }
+    
+    public static func currencyFormat(number: NSNumber) -> String {
+        return sharedNumberFormatter.stringFromNumber(number)!
     }
     
     public static func fetchSalesForActiveSite(inContext moc: NSManagedObjectContext) -> Set<Sale> {

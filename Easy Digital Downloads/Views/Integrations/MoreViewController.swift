@@ -95,17 +95,17 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch sections[indexPath.section].items[indexPath.row] {
             case .SiteInformation:
-                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .ManageSites:
-                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .FileDownloadLogs:
                 self.navigationController?.pushViewController(FileDownloadLogsController(site: self.site!), animated: true)
             case .Commissions:
-                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .StoreCommissions:
-                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Reviews:
-                self.navigationController?.pushViewController(SiteInformationViewController(), animated: true)
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 

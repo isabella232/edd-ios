@@ -37,7 +37,7 @@ public final class Sale: ManagedObject {
         createdAt = NSDate()
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int16, subtotal: Double, tax: Double, total: Double, transactionId: String) -> Sale {
+    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int16, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [JSON]) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.date = date
         sale.email = email
@@ -50,6 +50,12 @@ public final class Sale: ManagedObject {
         sale.total = total
         sale.transactionId = transactionId
         sale.site = Site.fetchRecordForActiveSite(inContext: moc)
+        
+        for product in products {
+            let items = sale.mutableSetValueForKey(Sale.Keys.Products.rawValue)
+            
+        }
+    
         return sale
     }
     
@@ -145,6 +151,7 @@ extension Sale: KeyCodable {
         case Tax = "tax"
         case Total = "total"
         case TransactionID = "transactionId"
+        case Products = "products"
     }
 
 }

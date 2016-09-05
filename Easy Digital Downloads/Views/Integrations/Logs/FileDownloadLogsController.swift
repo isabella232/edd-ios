@@ -42,6 +42,8 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         networkOperations()
     }
     

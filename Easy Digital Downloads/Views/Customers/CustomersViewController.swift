@@ -16,6 +16,18 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     
     var site: Site?
     var customers: [JSON]?
+    
+    var hasMoreCustomers: Bool = true {
+        didSet {
+            if (!hasMoreCustomers) {
+                activityIndicatorView.stopAnimating()
+            } else {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+    
+    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +59,11 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         customers = [JSON]()
         
         EDDAPIWrapper.sharedInstance.requestCustomers([:], success: { (json) in
-            print(json)
+            if let items = json["customers"].array {
+                self.customers = items
+                self.updateLastDownloadedPage()
+                self.requestNextPage()
+            }
             }) { (error) in
                 NSLog(error.localizedDescription)
         }
@@ -56,12 +72,38 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     // MARK: Private
     
     private func requestNextPage() {
-        
+        EDDAPIWrapper.sharedInstance.requestCustomers([ "page": lastDownloadedPage ], success: { (json) in
+            if let items = json["customers"].array {
+                if items.count == 50 {
+                    self.hasMoreCustomers = true
+                } else {
+                    self.hasMoreCustomers = false
+                }
+                for item in items {
+                    self.customers?.append(item)
+                }
+                self.updateLastDownloadedPage()
+            } else {
+                self.hasMoreCustomers = false
+            }
+            self.persistCustomers()
+        }) { (error) in
+            fatalError()
+        }
+    }
+    
+    private func updateLastDownloadedPage() {
+        self.lastDownloadedPage = self.lastDownloadedPage + 1;
+        NSUserDefaults.standardUserDefaults().setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CustomersPage")
     }
     
     private func persistCustomers() {
-        guard customers != nil else {
+        guard let customers_ = customers else {
             return
+        }
+        
+        for item in customers_ {
+            
         }
     }
     
