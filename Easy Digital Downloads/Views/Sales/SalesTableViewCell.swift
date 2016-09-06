@@ -35,6 +35,7 @@ final class SalesTableViewCell: UITableViewCell {
 
     let amountLabel: UILabel = UILabel(frame: CGRectZero)
     let dateLabel: UILabel = UILabel(frame: CGRectZero)
+    let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,8 +69,14 @@ final class SalesTableViewCell: UITableViewCell {
         containerStackView.addArrangedSubview(dateLabel)
         
         contentView.addSubview(containerStackView)
+    
+        disclosureImageView.translatesAutoresizingMaskIntoConstraints = false
+        disclosureImageView.sizeToFit()
+        contentView.addSubview(disclosureImageView)
         
         var constraints = [NSLayoutConstraint]()
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
         constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
         constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
         constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
@@ -88,12 +95,8 @@ extension SalesTableViewCell: ConfigurableCell {
         
         let date = object.date
         let reformattedDate = sharedDateFormatter.stringFromDate(date)
-        
         dateLabel.text = reformattedDate
-        
         dateLabel.sizeToFit()
-        
-        // Reset date format
     }
 
 }
