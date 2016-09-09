@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.4.0)
+  - Alamofire (3.5.0)
   - AlamofireNetworkActivityIndicator (1.0.1):
     - Alamofire (~> 3.3)
   - BEMSimpleLineGraph (4.1)
@@ -10,7 +10,6 @@ PODS:
     - CocoaLumberjack/Default
   - CocoaLumberjack/Swift (2.3.0):
     - CocoaLumberjack/Extensions
-  - Gridicons (0.2)
   - MCDateExtensions (1.0.2)
   - MZAppearance (1.1.6)
   - MZFormSheetPresentationController (2.4.0):
@@ -21,11 +20,10 @@ PODS:
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.4)
+  - Alamofire (~> 3.5)
   - AlamofireNetworkActivityIndicator (~> 1.0)
   - BEMSimpleLineGraph
   - CocoaLumberjack/Swift
-  - Gridicons (from `https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec`)
   - MCDateExtensions (from `https://github.com/mirego/MCDateExtensions.git`)
   - MZFormSheetPresentationController (~> 2.4)
   - SSKeychain
@@ -34,8 +32,6 @@ DEPENDENCIES:
   - TTTAttributedLabel
 
 EXTERNAL SOURCES:
-  Gridicons:
-    :podspec: https://raw.github.com/Automattic/Gridicons-iOS/develop/Gridicons.podspec
   MCDateExtensions:
     :git: https://github.com/mirego/MCDateExtensions.git
 
@@ -45,11 +41,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mirego/MCDateExtensions.git
 
 SPEC CHECKSUMS:
-  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
   AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
   BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
-  Gridicons: 5c33065054b19e56a47d252b52e321746b97a414
   MCDateExtensions: 93f067b198405405f12c73208619caa436e30bee
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetPresentationController: 3b9b6d76adc9f81c2defd0bb59e0f3dc2431e41e
@@ -58,6 +53,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 156509a4401cf667f8b0ac212e0e521a21352cfb
+PODFILE CHECKSUM: 376b80afcdcb909ec4d98c12e06bf1145173dbe9
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.1.0.beta.2

@@ -39,6 +39,7 @@
 		F56546E21D78AAAC00003019 /* ProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */; };
 		F56B88E71CFADD5700DCF41F /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E51CFADD5700DCF41F /* Site.swift */; };
 		F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */; };
+		F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F577F9B71D833CAA006A3FD9 /* Constants.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
 		F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5890D151D0FF2C1004F2B37 /* Stats.swift */; };
 		F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */; };
@@ -154,6 +155,7 @@
 		F56622B41D460523006E8648 /* Easy Digital Downloads-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Easy Digital Downloads-Bridging-Header.h"; sourceTree = "<group>"; };
 		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
+		F577F9B71D833CAA006A3FD9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
 		F5890D151D0FF2C1004F2B37 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy Digital Downloads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,6 +373,7 @@
 				F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */,
 				F5A312941CF1DAE1000F4F6F /* Info.plist */,
 				F56622B41D460523006E8648 /* Easy Digital Downloads-Bridging-Header.h */,
+				F577F9B71D833CAA006A3FD9 /* Constants.swift */,
 			);
 			path = "Easy Digital Downloads";
 			sourceTree = "<group>";
@@ -518,12 +521,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5A312971CF1DAE1000F4F6F /* Build configuration list for PBXNativeTarget "Easy Digital Downloads" */;
 			buildPhases = (
-				BFD25241D1BD0AEDB3A104F4 /* 📦 Check Pods Manifest.lock */,
+				BFD25241D1BD0AEDB3A104F4 /* [CP] Check Pods Manifest.lock */,
 				F5A312811CF1DAE1000F4F6F /* Sources */,
 				F5A312821CF1DAE1000F4F6F /* Frameworks */,
 				F5A312831CF1DAE1000F4F6F /* Resources */,
-				ADB1BA03EA6070F9653B44BE /* 📦 Embed Pods Frameworks */,
-				5073586A433310F390DF3B55 /* 📦 Copy Pods Resources */,
+				ADB1BA03EA6070F9653B44BE /* [CP] Embed Pods Frameworks */,
+				5073586A433310F390DF3B55 /* [CP] Copy Pods Resources */,
 				F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -566,6 +569,7 @@
 					F5A312841CF1DAE1000F4F6F = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = H7B3257R6N;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -578,6 +582,7 @@
 					F5B0612B1D6B014F00F9B4E1 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H7B3257R6N;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -629,14 +634,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5073586A433310F390DF3B55 /* 📦 Copy Pods Resources */ = {
+		5073586A433310F390DF3B55 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,14 +649,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Easy Digital Downloads/Pods-Easy Digital Downloads-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ADB1BA03EA6070F9653B44BE /* 📦 Embed Pods Frameworks */ = {
+		ADB1BA03EA6070F9653B44BE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,19 +664,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Easy Digital Downloads/Pods-Easy Digital Downloads-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BFD25241D1BD0AEDB3A104F4 /* 📦 Check Pods Manifest.lock */ = {
+		BFD25241D1BD0AEDB3A104F4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -690,6 +695,7 @@
 				F5FAF3CF1CFBA1B800F9F1FF /* DataProvider.swift in Sources */,
 				F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */,
 				F5FAF3C51CFB619800F9F1FF /* Stack.swift in Sources */,
+				F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */,
 				F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */,
 				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
@@ -887,6 +893,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -903,6 +910,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -915,6 +923,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.EDDToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -927,6 +936,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.EDDToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
