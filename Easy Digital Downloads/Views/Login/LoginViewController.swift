@@ -11,7 +11,6 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 import SSKeychain
-import Gridicons
 import SafariServices
 
 class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectContextSettable {
@@ -78,7 +77,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         helpButton.sizeToFit()
         helpButton.accessibilityLabel = NSLocalizedString("Help", comment: "Help button")
         helpButton.addTarget(self, action: #selector(LoginViewController.handleHelpButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        helpButton.setImage(Gridicon.iconOfType(.Help, withSize: CGSizeMake(20, 20)), forState: .Normal)
+//        helpButton.setImage(Gridicon.iconOfType(.Help, withSize: CGSizeMake(20, 20)), forState: .Normal)
         helpButton.translatesAutoresizingMaskIntoConstraints = false
         helpButton.tintColor = .EDDBlueColor()
 

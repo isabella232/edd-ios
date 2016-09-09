@@ -91,13 +91,19 @@ extension ManagedObjectType where Self: ManagedObject {
         return result
     }
     
-    public static func countInContext(context: NSManagedObjectContext, @noescape configurationBlock: NSFetchRequest -> () = { _ in }) -> Int {
+    public static func countInContext(context: NSManagedObjectContext, @noescape configurationBlock: NSFetchRequest -> () = { _ in }) -> Int? {
         let request = NSFetchRequest(entityName: entityName)
         configurationBlock(request)
-        var error: NSError?
-        let result = context.countForFetchRequest(request, error: &error)
-        guard result != NSNotFound else { fatalError("Failed to execute fetch request: \(error)") }
-        return result
+        
+        do {
+            let result = try context.countForFetchRequest(request)
+            guard result != NSNotFound else { fatalError("Failed to execute fetch request:") }
+            return result
+        } catch {
+            print(error)
+        }
+        
+        return nil
     }
     
     public static func materializedObjectInContext(moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate) -> Self? {

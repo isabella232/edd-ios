@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Gridicons
 
 class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, ManagedObjectContextSettable {
     

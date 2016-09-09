@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Gridicons
 
 class LoginTextField: UITextField {
 
@@ -44,10 +43,10 @@ class LoginTextField: UITextField {
 
         if valid {
             imageView.tintColor = .validColor()
-            imageView.image = Gridicon.iconOfType(.CheckmarkCircle, withSize: iconSize)
+//            imageView.image = Gridicon.iconOfType(.CheckmarkCircle, withSize: iconSize)
         } else {
             imageView.tintColor = .errorColor()
-            imageView.image = Gridicon.iconOfType(.Cross, withSize: iconSize)
+//            imageView.image = Gridicon.iconOfType(.Cross, withSize: iconSize)
         }
     }
     
@@ -68,9 +67,9 @@ class LoginTextField: UITextField {
     }
     
     override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        if disableEditing && (action == #selector(NSObject.copy(_:)) || action == #selector(NSObject.selectAll) || action == #selector(NSObject.paste)) {
-            return false
-        }
+//        if disableEditing && (action == #selector(NSObject.copy(_:)) || action == #selector(NSObject.selectAll) || action == #selector(NSObject.paste)) {
+//            return false
+//        }
         
         return super.canPerformAction(action, withSender: sender)
     }
