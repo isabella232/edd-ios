@@ -134,6 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tableView = UITableView.appearance()
         tableView.backgroundColor = .EDDGreyColor()
+        
+        let selectionView = UIView()
+        selectionView.backgroundColor = .tableViewCellHighlightColor()
+        UITableViewCell.appearance().selectedBackgroundView = selectionView
     }
     
     private func setupShortcutItems() {        

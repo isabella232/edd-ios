@@ -141,6 +141,19 @@ class SalesViewController: SiteTableViewController {
         }
     }
     
+    // MARK: Table View Delegate
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let sale = dataSource.selectedObject else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+        
+        
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     // MARK: Private
     
     private typealias Data = FetchedResultsDataProvider<SalesViewController>

@@ -48,5 +48,9 @@ extension UIColor {
     class func separatorColor() -> UIColor {
         return UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
     }
+    
+    class func tableViewCellHighlightColor() -> UIColor {
+        return UIColor.colorWithHex(0xd7e9f3)
+    }
 
 }

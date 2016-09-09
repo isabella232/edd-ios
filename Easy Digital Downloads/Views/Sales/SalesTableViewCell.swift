@@ -61,7 +61,6 @@ final class SalesTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    
     // MARK: Private
     
     private func layout() {

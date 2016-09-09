@@ -9,16 +9,24 @@
 /* Begin PBXBuildFile section */
 		7C14DC6DD9510FCA4A4DAC2D /* Pods_Easy_Digital_Downloads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619A29A076A169C9D993D7AC /* Pods_Easy_Digital_Downloads.framework */; };
 		F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502B0021CF435790089EEE1 /* LoginTextField.swift */; };
+		F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */; };
+		F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */; };
+		F503888A1D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388891D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift */; };
+		F503888C1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503888B1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift */; };
+		F503888E1D73711F0059BB38 /* FileDownloadLogsCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503888D1D73711F0059BB38 /* FileDownloadLogsCustomerTableViewCell.swift */; };
+		F50388901D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503888F1D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift */; };
+		F50388931D74940A0059BB38 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388921D74940A0059BB38 /* SearchViewController.swift */; };
+		F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388941D74A75B0059BB38 /* CustomersTableViewCell.swift */; };
 		F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */; };
 		F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */; };
 		F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB541CFAD228001A6A51 /* HighlightButton.swift */; };
 		F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */; };
 		F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22491D3B948600D114E8 /* GraphData.swift */; };
-		F51F68291D02C01600F09B9D /* SyncCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F68281D02C01600F09B9D /* SyncCoordinator.swift */; };
 		F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523F2211D6650DB000AB028 /* MoreViewController.swift */; };
 		F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */; };
 		F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */; };
 		F52825251CFE41B000AB62D9 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */; };
+		F540EF8F1D6F8EF90012B453 /* FileDownloadLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F540EF8E1D6F8EF90012B453 /* FileDownloadLog.swift */; };
 		F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724F91D3C3ABC009D5E8D /* Commission.swift */; };
 		F54724FC1D3C3AD1009D5E8D /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724FB1D3C3AD1009D5E8D /* Customer.swift */; };
 		F54724FE1D3C3AD6009D5E8D /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724FD1D3C3AD6009D5E8D /* Discount.swift */; };
@@ -27,12 +35,30 @@
 		F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725031D3C3AEA009D5E8D /* Subscription.swift */; };
 		F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */; };
 		F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */; };
+		F56546E01D78859600003019 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56546DF1D78859600003019 /* ProductsViewController.swift */; };
+		F56546E21D78AAAC00003019 /* ProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */; };
 		F56B88E71CFADD5700DCF41F /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E51CFADD5700DCF41F /* Site.swift */; };
 		F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */; };
+		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
 		F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5890D151D0FF2C1004F2B37 /* Stats.swift */; };
 		F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */; };
 		F5A312901CF1DAE1000F4F6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */; };
 		F5A312931CF1DAE1000F4F6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */; };
+		F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */; };
+		F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */; };
+		F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061201D6A206000F9B4E1 /* KeyCodable.swift */; };
+		F5B061231D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061221D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift */; };
+		F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */; };
+		F5B0612E1D6B015000F9B4E1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */; };
+		F5B061311D6B015000F9B4E1 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061301D6B015000F9B4E1 /* TodayViewController.swift */; };
+		F5B061341D6B015000F9B4E1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5B061321D6B015000F9B4E1 /* MainInterface.storyboard */; };
+		F5B061381D6B015000F9B4E1 /* EDDToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F5B982AD1D6BA0D500679271 /* SiteInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */; };
+		F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982AE1D6BA19300679271 /* FileDownloadLogsController.swift */; };
+		F5B982B11D6BA1C800679271 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B01D6BA1C800679271 /* ReviewsViewController.swift */; };
+		F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */; };
+		F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */; };
+		F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B61D6BA21800679271 /* NewSiteViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -56,11 +82,43 @@
 		F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3DE1CFDBB2300F9F1FF /* SequenceType+Utilities.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F5B061361D6B015000F9B4E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5A3127D1CF1DAE1000F4F6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5B0612B1D6B014F00F9B4E1;
+			remoteInfo = EDDToday;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F5B061381D6B015000F9B4E1 /* EDDToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5882D613D54F927F6699E1E9 /* Pods-Easy Digital Downloads.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Easy Digital Downloads.release.xcconfig"; path = "Pods/Target Support Files/Pods-Easy Digital Downloads/Pods-Easy Digital Downloads.release.xcconfig"; sourceTree = "<group>"; };
 		619A29A076A169C9D993D7AC /* Pods_Easy_Digital_Downloads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Easy_Digital_Downloads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82B99EF72DAA8AE69B865C56 /* Pods-Easy Digital Downloads.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Easy Digital Downloads.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Easy Digital Downloads/Pods-Easy Digital Downloads.debug.xcconfig"; sourceTree = "<group>"; };
 		F502B0021CF435790089EEE1 /* LoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsTableViewCell.swift; sourceTree = "<group>"; };
+		F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollingTableView.swift; sourceTree = "<group>"; };
+		F50388891D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsMetaTableViewCell.swift; sourceTree = "<group>"; };
+		F503888B1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsPaymentTableViewCell.swift; sourceTree = "<group>"; };
+		F503888D1D73711F0059BB38 /* FileDownloadLogsCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsCustomerTableViewCell.swift; sourceTree = "<group>"; };
+		F503888F1D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsProductTableViewCell.swift; sourceTree = "<group>"; };
+		F50388921D74940A0059BB38 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		F50388941D74A75B0059BB38 /* CustomersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersTableViewCell.swift; sourceTree = "<group>"; };
 		F50DEB381CF9F775001A6A51 /* Gridicons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gridicons.framework; path = "../../Library/Developer/Xcode/DerivedData/Easy_Digital_Downloads-gcyabyxxojsfobctwmcnytlvnhie/Build/Products/Debug-iphonesimulator/Gridicons/Gridicons.framework"; sourceTree = "<group>"; };
 		F50DEB391CF9F775001A6A51 /* MCDateExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MCDateExtensions.framework; path = "Pods/../build/Debug-iphoneos/MCDateExtensions/MCDateExtensions.framework"; sourceTree = "<group>"; };
 		F50DEB3A1CF9F775001A6A51 /* MZAppearance.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MZAppearance.framework; path = "Pods/../build/Debug-iphoneos/MZAppearance/MZAppearance.framework"; sourceTree = "<group>"; };
@@ -72,16 +130,16 @@
 		F50DEB401CF9F775001A6A51 /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = "Pods/../build/Debug-iphoneos/SVProgressHUD/SVProgressHUD.framework"; sourceTree = "<group>"; };
 		F50DEB411CF9F775001A6A51 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/Easy_Digital_Downloads-gcyabyxxojsfobctwmcnytlvnhie/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		F50DEB421CF9F775001A6A51 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = "Pods/../build/Debug-iphoneos/TTTAttributedLabel/TTTAttributedLabel.framework"; sourceTree = "<group>"; };
-		F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SalesViewController.swift; path = Sales/SalesViewController.swift; sourceTree = "<group>"; };
+		F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesViewController.swift; sourceTree = "<group>"; };
 		F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersViewController.swift; sourceTree = "<group>"; };
 		F50DEB541CFAD228001A6A51 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
 		F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteViewController.swift; sourceTree = "<group>"; };
 		F51F22491D3B948600D114E8 /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
-		F51F68281D02C01600F09B9D /* SyncCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncCoordinator.swift; sourceTree = "<group>"; };
 		F523F2211D6650DB000AB028 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDAPIWrapper.swift; sourceTree = "<group>"; };
 		F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		F540EF8E1D6F8EF90012B453 /* FileDownloadLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLog.swift; sourceTree = "<group>"; };
 		F54724F91D3C3ABC009D5E8D /* Commission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commission.swift; sourceTree = "<group>"; };
 		F54724FB1D3C3AD1009D5E8D /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		F54724FD1D3C3AD6009D5E8D /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
@@ -91,15 +149,35 @@
 		F555ED911D65EBA300C02C0B /* Easy Digital Downloads.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Easy Digital Downloads.entitlements"; sourceTree = "<group>"; };
 		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
 		F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
+		F56546DF1D78859600003019 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
 		F56622B41D460523006E8648 /* Easy Digital Downloads-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Easy Digital Downloads-Bridging-Header.h"; sourceTree = "<group>"; };
 		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
+		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
 		F5890D151D0FF2C1004F2B37 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy Digital Downloads.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5A312921CF1DAE1000F4F6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5A312941CF1DAE1000F4F6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
+		F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Null.swift"; sourceTree = "<group>"; };
+		F5B061201D6A206000F9B4E1 /* KeyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodable.swift; sourceTree = "<group>"; };
+		F5B061221D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AugmentedDataProviderDelegate.swift; sourceTree = "<group>"; };
+		F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTableViewCell.swift; sourceTree = "<group>"; };
+		F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EDDToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		F5B061301D6B015000F9B4E1 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		F5B061331D6B015000F9B4E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		F5B061351D6B015000F9B4E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5B0613D1D6B68EF00F9B4E1 /* EDDToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = EDDToday.entitlements; sourceTree = "<group>"; };
+		F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationViewController.swift; sourceTree = "<group>"; };
+		F5B982AE1D6BA19300679271 /* FileDownloadLogsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsController.swift; sourceTree = "<group>"; };
+		F5B982B01D6BA1C800679271 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
+		F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailViewController.swift; sourceTree = "<group>"; };
+		F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsDetailViewController.swift; sourceTree = "<group>"; };
+		F5B982B61D6BA21800679271 /* NewSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSiteViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -132,6 +210,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5B061291D6B014F00F9B4E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5B0612E1D6B015000F9B4E1 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -159,6 +245,7 @@
 				F50DEB411CF9F775001A6A51 /* SwiftyJSON.framework */,
 				F50DEB421CF9F775001A6A51 /* TTTAttributedLabel.framework */,
 				619A29A076A169C9D993D7AC /* Pods_Easy_Digital_Downloads.framework */,
+				F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -187,14 +274,25 @@
 			isa = PBXGroup;
 			children = (
 				F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */,
+				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
+				F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */,
 			);
-			name = Sales;
+			path = Sales;
+			sourceTree = "<group>";
+		};
+		F50388911D7493DF0059BB38 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F50388921D74940A0059BB38 /* SearchViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		F50DEB501CFA4EE8001A6A51 /* Customers */ = {
 			isa = PBXGroup;
 			children = (
 				F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */,
+				F50388941D74A75B0059BB38 /* CustomersTableViewCell.swift */,
 			);
 			path = Customers;
 			sourceTree = "<group>";
@@ -211,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */,
+				F5B982B61D6BA21800679271 /* NewSiteViewController.swift */,
 			);
 			path = Sites;
 			sourceTree = "<group>";
@@ -218,15 +317,29 @@
 		F523F2201D6650B7000AB028 /* Integrations */ = {
 			isa = PBXGroup;
 			children = (
+				F50388911D7493DF0059BB38 /* Search */,
+				F5B061271D6AFEDE00F9B4E1 /* Reviews */,
+				F5B061261D6AFEDC00F9B4E1 /* Logs */,
 				F523F2211D6650DB000AB028 /* MoreViewController.swift */,
+				F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */,
 			);
 			path = Integrations;
+			sourceTree = "<group>";
+		};
+		F56546DE1D78857300003019 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F56546DF1D78859600003019 /* ProductsViewController.swift */,
+				F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */,
+			);
+			path = Products;
 			sourceTree = "<group>";
 		};
 		F5A3127C1CF1DAE1000F4F6F = {
 			isa = PBXGroup;
 			children = (
 				F5A312871CF1DAE1000F4F6F /* Easy Digital Downloads */,
+				F5B0612F1D6B015000F9B4E1 /* EDDToday */,
 				F5A312861CF1DAE1000F4F6F /* Products */,
 				6E4542EF9900145ABAE43598 /* Pods */,
 				7C5F97A647D663D04F05894B /* Frameworks */,
@@ -237,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */,
+				F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,6 +387,7 @@
 				F54724FF1D3C3ADC009D5E8D /* Product.swift */,
 				F54725011D3C3AE2009D5E8D /* Sale.swift */,
 				F54725031D3C3AEA009D5E8D /* Subscription.swift */,
+				F540EF8E1D6F8EF90012B453 /* FileDownloadLog.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,15 +395,17 @@
 		F5A3129B1CF2021B000F4F6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F523F2201D6650B7000AB028 /* Integrations */,
-				F51F22461D3B7BED00D114E8 /* Sites */,
 				F50DEB531CFAD210001A6A51 /* Buttons */,
 				F50DEB501CFA4EE8001A6A51 /* Customers */,
-				F502AFFF1CF434F40089EEE1 /* Sales */,
-				F502AFFE1CF434ED0089EEE1 /* Login */,
 				F502AFFD1CF434EB0089EEE1 /* Dashboard */,
+				F523F2201D6650B7000AB028 /* Integrations */,
+				F502AFFE1CF434ED0089EEE1 /* Login */,
+				F56546DE1D78857300003019 /* Products */,
+				F502AFFF1CF434F40089EEE1 /* Sales */,
+				F51F22461D3B7BED00D114E8 /* Sites */,
 				F5EF5E8E1CF2EE0800298841 /* SiteTabBarController.swift */,
 				F5FAF3BE1CFB077500F9F1FF /* SiteTableViewController.swift */,
+				F5AE176D1D7035F5003C7AF7 /* Subscriptions */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -320,8 +437,51 @@
 				F5FAF3DE1CFDBB2300F9F1FF /* SequenceType+Utilities.swift */,
 				F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */,
 				F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */,
+				F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F5AE176D1D7035F5003C7AF7 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
+		F5B061261D6AFEDC00F9B4E1 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				F5B982AE1D6BA19300679271 /* FileDownloadLogsController.swift */,
+				F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */,
+				F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */,
+				F50388891D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift */,
+				F503888B1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift */,
+				F503888D1D73711F0059BB38 /* FileDownloadLogsCustomerTableViewCell.swift */,
+				F503888F1D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
+		F5B061271D6AFEDE00F9B4E1 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				F5B982B01D6BA1C800679271 /* ReviewsViewController.swift */,
+				F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		F5B0612F1D6B015000F9B4E1 /* EDDToday */ = {
+			isa = PBXGroup;
+			children = (
+				F5B0613D1D6B68EF00F9B4E1 /* EDDToday.entitlements */,
+				F5B061301D6B015000F9B4E1 /* TodayViewController.swift */,
+				F5B061321D6B015000F9B4E1 /* MainInterface.storyboard */,
+				F5B061351D6B015000F9B4E1 /* Info.plist */,
+			);
+			path = EDDToday;
 			sourceTree = "<group>";
 		};
 		F5FAF3C61CFB627600F9F1FF /* Protocols */ = {
@@ -330,6 +490,8 @@
 				F5FAF3C71CFB628A00F9F1FF /* ManagedObjectContextSettable.swift */,
 				F5FAF3C91CFB64C800F9F1FF /* ManagedObjectType.swift */,
 				F5FAF3D41CFBA32A00F9F1FF /* ConfigurableCell.swift */,
+				F5B061201D6A206000F9B4E1 /* KeyCodable.swift */,
+				F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -343,8 +505,8 @@
 				F5FAF3D61CFBA6EF00F9F1FF /* DataSource.swift */,
 				F5FAF3DA1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift */,
 				F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */,
-				F51F68281D02C01600F09B9D /* SyncCoordinator.swift */,
 				F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */,
+				F5B061221D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift */,
 			);
 			path = "Data Sources and Providers";
 			sourceTree = "<group>";
@@ -362,15 +524,34 @@
 				F5A312831CF1DAE1000F4F6F /* Resources */,
 				ADB1BA03EA6070F9653B44BE /* 📦 Embed Pods Frameworks */,
 				5073586A433310F390DF3B55 /* 📦 Copy Pods Resources */,
+				F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F5B061371D6B015000F9B4E1 /* PBXTargetDependency */,
 			);
 			name = "Easy Digital Downloads";
 			productName = "Easy Digital Downloads";
 			productReference = F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F5B0612B1D6B014F00F9B4E1 /* EDDToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5B061391D6B015000F9B4E1 /* Build configuration list for PBXNativeTarget "EDDToday" */;
+			buildPhases = (
+				F5B061281D6B014F00F9B4E1 /* Sources */,
+				F5B061291D6B014F00F9B4E1 /* Frameworks */,
+				F5B0612A1D6B014F00F9B4E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EDDToday;
+			productName = EDDToday;
+			productReference = F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -384,6 +565,18 @@
 				TargetAttributes = {
 					F5A312841CF1DAE1000F4F6F = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = H7B3257R6N;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					F5B0612B1D6B014F00F9B4E1 = {
+						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H7B3257R6N;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -410,6 +603,7 @@
 			projectRoot = "";
 			targets = (
 				F5A312841CF1DAE1000F4F6F /* Easy Digital Downloads */,
+				F5B0612B1D6B014F00F9B4E1 /* EDDToday */,
 			);
 		};
 /* End PBXProject section */
@@ -421,6 +615,14 @@
 			files = (
 				F5A312931CF1DAE1000F4F6F /* LaunchScreen.storyboard in Resources */,
 				F5A312901CF1DAE1000F4F6F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5B0612A1D6B014F00F9B4E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5B061341D6B015000F9B4E1 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,10 +685,13 @@
 				F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */,
 				F56B88E71CFADD5700DCF41F /* Site.swift in Sources */,
 				F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */,
+				F540EF8F1D6F8EF90012B453 /* FileDownloadLog.swift in Sources */,
 				F5FAF3C11CFB5E0800F9F1FF /* ManagedObject.swift in Sources */,
 				F5FAF3CF1CFBA1B800F9F1FF /* DataProvider.swift in Sources */,
 				F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */,
 				F5FAF3C51CFB619800F9F1FF /* Stack.swift in Sources */,
+				F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */,
+				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
 				F5FAF3D71CFBA6EF00F9F1FF /* DataSource.swift in Sources */,
 				F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */,
@@ -494,39 +699,74 @@
 				F5EF5E8F1CF2EE0800298841 /* SiteTabBarController.swift in Sources */,
 				F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */,
 				F5EF5E9E1CF314FA00298841 /* Branding.swift in Sources */,
+				F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */,
 				F5EF5E9C1CF2FD9E00298841 /* EDD.xcdatamodeld in Sources */,
+				F5B982B11D6BA1C800679271 /* ReviewsViewController.swift in Sources */,
 				F5FAF3BF1CFB077500F9F1FF /* SiteTableViewController.swift in Sources */,
 				F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */,
 				F54725001D3C3ADC009D5E8D /* Product.swift in Sources */,
 				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
+				F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */,
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
 				F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
+				F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */,
 				F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
-				F51F68291D02C01600F09B9D /* SyncCoordinator.swift in Sources */,
 				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
 				F5FAF3C31CFB5FCC00F9F1FF /* NSURL+Utilities.swift in Sources */,
 				F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */,
 				F5FAF3CD1CFBA18100F9F1FF /* FetchedResultsDataProvider.swift in Sources */,
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
+				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
 				F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */,
+				F50388931D74940A0059BB38 /* SearchViewController.swift in Sources */,
+				F56546E21D78AAAC00003019 /* ProductsTableViewCell.swift in Sources */,
 				F5FAF3CA1CFB64C800F9F1FF /* ManagedObjectType.swift in Sources */,
+				F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */,
+				F503888E1D73711F0059BB38 /* FileDownloadLogsCustomerTableViewCell.swift in Sources */,
 				F54724FC1D3C3AD1009D5E8D /* Customer.swift in Sources */,
 				F54724FE1D3C3AD6009D5E8D /* Discount.swift in Sources */,
+				F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */,
+				F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */,
 				F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */,
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
 				F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */,
+				F5B982AD1D6BA0D500679271 /* SiteInformationViewController.swift in Sources */,
+				F50388901D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift in Sources */,
+				F5B061231D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift in Sources */,
 				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
 				F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */,
+				F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */,
+				F503888C1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift in Sources */,
 				F5FAF3C81CFB628A00F9F1FF /* ManagedObjectContextSettable.swift in Sources */,
+				F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */,
 				F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */,
+				F503888A1D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift in Sources */,
+				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
+				F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5B061281D6B014F00F9B4E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5B061311D6B015000F9B4E1 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5B061371D6B015000F9B4E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5B0612B1D6B014F00F9B4E1 /* EDDToday */;
+			targetProxy = F5B061361D6B015000F9B4E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */ = {
@@ -535,6 +775,14 @@
 				F5A312921CF1DAE1000F4F6F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F5B061321D6B015000F9B4E1 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5B061331D6B015000F9B4E1 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -632,6 +880,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
@@ -648,11 +897,36 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		F5B0613A1D6B015000F9B4E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = EDDToday/EDDToday.entitlements;
+				INFOPLIST_FILE = EDDToday/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.EDDToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F5B0613B1D6B015000F9B4E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = EDDToday/EDDToday.entitlements;
+				INFOPLIST_FILE = EDDToday/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.EDDToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -673,6 +947,15 @@
 			buildConfigurations = (
 				F5A312981CF1DAE1000F4F6F /* Debug */,
 				F5A312991CF1DAE1000F4F6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5B061391D6B015000F9B4E1 /* Build configuration list for PBXNativeTarget "EDDToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5B0613A1D6B015000F9B4E1 /* Debug */,
+				F5B0613B1D6B015000F9B4E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
