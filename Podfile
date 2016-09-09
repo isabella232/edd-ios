@@ -7,7 +7,7 @@ platform :ios, '10.0'
 
 target 'Easy Digital Downloads' do
   pod 'Alamofire', '~> 3.5'
-  pod 'AlamofireNetworkActivityIndicator', '~> 1.0'
+  pod 'AlamofireNetworkActivityIndicator', '= 1.1.0'
   pod 'BEMSimpleLineGraph'
   pod 'CocoaLumberjack/Swift'
   pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
