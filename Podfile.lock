@@ -11,13 +11,8 @@ PODS:
   - CocoaLumberjack/Swift (2.3.0):
     - CocoaLumberjack/Extensions
   - MCDateExtensions (1.0.2)
-  - MZAppearance (1.1.6)
-  - MZFormSheetPresentationController (2.4.2):
-    - MZAppearance
   - SSKeychain (1.4.1)
-  - SVProgressHUD (2.0.3)
   - SwiftyJSON (2.3.2)
-  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.5)
@@ -25,11 +20,8 @@ DEPENDENCIES:
   - BEMSimpleLineGraph
   - CocoaLumberjack/Swift
   - MCDateExtensions (from `https://github.com/mirego/MCDateExtensions.git`)
-  - MZFormSheetPresentationController (~> 2.4)
   - SSKeychain
-  - SVProgressHUD
   - SwiftyJSON (~> 2.3)
-  - TTTAttributedLabel
 
 EXTERNAL SOURCES:
   MCDateExtensions:
@@ -46,13 +38,9 @@ SPEC CHECKSUMS:
   BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   MCDateExtensions: 93f067b198405405f12c73208619caa436e30bee
-  MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
-  MZFormSheetPresentationController: c1dc3bce639d2393b3cc416fcb6e050eb5bca062
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 9cd267e2d917d19702c5f35069a633d670504e6a
+PODFILE CHECKSUM: bfe880fd099d128ee9ebb596b794f5709d347c22
 
 COCOAPODS: 1.1.0.beta.2
