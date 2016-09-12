@@ -17,13 +17,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     
     var managedObjectContext: NSManagedObjectContext!
     var site: Site!
+
+    let containerView = UIView()
+    let stackView = UIStackView()
     
-    var currencies = ["USD", "AFN", "ALL", "ANG", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BGN", "BMD", "BND", "BOB", "BRL", "BSD", "BWP", "BYR", "BZD", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CUP", "CZK", "DKK", "DOP", "EEK", "EGP", "EUR", "FJD", "FKP", "GBP", "GGP", "GHC", "GIP", "GTQ", "GYD", "HKD", "HNL", "HRK", "HUF", "IDR", "ILS", "IMP", "INR", "IRR", "ISK", "JEP", "JMD", "JPY", "KGS", "KHR", "KPW", "KRW", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LTL", "LVL", "MKD", "MNT", "MUR", "MXN", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "SAR", "SBD", "SCR", "SEK", "SGD", "SHP", "SOS", "SRD", "SVC", "SYP", "THB", "TRL", "TRY", "TTD", "TVD", "TWD", "UAH", "UYU", "UZS", "VEF", "VND", "XCD", "YER", "ZAR", "ZWD"]
-    var types = ["Standard", "Commission Only", "Standard & Commission", "Standard & Store"]
-
-    var currencyPickerView = UIPickerView()
-    var typePickerView = UIPickerView()
-
     let logo = UIImageView(image: UIImage(named: "EDDLogoText-White"))
     let mascot = UIImageView(image: UIImage(named: "EDDMascot"))
     let helpButton = UIButton(type: .Custom)
@@ -78,13 +75,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self.view.window)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: self.view.window)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        yOffset = self.view.center.y
+        containerView.bounds = view.bounds
+        containerView.frame = view.frame
+        containerView.backgroundColor = .clearColor()
         
         logo.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
         logo.contentMode = .ScaleAspectFit
@@ -147,7 +147,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         let labelSpacerView = UIView()
         labelSpacerView.heightAnchor.constraintEqualToConstant(20).active = true
         
-        let stackView = UIStackView()
         stackView.axis = .Vertical
         stackView.distribution = .Fill
         stackView.alignment = .Fill
@@ -167,12 +166,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         
         stackView.layoutMarginsRelativeArrangement = true
         
-        view.addSubview(stackView)
+        mascot.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mascot)
+        view.addConstraints([NSLayoutConstraint(item: mascot, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)])
+        view.addConstraints([NSLayoutConstraint(item: mascot, attribute: .Trailing, relatedBy: .Equal, toItem: view, attribute: .Trailing, multiplier: 1, constant: -16)])
+        
+        containerView.addSubview(stackView)
+        view.addSubview(containerView)
         
         stackView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
         stackView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
         stackView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 25).active = true
         stackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -25).active = true
+        
+        yOffset = self.containerView.center.y
     }
     
     func fillInFields(components: [NSURLQueryItem]) {
@@ -418,17 +425,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     // MARK: Keyboard Handlers
     
     func keyboardWillShow(notification: NSNotification) {
-        UIView.animateWithDuration(0.1) {
-            self.view.center.y = self.yOffset - 85
-            self.view.sizeToFit()
+        if view.frame.origin.y == 0  {
+            stackView.center.y = yOffset - 100
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(0.1) {
-            self.view.center.y = self.yOffset
-            self.view.sizeToFit()
-        }
+        stackView.center.y = yOffset
     }
 
 }
