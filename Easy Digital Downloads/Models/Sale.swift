@@ -20,7 +20,7 @@ public final class Sale: ManagedObject {
     @NSManaged public private(set) var fees: [String: AnyObject]?
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var key: String
-    @NSManaged public private(set) var sid: Int16
+    @NSManaged public private(set) var sid: Int64
     @NSManaged public private(set) var subtotal: NSNumber
     @NSManaged public private(set) var tax: NSNumber
     @NSManaged public private(set) var total: NSNumber
@@ -37,7 +37,7 @@ public final class Sale: ManagedObject {
         createdAt = NSDate()
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int16, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [JSON]) -> Sale {
+    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [JSON]) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.date = date
         sale.email = email
