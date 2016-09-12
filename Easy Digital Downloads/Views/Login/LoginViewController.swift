@@ -218,7 +218,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
-        let nextResponder: UIResponder = (textField.superview?.viewWithTag(nextTag))!
+        guard let nextResponder: UIResponder = (textField.superview?.viewWithTag(nextTag)) else {
+            textField.resignFirstResponder()
+            return true
+        }
         
         if nextResponder.canBecomeFirstResponder() && nextTag < 5 {
             nextResponder.becomeFirstResponder()
