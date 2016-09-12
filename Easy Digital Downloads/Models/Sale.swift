@@ -102,7 +102,7 @@ public final class Sale: ManagedObject {
     public static func defaultFetchRequest() -> NSFetchRequest {
         let request = NSFetchRequest(entityName: "Sale")
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         return request
     }
     
