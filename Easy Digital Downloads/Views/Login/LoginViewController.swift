@@ -25,6 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     var typePickerView = UIPickerView()
 
     let logo = UIImageView(image: UIImage(named: "EDDLogoText-White"))
+    let mascot = UIImageView(image: UIImage(named: "EDDMascot"))
     let helpButton = UIButton(type: .Custom)
     let siteName = LoginTextField()
     let siteURL = LoginTextField()
@@ -33,6 +34,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     let connectionTest = UILabel()
     
     let addButton = LoginSubmitButton()
+    
+    var yOffset: CGFloat = 0
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -65,10 +68,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         UIView.animateWithDuration(1.0, delay: 0.6, options: [], animations: {
             self.addButton.layer.opacity = 1
             }, completion: nil)
+        
+        // Keyboard observers
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        yOffset = self.view.center.y
         
         logo.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
         logo.contentMode = .ScaleAspectFit
@@ -381,12 +397,38 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     // MARK: Validation
 
     func canOpenURL(string: String?) -> Bool {
-        guard let urlString = string?.stringByRemovingPercentEncoding! else {return false}
-        guard let url = NSURL(string: urlString) else {return false}
-        if !UIApplication.sharedApplication().canOpenURL(url) {return false}
+        // Initial (basic) validation
+        guard let urlString = string?.stringByRemovingPercentEncoding! else {
+            return false
+        }
 
+        guard let url = NSURL(string: urlString) else {
+            return false
+        }
+
+        if !UIApplication.sharedApplication().canOpenURL(url) {
+            return false
+        }
+
+        // Regex validation
         let regEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
         return NSPredicate(format: "SELF MATCHES %@", regEx).evaluateWithObject(urlString)
+    }
+    
+    // MARK: Keyboard Handlers
+    
+    func keyboardWillShow(notification: NSNotification) {
+        UIView.animateWithDuration(0.1) {
+            self.view.center.y = self.yOffset - 85
+            self.view.sizeToFit()
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        UIView.animateWithDuration(0.1) {
+            self.view.center.y = self.yOffset
+            self.view.sizeToFit()
+        }
     }
 
 }

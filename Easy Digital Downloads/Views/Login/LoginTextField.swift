@@ -73,7 +73,7 @@ class LoginTextField: UITextField {
     }
     
     override func rightViewRectForBounds(bounds: CGRect) -> CGRect {
-        return CGRectMake(bounds.size.width - 30, 10, 20, 20)
+        return CGRectMake(bounds.size.width - 25, 10, 20, 20)
     }
     
     override func textRectForBounds(bounds: CGRect) -> CGRect {
