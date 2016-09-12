@@ -34,8 +34,8 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         self.site = Site.activeSite()
         self.log = log
         
-        self.paymentId = log["payment_id"] as! Int
-        self.customerId = log["customer_id"] as! Int
+        self.paymentId = (log["payment_id"] as! NSString).integerValue
+        self.customerId = (log["customer_id"] as! NSString).integerValue
         self.productId = log["product_id"] as! Int
         
         title = log["product_name"] as? String
