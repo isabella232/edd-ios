@@ -37,16 +37,14 @@ class LoginTextField: UITextField {
     }
     
     func validated(valid: Bool) {
-        let iconSize = CGSize(width: 20.0, height: 20.0)
-
         rightView?.hidden = false
 
         if valid {
             imageView.tintColor = .validColor()
-//            imageView.image = Gridicon.iconOfType(.CheckmarkCircle, withSize: iconSize)
+            imageView.image = UIImage(named: "Checkmark")
         } else {
             imageView.tintColor = .errorColor()
-//            imageView.image = Gridicon.iconOfType(.Cross, withSize: iconSize)
+            imageView.image = UIImage(named: "Error")
         }
     }
     
@@ -67,9 +65,9 @@ class LoginTextField: UITextField {
     }
     
     override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-//        if disableEditing && (action == #selector(NSObject.copy(_:)) || action == #selector(NSObject.selectAll) || action == #selector(NSObject.paste)) {
-//            return false
-//        }
+        if disableEditing {
+            return false
+        }
         
         return super.canPerformAction(action, withSender: sender)
     }
