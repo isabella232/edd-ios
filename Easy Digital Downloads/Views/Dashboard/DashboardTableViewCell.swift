@@ -194,13 +194,14 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         graph.enableTouchReport = true
         graph.translatesAutoresizingMaskIntoConstraints = false
         self.graph = graph
-        middleStackView.addArrangedSubview(graph)
-        graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
-        graph.heightAnchor.constraintEqualToConstant(115).active = true
         
         if type == .Commissions || type == .StoreCommissions {
             middleStackView.removeArrangedSubview(graph)
             graph.removeFromSuperview()
+        } else {
+            middleStackView.addArrangedSubview(graph)
+            graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+            graph.heightAnchor.constraintEqualToConstant(115).active = true
         }
         
         if type == .StoreCommissions {
