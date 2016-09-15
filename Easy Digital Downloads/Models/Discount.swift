@@ -33,7 +33,6 @@ public final class Discount: ManagedObject {
     @NSManaged public private(set) var site: Site
     @NSManaged private(set) var sales: Set<Sale>
     
-    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         createdAt = NSDate()

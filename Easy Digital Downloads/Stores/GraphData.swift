@@ -6,6 +6,7 @@
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 struct GraphData {

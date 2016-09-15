@@ -53,11 +53,12 @@ extension Stats {
         }
         
         class func path() -> String {
-            let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
+            let documentsURL = NSFileManager.defaultManager()
+                .containerURLForSecurityApplicationGroupIdentifier("group.easydigitaldownloads.EDDSalesTracker")
             let activeSite = Site.activeSite()
             let activeSiteUID = activeSite.uid!
             let fileName = String(format: "/Stats-%@", activeSiteUID)
-            let path = documentsPath?.stringByAppendingString(fileName)
+            let path = documentsURL?.URLByAppendingPathComponent(fileName)?.path
             return path!
         }
         

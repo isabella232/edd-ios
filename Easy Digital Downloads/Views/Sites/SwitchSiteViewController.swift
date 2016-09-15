@@ -38,7 +38,6 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
         tableView.userInteractionEnabled = true
         tableView.backgroundColor = .clearColor()
         tableView.separatorColor = UIColor.separatorColor()
-        tableView.editing = true
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
@@ -63,6 +62,7 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     
     func addButtonPressed() {
         let newSiteViewController = NewSiteViewController()
+        newSiteViewController.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         newSiteViewController.view.backgroundColor = .clearColor()
         newSiteViewController.modalPresentationStyle = .OverFullScreen
         newSiteViewController.modalPresentationCapturesStatusBarAppearance = true

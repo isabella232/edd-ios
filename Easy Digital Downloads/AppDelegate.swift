@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     let managedObjectContext = createEDDMainContext()
+    
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -41,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDTTYLogger())
         DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
-        if NSUserDefaults.standardUserDefaults().boolForKey("DashboardLoaded") {
-            NSUserDefaults.standardUserDefaults().setBool(false, forKey: "DashboardLoaded")
+        if sharedDefaults.boolForKey("DashboardLoaded") {
+            sharedDefaults.setBool(false, forKey: "DashboardLoaded")
         }
         
 //        let domainName = NSBundle.mainBundle().bundleIdentifier!
@@ -112,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func noSitesSetup() -> Bool {
-        guard let _ = NSUserDefaults.standardUserDefaults().objectForKey("defaultSite") as? String else {
+        guard let _ = sharedDefaults.objectForKey("defaultSite") as? String else {
             return true
         }
 

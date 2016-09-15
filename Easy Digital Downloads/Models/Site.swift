@@ -28,6 +28,10 @@ private let sharedNumberFormatter: NSNumberFormatter = {
     return formatter
 }()
 
+private let sharedDefaults: NSUserDefaults = {
+   return NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+}()
+
 public final class Site: ManagedObject {
     
     // Attributes
@@ -95,14 +99,14 @@ public final class Site: ManagedObject {
     }
     
     public static func predicateForDefaultSite() -> NSPredicate {
-        guard let defaultSiteId = NSUserDefaults.standardUserDefaults().stringForKey("defaultSite") else {
+        guard let defaultSiteId = sharedDefaults.stringForKey("defaultSite") else {
             fatalError("No default site set")
         }
         return NSPredicate(format: "uid == %@", defaultSiteId)
     }
     
     public static func predicateForActiveSite() -> NSPredicate {
-        guard let activeSiteId = NSUserDefaults.standardUserDefaults().stringForKey("activeSite") else {
+        guard let activeSiteId = sharedDefaults.stringForKey("activeSite") else {
             fatalError("No active site set")
         }
         return NSPredicate(format: "uid == %@", activeSiteId)

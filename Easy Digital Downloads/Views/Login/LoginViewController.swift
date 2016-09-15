@@ -17,6 +17,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     
     var managedObjectContext: NSManagedObjectContext!
     var site: Site!
+    
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
 
     let containerView = UIView()
     let stackView = UIStackView()
@@ -346,9 +348,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             
                             // Only set the defaultSite if this is the first site being added
                             if appDelegate.noSitesSetup() {
-                                NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "defaultSite")
-                                NSUserDefaults.standardUserDefaults().setValue(uid, forKey: "activeSite")
-                                NSUserDefaults.standardUserDefaults().synchronize()
+                                self.sharedDefaults.setValue(uid, forKey: "defaultSite")
+                                self.sharedDefaults.setValue(uid, forKey: "activeSite")
+                                self.sharedDefaults.synchronize()
                             }
                             
                             // Create the dashboard layout based on the permissions granted
