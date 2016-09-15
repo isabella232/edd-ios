@@ -36,7 +36,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     init(site: Site) {
         super.init(style: .Plain)
-
+        
         self.site = site
         
         title = NSLocalizedString("Dashboard", comment: "Dashboard title")

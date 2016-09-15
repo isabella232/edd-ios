@@ -87,6 +87,18 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
         return sites?.count ?? 0
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let site = sites![indexPath.row] as Site
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        AppDelegate.sharedInstance.switchActiveSite(site.uid!)
+
+        UIView.transitionWithView(self.view.window!, duration: 0.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {
+            self.view.window?.rootViewController = SiteTabBarController(site: site)
+            }, completion: nil)
+    }
+    
     // MARK: Table View Data Source
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

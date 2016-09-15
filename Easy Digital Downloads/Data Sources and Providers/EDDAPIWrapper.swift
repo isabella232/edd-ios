@@ -19,7 +19,7 @@ public final class EDDAPIWrapper: NSObject {
     }()
     
     private let managedObjectContext: NSManagedObjectContext!
-    private let site: Site!
+    var site: Site!
     
     private enum Endpoints: String {
         case Base = "/edd-api/"
@@ -40,7 +40,11 @@ public final class EDDAPIWrapper: NSObject {
     private override init() {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
-        site = Site.defaultSite()
+        site = Site.activeSite()
+    }
+    
+    public func refreshActiveSite() {
+        site = Site.activeSite()
     }
     
     public func requestStats(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {

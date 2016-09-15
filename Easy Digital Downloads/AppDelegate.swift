@@ -121,6 +121,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
+    func switchActiveSite(siteID: String) {
+        sharedDefaults.setValue(siteID, forKey: "defaultSite")
+        sharedDefaults.setValue(siteID, forKey: "activeSite")
+        sharedDefaults.synchronize()
+        EDDAPIWrapper.sharedInstance.refreshActiveSite()
+    }
+    
     // MARK: Private
     
     private func configureGlobalAppearance() {
