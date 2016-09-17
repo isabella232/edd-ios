@@ -267,16 +267,17 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             let localeComponents = [NSLocaleCurrencyCode: currency]
             let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
             let locale = NSLocale(localeIdentifier: localeIdentifier)
-            let currencySymbol = locale.objectForKey(NSLocaleCurrencySymbol) as! String
             
-            stat = "\(currencySymbol)\(cellStats.earnings["today"]!)"
+            let formatter = NSNumberFormatter()
+            formatter.locale = locale
+            formatter.numberStyle = .CurrencyStyle
+            
+            stat = formatter.stringFromNumber(cellStats.earnings["today"] as! NSNumber)!
+            
             _earningsData = data.map({ Item -> Double in
                 return Item as! Double
             })
             type = .Earnings
-            
-            let formatter = NSNumberFormatter()
-            formatter.numberStyle = .CurrencyStyle
             
             firstStatLabel.text = "Current Month: \(formatter.stringFromNumber(cellStats.earnings["current_month"] as! NSNumber)!)"
             secondStatLabel.text = "Last Month: \(formatter.stringFromNumber(cellStats.earnings["last_month"] as! NSNumber)!)"
@@ -291,7 +292,14 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             return
         }
         
+        let currency = site.currency!
+        
+        let localeComponents = [NSLocaleCurrencyCode: currency]
+        let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
+        let locale = NSLocale(localeIdentifier: localeIdentifier)
+        
         let formatter = NSNumberFormatter()
+        formatter.locale = locale
         formatter.numberStyle = .CurrencyStyle
         
         stat = formatter.stringFromNumber((_cellStat as NSString).doubleValue)!
@@ -309,7 +317,14 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         if cellData["type"] as! Int == 3 {
             type = .Commissions
             
+            let currency = site.currency!
+            
+            let localeComponents = [NSLocaleCurrencyCode: currency]
+            let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
+            let locale = NSLocale(localeIdentifier: localeIdentifier)
+            
             let formatter = NSNumberFormatter()
+            formatter.locale = locale
             formatter.numberStyle = .CurrencyStyle
             
             if data != nil {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A313a" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Commission" representedClassName="Commission" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -13,6 +13,7 @@
     </entity>
     <entity name="Customer" representedClassName="Customer" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -121,7 +122,7 @@
     </entity>
     <elements>
         <element name="Commission" positionX="-9" positionY="189" width="128" height="180"/>
-        <element name="Customer" positionX="-27" positionY="45" width="128" height="240"/>
+        <element name="Customer" positionX="-27" positionY="45" width="128" height="255"/>
         <element name="Discount" positionX="-9" positionY="54" width="128" height="315"/>
         <element name="Product" positionX="-45" positionY="36" width="128" height="300"/>
         <element name="Sale" positionX="-54" positionY="27" width="128" height="270"/>
