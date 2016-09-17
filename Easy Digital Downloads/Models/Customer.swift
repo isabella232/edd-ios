@@ -95,7 +95,7 @@ extension Customer: ManagedObjectType {
         let request = NSFetchRequest(entityName: self.entityName)
         request.fetchLimit = 20
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keysitermgi.CreatedAt.rawValue, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keys.CreatedAt.rawValue, ascending: false)]
         return request
     }
     
