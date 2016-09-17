@@ -22,6 +22,7 @@ public final class Customer: ManagedObject {
     @NSManaged public private(set) var totalSpent: Double
     @NSManaged public private(set) var uid: String
     @NSManaged public private(set) var username: String
+    @NSManaged public private(set) var dateCreated: NSDate
     
     // Relationships
     @NSManaged private(set) var subscriptions: Set<Subscription>
@@ -31,6 +32,47 @@ public final class Customer: ManagedObject {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         createdAt = NSDate()
+    }
+    
+    public static func predicateForId(customerId: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", Customer.Keys.ID.rawValue, customerId)
+    }
+    
+    public static func predicateForUsername(username: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", Customer.Keys.Username.rawValue, username)
+    }
+    
+    public static func insertIntoContext(moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int16, totalPurchases: Int16, totalSpent: Double, uid: String, username: String, dateCreated: NSDate) -> Customer {
+        let customer: Customer = moc.insertObject()
+        customer.displayName = displayName
+        customer.email = email
+        customer.firstName = firstName
+        customer.lastName = lastName
+        customer.totalDownloads = totalDownloads
+        customer.totalPurchases = totalPurchases
+        customer.totalSpent = totalSpent
+        customer.uid = uid
+        customer.username = username
+        customer.dateCreated = dateCreated
+        customer.site = Site.fetchRecordForActiveSite(inContext: moc)
+
+        return customer
+    }
+    
+    public static func customerForId(customerId: String) -> Customer? {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+        
+        let customer = Customer.fetchInContext(managedObjectContext) { (request) in
+            request.predicate = self.predicateForId(customerId)
+            request.fetchLimit = 1
+        }
+        
+        if customer.count > 0 {
+            return customer[0]
+        } else {
+            return nil
+        }
     }
 
 }
@@ -53,7 +95,7 @@ extension Customer: ManagedObjectType {
         let request = NSFetchRequest(entityName: self.entityName)
         request.fetchLimit = 20
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keys.CreatedAt.rawValue, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keysitermgi.CreatedAt.rawValue, ascending: false)]
         return request
     }
     
