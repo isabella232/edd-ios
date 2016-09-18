@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
-class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextSettable {
+class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextSettable, UIViewControllerPreviewingDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
     
@@ -45,6 +45,8 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         super.viewDidLoad()
         
         networkOperations()
+        
+        registerForPreviewingWithDelegate(self, sourceView: view)
     }
     
     // MARK: Network Operations
@@ -96,4 +98,19 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    // MARK: 3D Touch
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRowAtPoint(location) {
+            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+            let logData = self.logs![indexPath.row].dictionaryObject!
+            return FileDownloadLogsDetailViewController(log: logData)
+        }
+        return nil
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+
 }
