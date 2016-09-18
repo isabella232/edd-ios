@@ -34,7 +34,7 @@ public final class Customer: ManagedObject {
         createdAt = NSDate()
     }
     
-    public static func predicateForId(customerId: String) -> NSPredicate {
+    public static func predicateForId(customerId: Int64) -> NSPredicate {
         return NSPredicate(format: "%K == %@", Customer.Keys.ID.rawValue, customerId)
     }
     
@@ -59,7 +59,7 @@ public final class Customer: ManagedObject {
         return customer
     }
     
-    public static func customerForId(customerId: String) -> Customer? {
+    public static func customerForId(customerId: Int64) -> Customer? {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
