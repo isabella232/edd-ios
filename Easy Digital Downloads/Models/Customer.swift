@@ -17,10 +17,10 @@ public final class Customer: ManagedObject {
     @NSManaged public private(set) var email: String
     @NSManaged public private(set) var firstName: String
     @NSManaged public private(set) var lastName: String
-    @NSManaged public private(set) var totalDownloads: Int16
-    @NSManaged public private(set) var totalPurchases: Int16
+    @NSManaged public private(set) var totalDownloads: Int64
+    @NSManaged public private(set) var totalPurchases: Int64
     @NSManaged public private(set) var totalSpent: Double
-    @NSManaged public private(set) var uid: String
+    @NSManaged public private(set) var uid: Int64
     @NSManaged public private(set) var username: String
     @NSManaged public private(set) var dateCreated: NSDate
     
@@ -42,7 +42,7 @@ public final class Customer: ManagedObject {
         return NSPredicate(format: "%K == %@", Customer.Keys.Username.rawValue, username)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int16, totalPurchases: Int16, totalSpent: Double, uid: String, username: String, dateCreated: NSDate) -> Customer {
+    public static func insertIntoContext(moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: NSDate) -> Customer {
         let customer: Customer = moc.insertObject()
         customer.displayName = displayName
         customer.email = email
