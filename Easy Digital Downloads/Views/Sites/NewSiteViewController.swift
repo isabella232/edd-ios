@@ -26,6 +26,7 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
     let logo = UIImageView(image: UIImage(named: "EDDLogoText-White"))
     let mascot = UIImageView(image: UIImage(named: "EDDMascot"))
     let helpButton = UIButton(type: .Custom)
+    let closeButton = UIButton(type: .Custom)
     let siteName = LoginTextField()
     let siteURL = LoginTextField()
     let apiKey = LoginTextField()
@@ -45,11 +46,13 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         var index = 0;
         
         logo.transform = CGAffineTransformMakeTranslation(0, -200)
+        closeButton.transform = CGAffineTransformMakeTranslation(-200, 0)
         helpButton.transform = CGAffineTransformMakeTranslation(200, 0)
         addButton.layer.opacity = 0
         
         UIView.animateWithDuration(1.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
             self.logo.transform = CGAffineTransformMakeTranslation(0, 0);
+            self.closeButton.transform = CGAffineTransformMakeTranslation(0, 0)
             self.helpButton.transform = CGAffineTransformMakeTranslation(0, 0)
             }, completion: nil)
         
@@ -98,6 +101,13 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         helpButton.translatesAutoresizingMaskIntoConstraints = false
         helpButton.contentMode = .ScaleAspectFit
         helpButton.sizeToFit()
+        
+        closeButton.accessibilityLabel = NSLocalizedString("Close", comment: "Close button")
+        closeButton.addTarget(self, action: #selector(NewSiteViewController.handleCloseButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        closeButton.setImage(UIImage(named: "Close"), forState: .Normal)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.contentMode = .ScaleAspectFit
+        closeButton.sizeToFit()
 
         siteName.tag = 1
         siteName.placeholder = NSLocalizedString("Site Name", comment: "")
@@ -171,12 +181,18 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         view.addSubview(containerView)
         
         view.addSubview(helpButton)
+        view.addSubview(closeButton)
         helpButton.widthAnchor.constraintEqualToConstant(20).active = true
         helpButton.heightAnchor.constraintEqualToConstant(20).active = true
+        closeButton.widthAnchor.constraintEqualToConstant(20).active = true
+        closeButton.heightAnchor.constraintEqualToConstant(20).active = true
         
         let margins = view.layoutMarginsGuide
         helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
         helpButton.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
+        closeButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
+        closeButton.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor).active = true
+
         
         stackView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
         stackView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
@@ -280,6 +296,10 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         svc.modalPresentationStyle = .OverCurrentContext
         svc.view.tintColor = .EDDBlueColor()
         presentViewController(svc, animated: true, completion: nil)
+    }
+    
+    func handleCloseButtonTapped(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func addButtonPressed(sender: UIButton!) {
