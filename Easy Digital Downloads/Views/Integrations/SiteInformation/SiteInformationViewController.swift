@@ -47,6 +47,8 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         tableView.dataSource = self
         tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.allowsSelection = false
+        tableView.tableFooterView = UIView()
         
         sections = [
             Section(type: .General, items: [.SiteName, .SiteURL]),
@@ -90,22 +92,24 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("SiteInformationCell")
+        var cell: SiteInformationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SiteInformationCell") as! SiteInformationTableViewCell?
         
-        if (cell == nil) {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "SiteInformationCell")
+        if cell == nil {
+            cell = SiteInformationTableViewCell()
         }
         
         switch sections[indexPath.section].items[indexPath.row] {
             case .SiteName:
-                cell?.textLabel?.text = NSLocalizedString("Site Name", comment: "")
+                cell!.configure("Site Name", text: Site.activeSite().name!)
             case .SiteURL:
-                cell?.textLabel?.text = NSLocalizedString("Site URL", comment: "")
+                cell!.configure("Site URL", text: Site.activeSite().url!)
             case .APIKey:
-                cell?.textLabel?.text = NSLocalizedString("API Key", comment: "")
+                cell!.configure("API Key", text: Site.activeSite().key)
             case .Token:
-                cell?.textLabel?.text = NSLocalizedString("Token", comment: "")
+                cell!.configure("Token", text: Site.activeSite().token)
         }
+        
+        cell!.layout()
         
         return cell!
     }

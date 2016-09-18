@@ -54,7 +54,6 @@
 		F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */; };
 		F5B0612E1D6B015000F9B4E1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */; };
 		F5B061311D6B015000F9B4E1 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061301D6B015000F9B4E1 /* TodayViewController.swift */; };
-		F5B061341D6B015000F9B4E1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5B061321D6B015000F9B4E1 /* MainInterface.storyboard */; };
 		F5B061381D6B015000F9B4E1 /* EDDToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F5B982AD1D6BA0D500679271 /* SiteInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */; };
 		F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982AE1D6BA19300679271 /* FileDownloadLogsController.swift */; };
@@ -62,6 +61,8 @@
 		F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */; };
 		F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */; };
 		F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B61D6BA21800679271 /* NewSiteViewController.swift */; };
+		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
+		F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -179,7 +180,6 @@
 		F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EDDToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F5B061301D6B015000F9B4E1 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		F5B061331D6B015000F9B4E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		F5B061351D6B015000F9B4E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5B0613D1D6B68EF00F9B4E1 /* EDDToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = EDDToday.entitlements; sourceTree = "<group>"; };
 		F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +188,8 @@
 		F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B61D6BA21800679271 /* NewSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSiteViewController.swift; sourceTree = "<group>"; };
+		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
+		F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -335,11 +337,12 @@
 		F523F2201D6650B7000AB028 /* Integrations */ = {
 			isa = PBXGroup;
 			children = (
+				F5E7827C1D8EEB0E00D29268 /* SiteInformation */,
 				F50388911D7493DF0059BB38 /* Search */,
 				F5B061271D6AFEDE00F9B4E1 /* Reviews */,
 				F5B061261D6AFEDC00F9B4E1 /* Logs */,
 				F523F2211D6650DB000AB028 /* MoreViewController.swift */,
-				F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */,
+				F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */,
 			);
 			path = Integrations;
 			sourceTree = "<group>";
@@ -497,10 +500,18 @@
 			children = (
 				F5B0613D1D6B68EF00F9B4E1 /* EDDToday.entitlements */,
 				F5B061301D6B015000F9B4E1 /* TodayViewController.swift */,
-				F5B061321D6B015000F9B4E1 /* MainInterface.storyboard */,
 				F5B061351D6B015000F9B4E1 /* Info.plist */,
 			);
 			path = EDDToday;
+			sourceTree = "<group>";
+		};
+		F5E7827C1D8EEB0E00D29268 /* SiteInformation */ = {
+			isa = PBXGroup;
+			children = (
+				F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */,
+				F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */,
+			);
+			path = SiteInformation;
 			sourceTree = "<group>";
 		};
 		F5FAF3C61CFB627600F9F1FF /* Protocols */ = {
@@ -581,7 +592,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Easy Digital Downloads";
 				TargetAttributes = {
 					F5A312841CF1DAE1000F4F6F = {
@@ -645,7 +656,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5B061341D6B015000F9B4E1 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +763,7 @@
 				F5EF5E8F1CF2EE0800298841 /* SiteTabBarController.swift in Sources */,
 				F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */,
 				F5EF5E9E1CF314FA00298841 /* Branding.swift in Sources */,
+				F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */,
 				F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */,
 				F5EF5E9C1CF2FD9E00298841 /* EDD.xcdatamodeld in Sources */,
 				F5B982B11D6BA1C800679271 /* ReviewsViewController.swift in Sources */,
@@ -800,6 +811,7 @@
 				F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */,
 				F503888A1D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift in Sources */,
 				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
+				F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */,
 				F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,14 +843,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		F5B061321D6B015000F9B4E1 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F5B061331D6B015000F9B4E1 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -856,8 +860,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -902,8 +908,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -922,6 +930,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -931,10 +940,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4245509389ED9AAD9E3A653B /* Pods-EDD-Easy Digital Downloads.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
@@ -949,10 +958,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0417CD63DA9A5FA7967B36FF /* Pods-EDD-Easy Digital Downloads.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;

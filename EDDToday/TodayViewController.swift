@@ -11,15 +11,47 @@ import NotificationCenter
 import SwiftyJSON
 import CoreData
 
-class TodayViewController: UIViewController, NCWidgetProviding {
-        
-    @IBOutlet weak var salesLabel: UILabel!
-    @IBOutlet weak var earningsLabel: UILabel!
+@objc(TodayViewController)
 
+class TodayViewController: UIViewController, NCWidgetProviding {
+    
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.preferredContentSize = CGSizeMake(0, 200)
         
+        let vibrancyEffect: UIVibrancyEffect
+        if #available(iOSApplicationExtension 10.0, *) {
+            vibrancyEffect = UIVibrancyEffect.widgetPrimaryVibrancyEffect()
+        } else {
+            vibrancyEffect = UIVibrancyEffect.notificationCenterVibrancyEffect()
+        }
+        
+        let visualEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        visualEffectView.frame = view.bounds
+        visualEffectView.autoresizingMask = view.autoresizingMask
+        
+        let label = UILabel(frame: view.bounds)
+        label.text = "Testing"
+        label.textColor = .lightTextColor()
+        label.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        
+        view.addSubview(visualEffectView)
+        visualEffectView.contentView.addSubview(label)
+        
+        guard let defaultSite = sharedDefaults.objectForKey("defaultSite") as? String,
+            let documentsURL = NSFileManager.defaultManager()
+                .containerURLForSecurityApplicationGroupIdentifier("group.easydigitaldownloads.EDDSalesTracker") else {
+            return
+        }
+        
+        let fileName = String(format: "/Stats-%@", defaultSite)
+        let path = documentsURL.URLByAppendingPathComponent(fileName)!.path
+        
+        let statsClassObject = NSKeyedUnarchiver.unarchiveObjectWithFile(path!)
+        print(statsClassObject)
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,4 +62,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.NewData)
     }
     
+    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 0, 0, 0)
+    }
 }
