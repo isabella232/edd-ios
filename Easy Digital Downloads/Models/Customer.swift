@@ -35,7 +35,7 @@ public final class Customer: ManagedObject {
     }
     
     public static func predicateForId(customerId: Int64) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", Customer.Keys.ID.rawValue, customerId)
+        return NSPredicate(format: "%K == %lld", Customer.Keys.ID.rawValue, customerId)
     }
     
     public static func predicateForUsername(username: String) -> NSPredicate {
