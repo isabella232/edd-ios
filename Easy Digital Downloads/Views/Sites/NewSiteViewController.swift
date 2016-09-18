@@ -69,8 +69,8 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
             }, completion: nil)
         
         // Keyboard observers
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewSiteViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewSiteViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
         
     }
     
@@ -131,7 +131,7 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         token.delegate = self
         token.accessibilityIdentifier = "Token"
         
-        addButton.addTarget(self, action: #selector(LoginViewController.addButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        addButton.addTarget(self, action: #selector(NewSiteViewController.addButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         addButton.setTitle("Add Site", forState: UIControlState.Normal)
         addButton.setTitleColor(.whiteColor(), forState: UIControlState.Normal)
         addButton.setTitleColor(.whiteColor(), forState: UIControlState.Highlighted)
