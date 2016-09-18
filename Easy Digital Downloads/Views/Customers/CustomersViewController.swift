@@ -10,6 +10,15 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
 class CustomersViewController: SiteTableViewController, ManagedObjectContextSettable {
 
     var managedObjectContext: NSManagedObjectContext!
@@ -103,7 +112,14 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         }
         
         for item in customers_ {
-            
+            Customer.insertIntoContext(managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int16Value, totalPurchases: item["stats"]["total_downloads"].int16Value, totalSpent: item["stats"]["total_downloads"].doubleValue, uid: item["info"]["user_id"].stringValue, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+        }
+        
+        do {
+            try managedObjectContext.save()
+            managedObjectContext.processPendingChanges()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
     }
     
