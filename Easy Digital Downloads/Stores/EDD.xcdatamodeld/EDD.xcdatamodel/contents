@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="Commission" representedClassName="Commission" syncable="YES">
+    <entity name="Commission" representedClassName=".Commission" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,7 +27,7 @@
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="customers" inverseEntity="Site" syncable="YES"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="customer" inverseEntity="Subscription" syncable="YES"/>
     </entity>
-    <entity name="Discount" representedClassName="Discount" syncable="YES">
+    <entity name="Discount" representedClassName=".Discount" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="code" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -47,7 +47,7 @@
         <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="discounts" inverseEntity="Sale" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="discounts" inverseEntity="Site" syncable="YES"/>
     </entity>
-    <entity name="Product" representedClassName="Product" syncable="YES">
+    <entity name="Product" representedClassName=".Product" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -102,7 +102,7 @@
         <relationship name="sales" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sale" inverseName="site" inverseEntity="Sale" syncable="YES"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Subscription" inverseName="site" inverseEntity="Subscription" syncable="YES"/>
     </entity>
-    <entity name="Subscription" representedClassName="Subscription" syncable="YES">
+    <entity name="Subscription" representedClassName=".Subscription" syncable="YES">
         <attribute name="billTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
