@@ -92,14 +92,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         logo.contentMode = .ScaleAspectFit
         logo.heightAnchor.constraintEqualToConstant(100).active = true
         
-        helpButton.sizeToFit()
         helpButton.accessibilityLabel = NSLocalizedString("Help", comment: "Help button")
         helpButton.addTarget(self, action: #selector(LoginViewController.handleHelpButtonTapped(_:)), forControlEvents: .TouchUpInside)
-//        helpButton.setImage(Gridicon.iconOfType(.Help, withSize: CGSizeMake(20, 20)), forState: .Normal)
+        helpButton.setImage(UIImage(named: "Help"), forState: .Normal)
         helpButton.translatesAutoresizingMaskIntoConstraints = false
         helpButton.tintColor = .EDDBlueColor()
+        helpButton.contentMode = .ScaleAspectFit
+        helpButton.enabled = true
+        helpButton.sizeToFit()
 
         view.addSubview(helpButton)
+        helpButton.widthAnchor.constraintEqualToConstant(20).active = true
+        helpButton.heightAnchor.constraintEqualToConstant(20).active = true
         
         let margins = view.layoutMarginsGuide
         helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
