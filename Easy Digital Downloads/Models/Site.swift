@@ -211,6 +211,54 @@ public final class Site: ManagedObject {
         let results = Site.fetchInContext(moc)
         return results
     }
+    
+    public static func hasPermissionToViewReports() -> Bool {
+        guard let data = Site.activeSite().permissions else {
+            return false
+        }
+        
+        guard let permissions = NSKeyedUnarchiver.unarchiveObjectWithData(data) else {
+            return false
+        }
+        
+        if permissions["view_shop_reports"] !== nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    public static func hasPermissionToViewSensitiveData() -> Bool {
+        guard let data = Site.activeSite().permissions else {
+            return false
+        }
+        
+        guard let permissions = NSKeyedUnarchiver.unarchiveObjectWithData(data) else {
+            return false
+        }
+        
+        if permissions["view_shop_sensitive_data"] !== nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    public static func hasPermissionToManageDiscounts() -> Bool {
+        guard let data = Site.activeSite().permissions else {
+            return false
+        }
+        
+        guard let permissions = NSKeyedUnarchiver.unarchiveObjectWithData(data) else {
+            return false
+        }
+        
+        if permissions["manage_shop_discounts"] !== nil {
+            return true
+        } else {
+            return false
+        }
+    }
 
 }
 
