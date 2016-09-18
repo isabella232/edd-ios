@@ -101,14 +101,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         helpButton.enabled = true
         helpButton.sizeToFit()
 
-        view.addSubview(helpButton)
-        helpButton.widthAnchor.constraintEqualToConstant(20).active = true
-        helpButton.heightAnchor.constraintEqualToConstant(20).active = true
-        
-        let margins = view.layoutMarginsGuide
-        helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
-        helpButton.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
-        
         siteName.tag = 1
         siteName.placeholder = NSLocalizedString("Site Name", comment: "")
         siteName.delegate = self
@@ -179,6 +171,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
         
         containerView.addSubview(stackView)
         view.addSubview(containerView)
+        
+        view.addSubview(helpButton)
+        helpButton.widthAnchor.constraintEqualToConstant(20).active = true
+        helpButton.heightAnchor.constraintEqualToConstant(20).active = true
+        
+        let margins = view.layoutMarginsGuide
+        helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
+        helpButton.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
         
         stackView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
         stackView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true

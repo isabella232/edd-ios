@@ -98,15 +98,6 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         helpButton.translatesAutoresizingMaskIntoConstraints = false
         helpButton.contentMode = .ScaleAspectFit
         helpButton.sizeToFit()
-        
-        view.addSubview(helpButton)
-        helpButton.widthAnchor.constraintEqualToConstant(20).active = true
-        helpButton.heightAnchor.constraintEqualToConstant(20).active = true
-        
-        let margins = view.layoutMarginsGuide
-        helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
-        helpButton.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
-        
 
         siteName.tag = 1
         siteName.placeholder = NSLocalizedString("Site Name", comment: "")
@@ -178,6 +169,14 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         
         containerView.addSubview(stackView)
         view.addSubview(containerView)
+        
+        view.addSubview(helpButton)
+        helpButton.widthAnchor.constraintEqualToConstant(20).active = true
+        helpButton.heightAnchor.constraintEqualToConstant(20).active = true
+        
+        let margins = view.layoutMarginsGuide
+        helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
+        helpButton.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
         
         stackView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
         stackView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
