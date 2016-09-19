@@ -15,14 +15,14 @@ public final class Product: ManagedObject {
     @NSManaged public private(set) var content: String
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var createdDate: NSDate
-    @NSManaged public private(set) var files: NSDictionary
+    @NSManaged public private(set) var files: NSData?
     @NSManaged public private(set) var hasVariablePricing: NSNumber
     @NSManaged public private(set) var link: String
     @NSManaged public private(set) var modifiedDate: NSDate
-    @NSManaged public private(set) var notes: String
+    @NSManaged public private(set) var notes: String?
     @NSManaged public private(set) var pid: Int64
-    @NSManaged public private(set) var pricing: NSDictionary
-    @NSManaged public private(set) var stats: NSDictionary
+    @NSManaged public private(set) var pricing: NSData
+    @NSManaged public private(set) var stats: NSData?
     @NSManaged public private(set) var status: String
     @NSManaged public private(set) var thumbnail: String
     @NSManaged public private(set) var title: String
@@ -41,7 +41,7 @@ public final class Product: ManagedObject {
         return NSPredicate(format: "%K == %lld", Product.Keys.ID.rawValue, productId)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSDictionary, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String, pid: Int64, pricing: NSDictionary, stats: NSDictionary, status: String, thumbnail: String, title: String) -> Product {
+    public static func insertIntoContext(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSData?, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String?, pid: Int64, pricing: NSData, stats: NSData?, status: String, thumbnail: String, title: String) -> Product {
         let product: Product = moc.insertObject()
         product.content = content
         product.createdDate = createdDate

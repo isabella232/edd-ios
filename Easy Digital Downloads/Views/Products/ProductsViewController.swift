@@ -10,6 +10,15 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
 class ProductsViewController: SiteTableViewController, ManagedObjectContextSettable {
 
     var managedObjectContext: NSManagedObjectContext!
@@ -65,8 +74,48 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     }
     
     private func persistProducts() {
-        guard products != nil else {
+        guard let products_ = products else {
             return
+        }
+        
+        for item in products_ {
+            var stats: NSData?
+            if Site.hasPermissionToViewReports() {
+                stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
+            } else {
+                stats = nil
+            }
+            
+            var files: NSData?
+            var notes: String?
+            if Site.hasPermissionToViewSensitiveData() {
+                if item["files"].dictionary != nil {
+                    files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].dictionaryObject!)
+                } else {
+                    files = nil
+                }
+                
+                notes = item["notes"].stringValue
+            } else {
+                files = nil
+                notes = nil
+            }
+     
+            var hasVariablePricing = false
+            if item["pricing"].dictionary?.count > 1 {
+                hasVariablePricing = true
+            }
+            
+            let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+            
+            Product.insertIntoContext(managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue)
+        }
+        
+        do {
+            try managedObjectContext.save()
+            managedObjectContext.processPendingChanges()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
     }
     
