@@ -66,6 +66,35 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
+        navigationItem.rightBarButtonItem = saveButton
+    }
+    
+    func saveButtonPressed() {
+        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        uiBusy.hidesWhenStopped = true
+        uiBusy.startAnimating()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiBusy)
+        
+        let fetchRequest = NSFetchRequest(entityName: "Site")
+        fetchRequest.predicate = Site.predicateForActiveSite()
+        
+                let siteNameIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                let siteNameCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteNameIndexPath) as! SiteInformationTableViewCell
+                
+                let siteURLIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+                let siteURLCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteURLIndexPath) as! SiteInformationTableViewCell
+                
+                let apiKeyIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+                let apiKeyCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(apiKeyIndexPath) as! SiteInformationTableViewCell
+                
+                let tokenIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+                let tokenCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(tokenIndexPath) as! SiteInformationTableViewCell
+
+//                var managedObject = results[0]
+//                managedObject.setValue(siteNameCell.textFieldText(), forKey: "name")
+//                managedObject.setValue(siteURLCell.textFieldText(), forKey: "url")
     }
     
     // MARK: Table View Delegate

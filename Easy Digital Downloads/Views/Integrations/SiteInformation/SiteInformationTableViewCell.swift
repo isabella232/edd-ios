@@ -65,4 +65,8 @@ class SiteInformationTableViewCell: UITableViewCell {
         textField.text = text
     }
     
+    func textFieldText() -> String {
+        return textField.text!
+    }
+    
 }
