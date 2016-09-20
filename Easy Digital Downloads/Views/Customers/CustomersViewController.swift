@@ -78,6 +78,20 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         }
     }
     
+    // MARK: Table View Delegate
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let customer = dataSource.selectedObject else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+        
+        navigationController?.pushViewController(CustomersDetailViewController(customer: customer), animated: true)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+    
     // MARK: Private
     
     private func requestNextPage() {
