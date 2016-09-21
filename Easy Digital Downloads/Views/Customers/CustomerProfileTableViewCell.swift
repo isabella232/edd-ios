@@ -10,6 +10,15 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "EEE dd MMM yyyy"
+    return formatter
+}()
+
 class CustomerProfileTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
@@ -42,8 +51,8 @@ class CustomerProfileTableViewCell: UITableViewCell {
         profileImageView = {
             let imageView = UIImageView(frame: CGRectZero)
             
-            imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            imageView.contentMode = .Center
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .ScaleAspectFit
             imageView.clipsToBounds = true
             
             return imageView
@@ -56,6 +65,8 @@ class CustomerProfileTableViewCell: UITableViewCell {
         emailLabel.textColor = .EDDBlackColor()
         emailLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
         emailLabel.textAlignment = .Center
+        emailLabel.lineBreakMode = .ByWordWrapping
+        emailLabel.numberOfLines = 0
         
         selectionStyle = .None
     }
@@ -77,11 +88,8 @@ class CustomerProfileTableViewCell: UITableViewCell {
             return
         }
         
-        profileImageView = UIImageView()
-        profileImageView.contentMode = .ScaleAspectFit
-        
         gravatar = Gravatar(emailAddress: customer_.email)
-        let url = gravatar?.URL(CGFloat(40))
+        let url = gravatar?.URL(CGFloat(30))
         
         profileImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
     }
@@ -90,7 +98,7 @@ class CustomerProfileTableViewCell: UITableViewCell {
         self.customer = customer
         
         nameLabel.text = customer.displayName
-        emailLabel.text = customer.email
+        emailLabel.text = customer.email + "\n" + "Customer since " + sharedDateFormatter.stringFromDate(customer.dateCreated)
         
         setupImageView()
         layout()

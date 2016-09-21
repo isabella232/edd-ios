@@ -30,14 +30,7 @@ class CustomerStatsTableViewCell: UITableViewCell {
     
     lazy var containerView: UIView! = {
         let view = UIView()
-        view.backgroundColor = .EDDBlueColor()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 2
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSizeZero
-        view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowColor = UIColor.blackColor().CGColor
         return view
     }()
     
@@ -52,20 +45,21 @@ class CustomerStatsTableViewCell: UITableViewCell {
         
         selectionStyle = .None
         
-        backgroundColor = .EDDGreyColor()
+        backgroundColor = .tableViewCellHighlightColor()
         
-        titleLabel.textColor = .whiteColor()
-        titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+        titleLabel.textColor = .tableViewCellHeadingColor()
+        titleLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         titleLabel.textAlignment = .Left
-        titleLabel.text = NSLocalizedString("Stats", comment: "")
+        titleLabel.text = NSLocalizedString("Stats", comment: "").localizedUppercaseString
         
-        totalDownloadsLabel.textColor = .whiteColor()
+        
+        totalDownloadsLabel.textColor = .EDDBlackColor()
         totalDownloadsLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         
-        totalSpentLabel.textColor = .whiteColor()
+        totalSpentLabel.textColor = .EDDBlackColor()
         totalSpentLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         
-        totalPurchasesLabel.textColor = .whiteColor()
+        totalPurchasesLabel.textColor = .EDDBlackColor()
         totalPurchasesLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
     }
     
@@ -89,13 +83,14 @@ class CustomerStatsTableViewCell: UITableViewCell {
         
         var constraints = [NSLayoutConstraint]()
         constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(titleLabel.bottomAnchor.constraintEqualToAnchor(totalPurchasesLabel.topAnchor, constant: -10))
         constraints.append(totalDownloadsLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(totalSpentLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(totalPurchasesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
+        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
         constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
         constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
         constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))

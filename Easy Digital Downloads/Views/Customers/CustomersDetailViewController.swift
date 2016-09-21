@@ -7,19 +7,21 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CustomersDetailViewController: SiteTableViewController {
 
     private enum CellType {
         case Profile
         case Stats
-        case Sales
+        case Heading
     }
     
     private var cells = [CellType]()
     
     var site: Site?
     var customer: Customer?
+    var recentSales: [JSON]?
     
     init(customer: Customer) {
         super.init(style: .Plain)
@@ -41,8 +43,10 @@ class CustomersDetailViewController: SiteTableViewController {
         
         tableView.registerClass(CustomerProfileTableViewCell.self, forCellReuseIdentifier: "CustomerProfileTableViewCell")
         tableView.registerClass(CustomerStatsTableViewCell.self, forCellReuseIdentifier: "CustomerStatsTableViewCell")
+        tableView.registerClass(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
+        tableView.registerClass(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
         
-        cells = [.Profile, .Stats, .Sales]
+        cells = [.Profile, .Stats, .Heading]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,7 +59,12 @@ class CustomersDetailViewController: SiteTableViewController {
         }
         
         EDDAPIWrapper.sharedInstance.requestSales(["email" : customer!.email], success: { (json) in
-            print(json)
+            if let items = json["sales"].array {
+                self.recentSales = items
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            }
             }) { (error) in
                 fatalError()
         }
@@ -68,7 +77,8 @@ class CustomersDetailViewController: SiteTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        let salesCount = recentSales?.count ?? 0
+        return cells.count + salesCount
     }
     
     // MARK: Table View Delegate
@@ -76,16 +86,21 @@ class CustomersDetailViewController: SiteTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
-        switch(cells[indexPath.row]) {
-            case .Profile:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerProfileTableViewCell", forIndexPath: indexPath) as! CustomerProfileTableViewCell
-                (cell as! CustomerProfileTableViewCell).configure(customer!)
-            case .Stats:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
-                (cell as! CustomerStatsTableViewCell).configure(customer!)
-            case .Sales:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
-                (cell as! CustomerProfileTableViewCell).configure(customer!)
+        if indexPath.row < 3 {
+            switch(cells[indexPath.row]) {
+                case .Profile:
+                    cell = tableView.dequeueReusableCellWithIdentifier("CustomerProfileTableViewCell", forIndexPath: indexPath) as! CustomerProfileTableViewCell
+                    (cell as! CustomerProfileTableViewCell).configure(customer!)
+                case .Stats:
+                    cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
+                    (cell as! CustomerStatsTableViewCell).configure(customer!)
+                case .Heading:
+                    cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+                    (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Sales")
+            }
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier("CustomerRecentSaleTableViewCell", forIndexPath: indexPath) as! CustomerRecentSaleTableViewCell
+            (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![indexPath.row - 3])
         }
         
         return cell!

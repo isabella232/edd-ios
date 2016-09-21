@@ -52,5 +52,9 @@ extension UIColor {
     class func tableViewCellHighlightColor() -> UIColor {
         return UIColor.colorWithHex(0xd7e9f3)
     }
+    
+    class func tableViewCellHeadingColor() -> UIColor {
+        return UIColor.colorWithHex(0x336b89)
+    }
 
 }
