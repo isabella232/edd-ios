@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (3.5.0)
+  - AlamofireImage (2.5.0):
+    - Alamofire (~> 3.5)
   - AlamofireNetworkActivityIndicator (1.1.0):
     - Alamofire (~> 3.3)
   - BEMSimpleLineGraph (4.1)
@@ -16,6 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.5)
+  - AlamofireImage (= 2.5.0)
   - AlamofireNetworkActivityIndicator (= 1.1.0)
   - BEMSimpleLineGraph
   - CocoaLumberjack/Swift
@@ -34,6 +37,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  AlamofireImage: 2d34936e5201270bb17a316a786e90e83b4a249d
   AlamofireNetworkActivityIndicator: 36340ebf8d70241b2ebadc3dea38e8fbb95f5127
   BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
@@ -41,6 +45,6 @@ SPEC CHECKSUMS:
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: bfe880fd099d128ee9ebb596b794f5709d347c22
+PODFILE CHECKSUM: 05ccbe800111035b6af5c7bad3c08d84265b86cb
 
 COCOAPODS: 1.1.0.beta.2

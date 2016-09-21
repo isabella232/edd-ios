@@ -15,7 +15,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
     formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
     formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-    formatter.dateFormat = "EEE dd MMM yyyy"
+    formatter.dateFormat = "d MMM yyyy"
     return formatter
 }()
 

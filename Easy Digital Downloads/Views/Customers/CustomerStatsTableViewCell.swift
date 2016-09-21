@@ -54,13 +54,13 @@ class CustomerStatsTableViewCell: UITableViewCell {
         
         
         totalDownloadsLabel.textColor = .EDDBlackColor()
-        totalDownloadsLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        totalDownloadsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         totalSpentLabel.textColor = .EDDBlackColor()
-        totalSpentLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        totalSpentLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         totalPurchasesLabel.textColor = .EDDBlackColor()
-        totalPurchasesLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        totalPurchasesLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {

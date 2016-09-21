@@ -15,6 +15,7 @@ abstract_target 'EDD' do
   target 'Easy Digital Downloads' do
     pod 'AlamofireNetworkActivityIndicator', '= 1.1.0'
     pod 'BEMSimpleLineGraph'
+    pod 'AlamofireImage', '= 2.5.0'
   end
 
   target 'EDDToday'

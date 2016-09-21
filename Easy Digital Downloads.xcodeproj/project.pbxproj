@@ -22,6 +22,14 @@
 		F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */; };
 		F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */; };
 		F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB541CFAD228001A6A51 /* HighlightButton.swift */; };
+		F512E4061D91619B0086AD68 /* SalesDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */; };
+		F512E4081D9179080086AD68 /* CustomersDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4071D9179080086AD68 /* CustomersDetailViewController.swift */; };
+		F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4091D917C480086AD68 /* CustomerProfileTableViewCell.swift */; };
+		F512E40C1D91847C0086AD68 /* Gravatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E40B1D91847C0086AD68 /* Gravatar.swift */; };
+		F512E40E1D9186FC0086AD68 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F512E40D1D9186FC0086AD68 /* Security.framework */; };
+		F512E4101D918FB90086AD68 /* CustomerStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */; };
+		F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */; };
+		F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */; };
 		F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */; };
 		F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22491D3B948600D114E8 /* GraphData.swift */; };
 		F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523F2211D6650DB000AB028 /* MoreViewController.swift */; };
@@ -62,6 +70,7 @@
 		F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */; };
 		F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B61D6BA21800679271 /* NewSiteViewController.swift */; };
 		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
+		F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */; };
 		F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
@@ -143,6 +152,14 @@
 		F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesViewController.swift; sourceTree = "<group>"; };
 		F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersViewController.swift; sourceTree = "<group>"; };
 		F50DEB541CFAD228001A6A51 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
+		F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailTableViewCell.swift; sourceTree = "<group>"; };
+		F512E4071D9179080086AD68 /* CustomersDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersDetailViewController.swift; sourceTree = "<group>"; };
+		F512E4091D917C480086AD68 /* CustomerProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerProfileTableViewCell.swift; sourceTree = "<group>"; };
+		F512E40B1D91847C0086AD68 /* Gravatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gravatar.swift; sourceTree = "<group>"; };
+		F512E40D1D9186FC0086AD68 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerStatsTableViewCell.swift; sourceTree = "<group>"; };
+		F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRecentSaleTableViewCell.swift; sourceTree = "<group>"; };
 		F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteViewController.swift; sourceTree = "<group>"; };
 		F51F22491D3B948600D114E8 /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		F523F2211D6650DB000AB028 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +206,7 @@
 		F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B61D6BA21800679271 /* NewSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSiteViewController.swift; sourceTree = "<group>"; };
 		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
+		F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesTableViewController.swift; sourceTree = "<group>"; };
 		F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F512E40E1D9186FC0086AD68 /* Security.framework in Frameworks */,
 				7C14DC6DD9510FCA4A4DAC2D /* Pods_Easy_Digital_Downloads.framework in Frameworks */,
 				CD9021C0801F1E02FBA0AD0C /* Pods_EDD_Easy_Digital_Downloads.framework in Frameworks */,
 			);
@@ -251,6 +270,7 @@
 		7C5F97A647D663D04F05894B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F512E40D1D9186FC0086AD68 /* Security.framework */,
 				F50DEB381CF9F775001A6A51 /* Gridicons.framework */,
 				F50DEB391CF9F775001A6A51 /* MCDateExtensions.framework */,
 				F50DEB3A1CF9F775001A6A51 /* MZAppearance.framework */,
@@ -296,6 +316,7 @@
 				F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */,
 				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
 				F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */,
+				F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -313,6 +334,11 @@
 			children = (
 				F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */,
 				F50388941D74A75B0059BB38 /* CustomersTableViewCell.swift */,
+				F512E4071D9179080086AD68 /* CustomersDetailViewController.swift */,
+				F512E4091D917C480086AD68 /* CustomerProfileTableViewCell.swift */,
+				F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */,
+				F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */,
+				F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */,
 			);
 			path = Customers;
 			sourceTree = "<group>";
@@ -460,6 +486,7 @@
 				F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */,
 				F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */,
 				F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */,
+				F512E40B1D91847C0086AD68 /* Gravatar.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -510,6 +537,7 @@
 			children = (
 				F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */,
 				F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */,
+				F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */,
 			);
 			path = SiteInformation;
 			sourceTree = "<group>";
@@ -763,6 +791,7 @@
 				F5EF5E8F1CF2EE0800298841 /* SiteTabBarController.swift in Sources */,
 				F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */,
 				F5EF5E9E1CF314FA00298841 /* Branding.swift in Sources */,
+				F512E4061D91619B0086AD68 /* SalesDetailTableViewCell.swift in Sources */,
 				F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */,
 				F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */,
 				F5EF5E9C1CF2FD9E00298841 /* EDD.xcdatamodeld in Sources */,
@@ -770,6 +799,7 @@
 				F5FAF3BF1CFB077500F9F1FF /* SiteTableViewController.swift in Sources */,
 				F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */,
 				F54725001D3C3ADC009D5E8D /* Product.swift in Sources */,
+				F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */,
 				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
 				F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */,
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
@@ -781,6 +811,7 @@
 				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
 				F5FAF3C31CFB5FCC00F9F1FF /* NSURL+Utilities.swift in Sources */,
 				F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */,
+				F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */,
 				F5FAF3CD1CFBA18100F9F1FF /* FetchedResultsDataProvider.swift in Sources */,
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
@@ -803,14 +834,19 @@
 				F50388901D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift in Sources */,
 				F5B061231D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift in Sources */,
 				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
+				F512E40C1D91847C0086AD68 /* Gravatar.swift in Sources */,
+				F512E4081D9179080086AD68 /* CustomersDetailViewController.swift in Sources */,
 				F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */,
 				F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */,
 				F503888C1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift in Sources */,
+				F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */,
 				F5FAF3C81CFB628A00F9F1FF /* ManagedObjectContextSettable.swift in Sources */,
+				F512E4101D918FB90086AD68 /* CustomerStatsTableViewCell.swift in Sources */,
 				F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */,
 				F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */,
 				F503888A1D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift in Sources */,
 				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
+				F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */,
 				F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */,
 				F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */,
 			);
