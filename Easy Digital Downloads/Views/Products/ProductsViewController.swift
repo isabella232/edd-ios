@@ -28,6 +28,9 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        super.leftBarButtonItem = true
+        
         setupInfiniteScrollView()
         setupTableView()
     }

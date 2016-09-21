@@ -40,6 +40,9 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        super.leftBarButtonItem = true
+        
         setupInfiniteScrollView()
         setupTableView()
     }
