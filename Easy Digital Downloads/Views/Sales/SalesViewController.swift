@@ -150,7 +150,7 @@ class SalesViewController: SiteTableViewController {
             return
         }
         
-        
+        navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
