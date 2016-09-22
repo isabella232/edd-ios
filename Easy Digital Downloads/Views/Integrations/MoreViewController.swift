@@ -21,6 +21,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
     private enum Item {
         case SiteInformation
         case ManageSites
+        case ProductSearch
         case Commissions
         case StoreCommissions
         case FileDownloadLogs
@@ -55,7 +56,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         tableView.tableFooterView = UIView()
         
         sections = [
-            Section(type: .General, items: [.SiteInformation, .ManageSites]),
+            Section(type: .General, items: [.SiteInformation, .ManageSites, .ProductSearch]),
             Section(type: .Commissions, items: [.Commissions, .StoreCommissions]),
             Section(type: .Logs, items: [.FileDownloadLogs]),
             Section(type: .Integrations, items: [.Reviews])
@@ -102,6 +103,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .ManageSites:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+            case .ProductSearch:
+                self.navigationController?.pushViewController(SearchViewController(), animated: true)
             case .FileDownloadLogs:
                 self.navigationController?.pushViewController(FileDownloadLogsController(site: self.site!), animated: true)
             case .Commissions:
@@ -152,6 +155,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
                 cell?.textLabel?.text = NSLocalizedString("Site Information", comment: "")
             case .ManageSites:
                 cell?.textLabel?.text = NSLocalizedString("Manage Sites", comment: "")
+            case .ProductSearch:
+                cell?.textLabel?.text = NSLocalizedString("Product Search", comment: "")
             case .FileDownloadLogs:
                 cell?.textLabel?.text = NSLocalizedString("File Download Logs", comment: "")
             case .Commissions:
