@@ -88,7 +88,6 @@ class SalesViewController: SiteTableViewController {
     private func requestNextPage() {
         EDDAPIWrapper.sharedInstance.requestSales([ "page": lastDownloadedPage ], success: { (json) in
             if let items = json["sales"].array {
-                print(items)
                 if items.count == 20 {
                     self.hasMoreSales = true
                 } else {

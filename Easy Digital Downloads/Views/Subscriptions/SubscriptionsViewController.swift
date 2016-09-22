@@ -71,7 +71,7 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     }
     
     private func networkOperations() {
-        sales = [JSON]()
+        subscriptions = [JSON]()
         
         EDDAPIWrapper.sharedInstance.requestSubscriptions([ : ], success: { (json) in
             if let items = json["subscriptions"].array {
@@ -127,7 +127,7 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let sale = dataSource.selectedObject else {
+        guard let subscription = dataSource.selectedObject else {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             return
         }
@@ -150,10 +150,10 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     }
     
     private func setupDataSource() {
-        let request = Subscription.defaultFetchRequest()
-        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
-        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
+//        let request = Subscription.defaultFetchRequest()
+//        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+//        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
+//        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
     }
 
 }
