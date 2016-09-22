@@ -68,6 +68,7 @@ class SalesDetailViewController: SiteTableViewController {
         switch cells[indexPath.row] {
             case .Meta:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailMetaTableViewCell", forIndexPath: indexPath) as! SalesDetailMetaTableViewCell
+                (cell as! SalesDetailMetaTableViewCell).configure(sale!)
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
             case .Payment:
