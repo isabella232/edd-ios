@@ -14,7 +14,10 @@ class CustomersDetailViewController: SiteTableViewController {
     private enum CellType {
         case Profile
         case Stats
-        case Heading
+        case SalesHeading
+        case Sales
+        case SubscriptionsHeading
+        case Subscriptions
     }
     
     private var cells = [CellType]()
@@ -22,6 +25,7 @@ class CustomersDetailViewController: SiteTableViewController {
     var site: Site?
     var customer: Customer?
     var recentSales: [JSON]?
+    var recentSubscriptions: [JSON]?
     
     init(customer: Customer) {
         super.init(style: .Plain)
@@ -46,7 +50,7 @@ class CustomersDetailViewController: SiteTableViewController {
         tableView.registerClass(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
         tableView.registerClass(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
         
-        cells = [.Profile, .Stats, .Heading]
+        cells = [.Profile, .Stats]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,13 +64,47 @@ class CustomersDetailViewController: SiteTableViewController {
         
         EDDAPIWrapper.sharedInstance.requestSales(["email" : customer!.email], success: { (json) in
             if let items = json["sales"].array {
+                self.cells.append(.SalesHeading)
                 self.recentSales = items
+                if items.count > 5 {
+                    for _ in 1...5 {
+                        self.cells.append(.Sales)
+                    }
+                } else {
+                    for _ in 1...items.count {
+                        self.cells.append(.Sales)
+                    }
+                }
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                 })
             }
             }) { (error) in
                 fatalError()
+        }
+        
+        if (Site.activeSite().hasRecurring != nil) {
+            EDDAPIWrapper.sharedInstance.requestSubscriptions(["email" : customer!.email], success: { (json) in
+                if let items = json["subscriptions"].array {
+                    self.cells.append(.SubscriptionsHeading)
+                    self.recentSubscriptions = items
+                    
+                    if items.count > 5 {
+                        for _ in 1...5 {
+                            self.cells.append(.Subscriptions)
+                        }
+                    } else {
+                        for _ in 1...items.count {
+                            self.cells.append(.Subscriptions)
+                        }
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView.reloadData()
+                    })
+                }
+                }) { (error) in
+                    fatalError()
+            }
         }
     }
     
@@ -77,8 +115,7 @@ class CustomersDetailViewController: SiteTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let salesCount = recentSales?.count ?? 0
-        return cells.count + salesCount
+        return cells.count
     }
     
     // MARK: Table View Delegate
@@ -90,21 +127,25 @@ class CustomersDetailViewController: SiteTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
-        if indexPath.row < 3 {
-            switch(cells[indexPath.row]) {
-                case .Profile:
-                    cell = tableView.dequeueReusableCellWithIdentifier("CustomerProfileTableViewCell", forIndexPath: indexPath) as! CustomerProfileTableViewCell
-                    (cell as! CustomerProfileTableViewCell).configure(customer!)
-                case .Stats:
-                    cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
-                    (cell as! CustomerStatsTableViewCell).configure(customer!)
-                case .Heading:
-                    cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
-                    (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Sales")
-            }
-        } else {
-            cell = tableView.dequeueReusableCellWithIdentifier("CustomerRecentSaleTableViewCell", forIndexPath: indexPath) as! CustomerRecentSaleTableViewCell
-            (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![indexPath.row - 3])
+        switch(cells[indexPath.row]) {
+            case .Profile:
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerProfileTableViewCell", forIndexPath: indexPath) as! CustomerProfileTableViewCell
+                (cell as! CustomerProfileTableViewCell).configure(customer!)
+            case .Stats:
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
+                (cell as! CustomerStatsTableViewCell).configure(customer!)
+            case .SalesHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+                (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Sales")
+            case .Sales:
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerRecentSaleTableViewCell", forIndexPath: indexPath) as! CustomerRecentSaleTableViewCell
+                (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![indexPath.row - 3])
+            case .SubscriptionsHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+                (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
+            case .Subscriptions:
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+                (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
         }
         
         return cell!

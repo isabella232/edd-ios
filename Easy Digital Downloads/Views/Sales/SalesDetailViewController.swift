@@ -35,6 +35,15 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
+        
+        title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.sid)"
+        
+        tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
+        tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
+        tableView.registerClass(SalesDetailPaymentTableViewCell.self, forCellReuseIdentifier: "SalesDetailPaymentTableViewCell")
+        tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
+        
+        cells = [.Meta, .Product, .Payment, .Customer]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,5 +61,22 @@ class SalesDetailViewController: SiteTableViewController {
     }
     
     // MARK: Table View Delegate
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell: UITableViewCell!
+        
+        switch cells[indexPath.row] {
+            case .Meta:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailMetaTableViewCell", forIndexPath: indexPath) as! SalesDetailMetaTableViewCell
+            case .Product:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
+            case .Payment:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailPaymentTableViewCell", forIndexPath: indexPath) as! SalesDetailPaymentTableViewCell
+            case .Customer:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailCustomerTableViewCell", forIndexPath: indexPath) as! SalesDetailCustomerTableViewCell
+        }
+        
+        return cell!
+    }
 
 }

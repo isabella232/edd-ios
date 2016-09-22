@@ -30,6 +30,10 @@
 		F512E4101D918FB90086AD68 /* CustomerStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */; };
 		F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */; };
 		F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */; };
+		F512E4161D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */; };
+		F51A905E1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */; };
+		F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */; };
+		F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */; };
 		F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */; };
 		F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22491D3B948600D114E8 /* GraphData.swift */; };
 		F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523F2211D6650DB000AB028 /* MoreViewController.swift */; };
@@ -160,6 +164,10 @@
 		F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerStatsTableViewCell.swift; sourceTree = "<group>"; };
 		F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRecentSaleTableViewCell.swift; sourceTree = "<group>"; };
+		F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailPaymentTableViewCell.swift; sourceTree = "<group>"; };
+		F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailProductTableViewCell.swift; sourceTree = "<group>"; };
+		F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
+		F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailCustomerTableViewCell.swift; sourceTree = "<group>"; };
 		F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteViewController.swift; sourceTree = "<group>"; };
 		F51F22491D3B948600D114E8 /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		F523F2211D6650DB000AB028 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
@@ -317,6 +325,10 @@
 				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
 				F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */,
 				F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */,
+				F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */,
+				F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */,
+				F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */,
+				F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -782,6 +794,8 @@
 				F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */,
 				F5FAF3C51CFB619800F9F1FF /* Stack.swift in Sources */,
 				F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */,
+				F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */,
+				F51A905E1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift in Sources */,
 				F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */,
 				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
@@ -816,6 +830,7 @@
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
 				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,
+				F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */,
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
 				F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */,
 				F50388931D74940A0059BB38 /* SearchViewController.swift in Sources */,
@@ -847,6 +862,7 @@
 				F503888A1D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift in Sources */,
 				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
 				F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */,
+				F512E4161D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift in Sources */,
 				F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */,
 				F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */,
 			);
