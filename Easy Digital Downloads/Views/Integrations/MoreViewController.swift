@@ -64,6 +64,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         super.leftBarButtonItem = true
     }
     
