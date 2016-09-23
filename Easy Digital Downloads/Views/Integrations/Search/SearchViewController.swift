@@ -72,7 +72,7 @@ class SearchViewController: SiteTableViewController {
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath)
         
         cell.textLabel?.text = filteredTableData[indexPath.row]
         
@@ -88,7 +88,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         let searchTerms = searchBar.text
         if searchTerms?.characters.count > 0 {
-            let encodedSearchTerms = searchTerms!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            let encodedSearchTerms = searchTerms!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             print(encodedSearchTerms)
         }
     }
