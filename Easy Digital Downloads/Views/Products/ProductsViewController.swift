@@ -133,6 +133,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         tableView.registerClass(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductCell")
+        tableView.registerClass(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductThumbnailCell")
         setupDataSource()
     }
     
@@ -156,7 +157,11 @@ extension ProductsViewController: DataProviderDelegate {
 extension ProductsViewController: DataSourceDelegate {
     
     func cellIdentifierForObject(object: Product) -> String {
-        return "ProductCell"
+        if object.thumbnail?.characters.count > 5 && object.thumbnail != "false" {
+            return "ProductThumbnailCell"
+        } else {
+            return "ProductCell"
+        }
     }
     
 }

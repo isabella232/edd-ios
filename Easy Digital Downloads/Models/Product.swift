@@ -24,7 +24,7 @@ public final class Product: ManagedObject {
     @NSManaged public private(set) var pricing: NSData
     @NSManaged public private(set) var stats: NSData?
     @NSManaged public private(set) var status: String
-    @NSManaged public private(set) var thumbnail: String
+    @NSManaged public private(set) var thumbnail: String?
     @NSManaged public private(set) var title: String
     
     // Relationships

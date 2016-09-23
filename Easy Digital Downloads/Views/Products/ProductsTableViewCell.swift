@@ -29,10 +29,21 @@ class ProductsTableViewCell: UITableViewCell {
     let titleLabel: UILabel = UILabel(frame: CGRectZero)
     let pricingLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
-    var thumbnailImageView: UIImageView = UIImageView()
+    private var thumbnailImageView: UIImageView = UIImageView(frame: CGRectZero)
+    var layoutConstraints = [NSLayoutConstraint]()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        thumbnailImageView = {
+            let imageView = UIImageView(frame: CGRectZero)
+            
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .ScaleAspectFit
+            imageView.clipsToBounds = true
+            
+            return imageView
+        }()
         
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.mainScreen().scale
@@ -55,6 +66,16 @@ class ProductsTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        thumbnailImageView.af_cancelImageRequest()
+        thumbnailImageView.layer.removeAllAnimations()
+        thumbnailImageView.image = nil
+        
+        layoutConstraints.removeAll()
+    }
+    
     // MARK: Private
     
     private func layout() {
@@ -67,15 +88,8 @@ class ProductsTableViewCell: UITableViewCell {
         disclosureImageView.sizeToFit()
         contentView.addSubview(disclosureImageView)
         
-        var constraints = [NSLayoutConstraint]()
-        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
-        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
-        
-        NSLayoutConstraint.activateConstraints(constraints)
+        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
+        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
     }
     
 }
@@ -103,6 +117,31 @@ extension ProductsTableViewCell: ConfigurableCell {
             let doubleObject = Double(pricing["amount"] as! String)
             pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: doubleObject!)))"
         }
+        
+        if object.thumbnail?.characters.count > 5 && object.thumbnail != "false" {
+            contentView.addSubview(thumbnailImageView)
+            
+            layoutConstraints.append(thumbnailImageView.widthAnchor.constraintEqualToConstant(40))
+            layoutConstraints.append(thumbnailImageView.heightAnchor.constraintEqualToConstant(40))
+            layoutConstraints.append(thumbnailImageView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+            layoutConstraints.append(thumbnailImageView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
+            layoutConstraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+            layoutConstraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
+            layoutConstraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 65))
+            layoutConstraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+            
+            let url = NSURL(string: object.thumbnail!)
+            thumbnailImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+        } else {
+            thumbnailImageView.removeFromSuperview()
+            
+            layoutConstraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+            layoutConstraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
+            layoutConstraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
+            layoutConstraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        }
+        
+        NSLayoutConstraint.activateConstraints(layoutConstraints)
     }
     
 }
