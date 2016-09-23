@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 class ProductsTableViewCell: UITableViewCell {
     
@@ -27,6 +29,7 @@ class ProductsTableViewCell: UITableViewCell {
     let titleLabel: UILabel = UILabel(frame: CGRectZero)
     let pricingLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
+    var thumbnailImageView: UIImageView = UIImageView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
