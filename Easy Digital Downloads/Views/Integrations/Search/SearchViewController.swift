@@ -22,9 +22,9 @@ class SearchViewController: SiteTableViewController {
     
     init(site: Site) {
         super.init(style: .Plain)
-        
+
         self.site = site
-        
+
         title = NSLocalizedString("Search", comment: "Product Search View Controller title")
         tableView.scrollEnabled = true
         tableView.bounces = true
@@ -35,7 +35,7 @@ class SearchViewController: SiteTableViewController {
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
-        
+
         loadingView = {
             var frame: CGRect = self.view.frame;
             frame.origin.x = 0;
@@ -47,14 +47,14 @@ class SearchViewController: SiteTableViewController {
             
             return view
         }()
-        
+
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
         activityIndicator.center = view.center
         loadingView.addSubview(activityIndicator)
-        
+
         activityIndicator.startAnimating()
-        
+
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
@@ -70,9 +70,10 @@ class SearchViewController: SiteTableViewController {
         searchController.searchBar.translucent = false
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = NSLocalizedString("Search Products", comment: "")
+        searchController.delegate = self
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        
+    
         for view in searchController.searchBar.subviews {
             for field in view.subviews {
                 if field.isKindOfClass(UITextField.self) {
@@ -81,6 +82,15 @@ class SearchViewController: SiteTableViewController {
                     textField.textColor = .whiteColor()
                 }
             }
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchController.active = true
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.searchController.searchBar.becomeFirstResponder()
         }
     }
     
@@ -140,6 +150,16 @@ class SearchViewController: SiteTableViewController {
 //        cell.textLabel?.text = filteredTableData[indexPath.row]
         
         return cell
+    }
+    
+}
+
+extension SearchViewController: UISearchControllerDelegate {
+    
+    // MARK: UISearchControllerDelegate
+    
+    func didPresentSearchController(searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
     }
     
 }
