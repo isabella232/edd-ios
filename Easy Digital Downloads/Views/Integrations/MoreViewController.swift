@@ -26,6 +26,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         case StoreCommissions
         case FileDownloadLogs
         case Reviews
+        case Subscriptions
     }
     
     private struct Section {
@@ -59,8 +60,15 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             Section(type: .General, items: [.SiteInformation, .ManageSites, .ProductSearch]),
             Section(type: .Commissions, items: [.Commissions, .StoreCommissions]),
             Section(type: .Logs, items: [.FileDownloadLogs]),
-            Section(type: .Integrations, items: [.Reviews])
         ]
+        
+        if Site.activeSite().hasReviews != nil && Site.activeSite().hasRecurring != nil {
+            sections.append(Section(type: .Integrations, items: [.Reviews, .Subscriptions]))
+        } else if (Site.activeSite().hasReviews != nil) {
+            sections.append(Section(type: .Integrations, items: [.Reviews]))
+        } else if (Site.activeSite().hasRecurring != nil) {
+            sections.append(Section(type: .Integrations, items: [.Subscriptions]))
+        }
     }
     
     override func viewDidLoad() {
@@ -115,6 +123,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Reviews:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+            case .Subscriptions:
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
@@ -167,6 +177,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
                 cell?.textLabel?.text = NSLocalizedString("Store Commissions", comment: "")
             case .Reviews:
                 cell?.textLabel?.text = NSLocalizedString("Reviews", comment: "")
+            case .Subscriptions:
+                cell?.textLabel?.text = NSLocalizedString("Subscriptions", comment: "")
         }
         
         return cell!
