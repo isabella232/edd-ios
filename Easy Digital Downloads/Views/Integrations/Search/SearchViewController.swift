@@ -145,11 +145,15 @@ class SearchViewController: SiteTableViewController {
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath)
+        var cell = tableView.dequeueReusableCellWithIdentifier("SearchCell")
+        
+        if (cell == nil) {
+            cell = UITableViewCell(style: .Default, reuseIdentifier: "SearchCell")
+        }
         
 //        cell.textLabel?.text = filteredTableData[indexPath.row]
         
-        return cell
+        return cell!
     }
     
 }

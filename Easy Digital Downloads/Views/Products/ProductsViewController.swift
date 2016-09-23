@@ -82,6 +82,10 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         }
         
         for item in products_ {
+            if Product.productForId(item["info"]["id"].int64Value) !== nil {
+                continue
+            }
+            
             var stats: NSData?
             if Site.hasPermissionToViewReports() {
                 stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
