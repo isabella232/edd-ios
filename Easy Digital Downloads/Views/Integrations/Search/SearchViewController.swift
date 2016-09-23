@@ -24,7 +24,7 @@ class SearchViewController: SiteTableViewController {
         
         self.site = site
         
-        title = NSLocalizedString("Product Search", comment: "Product Search View Controller title")
+        title = NSLocalizedString("Search", comment: "Product Search View Controller title")
         tableView.scrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
@@ -68,6 +68,7 @@ class SearchViewController: SiteTableViewController {
         searchController.searchBar.tintColor = .tableViewCellHighlightColor()
         searchController.searchBar.translucent = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = NSLocalizedString("Search Products", comment: "")
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
