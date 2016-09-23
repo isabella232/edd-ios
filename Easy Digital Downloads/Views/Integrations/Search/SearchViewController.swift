@@ -13,11 +13,12 @@ class SearchViewController: SiteTableViewController {
 
     var site: Site?
     
-    var filteredTableData = [String]()
+    var filteredTableData = [JSON]()
     
     let searchController = SearchController(searchResultsController: nil)
     
     var loadingView = UIView()
+    var noResultsView = UIView()
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -87,6 +88,36 @@ class SearchViewController: SiteTableViewController {
         super.init(coder: aDecoder)
     }
     
+    private func showNoResultsView() {
+        noResultsView = {
+            var frame: CGRect = self.view.frame;
+            frame.origin.x = 0;
+            frame.origin.y = 0;
+            
+            let view = UIView(frame: frame)
+            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.backgroundColor = .EDDGreyColor()
+            
+            return view
+        }()
+        
+        let noResultsLabel = UILabel()
+        noResultsLabel.text = NSLocalizedString("No Products Found.", comment: "")
+        noResultsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        noResultsLabel.textAlignment = .Center
+        noResultsLabel.sizeToFit()
+        
+        noResultsView.addSubview(noResultsLabel)
+        view.addSubview(noResultsView)
+        
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(noResultsLabel.widthAnchor.constraintEqualToAnchor(view.widthAnchor))
+        constraints.append(noResultsLabel.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor))
+        
+        NSLayoutConstraint.activateConstraints(constraints)
+    }
+    
     // MARK: Table View Data Source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -106,7 +137,7 @@ class SearchViewController: SiteTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = filteredTableData[indexPath.row]
+//        cell.textLabel?.text = filteredTableData[indexPath.row]
         
         return cell
     }
@@ -123,7 +154,21 @@ extension SearchViewController: UISearchBarDelegate {
         if searchTerms?.characters.count > 0 {
             let encodedSearchTerms = searchTerms!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             EDDAPIWrapper.sharedInstance.requestProducts(["s" : encodedSearchTerms!], success: { (json) in
-                print(json)
+                if let items = json["products"].array {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.loadingView.removeFromSuperview()
+                    })
+                    if items.count == 0 {
+                        self.showNoResultsView()
+                    } else {
+                        for item in items {
+                            self.filteredTableData.append(item)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.tableView.reloadData()
+                            })
+                        }
+                    }
+                }
                 }, failure: { (error) in
                     fatalError()
             })
