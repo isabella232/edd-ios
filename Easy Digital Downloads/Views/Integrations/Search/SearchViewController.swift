@@ -13,6 +13,8 @@ class SearchViewController: SiteTableViewController {
 
     var site: Site?
     
+    var filteredTableData = [String]()
+    
     let searchController = UISearchController(searchResultsController: nil)
     
     init(site: Site) {
@@ -37,14 +39,14 @@ class SearchViewController: SiteTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.barTintColor = .EDDBlackColor()
         searchController.searchBar.backgroundColor = .EDDBlackColor()
         searchController.searchBar.searchBarStyle = .Prominent
-        searchController.searchBar.tintColor = .whiteColor()
+        searchController.searchBar.tintColor = .tableViewCellHighlightColor()
         searchController.searchBar.translucent = false
+        searchController.searchBar.delegate = self
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -52,11 +54,29 @@ class SearchViewController: SiteTableViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     // MARK: Table View Data Source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.active {
+            return filteredTableData.count
+        } else {
+            return 0
+        }
+    }
+    
+    // MARK: Table View Delegate
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! UITableViewCell
+        
+        cell.textLabel?.text = filteredTableData[indexPath.row]
+        
+        return cell
     }
     
 }
@@ -64,18 +84,13 @@ class SearchViewController: SiteTableViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     // MARK: - UISearchBar Delegate
-    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        
-    }
     
-}
-
-extension SearchViewController: UISearchResultsUpdating {
-    
-    // MARK: - UISearchResultsUpdating Delegate
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        let searchTerms = searchBar.text
+        if searchTerms?.characters.count > 0 {
+            let encodedSearchTerms = searchTerms!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            print(encodedSearchTerms)
+        }
     }
     
 }
