@@ -144,6 +144,13 @@ class SearchViewController: SiteTableViewController {
     
     // MARK: Table View Delegate
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // TODO: Push to ProductDetailViewController passing in the ID of the product
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("SearchCell")
         
