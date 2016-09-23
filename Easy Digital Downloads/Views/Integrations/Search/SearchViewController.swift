@@ -65,12 +65,22 @@ class SearchViewController: SiteTableViewController {
         searchController.searchBar.barTintColor = .EDDBlackColor()
         searchController.searchBar.backgroundColor = .EDDBlackColor()
         searchController.searchBar.searchBarStyle = .Prominent
-        searchController.searchBar.tintColor = .tableViewCellHighlightColor()
+        searchController.searchBar.tintColor = .whiteColor()
         searchController.searchBar.translucent = false
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = NSLocalizedString("Search Products", comment: "")
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        
+        for view in searchController.searchBar.subviews {
+            for field in view.subviews {
+                if field.isKindOfClass(UITextField.self) {
+                    let textField: UITextField = field as! UITextField
+                    textField.backgroundColor = .blackColor()
+                    textField.textColor = .whiteColor()
+                }
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
