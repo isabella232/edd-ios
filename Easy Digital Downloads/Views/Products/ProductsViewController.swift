@@ -70,6 +70,19 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         }
     }
     
+    // MARK: Table View Delegate
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let product = dataSource.selectedObject else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+        
+        navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     // MARK: Private
     
     private func requestNextPage() {
