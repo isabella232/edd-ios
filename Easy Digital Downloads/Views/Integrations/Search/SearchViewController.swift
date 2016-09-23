@@ -17,6 +17,8 @@ class SearchViewController: SiteTableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    var loadingView = UIView()
+    
     init(site: Site) {
         super.init(style: .Plain)
         
@@ -32,6 +34,25 @@ class SearchViewController: SiteTableViewController {
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
+        
+        loadingView = {
+            var frame: CGRect = self.view.frame;
+            frame.origin.x = 0;
+            frame.origin.y = 0;
+            
+            let view = UIView(frame: frame)
+            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.backgroundColor = .EDDGreyColor()
+            
+            return view
+        }()
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.center = view.center
+        loadingView.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
@@ -86,10 +107,15 @@ extension SearchViewController: UISearchBarDelegate {
     // MARK: - UISearchBar Delegate
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        view.addSubview(loadingView)
         let searchTerms = searchBar.text
         if searchTerms?.characters.count > 0 {
             let encodedSearchTerms = searchTerms!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-            print(encodedSearchTerms)
+            EDDAPIWrapper.sharedInstance.requestProducts(["s" : encodedSearchTerms!], success: { (json) in
+                print(json)
+                }, failure: { (error) in
+                    fatalError()
+            })
         }
     }
     
