@@ -15,7 +15,7 @@ class SearchViewController: SiteTableViewController {
     
     var filteredTableData = [String]()
     
-    let searchController = UISearchController(searchResultsController: nil)
+    let searchController = SearchController(searchResultsController: nil)
     
     var loadingView = UIView()
     
@@ -105,7 +105,7 @@ class SearchViewController: SiteTableViewController {
 
 extension SearchViewController: UISearchBarDelegate {
     
-    // MARK: - UISearchBar Delegate
+    // MARK: UISearchBar Delegate
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         view.addSubview(loadingView)

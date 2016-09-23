@@ -35,6 +35,8 @@
 		F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */; };
 		F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */; };
 		F51A90641D9498D5003E06C2 /* SubscriptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90631D9498D5003E06C2 /* SubscriptionsTableViewCell.swift */; };
+		F51A90671D951F20003E06C2 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90661D951F20003E06C2 /* SearchBar.swift */; };
+		F51A90691D951FE9003E06C2 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90681D951FE9003E06C2 /* SearchController.swift */; };
 		F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */; };
 		F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22491D3B948600D114E8 /* GraphData.swift */; };
 		F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523F2211D6650DB000AB028 /* MoreViewController.swift */; };
@@ -170,6 +172,8 @@
 		F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
 		F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailCustomerTableViewCell.swift; sourceTree = "<group>"; };
 		F51A90631D9498D5003E06C2 /* SubscriptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsTableViewCell.swift; sourceTree = "<group>"; };
+		F51A90661D951F20003E06C2 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		F51A90681D951FE9003E06C2 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteViewController.swift; sourceTree = "<group>"; };
 		F51F22491D3B948600D114E8 /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		F523F2211D6650DB000AB028 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
@@ -365,6 +369,15 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		F51A90651D951F0D003E06C2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F51A90661D951F20003E06C2 /* SearchBar.swift */,
+				F51A90681D951FE9003E06C2 /* SearchController.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		F51F22461D3B7BED00D114E8 /* Sites */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +470,7 @@
 		F5A3129B1CF2021B000F4F6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F51A90651D951F0D003E06C2 /* Shared */,
 				F50DEB531CFAD210001A6A51 /* Buttons */,
 				F50DEB501CFA4EE8001A6A51 /* Customers */,
 				F502AFFD1CF434EB0089EEE1 /* Dashboard */,
@@ -806,6 +820,7 @@
 				F5FAF3D71CFBA6EF00F9F1FF /* DataSource.swift in Sources */,
 				F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */,
 				F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */,
+				F51A90671D951F20003E06C2 /* SearchBar.swift in Sources */,
 				F5EF5E8F1CF2EE0800298841 /* SiteTabBarController.swift in Sources */,
 				F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */,
 				F5EF5E9E1CF314FA00298841 /* Branding.swift in Sources */,
@@ -817,6 +832,7 @@
 				F5FAF3BF1CFB077500F9F1FF /* SiteTableViewController.swift in Sources */,
 				F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */,
 				F54725001D3C3ADC009D5E8D /* Product.swift in Sources */,
+				F51A90691D951FE9003E06C2 /* SearchController.swift in Sources */,
 				F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */,
 				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
 				F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */,
