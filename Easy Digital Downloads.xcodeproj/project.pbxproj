@@ -38,6 +38,7 @@
 		F51A90671D951F20003E06C2 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90661D951F20003E06C2 /* SearchBar.swift */; };
 		F51A90691D951FE9003E06C2 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90681D951FE9003E06C2 /* SearchController.swift */; };
 		F51A906B1D955AA2003E06C2 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A906A1D955AA2003E06C2 /* SearchTableViewCell.swift */; };
+		F51A906D1D95DB4D003E06C2 /* ProductsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A906C1D95DB4D003E06C2 /* ProductsDetailViewController.swift */; };
 		F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */; };
 		F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51F22491D3B948600D114E8 /* GraphData.swift */; };
 		F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523F2211D6650DB000AB028 /* MoreViewController.swift */; };
@@ -63,6 +64,7 @@
 		F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A312881CF1DAE1000F4F6F /* AppDelegate.swift */; };
 		F5A312901CF1DAE1000F4F6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */; };
 		F5A312931CF1DAE1000F4F6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */; };
+		F5A53E3D1D95E92100483797 /* ProductsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A53E3C1D95E92100483797 /* ProductsDetailHeadingTableViewCell.swift */; };
 		F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */; };
 		F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */; };
 		F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061201D6A206000F9B4E1 /* KeyCodable.swift */; };
@@ -176,6 +178,7 @@
 		F51A90661D951F20003E06C2 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		F51A90681D951FE9003E06C2 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		F51A906A1D955AA2003E06C2 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		F51A906C1D95DB4D003E06C2 /* ProductsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsDetailViewController.swift; sourceTree = "<group>"; };
 		F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteViewController.swift; sourceTree = "<group>"; };
 		F51F22491D3B948600D114E8 /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		F523F2211D6650DB000AB028 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 		F5A3128F1CF1DAE1000F4F6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5A312921CF1DAE1000F4F6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5A312941CF1DAE1000F4F6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5A53E3C1D95E92100483797 /* ProductsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
 		F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Null.swift"; sourceTree = "<group>"; };
 		F5B061201D6A206000F9B4E1 /* KeyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodable.swift; sourceTree = "<group>"; };
@@ -408,6 +412,8 @@
 			children = (
 				F56546DF1D78859600003019 /* ProductsViewController.swift */,
 				F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */,
+				F51A906C1D95DB4D003E06C2 /* ProductsDetailViewController.swift */,
+				F5A53E3C1D95E92100483797 /* ProductsDetailHeadingTableViewCell.swift */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -826,6 +832,7 @@
 				F51A90671D951F20003E06C2 /* SearchBar.swift in Sources */,
 				F5EF5E8F1CF2EE0800298841 /* SiteTabBarController.swift in Sources */,
 				F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */,
+				F5A53E3D1D95E92100483797 /* ProductsDetailHeadingTableViewCell.swift in Sources */,
 				F5EF5E9E1CF314FA00298841 /* Branding.swift in Sources */,
 				F512E4061D91619B0086AD68 /* SalesDetailTableViewCell.swift in Sources */,
 				F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */,
@@ -867,6 +874,7 @@
 				F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */,
 				F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */,
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
+				F51A906D1D95DB4D003E06C2 /* ProductsDetailViewController.swift in Sources */,
 				F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */,
 				F5B982AD1D6BA0D500679271 /* SiteInformationViewController.swift in Sources */,
 				F50388901D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift in Sources */,
