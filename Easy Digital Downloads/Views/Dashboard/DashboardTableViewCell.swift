@@ -297,17 +297,20 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         if cellData["type"] as! Int == 3 {
             type = .Commissions
             
-            if data != nil {
-                let unpaid = data!["unpaid"] as! NSNumber
-                let paid = data!["paid"] as! NSNumber
-                let revoked = data!["revoked"] as! NSNumber
-                
-                stat = Site.currencyFormat(unpaid)
-                
-                firstStatLabel.text = "Unpaid: \(Site.currencyFormat(unpaid))"
-                secondStatLabel.text = "Paid: \(Site.currencyFormat(paid))"
-                thirdStatLabel.text = "Revoked: \(Site.currencyFormat(revoked))"
+            guard let data_ = data else {
+                return
             }
+            
+            let unpaid = (data_["unpaid"] as? NSString)?.doubleValue
+            let paid = (data_["paid"] as? NSString)?.doubleValue
+            let revoked = (data_["revoked"] as? NSString)?.doubleValue
+            
+            
+            stat = Site.currencyFormat(unpaid!)
+            
+            firstStatLabel.text = "Unpaid: \(Site.currencyFormat(unpaid!))"
+            secondStatLabel.text = "Paid: \(Site.currencyFormat(paid!))"
+            thirdStatLabel.text = "Revoked: \(Site.currencyFormat(revoked!))"
         }
     }
     
