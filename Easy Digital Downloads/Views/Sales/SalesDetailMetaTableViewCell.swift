@@ -65,12 +65,15 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         dateHeading.textColor = .EDDBlueColor()
         gatewayHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         gatewayHeading.textColor = .EDDBlueColor()
+        discountHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        discountHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
         transactionIdHeading.text = NSLocalizedString("Transaction ID", comment: "")
         keyHeading.text = NSLocalizedString("Key", comment: "")
         dateHeading.text = NSLocalizedString("Date", comment: "")
         gatewayHeading.text = NSLocalizedString("Gateway", comment: "")
+        discountHeading.text = NSLocalizedString("Discount", comment: "")
         
         // Styling for labels
         transactionIdLabel.textColor = .EDDBlackColor()
@@ -81,6 +84,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         gatewayLabel.textColor = .EDDBlackColor()
         gatewayLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        discountLabel.textColor = .EDDBlackColor()
+        discountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }
@@ -89,7 +94,7 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(sale: Sale) {
+    func configure(sale: Sale) {        
         let chargedText: String = NSLocalizedString("payment", comment: "")
         titleLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
         transactionIdLabel.text = sale.transactionId

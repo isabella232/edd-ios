@@ -16,7 +16,7 @@ public final class Sale: ManagedObject {
     // Attributes
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var date: NSDate
-    @NSManaged public private(set) var discounts: NSData
+    @NSManaged public private(set) var discounts: [String: AnyObject]?
     @NSManaged public private(set) var email: String
     @NSManaged public private(set) var fees: [String: AnyObject]?
     @NSManaged public private(set) var gateway: String
@@ -30,14 +30,13 @@ public final class Sale: ManagedObject {
     
     // Relationships
     @NSManaged public private(set) var site: Site
-    @NSManaged public private(set) var customer: Customer
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         createdAt = NSDate()
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject]) -> Sale {
+    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.date = date
         sale.email = email
@@ -51,6 +50,7 @@ public final class Sale: ManagedObject {
         sale.transactionId = transactionId
         sale.site = Site.fetchRecordForActiveSite(inContext: moc)
         sale.products = NSKeyedArchiver.archivedDataWithRootObject(products)
+        sale.discounts = discounts
         
         return sale
     }
