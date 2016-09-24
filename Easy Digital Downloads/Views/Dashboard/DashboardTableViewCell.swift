@@ -262,47 +262,27 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         
         // Earnings
         if cellData["type"] as! Int == 2 {
-            let currency = site.currency!
-            
-            let localeComponents = [NSLocaleCurrencyCode: currency]
-            let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
-            let locale = NSLocale(localeIdentifier: localeIdentifier)
-            
-            let formatter = NSNumberFormatter()
-            formatter.locale = locale
-            formatter.numberStyle = .CurrencyStyle
-            
-            stat = formatter.stringFromNumber(cellStats.earnings["today"] as! NSNumber)!
+            stat = Site.currencyFormat(cellStats.earnings["today"] as! NSNumber)
             
             _earningsData = data.map({ Item -> Double in
                 return Item as! Double
             })
             type = .Earnings
             
-            firstStatLabel.text = "Current Month: \(formatter.stringFromNumber(cellStats.earnings["current_month"] as! NSNumber)!)"
-            secondStatLabel.text = "Last Month: \(formatter.stringFromNumber(cellStats.earnings["last_month"] as! NSNumber)!)"
-            thirdStatLabel.text = "Total: \(formatter.stringFromNumber(cellStats.earnings["totals"] as! NSNumber)!)"
+            firstStatLabel.text = "Current Month: \(Site.currencyFormat(cellStats.earnings["current_month"] as! NSNumber))"
+            secondStatLabel.text = "Last Month: \(Site.currencyFormat(cellStats.earnings["last_month"] as! NSNumber))"
+            thirdStatLabel.text = "Total: \(Site.currencyFormat(cellStats.earnings["totals"] as! NSNumber))"
         }
     }
     
     func configureSmallStaticCell(cellData: NSDictionary, cellStat: String?) {
         title = cellData["title"] as! String
         
-        guard let _cellStat = cellStat else {
+        guard let cellStat_ = cellStat else {
             return
         }
         
-        let currency = site.currency!
-        
-        let localeComponents = [NSLocaleCurrencyCode: currency]
-        let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
-        let locale = NSLocale(localeIdentifier: localeIdentifier)
-        
-        let formatter = NSNumberFormatter()
-        formatter.locale = locale
-        formatter.numberStyle = .CurrencyStyle
-        
-        stat = formatter.stringFromNumber((_cellStat as NSString).doubleValue)!
+        stat = Site.currencyFormat((cellStat_ as NSString).doubleValue)
         
         // Store Commissions
         if cellData["type"] as! Int == 4 {
@@ -317,26 +297,16 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         if cellData["type"] as! Int == 3 {
             type = .Commissions
             
-            let currency = site.currency!
-            
-            let localeComponents = [NSLocaleCurrencyCode: currency]
-            let localeIdentifier = NSLocale.localeIdentifierFromComponents(localeComponents)
-            let locale = NSLocale(localeIdentifier: localeIdentifier)
-            
-            let formatter = NSNumberFormatter()
-            formatter.locale = locale
-            formatter.numberStyle = .CurrencyStyle
-            
             if data != nil {
-                let unpaid = (data!["unpaid"] as! NSString).doubleValue
-                let paid = (data!["paid"] as! NSString).doubleValue
-                let revoked = (data!["revoked"] as! NSString).doubleValue
+                let unpaid = data!["unpaid"] as! NSNumber
+                let paid = data!["paid"] as! NSNumber
+                let revoked = data!["revoked"] as! NSNumber
                 
-                stat = formatter.stringFromNumber(unpaid)!
+                stat = Site.currencyFormat(unpaid)
                 
-                firstStatLabel.text = "Unpaid: \(formatter.stringFromNumber(unpaid)!)"
-                secondStatLabel.text = "Paid: \(formatter.stringFromNumber(paid)!)"
-                thirdStatLabel.text = "Revoked: \(formatter.stringFromNumber(revoked)!)"
+                firstStatLabel.text = "Unpaid: \(Site.currencyFormat(unpaid))"
+                secondStatLabel.text = "Paid: \(Site.currencyFormat(paid))"
+                thirdStatLabel.text = "Revoked: \(Site.currencyFormat(revoked))"
             }
         }
     }
