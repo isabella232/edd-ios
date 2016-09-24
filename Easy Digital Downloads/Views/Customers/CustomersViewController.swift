@@ -35,8 +35,10 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
             }
         }
     }
+
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 1
+    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +122,8 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     
     private func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        NSUserDefaults.standardUserDefaults().setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CustomersPage")
+        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CustomersPage")
+        sharedDefaults.synchronize()
     }
     
     private func persistCustomers() {

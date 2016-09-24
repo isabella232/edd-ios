@@ -36,7 +36,9 @@ class SalesViewController: SiteTableViewController {
         }
     }
     
-    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 1
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    
+    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,13 +108,16 @@ class SalesViewController: SiteTableViewController {
     
     private func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        NSUserDefaults.standardUserDefaults().setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
+        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
+        sharedDefaults.synchronize()
     }
     
     private func persistSales() {
         guard let sales_ = sales else {
             return
         }
+        
+        print(sales_)
         
         for item in sales_ {
             if Sale.saleForId(item["ID"].stringValue) !== nil {
