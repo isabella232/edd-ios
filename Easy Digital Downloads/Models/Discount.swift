@@ -39,3 +39,49 @@ public final class Discount: ManagedObject {
     }
 
 }
+
+extension Discount: ManagedObjectType {
+    
+    public static var entityName: String {
+        return "Discount"
+    }
+    
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: CreatedTimestampKey, ascending: false)]
+    }
+    
+    public static var defaultPredicate: NSPredicate {
+        return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
+    }
+    
+    public static func defaultFetchRequest() -> NSFetchRequest {
+        let request = NSFetchRequest(entityName: self.entityName)
+        request.fetchLimit = 20
+        request.predicate = defaultPredicate
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: Discount.Keys.ID.rawValue, ascending: false)]
+        return request
+    }
+    
+}
+
+extension Discount: KeyCodable {
+    
+    public enum Keys: String {
+        case Amount = "amount"
+        case Code = "code"
+        case ID = "did"
+        case ExpiryDate = "expiryDate"
+        case MaxUses = "maxUses"
+        case MinPrice = "minPrice"
+        case Name = "name"
+        case ProductRequirements = "productRequirements"
+        case RequirementConditions = "requirementConditions"
+        case SingleUse = "singleUse"
+        case StartDate = "startDate"
+        case Status = "status"
+        case Type = "type"
+        case Uses = "uses"
+    }
+    
+}

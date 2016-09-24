@@ -79,6 +79,7 @@
 		F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */; };
 		F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */; };
 		F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B61D6BA21800679271 /* NewSiteViewController.swift */; };
+		F5E4887B1D97086A00C7A2A8 /* DiscountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */; };
 		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
 		F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */; };
 		F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */; };
@@ -225,6 +226,7 @@
 		F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B61D6BA21800679271 /* NewSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSiteViewController.swift; sourceTree = "<group>"; };
+		F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsViewController.swift; sourceTree = "<group>"; };
 		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesTableViewController.swift; sourceTree = "<group>"; };
 		F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesViewController.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 		F523F2201D6650B7000AB028 /* Integrations */ = {
 			isa = PBXGroup;
 			children = (
+				F5E488791D97084C00C7A2A8 /* Discounts */,
 				F5E7827C1D8EEB0E00D29268 /* SiteInformation */,
 				F50388911D7493DF0059BB38 /* Search */,
 				F5B061271D6AFEDE00F9B4E1 /* Reviews */,
@@ -568,6 +571,14 @@
 				F5B061351D6B015000F9B4E1 /* Info.plist */,
 			);
 			path = EDDToday;
+			sourceTree = "<group>";
+		};
+		F5E488791D97084C00C7A2A8 /* Discounts */ = {
+			isa = PBXGroup;
+			children = (
+				F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */,
+			);
+			path = Discounts;
 			sourceTree = "<group>";
 		};
 		F5E7827C1D8EEB0E00D29268 /* SiteInformation */ = {
@@ -861,6 +872,7 @@
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
 				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,
 				F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */,
+				F5E4887B1D97086A00C7A2A8 /* DiscountsViewController.swift in Sources */,
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
 				F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */,
 				F50388931D74940A0059BB38 /* SearchViewController.swift in Sources */,
