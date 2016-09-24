@@ -15,10 +15,10 @@ public final class Discount: ManagedObject {
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var amount: Double
     @NSManaged public private(set) var code: String
-    @NSManaged public private(set) var did: Int16
+    @NSManaged public private(set) var did: Int64
     @NSManaged public private(set) var expiryDate: NSDate
     @NSManaged public private(set) var globalDiscount: NSNumber
-    @NSManaged public private(set) var maxUses: Int16
+    @NSManaged public private(set) var maxUses: Int64
     @NSManaged public private(set) var minPrice: Double
     @NSManaged public private(set) var name: String
     @NSManaged public private(set) var productRequirements: NSArray
@@ -27,7 +27,7 @@ public final class Discount: ManagedObject {
     @NSManaged public private(set) var startDate: NSDate
     @NSManaged public private(set) var status: String
     @NSManaged public private(set) var type: String
-    @NSManaged public private(set) var uses: Int16
+    @NSManaged public private(set) var uses: Int64
     
     // Relationships
     @NSManaged public private(set) var site: Site
@@ -36,6 +36,10 @@ public final class Discount: ManagedObject {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         createdAt = NSDate()
+    }
+    
+    public static func predicateForId(discountId: Int64) -> NSPredicate {
+        return NSPredicate(format: "%K == %lld", Discount.Keys.ID.rawValue, discountId)
     }
 
 }
