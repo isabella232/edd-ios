@@ -44,6 +44,10 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
     private let keyLabel: UILabel = UILabel(frame: CGRectZero)
     private let dateHeading: UILabel = UILabel(frame: CGRectZero)
     private let dateLabel: UILabel = UILabel(frame: CGRectZero)
+    private let gatewayHeading: UILabel = UILabel(frame: CGRectZero)
+    private let gatewayLabel: UILabel = UILabel(frame: CGRectZero)
+    private let discountHeading: UILabel = UILabel(frame: CGRectZero)
+    private let discountLabel: UILabel = UILabel(frame: CGRectZero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,11 +63,14 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         keyHeading.textColor = .EDDBlueColor()
         dateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         dateHeading.textColor = .EDDBlueColor()
+        gatewayHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        gatewayHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
         transactionIdHeading.text = NSLocalizedString("Transaction ID", comment: "")
         keyHeading.text = NSLocalizedString("Key", comment: "")
         dateHeading.text = NSLocalizedString("Date", comment: "")
+        gatewayHeading.text = NSLocalizedString("Gateway", comment: "")
         
         // Styling for labels
         transactionIdLabel.textColor = .EDDBlackColor()
@@ -72,6 +79,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         keyLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         dateLabel.textColor = .EDDBlackColor()
         dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        gatewayLabel.textColor = .EDDBlackColor()
+        gatewayLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }
@@ -86,6 +95,10 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         transactionIdLabel.text = sale.transactionId
         keyLabel.text = sale.key
         dateLabel.text = sharedDateFormatter.stringFromDate(sale.date)
+        let firstCharacter = String(sale.gateway.characters.prefix(1)).uppercaseString
+        let gatewayCharacters = String(sale.gateway.characters.dropFirst())
+        gatewayLabel.text = firstCharacter + gatewayCharacters
+        
         layout()
     }
     
@@ -97,6 +110,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(keyLabel)
         stackView.addArrangedSubview(dateHeading)
         stackView.addArrangedSubview(dateLabel)
+        stackView.addArrangedSubview(gatewayHeading)
+        stackView.addArrangedSubview(gatewayLabel)
 
         containerView.addSubview(stackView)
         
@@ -117,6 +132,9 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         constraints.append(keyLabel.bottomAnchor.constraintEqualToAnchor(dateHeading.topAnchor, constant: -20))
         constraints.append(dateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(dateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.bottomAnchor.constraintEqualToAnchor(gatewayHeading.topAnchor, constant: -20))
+        constraints.append(gatewayHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(gatewayLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
         constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
