@@ -308,9 +308,9 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             
             stat = Site.currencyFormat(unpaid!)
             
-            firstStatLabel.text = "Unpaid: \(Site.currencyFormat(unpaid!))"
-            secondStatLabel.text = "Paid: \(Site.currencyFormat(paid!))"
-            thirdStatLabel.text = "Revoked: \(Site.currencyFormat(revoked!))"
+            firstStatLabel.text = NSLocalizedString("Unpaid:", comment: "") +  " " + "\(Site.currencyFormat(unpaid!))"
+            secondStatLabel.text = NSLocalizedString("Paid:", comment: "") + " " + "\(Site.currencyFormat(paid!))"
+            thirdStatLabel.text = NSLocalizedString("Revoked:", comment: "") + " " + "\(Site.currencyFormat(revoked!))"
         }
     }
     
