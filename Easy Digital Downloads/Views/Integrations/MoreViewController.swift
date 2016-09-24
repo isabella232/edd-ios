@@ -14,8 +14,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
     private enum SectionType {
         case General
         case Commissions
-        case Logs
-        case Integrations
+        case Misc
     }
     
     private enum Item {
@@ -24,6 +23,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         case ProductSearch
         case Commissions
         case StoreCommissions
+        case Discounts
         case FileDownloadLogs
         case Reviews
         case Subscriptions
@@ -59,15 +59,14 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         sections = [
             Section(type: .General, items: [.SiteInformation, .ManageSites, .ProductSearch]),
             Section(type: .Commissions, items: [.Commissions, .StoreCommissions]),
-            Section(type: .Logs, items: [.FileDownloadLogs]),
         ]
         
         if Site.activeSite().hasReviews != nil && Site.activeSite().hasRecurring != nil {
-            sections.append(Section(type: .Integrations, items: [.Reviews, .Subscriptions]))
+            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews, .Subscriptions]))
         } else if (Site.activeSite().hasReviews != nil) {
-            sections.append(Section(type: .Integrations, items: [.Reviews]))
+            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews]))
         } else if (Site.activeSite().hasRecurring != nil) {
-            sections.append(Section(type: .Integrations, items: [.Subscriptions]))
+            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Subscriptions]))
         }
     }
     
@@ -95,15 +94,10 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         switch sections[section].type {
             case .General:
                 return NSLocalizedString("General", comment: "")
-
             case .Commissions:
                 return NSLocalizedString("Commissions", comment: "")
-
-            case .Logs:
-                return NSLocalizedString("Logs", comment: "")
-
-            case .Integrations:
-                return NSLocalizedString("Integrations", comment: "")
+            case .Misc:
+                return NSLocalizedString("Misc", comment: "")
         }
     }
     
@@ -120,6 +114,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .Commissions:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .StoreCommissions:
+                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+            case .Discounts:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Reviews:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
@@ -179,6 +175,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
                 cell?.textLabel?.text = NSLocalizedString("Reviews", comment: "")
             case .Subscriptions:
                 cell?.textLabel?.text = NSLocalizedString("Subscriptions", comment: "")
+            case .Discounts:
+                cell?.textLabel?.text = NSLocalizedString("Discounts", comment: "")
         }
         
         return cell!
