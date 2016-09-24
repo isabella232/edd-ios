@@ -95,7 +95,7 @@ extension Customer: ManagedObjectType {
         let request = NSFetchRequest(entityName: self.entityName)
         request.fetchLimit = 20
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keys.CreatedAt.rawValue, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: Customer.Keys.DateCreated.rawValue, ascending: false)]
         return request
     }
     
@@ -105,6 +105,7 @@ extension Customer: KeyCodable {
     
     public enum Keys: String {
         case CreatedAt = "createdAt"
+        case DateCreated = "dateCreated"
         case DisplayName = "displayName"
         case Email = "email"
         case FirstName = "firstName"
