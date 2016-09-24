@@ -131,7 +131,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
             return
         }
         
-        for item in customers_ {
+        for item in customers_.unique {
             if Customer.customerForId(item["info"]["user_id"].int64Value) !== nil {
                 continue
             }

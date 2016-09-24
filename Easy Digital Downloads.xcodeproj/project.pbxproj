@@ -80,6 +80,7 @@
 		F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */; };
 		F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B61D6BA21800679271 /* NewSiteViewController.swift */; };
 		F5E4887B1D97086A00C7A2A8 /* DiscountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */; };
+		F5E4887D1D973E0B00C7A2A8 /* Array+Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887C1D973E0B00C7A2A8 /* Array+Unique.swift */; };
 		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
 		F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */; };
 		F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */; };
@@ -227,6 +228,7 @@
 		F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B61D6BA21800679271 /* NewSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSiteViewController.swift; sourceTree = "<group>"; };
 		F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsViewController.swift; sourceTree = "<group>"; };
+		F5E4887C1D973E0B00C7A2A8 /* Array+Unique.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Unique.swift"; sourceTree = "<group>"; };
 		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesTableViewController.swift; sourceTree = "<group>"; };
 		F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesViewController.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */,
 				F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */,
 				F512E40B1D91847C0086AD68 /* Gravatar.swift */,
+				F5E4887C1D973E0B00C7A2A8 /* Array+Unique.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
 				F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */,
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
+				F5E4887D1D973E0B00C7A2A8 /* Array+Unique.swift in Sources */,
 				F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
 				F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */,

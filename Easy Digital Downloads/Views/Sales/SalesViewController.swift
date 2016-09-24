@@ -117,9 +117,7 @@ class SalesViewController: SiteTableViewController {
             return
         }
         
-        print(sales_)
-        
-        for item in sales_ {
+        for item in sales_.unique {
             if Sale.saleForId(item["ID"].stringValue) !== nil {
                 print("\(item["ID"]) exists")
                 continue

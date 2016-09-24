@@ -133,7 +133,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             return
         }
         
-        for item in products_ {
+        for item in products_.unique {
             if Product.productForId(item["info"]["id"].int64Value) !== nil {
                 continue
             }
