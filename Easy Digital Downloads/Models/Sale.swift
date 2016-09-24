@@ -102,6 +102,7 @@ public final class Sale: ManagedObject {
     public static func defaultFetchRequest() -> NSFetchRequest {
         let request = NSFetchRequest(entityName: "Sale")
         request.returnsObjectsAsFaults = false
+        request.predicate = defaultPredicate
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         return request
     }
@@ -132,7 +133,7 @@ extension Sale: ManagedObjectType {
     }
     
     public static var defaultPredicate: NSPredicate {
-        return NSPredicate()
+        return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
     }
     
 }

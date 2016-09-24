@@ -36,7 +36,7 @@ class SalesViewController: SiteTableViewController {
         }
     }
     
-    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 0
+    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +116,7 @@ class SalesViewController: SiteTableViewController {
         
         for item in sales_ {
             if Sale.saleForId(item["ID"].stringValue) !== nil {
+                print("\(item["ID"]) exists")
                 continue
             }
             

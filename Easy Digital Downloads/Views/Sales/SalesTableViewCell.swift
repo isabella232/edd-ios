@@ -89,6 +89,8 @@ final class SalesTableViewCell: UITableViewCell {
 extension SalesTableViewCell: ConfigurableCell {
 
     func configureForObject(object: Sale) {
+        print("Object site ID: \(object.site.uid). Actual site ID: \(Site.activeSite().uid)")
+        
         let chargedText: String = NSLocalizedString("charged", comment: "")
         amountLabel.text = "\(Site.currencyFormat(object.total)) \(chargedText)"
         

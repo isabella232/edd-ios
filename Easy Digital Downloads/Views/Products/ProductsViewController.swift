@@ -26,6 +26,18 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     var site: Site?
     var products: [JSON]?
     
+    var hasMoreProducts: Bool = true {
+        didSet {
+            if (!hasMoreProducts) {
+                activityIndicatorView.stopAnimating()
+            } else {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+    
+    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-ProductsPage") ?? 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,18 +68,26 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        networkOperations()
+    }
+    
+    func networkOperations() {
         products = [JSON]()
         
         EDDAPIWrapper.sharedInstance.requestProducts([:], success: { (json) in
             if let items = json["products"].array {
-                for item in items {
-                    self.products?.append(item)
-                }
+                self.products = items
+                self.updateLastDownloadedPage()
+                self.requestNextPage()
             }
-            self.persistProducts()
         }) { (error) in
             NSLog(error.localizedDescription)
         }
+    }
+    
+    private func updateLastDownloadedPage() {
+        self.lastDownloadedPage = self.lastDownloadedPage + 1;
+        NSUserDefaults.standardUserDefaults().setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
     }
     
     // MARK: Table View Delegate
@@ -86,7 +106,23 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     // MARK: Private
     
     private func requestNextPage() {
-        
+        EDDAPIWrapper.sharedInstance.requestProducts([ "page": lastDownloadedPage ], success: { (json) in
+            if let items = json["products"].array {
+                if items.count == 20 {
+                    self.hasMoreProducts = true
+                } else {
+                    self.hasMoreProducts = false
+                }
+                for item in items {
+                    self.products?.append(item)
+                }
+                self.updateLastDownloadedPage()
+            }
+            self.persistProducts()
+        }) { (error) in
+            fatalError()
+        }
+
     }
     
     private func persistProducts() {
