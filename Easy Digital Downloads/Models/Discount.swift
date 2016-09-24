@@ -16,15 +16,15 @@ public final class Discount: ManagedObject {
     @NSManaged public private(set) var amount: Double
     @NSManaged public private(set) var code: String
     @NSManaged public private(set) var did: Int64
-    @NSManaged public private(set) var expiryDate: NSDate
+    @NSManaged public private(set) var expiryDate: NSDate?
     @NSManaged public private(set) var globalDiscount: NSNumber
     @NSManaged public private(set) var maxUses: Int64
     @NSManaged public private(set) var minPrice: Double
     @NSManaged public private(set) var name: String
-    @NSManaged public private(set) var productRequirements: NSArray
+    @NSManaged public private(set) var productRequirements: NSData?
     @NSManaged public private(set) var requirementConditions: String
     @NSManaged public private(set) var singleUse: NSNumber
-    @NSManaged public private(set) var startDate: NSDate
+    @NSManaged public private(set) var startDate: NSDate?
     @NSManaged public private(set) var status: String
     @NSManaged public private(set) var type: String
     @NSManaged public private(set) var uses: Int64
@@ -42,6 +42,28 @@ public final class Discount: ManagedObject {
         return NSPredicate(format: "%K == %lld", Discount.Keys.ID.rawValue, discountId)
     }
 
+    public static func insertIntoContext(moc: NSManagedObjectContext, amount: Double, code: String, did: Int64, expiryDate: NSDate?, globalDiscount: NSNumber, maxUses: Int64, minPrice: Double, name: String, productRequirements: NSData?, requirementConditions: String, singleUse: NSNumber, startDate: NSDate?, status: String, type: String, uses: Int64) -> Discount {
+        let discount: Discount = moc.insertObject()
+        discount.amount = amount
+        discount.code = code
+        discount.did = did
+        discount.expiryDate = expiryDate
+        discount.globalDiscount = globalDiscount
+        discount.maxUses = maxUses
+        discount.minPrice = minPrice
+        discount.name = name
+        discount.productRequirements = productRequirements
+        discount.requirementConditions = requirementConditions
+        discount.singleUse = singleUse
+        discount.startDate = startDate
+        discount.status = status
+        discount.type = type
+        discount.uses = uses
+        discount.site = Site.fetchRecordForActiveSite(inContext: moc)
+        
+        return discount
+    }
+    
 }
 
 extension Discount: ManagedObjectType {
@@ -76,6 +98,7 @@ extension Discount: KeyCodable {
         case Code = "code"
         case ID = "did"
         case ExpiryDate = "expiryDate"
+        case GlobalDiscount = "globalDiscount"
         case MaxUses = "maxUses"
         case MinPrice = "minPrice"
         case Name = "name"
