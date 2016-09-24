@@ -16,6 +16,7 @@ public final class Sale: ManagedObject {
     // Attributes
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var date: NSDate
+    @NSManaged public private(set) var discounts: NSData
     @NSManaged public private(set) var email: String
     @NSManaged public private(set) var fees: [String: AnyObject]?
     @NSManaged public private(set) var gateway: String
@@ -29,7 +30,6 @@ public final class Sale: ManagedObject {
     // Relationships
     @NSManaged public private(set) var site: Site
     @NSManaged private(set) var products: Set<Product>
-    @NSManaged private(set) var discounts: Set<Discount>
     @NSManaged public private(set) var customer: Customer
     
     public override func awakeFromInsert() {
@@ -52,8 +52,13 @@ public final class Sale: ManagedObject {
         sale.site = Site.fetchRecordForActiveSite(inContext: moc)
         
         for product in products {
-            let items = sale.mutableSetValueForKey(Sale.Keys.Products.rawValue)
-            
+            if let productRecord = Product.fetchRecordForId(product["id"].int64Value, inContext: moc) {
+                sale.mutableSetValueForKey(Sale.Keys.Products).addObject(productRecord)
+            } else {
+                let product: Product = moc.insertObject()
+                product.title = product["name"]
+                
+            }
         }
     
         return sale

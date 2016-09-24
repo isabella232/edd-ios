@@ -77,6 +77,14 @@ public final class Product: ManagedObject {
         }
     }
     
+    public static func fetchRecordForId(productId: Int64, inContext moc: NSManagedObjectContext) -> Product? {
+        let product = Product.fetchSingleObjectInContext(moc) { request in
+            request.predicate = predicateForId(productId)
+            request.fetchLimit = 1
+        }
+        return product ?? nil
+    }
+    
 }
 
 extension Product: ManagedObjectType {

@@ -23,7 +23,7 @@
         <attribute name="totalSpent" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sale" inverseName="customer" inverseEntity="Sale" syncable="YES"/>
+        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sale" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="customers" inverseEntity="Site" syncable="YES"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="customer" inverseEntity="Subscription" syncable="YES"/>
     </entity>
@@ -61,9 +61,7 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="products" inverseEntity="Sale" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="products" inverseEntity="Site" syncable="YES"/>
-        <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="product" inverseEntity="Subscription" syncable="YES"/>
     </entity>
     <entity name="Sale" representedClassName=".Sale" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -73,13 +71,12 @@
         <attribute name="fees" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="gateway" attributeType="String" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
+        <attribute name="products" optional="YES" syncable="YES"/>
         <attribute name="sid" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="subtotal" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="total" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="transactionId" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="sales" inverseEntity="Customer" syncable="YES"/>
-        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="sales" inverseEntity="Product" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="sales" inverseEntity="Site" syncable="YES"/>
     </entity>
     <entity name="Site" representedClassName=".Site" syncable="YES">
@@ -116,16 +113,15 @@
         <attribute name="sid" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="customer" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="subscriptions" inverseEntity="Customer" syncable="YES"/>
-        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="subscriptions" inverseEntity="Product" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="subscriptions" inverseEntity="Site" syncable="YES"/>
     </entity>
     <elements>
         <element name="Commission" positionX="-9" positionY="189" width="128" height="180"/>
         <element name="Customer" positionX="-27" positionY="45" width="128" height="255"/>
         <element name="Discount" positionX="-9" positionY="54" width="128" height="300"/>
-        <element name="Product" positionX="-45" positionY="36" width="128" height="300"/>
-        <element name="Sale" positionX="-54" positionY="27" width="128" height="270"/>
+        <element name="Product" positionX="-45" positionY="36" width="128" height="270"/>
+        <element name="Sale" positionX="-54" positionY="27" width="128" height="255"/>
         <element name="Site" positionX="-54" positionY="-9" width="128" height="300"/>
-        <element name="Subscription" positionX="-18" positionY="135" width="128" height="285"/>
+        <element name="Subscription" positionX="-18" positionY="135" width="128" height="270"/>
     </elements>
 </model>
