@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16B2327e" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Commission" representedClassName=".Commission" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -44,7 +44,6 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uses" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="discounts" inverseEntity="Sale" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="discounts" inverseEntity="Site" syncable="YES"/>
     </entity>
     <entity name="Product" representedClassName=".Product" syncable="YES">
@@ -69,6 +68,7 @@
     <entity name="Sale" representedClassName=".Sale" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="discounts" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="fees" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="gateway" attributeType="String" syncable="YES"/>
@@ -79,7 +79,6 @@
         <attribute name="total" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="transactionId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="sales" inverseEntity="Customer" syncable="YES"/>
-        <relationship name="discounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Discount" inverseName="sales" inverseEntity="Discount" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="sales" inverseEntity="Product" syncable="YES"/>
         <relationship name="site" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Site" inverseName="sales" inverseEntity="Site" syncable="YES"/>
     </entity>
@@ -123,7 +122,7 @@
     <elements>
         <element name="Commission" positionX="-9" positionY="189" width="128" height="180"/>
         <element name="Customer" positionX="-27" positionY="45" width="128" height="255"/>
-        <element name="Discount" positionX="-9" positionY="54" width="128" height="315"/>
+        <element name="Discount" positionX="-9" positionY="54" width="128" height="300"/>
         <element name="Product" positionX="-45" positionY="36" width="128" height="300"/>
         <element name="Sale" positionX="-54" positionY="27" width="128" height="270"/>
         <element name="Site" positionX="-54" positionY="-9" width="128" height="300"/>
