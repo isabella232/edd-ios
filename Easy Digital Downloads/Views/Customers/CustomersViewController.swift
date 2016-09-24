@@ -36,7 +36,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         }
     }
     
-    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 0
+    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +100,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     private func requestNextPage() {
         EDDAPIWrapper.sharedInstance.requestCustomers([ "page": lastDownloadedPage ], success: { (json) in
             if let items = json["customers"].array {
-                if items.count == 50 {
+                if items.count == 20 {
                     self.hasMoreCustomers = true
                 } else {
                     self.hasMoreCustomers = false
