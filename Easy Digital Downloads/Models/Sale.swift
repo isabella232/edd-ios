@@ -21,6 +21,7 @@ public final class Sale: ManagedObject {
     @NSManaged public private(set) var fees: [String: AnyObject]?
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var key: String
+    @NSManaged public private(set) var products: NSData
     @NSManaged public private(set) var sid: Int64
     @NSManaged public private(set) var subtotal: NSNumber
     @NSManaged public private(set) var tax: NSNumber
@@ -29,7 +30,6 @@ public final class Sale: ManagedObject {
     
     // Relationships
     @NSManaged public private(set) var site: Site
-    @NSManaged private(set) var products: Set<Product>
     @NSManaged public private(set) var customer: Customer
     
     public override func awakeFromInsert() {
@@ -37,7 +37,7 @@ public final class Sale: ManagedObject {
         createdAt = NSDate()
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [JSON]) -> Sale {
+    public static func insertIntoContext(moc: NSManagedObjectContext, date: NSDate, email: String, fees: [String: AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject]) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.date = date
         sale.email = email
@@ -50,17 +50,8 @@ public final class Sale: ManagedObject {
         sale.total = total
         sale.transactionId = transactionId
         sale.site = Site.fetchRecordForActiveSite(inContext: moc)
+        sale.products = NSKeyedArchiver.archivedDataWithRootObject(products)
         
-        for product in products {
-            if let productRecord = Product.fetchRecordForId(product["id"].int64Value, inContext: moc) {
-                sale.mutableSetValueForKey(Sale.Keys.Products).addObject(productRecord)
-            } else {
-                let product: Product = moc.insertObject()
-                product.title = product["name"]
-                
-            }
-        }
-    
         return sale
     }
     

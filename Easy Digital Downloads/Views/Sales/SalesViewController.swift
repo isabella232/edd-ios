@@ -121,8 +121,9 @@ class SalesViewController: SiteTableViewController {
             if Sale.saleForId(item["ID"].stringValue) !== nil {
                 continue
             }
+        
             
-            Sale.insertIntoContext(managedObjectContext, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].dictionaryObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int64(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue, products: item["products"].arrayValue)
+            Sale.insertIntoContext(managedObjectContext, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].dictionaryObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int64(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue, products: item["products"].arrayObject!)
         }
         
         do {
