@@ -14,6 +14,7 @@ class SalesDetailViewController: SiteTableViewController {
 
     private enum CellType {
         case Meta
+        case ProductsHeading
         case Product
         case Payment
         case Customer
@@ -39,11 +40,12 @@ class SalesDetailViewController: SiteTableViewController {
         title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.sid)"
         
         tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
+        tableView.registerClass(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
         tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
         tableView.registerClass(SalesDetailPaymentTableViewCell.self, forCellReuseIdentifier: "SalesDetailPaymentTableViewCell")
         tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
         
-        cells = [.Meta, .Product, .Payment, .Customer]
+        cells = [.Meta, .ProductsHeading, .Product, .Payment, .Customer]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,6 +71,9 @@ class SalesDetailViewController: SiteTableViewController {
             case .Meta:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailMetaTableViewCell", forIndexPath: indexPath) as! SalesDetailMetaTableViewCell
                 (cell as! SalesDetailMetaTableViewCell).configure(sale!)
+            case .ProductsHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+                (cell as! SalesDetailHeadingTableViewCell).configure("Products")
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
             case .Payment:
