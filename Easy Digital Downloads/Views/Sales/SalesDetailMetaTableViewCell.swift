@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 private let sharedDateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
@@ -38,6 +39,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
     }()
     
     private var hasDiscounts = false
+    private var hasFees = false
+    
     private let titleLabel: UILabel = UILabel(frame: CGRectZero)
     private let transactionIdHeading: UILabel = UILabel(frame: CGRectZero)
     private let transactionIdLabel: UILabel = UILabel(frame: CGRectZero)
@@ -49,6 +52,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
     private let gatewayLabel: UILabel = UILabel(frame: CGRectZero)
     private let discountHeading: UILabel = UILabel(frame: CGRectZero)
     private let discountLabel: UILabel = UILabel(frame: CGRectZero)
+    private let feesHeading: UILabel = UILabel(frame: CGRectZero)
+    private let feesLabel: UILabel = UILabel(frame: CGRectZero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,6 +73,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         gatewayHeading.textColor = .EDDBlueColor()
         discountHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         discountHeading.textColor = .EDDBlueColor()
+        feesHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        feesHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
         transactionIdHeading.text = NSLocalizedString("Transaction ID", comment: "")
@@ -75,6 +82,7 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         dateHeading.text = NSLocalizedString("Date", comment: "")
         gatewayHeading.text = NSLocalizedString("Gateway", comment: "")
         discountHeading.text = NSLocalizedString("Discount", comment: "")
+        feesHeading.text = NSLocalizedString("Fees", comment: "")
         
         // Styling for labels
         transactionIdLabel.textColor = .EDDBlackColor()
@@ -87,6 +95,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         gatewayLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         discountLabel.textColor = .EDDBlackColor()
         discountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        feesLabel.textColor = .EDDBlackColor()
+        feesLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }
@@ -122,6 +132,21 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             discountLabel.text = discountCodeString
         }
         
+        if let fees = sale.fees {
+            hasFees = true
+            let feesArray: [AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(fees)! as! [AnyObject]
+            
+            var feesString = ""
+            
+            for fee in feesArray {
+                let label = fee["label"] as! String
+                let amount = (fee["amount"] as? NSString)?.doubleValue
+                feesString = label + ": " + Site.currencyFormat(amount!) + "\n"
+            }
+
+            feesLabel.text = feesString
+        }
+        
         layout()
     }
     
@@ -138,6 +163,11 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         if hasDiscounts == true {
             stackView.addArrangedSubview(discountHeading)
             stackView.addArrangedSubview(discountLabel)
+        }
+        
+        if hasFees == true {
+            stackView.addArrangedSubview(feesHeading)
+            stackView.addArrangedSubview(feesLabel)
         }
 
         containerView.addSubview(stackView)
@@ -166,6 +196,15 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(discountHeading.topAnchor, constant: -20))
             constraints.append(discountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
             constraints.append(discountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        }
+        if hasFees == true && hasDiscounts == true {
+            constraints.append(discountLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
+            constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        } else if hasFees == true && hasDiscounts == false {
+            constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
+            constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         }
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
