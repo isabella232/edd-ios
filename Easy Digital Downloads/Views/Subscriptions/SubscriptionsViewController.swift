@@ -36,7 +36,9 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         }
     }
     
-    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SubscriptionsPage") ?? 1
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    
+    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-SubscriptionsPage") ?? 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +102,8 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     
     private func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        NSUserDefaults.standardUserDefaults().setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
+        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SubscriptionsPage")
+        sharedDefaults.synchronize()
     }
 
     private func persistSubscriptions() {
@@ -108,8 +111,11 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
             return
         }
         
-        for item in subscriptions_ {
-            print(item)
+        for item in subscriptions_.unique {
+            if Subscription.subscriptionForId(item["info"]["id"].int64Value) !== nil {
+                continue
+            }
+            
             Subscription.insertIntoContext(managedObjectContext, billTimes: item["info"]["bill_times"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue)!, customer: item["info"]["customer"].dictionaryObject!, expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue)!, gateway: item["info"]["gateway"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, notes: item["info"]["customer"]["notes"].arrayObject, parentPaymentID: item["info"]["parent_payment_id"].int64Value, period: item["info"]["period"].stringValue, productID: item["info"]["product_id"].int64Value, profileID: item["info"]["profile_id"].stringValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, sid: item["info"]["id"].int64Value, status: item["info"]["status"].stringValue)
         }
         
