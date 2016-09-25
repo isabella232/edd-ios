@@ -59,16 +59,6 @@ class SalesDetailProductTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        thumbnailImageView.af_cancelImageRequest()
-        thumbnailImageView.layer.removeAllAnimations()
-        thumbnailImageView.image = nil
-        
-        layoutConstraints.removeAll()
-    }
-    
     // MARK: Private
     
     private func layout() {
