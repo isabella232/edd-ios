@@ -37,6 +37,7 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         return view
     }()
     
+    private var hasDiscounts = false
     private let titleLabel: UILabel = UILabel(frame: CGRectZero)
     private let transactionIdHeading: UILabel = UILabel(frame: CGRectZero)
     private let transactionIdLabel: UILabel = UILabel(frame: CGRectZero)
@@ -104,6 +105,23 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         let gatewayCharacters = String(sale.gateway.characters.dropFirst())
         gatewayLabel.text = firstCharacter + gatewayCharacters
         
+        if let discounts = sale.discounts {
+            hasDiscounts = true
+            let dictionary = NSDictionary(dictionary: discounts)
+            if dictionary.count > 1 {
+                discountHeading.text = NSLocalizedString("Discount Codes", comment: "")
+            } else {
+                discountHeading.text = NSLocalizedString("Discount Code", comment: "")
+            }
+            var discountCodeString = ""
+            for (key, _) in dictionary {
+                discountCodeString += (key as! String) + " "
+            }
+            discountCodeString = String(discountCodeString.characters.dropLast())
+            discountCodeString = discountCodeString.stringByReplacingOccurrencesOfString(" ", withString: ", ")
+            discountLabel.text = discountCodeString
+        }
+        
         layout()
     }
     
@@ -117,6 +135,10 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(dateLabel)
         stackView.addArrangedSubview(gatewayHeading)
         stackView.addArrangedSubview(gatewayLabel)
+        if hasDiscounts == true {
+            stackView.addArrangedSubview(discountHeading)
+            stackView.addArrangedSubview(discountLabel)
+        }
 
         containerView.addSubview(stackView)
         
@@ -140,6 +162,11 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         constraints.append(dateLabel.bottomAnchor.constraintEqualToAnchor(gatewayHeading.topAnchor, constant: -20))
         constraints.append(gatewayHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(gatewayLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        if hasDiscounts == true {
+            constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(discountHeading.topAnchor, constant: -20))
+            constraints.append(discountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(discountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        }
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
         constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
