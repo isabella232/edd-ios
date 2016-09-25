@@ -19,7 +19,7 @@ public final class Subscription: ManagedObject {
     @NSManaged public private(set) var expiration: NSDate
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var initialAmount: Double
-    @NSManaged public private(set) var notes: String?
+    @NSManaged public private(set) var notes: [AnyObject]?
     @NSManaged public private(set) var parentPaymentID: Int64
     @NSManaged public private(set) var period: String
     @NSManaged public private(set) var productID: Int64
@@ -40,7 +40,7 @@ public final class Subscription: ManagedObject {
         return NSPredicate(format: "%K == %lld", Subscription.Keys.ID.rawValue, subscriptionId)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: String?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String) -> Subscription {
+    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: [AnyObject]?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String) -> Subscription {
         let subscription: Subscription = moc.insertObject()
         subscription.billTimes = billTimes
         subscription.created = created
@@ -106,7 +106,7 @@ extension Subscription: ManagedObjectType {
         request.fetchLimit = 20
         request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedDate.rawValue, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: Subscription.Keys.Created.rawValue, ascending: false)]
         return request
     }
     

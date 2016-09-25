@@ -52,6 +52,8 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         
         self.site = site
         
+        self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
+        
         title = NSLocalizedString("Subscriptions", comment: "Subscriptions title")
 
         tableView.delegate = self
@@ -116,6 +118,14 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         
         for item in subscriptions_ {
             print(item)
+            Subscription.insertIntoContext(managedObjectContext, billTimes: item["info"]["bill_times"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue)!, customer: item["info"]["customer"].dictionaryObject!, expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue)!, gateway: item["info"]["gateway"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, notes: item["info"]["customer"]["notes"].arrayObject, parentPaymentID: item["info"]["parent_payment_id"].int64Value, period: item["info"]["period"].stringValue, productID: item["info"]["product_id"].int64Value, profileID: item["info"]["profile_id"].stringValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, sid: item["info"]["id"].int64Value, status: item["info"]["status"].stringValue)
+        }
+        
+        do {
+            try managedObjectContext.save()
+            managedObjectContext.processPendingChanges()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
     }
 
@@ -156,10 +166,10 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     }
     
     private func setupDataSource() {
-//        let request = Subscription.defaultFetchRequest()
-//        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-//        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
-//        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
+        let request = Subscription.defaultFetchRequest()
+        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
+        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
     }
 
 }
