@@ -77,12 +77,13 @@
 		F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */; };
 		F5B982B51D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */; };
 		F5B982B71D6BA21800679271 /* NewSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B61D6BA21800679271 /* NewSiteViewController.swift */; };
+		F5CA01931D97C8640000C529 /* ManageSitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CA01921D97C8640000C529 /* ManageSitesViewController.swift */; };
+		F5CA01951D97FAFA0000C529 /* SalesDetailLicensesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CA01941D97FAFA0000C529 /* SalesDetailLicensesTableViewCell.swift */; };
 		F5E4887B1D97086A00C7A2A8 /* DiscountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */; };
 		F5E4887D1D973E0B00C7A2A8 /* Array+Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887C1D973E0B00C7A2A8 /* Array+Unique.swift */; };
 		F5E4887F1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887E1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift */; };
 		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
 		F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */; };
-		F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -224,12 +225,13 @@
 		F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B41D6BA1DF00679271 /* FileDownloadLogsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsDetailViewController.swift; sourceTree = "<group>"; };
 		F5B982B61D6BA21800679271 /* NewSiteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSiteViewController.swift; sourceTree = "<group>"; };
+		F5CA01921D97C8640000C529 /* ManageSitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesViewController.swift; sourceTree = "<group>"; };
+		F5CA01941D97FAFA0000C529 /* SalesDetailLicensesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailLicensesTableViewCell.swift; sourceTree = "<group>"; };
 		F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsViewController.swift; sourceTree = "<group>"; };
 		F5E4887C1D973E0B00C7A2A8 /* Array+Unique.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Unique.swift"; sourceTree = "<group>"; };
 		F5E4887E1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesTableViewController.swift; sourceTree = "<group>"; };
-		F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -342,6 +344,7 @@
 				F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */,
 				F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */,
 				F5E4887E1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift */,
+				F5CA01941D97FAFA0000C529 /* SalesDetailLicensesTableViewCell.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -404,7 +407,7 @@
 				F5B061271D6AFEDE00F9B4E1 /* Reviews */,
 				F5B061261D6AFEDC00F9B4E1 /* Logs */,
 				F523F2211D6650DB000AB028 /* MoreViewController.swift */,
-				F5EAAFED1D87F070004E74EF /* ManageSitesViewController.swift */,
+				F5CA01921D97C8640000C529 /* ManageSitesViewController.swift */,
 			);
 			path = Integrations;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
 				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,
+				F5CA01931D97C8640000C529 /* ManageSitesViewController.swift in Sources */,
 				F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */,
 				F5E4887B1D97086A00C7A2A8 /* DiscountsViewController.swift in Sources */,
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
@@ -886,6 +890,7 @@
 				F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */,
 				F523F2221D6650DB000AB028 /* MoreViewController.swift in Sources */,
 				F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */,
+				F5CA01951D97FAFA0000C529 /* SalesDetailLicensesTableViewCell.swift in Sources */,
 				F51A906D1D95DB4D003E06C2 /* ProductsDetailViewController.swift in Sources */,
 				F52825231CFE1F9600AB62D9 /* EDDAPIWrapper.swift in Sources */,
 				F5B982AD1D6BA0D500679271 /* SiteInformationViewController.swift in Sources */,
@@ -907,7 +912,6 @@
 				F5E4887F1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift in Sources */,
 				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
 				F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */,
-				F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */,
 				F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

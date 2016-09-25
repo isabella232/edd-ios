@@ -20,6 +20,8 @@ class SalesDetailViewController: SiteTableViewController {
         case Product
         case CustomerHeading
         case Customer
+        case LicensesHeading
+        case License
     }
     
     private var cells = [CellType]()
@@ -27,6 +29,7 @@ class SalesDetailViewController: SiteTableViewController {
     var site: Site?
     var sale: Sale?
     var products: [AnyObject]?
+    var licenses: [AnyObject]?
     var customer: JSON?
     
     init(sale: Sale) {
@@ -47,6 +50,7 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.registerClass(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
         tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
         tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
+        tableView.registerClass(SalesDetailLicensesTableViewCell.self, forCellReuseIdentifier: "SalesDetailLicensesTableViewCell")
         
         cells = [.Meta, .ProductsHeading]
         
@@ -72,6 +76,20 @@ class SalesDetailViewController: SiteTableViewController {
 
         cells.append(.CustomerHeading)
         cells.append(.Customer)
+        
+        if sale.licenses != nil {
+            cells.append(.LicensesHeading)
+            
+            licenses = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.licenses!)! as! [AnyObject])
+            
+            if licenses!.count == 1 {
+                cells.append(.License)
+            } else {
+                for _ in 1...licenses!.count {
+                    cells.append(.License)
+                }
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -109,6 +127,12 @@ class SalesDetailViewController: SiteTableViewController {
             case .Customer:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailCustomerTableViewCell", forIndexPath: indexPath) as! SalesDetailCustomerTableViewCell
                 (cell as! SalesDetailCustomerTableViewCell).configure(customer)
+            case .LicensesHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+                (cell as! SalesDetailHeadingTableViewCell).configure("Licenses")
+            case .License:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailLicensesTableViewCell", forIndexPath: indexPath) as! SalesDetailLicensesTableViewCell
+                (cell as! SalesDetailLicensesTableViewCell).configure(licenses![indexPath.row - 5 - (products?.count)!])
         }
         
         return cell!

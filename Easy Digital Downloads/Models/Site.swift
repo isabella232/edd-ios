@@ -43,6 +43,7 @@ public final class Site: ManagedObject {
     @NSManaged public private(set) var hasFES: NSNumber?
     @NSManaged public private(set) var hasRecurring: NSNumber?
     @NSManaged public private(set) var hasReviews: NSNumber?
+    @NSManaged public private(set) var hasLicensing: NSNumber?
     @NSManaged public private(set) var createdAt: NSDate?
     @NSManaged public private(set) var permissions: NSData?
     @NSManaged public private(set) var dashboardOrder: NSData?
@@ -82,7 +83,7 @@ public final class Site: ManagedObject {
         }
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool, permissions: NSData, dashboardOrder: NSData) -> Site {
+    public static func insertIntoContext(moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool, hasLicensing: Bool, permissions: NSData, dashboardOrder: NSData) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid
         site.name = name
@@ -93,8 +94,9 @@ public final class Site: ManagedObject {
         site.hasFES = hasFES
         site.hasRecurring = hasRecurring
         site.hasReviews = hasReviews
-        site.permissions = permissions;
-        site.dashboardOrder = dashboardOrder;
+        site.hasLicensing = hasLicensing
+        site.permissions = permissions
+        site.dashboardOrder = dashboardOrder
         return site
     }
     

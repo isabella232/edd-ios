@@ -80,6 +80,7 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         let fetchRequest = NSFetchRequest(entityName: "Site")
         fetchRequest.predicate = Site.predicateForActiveSite()
         
+        
                 let siteNameIndexPath = NSIndexPath(forRow: 0, inSection: 0)
                 let siteNameCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteNameIndexPath) as! SiteInformationTableViewCell
                 

@@ -329,6 +329,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             var hasCommissions = false
                             var hasFES = false
                             var hasRecurring = false
+                            var hasLicensing = false
                             
                             for (key, value) : (String, JSON) in integrations {
                                 if key == "reviews" && value.boolValue == true {
@@ -337,6 +338,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                                 
                                 if key == "commissions" && value.boolValue == true {
                                     hasCommissions = true
+                                }
+                                
+                                if key == "software_licensing" && value.boolValue == true {
+                                    hasLicensing = true
                                 }
                                 
                                 if key == "fes" && value.boolValue == true {
@@ -372,7 +377,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             var site: Site?
                             
                             self.managedObjectContext.performChanges {
-                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, permissions: permissions, dashboardOrder: dashboardOrder);
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, hasLicensing: hasLicensing, permissions: permissions, dashboardOrder: dashboardOrder);
                                 self.managedObjectContext.performSaveOrRollback()
                             }
 

@@ -106,7 +106,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .SiteInformation:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .ManageSites:
-                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+                self.navigationController?.pushViewController(ManageSitesViewController(), animated: true)
             case .ProductSearch:
                 self.navigationController?.pushViewController(SearchViewController(site: site!), animated: true)
             case .FileDownloadLogs:
