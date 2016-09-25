@@ -54,6 +54,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
     private let discountLabel: UILabel = UILabel(frame: CGRectZero)
     private let feesHeading: UILabel = UILabel(frame: CGRectZero)
     private let feesLabel: UILabel = UILabel(frame: CGRectZero)
+    private let taxHeading: UILabel = UILabel(frame: CGRectZero)
+    private let taxLabel: UILabel = UILabel(frame: CGRectZero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,6 +77,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         discountHeading.textColor = .EDDBlueColor()
         feesHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         feesHeading.textColor = .EDDBlueColor()
+        taxHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        taxHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
         transactionIdHeading.text = NSLocalizedString("Transaction ID", comment: "")
@@ -83,6 +87,7 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         gatewayHeading.text = NSLocalizedString("Gateway", comment: "")
         discountHeading.text = NSLocalizedString("Discount", comment: "")
         feesHeading.text = NSLocalizedString("Fees", comment: "")
+        taxHeading.text = NSLocalizedString("Tax", comment: "")
         
         // Styling for labels
         transactionIdLabel.textColor = .EDDBlackColor()
@@ -97,6 +102,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         discountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         feesLabel.textColor = .EDDBlackColor()
         feesLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        taxLabel.textColor = .EDDBlackColor()
+        taxLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }
@@ -147,6 +154,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             feesLabel.text = feesString
         }
         
+        taxLabel.text = Site.currencyFormat(sale.tax)
+        
         layout()
     }
     
@@ -169,6 +178,9 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             stackView.addArrangedSubview(feesHeading)
             stackView.addArrangedSubview(feesLabel)
         }
+        
+        stackView.addArrangedSubview(taxHeading)
+        stackView.addArrangedSubview(taxLabel)
 
         containerView.addSubview(stackView)
         
@@ -201,11 +213,17 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             constraints.append(discountLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
             constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
             constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
         } else if hasFees == true && hasDiscounts == false {
             constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
             constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
             constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+        } else if hasFees == false && hasDiscounts == false {
+            constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
         }
+        constraints.append(taxHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(taxLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
         constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
