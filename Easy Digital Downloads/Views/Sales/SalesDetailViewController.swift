@@ -16,7 +16,6 @@ class SalesDetailViewController: SiteTableViewController {
         case Meta
         case ProductsHeading
         case Product
-        case Payment
         case CustomerHeading
         case Customer
     }
