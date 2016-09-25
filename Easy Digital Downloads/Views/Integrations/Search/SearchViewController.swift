@@ -179,6 +179,9 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         view.addSubview(loadingView)
+        
+        self.filteredTableData.removeAll(keepCapacity: false)
+        
         let searchTerms = searchBar.text
         if searchTerms?.characters.count > 0 {
             let encodedSearchTerms = searchTerms!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
