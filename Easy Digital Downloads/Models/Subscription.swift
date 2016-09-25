@@ -14,6 +14,7 @@ public final class Subscription: ManagedObject {
     // Attributes
     @NSManaged private var createdAt: NSDate
     @NSManaged public private(set) var billTimes: Int16
+    @NSManaged public private(set) var customer: [String: AnyObject]
     @NSManaged public private(set) var created: NSDate
     @NSManaged public private(set) var expiration: NSDate
     @NSManaged public private(set) var gateway: String
@@ -28,8 +29,6 @@ public final class Subscription: ManagedObject {
     
     // Relationships
     @NSManaged public private(set) var site: Site
-    @NSManaged public private(set) var product: Product
-    @NSManaged public private(set) var  cusomer: Customer
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()

@@ -36,7 +36,7 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         }
     }
     
-    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 0
+    var lastDownloadedPage = NSUserDefaults.standardUserDefaults().integerForKey("\(Site.activeSite().uid)-SubscriptionsPage") ?? 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,13 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     }
 
     private func persistSubscriptions() {
+        guard let subscriptions_ = subscriptions else {
+            return
+        }
         
+        for item in subscriptions_ {
+            print(item)
+        }
     }
 
     // MARK: Scroll View Delegate

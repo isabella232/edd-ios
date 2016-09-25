@@ -120,7 +120,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .Reviews:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Subscriptions:
-                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+                self.navigationController?.pushViewController(SubscriptionsViewController(site: site!), animated: true)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
