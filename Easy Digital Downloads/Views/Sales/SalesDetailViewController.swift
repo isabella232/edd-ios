@@ -44,7 +44,6 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
         tableView.registerClass(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
         tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
-        tableView.registerClass(SalesDetailPaymentTableViewCell.self, forCellReuseIdentifier: "SalesDetailPaymentTableViewCell")
         tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
         
         cells = [.Meta, .ProductsHeading]
