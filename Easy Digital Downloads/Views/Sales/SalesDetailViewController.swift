@@ -17,6 +17,7 @@ class SalesDetailViewController: SiteTableViewController {
         case ProductsHeading
         case Product
         case Payment
+        case CustomerHeading
         case Customer
     }
     
@@ -50,11 +51,15 @@ class SalesDetailViewController: SiteTableViewController {
         
         products = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.products)! as! [AnyObject])
         
-        for _ in 1...products!.count {
+        if products!.count == 1 {
             cells.append(.Product)
+        } else {
+            for _ in 1...products!.count {
+                cells.append(.Product)
+            }
         }
-        
-        cells.append(.Payment)
+
+        cells.append(.CustomerHeading)
         cells.append(.Customer)
     }
     
@@ -87,8 +92,9 @@ class SalesDetailViewController: SiteTableViewController {
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
                 (cell as! SalesDetailProductTableViewCell).configure(products![indexPath.row - 2])
-            case .Payment:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailPaymentTableViewCell", forIndexPath: indexPath) as! SalesDetailPaymentTableViewCell
+            case .CustomerHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+                (cell as! SalesDetailHeadingTableViewCell).configure("Customer")
             case .Customer:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailCustomerTableViewCell", forIndexPath: indexPath) as! SalesDetailCustomerTableViewCell
         }

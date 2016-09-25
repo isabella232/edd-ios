@@ -29,7 +29,6 @@
 		F512E4101D918FB90086AD68 /* CustomerStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */; };
 		F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */; };
 		F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */; };
-		F512E4161D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */; };
 		F51A905E1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */; };
 		F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */; };
 		F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */; };
@@ -171,7 +170,6 @@
 		F512E40F1D918FB90086AD68 /* CustomerStatsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerStatsTableViewCell.swift; sourceTree = "<group>"; };
 		F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRecentSaleTableViewCell.swift; sourceTree = "<group>"; };
-		F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailPaymentTableViewCell.swift; sourceTree = "<group>"; };
 		F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailProductTableViewCell.swift; sourceTree = "<group>"; };
 		F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
 		F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailCustomerTableViewCell.swift; sourceTree = "<group>"; };
@@ -340,7 +338,6 @@
 				F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */,
 				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
 				F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */,
-				F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */,
 				F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */,
 				F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */,
 				F51A90611D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift */,
@@ -910,7 +907,6 @@
 				F5E4887F1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift in Sources */,
 				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
 				F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */,
-				F512E4161D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift in Sources */,
 				F5EAAFEE1D87F070004E74EF /* ManageSitesViewController.swift in Sources */,
 				F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */,
 			);
