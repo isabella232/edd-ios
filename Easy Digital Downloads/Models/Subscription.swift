@@ -19,12 +19,13 @@ public final class Subscription: ManagedObject {
     @NSManaged public private(set) var expiration: NSDate
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var initialAmount: Double
+    @NSManaged public private(set) var notes: String?
     @NSManaged public private(set) var parentPaymentID: Int64
     @NSManaged public private(set) var period: String
-    @NSManaged public private(set) var pid: Int64
+    @NSManaged public private(set) var productID: Int64
     @NSManaged public private(set) var profileID: String
     @NSManaged public private(set) var recurringAmount: Double
-    @NSManaged public private(set) var sid: Int16
+    @NSManaged public private(set) var sid: Int64
     @NSManaged public private(set) var status: String
     
     // Relationships
@@ -62,6 +63,27 @@ extension Subscription: ManagedObjectType {
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedDate.rawValue, ascending: false)]
         return request
+    }
+    
+    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: String?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String) -> Subscription {
+        let subscription: Subscription = moc.insertObject()
+        subscription.billTimes = billTimes
+        subscription.created = created
+        subscription.customer = customer
+        subscription.expiration = expiration
+        subscription.gateway = gateway
+        subscription.initialAmount = initialAmount
+        subscription.notes = notes
+        subscription.parentPaymentID = parentPaymentID
+        subscription.period = period
+        subscription.productID = productID
+        subscription.profileID = profileID
+        subscription.recurringAmount = recurringAmount
+        subscription.sid = sid
+        subscription.status = status
+        subscription.site = Site.fetchRecordForActiveSite(inContext: moc)
+        
+        return subscription
     }
     
 }
