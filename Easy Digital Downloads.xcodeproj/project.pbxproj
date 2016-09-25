@@ -89,6 +89,7 @@
 		F5E4887F1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4887E1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift */; };
 		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
 		F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */; };
+		F5E7F15F1D9863A300DC62DE /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F15E1D9863A300DC62DE /* SearchDetailViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -242,6 +243,7 @@
 		F5E4887E1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesTableViewController.swift; sourceTree = "<group>"; };
+		F5E7F15E1D9863A300DC62DE /* SearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -364,6 +366,7 @@
 			children = (
 				F50388921D74940A0059BB38 /* SearchViewController.swift */,
 				F51A906A1D955AA2003E06C2 /* SearchTableViewCell.swift */,
+				F5E7F15E1D9863A300DC62DE /* SearchDetailViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -920,6 +923,7 @@
 				F512E40C1D91847C0086AD68 /* Gravatar.swift in Sources */,
 				F512E4081D9179080086AD68 /* CustomersDetailViewController.swift in Sources */,
 				F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */,
+				F5E7F15F1D9863A300DC62DE /* SearchDetailViewController.swift in Sources */,
 				F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */,
 				F503888C1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift in Sources */,
 				F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */,

@@ -73,6 +73,8 @@ class SearchViewController: SiteTableViewController {
         searchController.delegate = self
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        
+        tableView.registerClass(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
     
         for view in searchController.searchBar.subviews {
             for field in view.subviews {
@@ -152,15 +154,11 @@ class SearchViewController: SiteTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("SearchCell")
+        var cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell
         
-        if (cell == nil) {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "SearchCell")
-        }
+        cell.configureForObject(filteredTableData[indexPath.row])
         
-//        cell.textLabel?.text = filteredTableData[indexPath.row]
-        
-        return cell!
+        return cell
     }
     
 }
