@@ -1,5 +1,5 @@
 //
-//  ProductsDetailLicensingTableViewCell.swift
+//  ProductsDetailFilesTableViewCell.swift
 //  Easy Digital Downloads
 //
 //  Created by Sunny Ratilal on 25/09/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductsDetailLicensingTableViewCell: UITableViewCell {
+class ProductsDetailFilesTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
@@ -27,15 +27,13 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let licensingDisabledLabel = UILabel(frame: CGRectZero)
-    private let licensingVersionLabel = UILabel(frame: CGRectZero)
-    private let licensingExpiryLabel = UILabel(frame: CGRectZero)
+    private let filesLabel = UILabel(frame: CGRectZero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        licensingDisabledLabel.lineBreakMode = .ByWordWrapping
-        licensingDisabledLabel.numberOfLines = 0
+        filesLabel.lineBreakMode = .ByWordWrapping
+        filesLabel.numberOfLines = 0
         
         selectionStyle = .None
     }
@@ -44,17 +42,35 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(licensing: [String: AnyObject]) {
-        let enabled = (licensing["enabled"] as! NSNumber).boolValue
-        if enabled == false {
-            licensingDisabledLabel.text = NSLocalizedString("Software Licensing has not been enabled for this product.", comment: "")
-            stackView.addArrangedSubview(licensingDisabledLabel)
-        } else {
-            licensingVersionLabel.text = NSLocalizedString("Current Version: ", comment: "") + "\(licensing["version"]!)"
-            licensingExpiryLabel.text = NSLocalizedString("License Validity: ", comment: "") + "\(licensing["exp_length"]!) \(licensing["exp_unit"]!)"
-            stackView.addArrangedSubview(licensingVersionLabel)
-            stackView.addArrangedSubview(licensingExpiryLabel)
+    func configure(files: NSData) {
+        let filesArray: [AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(files)! as! [AnyObject]
+        
+        let filesString = NSMutableAttributedString()
+        var finalString = NSAttributedString()
+        
+        for file in filesArray {
+            let headingAttributes: [String: AnyObject] = [
+                NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline),
+                NSForegroundColorAttributeName: UIColor.EDDBlueColor()
+            ]
+            
+            let textAttributes: [String: AnyObject] = [
+                NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline),
+                NSForegroundColorAttributeName: UIColor.EDDBlackColor()
+            ]
+            
+            let fileNameString = NSAttributedString(string: file["name"] as! String + "\n", attributes: headingAttributes)
+            filesString.appendAttributedString(fileNameString)
+            
+            let fileDetailsString = NSAttributedString(string: "Condition: " + (file["condition"] as! String).capitalizedString + "\n" + "URL: " + (file["file"] as! String) + "\n\n", attributes: textAttributes)
+            filesString.appendAttributedString(fileDetailsString)
         }
+        
+        finalString = filesString.attributedSubstringFromRange(NSMakeRange(0, filesString.length - 2))
+        
+        filesLabel.attributedText = finalString
+        
+        stackView.addArrangedSubview(filesLabel)
         
         containerView.addSubview(stackView)
         

@@ -19,8 +19,10 @@ class ProductsDetailViewController: SiteTableViewController {
         case Stats
         case PricingHeading
         case Pricing
-//        case NotesHeading
-//        case Notes
+        case NotesHeading
+        case Notes
+        case FilesHeading
+        case Files
         case LicensingHeading
         case Licensing
     }
@@ -53,8 +55,19 @@ class ProductsDetailViewController: SiteTableViewController {
         tableView.registerClass(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
         tableView.registerClass(ProductsDetailPricingTableViewCell.self, forCellReuseIdentifier: "ProductPricingTableViewCell")
         tableView.registerClass(ProductsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "ProductLicensingTableViewCell")
+        tableView.registerClass(ProductsDetailFilesTableViewCell.self, forCellReuseIdentifier: "ProductFilesTableViwCell")
         
         cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading, .Pricing]
+        
+        if product.files != nil {
+            cells.append(.FilesHeading)
+            cells.append(.Files)
+        }
+        
+        if product.notes?.characters.count > 0 {
+            cells.append(.NotesHeading)
+            cells.append(.Notes)
+        }
         
         if product.licensing != nil {
             cells.append(.LicensingHeading)
@@ -124,6 +137,18 @@ class ProductsDetailViewController: SiteTableViewController {
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Licensing")
             case .Licensing:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductLicensingTableViewCell", forIndexPath: indexPath) as! ProductsDetailLicensingTableViewCell
+                (cell as! ProductsDetailLicensingTableViewCell).configure(product!.licensing!)
+            case .FilesHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+                (cell as! ProductsDetailHeadingTableViewCell).configure("Files")
+            case .Files:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductFilesTableViwCell", forIndexPath: indexPath) as! ProductsDetailFilesTableViewCell
+                (cell as! ProductsDetailFilesTableViewCell).configure(product!.files!)
+            case .NotesHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+                (cell as! ProductsDetailHeadingTableViewCell).configure("Notes")
+            case .Notes:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductLicensingTableViewCell", forIndexPath: indexPath) as! ProductsDetailLicensingTableViewCell
                 (cell as! ProductsDetailLicensingTableViewCell).configure(product!.licensing!)
         }
