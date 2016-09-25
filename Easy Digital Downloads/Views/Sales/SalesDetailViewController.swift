@@ -24,6 +24,7 @@ class SalesDetailViewController: SiteTableViewController {
     
     var site: Site?
     var sale: Sale?
+    var products: [AnyObject]?
     
     init(sale: Sale) {
         super.init(style: .Plain)
@@ -45,7 +46,16 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.registerClass(SalesDetailPaymentTableViewCell.self, forCellReuseIdentifier: "SalesDetailPaymentTableViewCell")
         tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
         
-        cells = [.Meta, .ProductsHeading, .Product, .Payment, .Customer]
+        cells = [.Meta, .ProductsHeading]
+        
+        products = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.products)! as! [AnyObject])
+        
+        for _ in 1...products!.count {
+            cells.append(.Product)
+        }
+        
+        cells.append(.Payment)
+        cells.append(.Customer)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,6 +86,7 @@ class SalesDetailViewController: SiteTableViewController {
                 (cell as! SalesDetailHeadingTableViewCell).configure("Products")
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
+                (cell as! SalesDetailProductTableViewCell).configure(products![indexPath.row - 2])
             case .Payment:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailPaymentTableViewCell", forIndexPath: indexPath) as! SalesDetailPaymentTableViewCell
             case .Customer:

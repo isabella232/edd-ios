@@ -10,15 +10,112 @@ import UIKit
 
 class SalesDetailProductTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    private var hasSetupConstraints = false
+    
+    lazy var containerStackView: UIStackView! = {
+        let stack = UIStackView()
+        stack.axis = .Vertical
+        stack.distribution = .Fill
+        stack.alignment = .Fill
+        stack.spacing = 3.0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        return stack
+    }()
+    
+    let titleLabel: UILabel = UILabel(frame: CGRectZero)
+    let quantityLabel: UILabel = UILabel(frame: CGRectZero)
+    let pricingLabel: UILabel = UILabel(frame: CGRectZero)
+    let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
+    private var thumbnailImageView: UIImageView = UIImageView(frame: CGRectZero)
+    var layoutConstraints = [NSLayoutConstraint]()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        thumbnailImageView = {
+            let imageView = UIImageView(frame: CGRectZero)
+            
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .ScaleAspectFit
+            imageView.clipsToBounds = true
+            
+            return imageView
+        }()
+        
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
+        layer.opaque = true
+        opaque = true
+        
+        backgroundColor = .whiteColor()
+        contentView.backgroundColor = .whiteColor()
+        
+        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        titleLabel.textColor = .EDDBlueColor()
+        
+        quantityLabel.textColor = .EDDBlackColor()
+        quantityLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        pricingLabel.textColor = .EDDBlackColor()
+        pricingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        layout()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        thumbnailImageView.af_cancelImageRequest()
+        thumbnailImageView.layer.removeAllAnimations()
+        thumbnailImageView.image = nil
+        
+        layoutConstraints.removeAll()
+    }
+    
+    // MARK: Private
+    
+    private func layout() {
+        containerStackView.addArrangedSubview(titleLabel)
+        containerStackView.addArrangedSubview(quantityLabel)
+        containerStackView.addArrangedSubview(pricingLabel)
+        
+        contentView.addSubview(containerStackView)
+        
+        disclosureImageView.translatesAutoresizingMaskIntoConstraints = false
+        disclosureImageView.sizeToFit()
+        contentView.addSubview(disclosureImageView)
+        
+        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
+        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        layoutConstraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+        layoutConstraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
+        layoutConstraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
+        layoutConstraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        
+        NSLayoutConstraint.activateConstraints(layoutConstraints)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(object: AnyObject) {
+        titleLabel.text = object["name"] as? String
+        
+        let quantity = object["quantity"] as! NSNumber
+        
+        quantityLabel.text = NSLocalizedString("Quantity", comment: "") + ": \(quantity)"
+        
+        let priceName = object["price_name"] as? String
+        
+        if priceName?.characters.count == 0 {
+            pricingLabel.text = Site.currencyFormat(object["price"] as! NSNumber)
+        } else {
+            pricingLabel.text = priceName! + " - " + Site.currencyFormat(object["price"] as! NSNumber)
+        }
+        
     }
 
+    
 }
