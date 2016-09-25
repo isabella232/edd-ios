@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 class SalesDetailViewController: SiteTableViewController {
@@ -25,6 +27,7 @@ class SalesDetailViewController: SiteTableViewController {
     var site: Site?
     var sale: Sale?
     var products: [AnyObject]?
+    var customer: JSON?
     
     init(sale: Sale) {
         super.init(style: .Plain)
@@ -46,6 +49,16 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
         
         cells = [.Meta, .ProductsHeading]
+        
+        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.customer], success: { json in
+            let items = json["customers"].arrayValue
+            self.customer = items[0]
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.tableView.reloadData()
+            })
+            }) { (error) in
+                fatalError()
+        }
         
         products = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.products)! as! [AnyObject])
         
@@ -95,6 +108,7 @@ class SalesDetailViewController: SiteTableViewController {
                 (cell as! SalesDetailHeadingTableViewCell).configure("Customer")
             case .Customer:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailCustomerTableViewCell", forIndexPath: indexPath) as! SalesDetailCustomerTableViewCell
+                (cell as! SalesDetailCustomerTableViewCell).configure(customer)
         }
         
         return cell!
