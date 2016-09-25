@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 class SalesDetailProductTableViewCell: UITableViewCell {
 
@@ -27,21 +30,10 @@ class SalesDetailProductTableViewCell: UITableViewCell {
     let quantityLabel: UILabel = UILabel(frame: CGRectZero)
     let pricingLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
-    private var thumbnailImageView: UIImageView = UIImageView(frame: CGRectZero)
     var layoutConstraints = [NSLayoutConstraint]()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        thumbnailImageView = {
-            let imageView = UIImageView(frame: CGRectZero)
-            
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .ScaleAspectFit
-            imageView.clipsToBounds = true
-            
-            return imageView
-        }()
         
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.mainScreen().scale
@@ -114,7 +106,6 @@ class SalesDetailProductTableViewCell: UITableViewCell {
         } else {
             pricingLabel.text = priceName! + " - " + Site.currencyFormat(object["price"] as! NSNumber)
         }
-        
     }
 
     
