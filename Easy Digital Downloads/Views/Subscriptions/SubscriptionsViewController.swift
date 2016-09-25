@@ -49,15 +49,9 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         super.init(style: .Plain)
         
         self.site = site
-        
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Subscriptions", comment: "Subscriptions title")
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.estimatedRowHeight = estimatedHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     required init?(coder aDecoder: NSCoder) {
