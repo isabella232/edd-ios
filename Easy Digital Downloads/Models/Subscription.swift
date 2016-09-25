@@ -13,15 +13,15 @@ public final class Subscription: ManagedObject {
 
     // Attributes
     @NSManaged private var createdAt: NSDate
-    @NSManaged public private(set) var billTimes: Int16
+    @NSManaged public private(set) var billTimes: Int64
     @NSManaged public private(set) var customer: [String: AnyObject]
     @NSManaged public private(set) var created: NSDate
     @NSManaged public private(set) var expiration: NSDate
     @NSManaged public private(set) var gateway: String
     @NSManaged public private(set) var initialAmount: Double
-    @NSManaged public private(set) var parentPaymentID: Int16
+    @NSManaged public private(set) var parentPaymentID: Int64
     @NSManaged public private(set) var period: String
-    @NSManaged public private(set) var pid: Int16
+    @NSManaged public private(set) var pid: Int64
     @NSManaged public private(set) var profileID: String
     @NSManaged public private(set) var recurringAmount: Double
     @NSManaged public private(set) var sid: Int16
@@ -33,6 +33,57 @@ public final class Subscription: ManagedObject {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         createdAt = NSDate()
+    }
+    
+    public static func predicateForId(subscriptionId: Int64) -> NSPredicate {
+        return NSPredicate(format: "%K == %lld", Subscription.Keys.ID.rawValue, subscriptionId)
+    }
+    
+}
+
+extension Subscription: ManagedObjectType {
+    
+    public static var entityName: String {
+        return "Subscription"
+    }
+    
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: CreatedTimestampKey, ascending: false)]
+    }
+    
+    public static var defaultPredicate: NSPredicate {
+        return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
+    }
+    
+    public static func defaultFetchRequest() -> NSFetchRequest {
+        let request = NSFetchRequest(entityName: self.entityName)
+        request.fetchLimit = 20
+        request.predicate = defaultPredicate
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedDate.rawValue, ascending: false)]
+        return request
+    }
+    
+}
+
+extension Subscription: KeyCodable {
+    
+    public enum Keys: String {
+        case BillTimes = "billTimes"
+        case Created = "created"
+        case CreatedAt = "createdAt"
+        case Customer = "customer"
+        case Expiration = "expiration"
+        case Gateway = "gateway"
+        case InitialAmount = "initialAmount"
+        case Notes = "notes"
+        case ParentPaymentId = "paymentPaymentID"
+        case Period = "period"
+        case ProductID = "productID"
+        case ProfileID = "profileID"
+        case RecurringAmount = "recurringAmount"
+        case ID = "sid"
+        case Status = "status"
     }
     
 }
