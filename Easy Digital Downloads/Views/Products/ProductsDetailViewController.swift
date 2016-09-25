@@ -22,7 +22,7 @@ class ProductsDetailViewController: SiteTableViewController {
 //        case NotesHeading
 //        case Notes
         case LicensingHeading
-//        case Licensing
+        case Licensing
     }
     
     private var cells = [CellType]()
@@ -52,11 +52,13 @@ class ProductsDetailViewController: SiteTableViewController {
         tableView.registerClass(ProductsDetailInfoTableViewCell.self, forCellReuseIdentifier: "ProductInfoTableViewCell")
         tableView.registerClass(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
         tableView.registerClass(ProductsDetailPricingTableViewCell.self, forCellReuseIdentifier: "ProductPricingTableViewCell")
+        tableView.registerClass(ProductsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "ProductLicensingTableViewCell")
         
         cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading, .Pricing]
         
         if product.licensing != nil {
             cells.append(.LicensingHeading)
+            cells.append(.Licensing)
         }
     }
 
@@ -115,12 +117,15 @@ class ProductsDetailViewController: SiteTableViewController {
             case .PricingHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Pricing")
-            case .LicensingHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
-                (cell as! ProductsDetailHeadingTableViewCell).configure("Licensing")
             case .Pricing:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductPricingTableViewCell", forIndexPath: indexPath) as! ProductsDetailPricingTableViewCell
                 (cell as! ProductsDetailPricingTableViewCell).configure((product?.hasVariablePricing.boolValue)!, pricing: product!.pricing)
+            case .LicensingHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+                (cell as! ProductsDetailHeadingTableViewCell).configure("Licensing")
+            case .Licensing:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductLicensingTableViewCell", forIndexPath: indexPath) as! ProductsDetailLicensingTableViewCell
+                (cell as! ProductsDetailLicensingTableViewCell).configure(product!.licensing!)
         }
         
         return cell!
