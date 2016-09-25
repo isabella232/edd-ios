@@ -14,14 +14,14 @@ class ProductsDetailViewController: SiteTableViewController {
 
     private enum CellType {
         case InfoHeading
-//        case Info
+        case Info
         case StatsHeading
-//        case Stats
+        case Stats
         case PricingHeading
 //        case Pricing
 //        case NotesHeading
 //        case Notes
-//        case LicensingHeading
+        case LicensingHeading
 //        case Licensing
     }
     
@@ -49,8 +49,14 @@ class ProductsDetailViewController: SiteTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.registerClass(ProductsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ProductHeadingTableViewCell")
+        tableView.registerClass(ProductsDetailInfoTableViewCell.self, forCellReuseIdentifier: "ProductInfoTableViewCell")
+        tableView.registerClass(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
         
-        cells = [.InfoHeading, .StatsHeading, .PricingHeading]
+        cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading]
+        
+        if product.licensing != nil {
+            cells.append(.LicensingHeading)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -96,12 +102,21 @@ class ProductsDetailViewController: SiteTableViewController {
             case .InfoHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Info")
+            case .Info:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductInfoTableViewCell", forIndexPath: indexPath) as! ProductsDetailInfoTableViewCell
+                (cell as! ProductsDetailInfoTableViewCell).configure(product!)
             case .StatsHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Stats")
+            case .Stats:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductStatsTableViewCell", forIndexPath: indexPath) as! ProductsDetailStatsTableViewCell
+                (cell as! ProductsDetailStatsTableViewCell).configure(product?.stats)
             case .PricingHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Pricing")
+            case .LicensingHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+                (cell as! ProductsDetailHeadingTableViewCell).configure("Licensing")
         }
         
         return cell!

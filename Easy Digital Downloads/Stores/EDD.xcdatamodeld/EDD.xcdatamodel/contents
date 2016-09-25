@@ -52,6 +52,7 @@
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="files" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="hasVariablePricing" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="licensing" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
@@ -122,7 +123,7 @@
         <element name="Commission" positionX="-9" positionY="189" width="128" height="180"/>
         <element name="Customer" positionX="-27" positionY="45" width="128" height="255"/>
         <element name="Discount" positionX="-9" positionY="54" width="128" height="300"/>
-        <element name="Product" positionX="-45" positionY="36" width="128" height="270"/>
+        <element name="Product" positionX="-45" positionY="36" width="128" height="285"/>
         <element name="Sale" positionX="-54" positionY="27" width="128" height="285"/>
         <element name="Site" positionX="-54" positionY="-9" width="128" height="315"/>
         <element name="Subscription" positionX="-18" positionY="135" width="128" height="270"/>

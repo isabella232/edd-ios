@@ -18,6 +18,7 @@ public final class Product: ManagedObject {
     @NSManaged public private(set) var files: NSData?
     @NSManaged public private(set) var hasVariablePricing: NSNumber
     @NSManaged public private(set) var link: String
+    @NSManaged public private(set) var licensing: [String: AnyObject]?
     @NSManaged public private(set) var modifiedDate: NSDate
     @NSManaged public private(set) var notes: String?
     @NSManaged public private(set) var pid: Int64
@@ -41,7 +42,7 @@ public final class Product: ManagedObject {
         return NSPredicate(format: "%K == %lld", Product.Keys.ID.rawValue, productId)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSData?, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String?, pid: Int64, pricing: NSData, stats: NSData?, status: String, thumbnail: String, title: String) -> Product {
+    public static func insertIntoContext(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSData?, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String?, pid: Int64, pricing: NSData, stats: NSData?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
         let product: Product = moc.insertObject()
         product.content = content
         product.createdDate = createdDate
@@ -57,6 +58,7 @@ public final class Product: ManagedObject {
         product.thumbnail = thumbnail
         product.title = title
         product.site = Site.fetchRecordForActiveSite(inContext: moc)
+        product.licensing = licensing ?? nil
         
         return product
     }
