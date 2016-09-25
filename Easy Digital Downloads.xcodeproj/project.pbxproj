@@ -22,7 +22,6 @@
 		F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */; };
 		F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */; };
 		F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB541CFAD228001A6A51 /* HighlightButton.swift */; };
-		F512E4061D91619B0086AD68 /* SalesDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */; };
 		F512E4081D9179080086AD68 /* CustomersDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4071D9179080086AD68 /* CustomersDetailViewController.swift */; };
 		F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E4091D917C480086AD68 /* CustomerProfileTableViewCell.swift */; };
 		F512E40C1D91847C0086AD68 /* Gravatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F512E40B1D91847C0086AD68 /* Gravatar.swift */; };
@@ -165,7 +164,6 @@
 		F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesViewController.swift; sourceTree = "<group>"; };
 		F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersViewController.swift; sourceTree = "<group>"; };
 		F50DEB541CFAD228001A6A51 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
-		F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailTableViewCell.swift; sourceTree = "<group>"; };
 		F512E4071D9179080086AD68 /* CustomersDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersDetailViewController.swift; sourceTree = "<group>"; };
 		F512E4091D917C480086AD68 /* CustomerProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerProfileTableViewCell.swift; sourceTree = "<group>"; };
 		F512E40B1D91847C0086AD68 /* Gravatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gravatar.swift; sourceTree = "<group>"; };
@@ -342,7 +340,6 @@
 				F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */,
 				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
 				F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */,
-				F512E4051D91619B0086AD68 /* SalesDetailTableViewCell.swift */,
 				F512E4151D9407FB0086AD68 /* SalesDetailPaymentTableViewCell.swift */,
 				F51A905D1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift */,
 				F51A905F1D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift */,
@@ -851,7 +848,6 @@
 				F51F22481D3B7C0000D114E8 /* SwitchSiteViewController.swift in Sources */,
 				F5A53E3D1D95E92100483797 /* ProductsDetailHeadingTableViewCell.swift in Sources */,
 				F5EF5E9E1CF314FA00298841 /* Branding.swift in Sources */,
-				F512E4061D91619B0086AD68 /* SalesDetailTableViewCell.swift in Sources */,
 				F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */,
 				F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */,
 				F5EF5E9C1CF2FD9E00298841 /* EDD.xcdatamodeld in Sources */,
