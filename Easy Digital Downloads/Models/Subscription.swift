@@ -40,6 +40,51 @@ public final class Subscription: ManagedObject {
         return NSPredicate(format: "%K == %lld", Subscription.Keys.ID.rawValue, subscriptionId)
     }
     
+    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: String?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String) -> Subscription {
+        let subscription: Subscription = moc.insertObject()
+        subscription.billTimes = billTimes
+        subscription.created = created
+        subscription.customer = customer
+        subscription.expiration = expiration
+        subscription.gateway = gateway
+        subscription.initialAmount = initialAmount
+        subscription.notes = notes
+        subscription.parentPaymentID = parentPaymentID
+        subscription.period = period
+        subscription.productID = productID
+        subscription.profileID = profileID
+        subscription.recurringAmount = recurringAmount
+        subscription.sid = sid
+        subscription.status = status
+        subscription.site = Site.fetchRecordForActiveSite(inContext: moc)
+        
+        return subscription
+    }
+    
+    public static func subscriptionForId(subscriptionId: Int64) -> Subscription? {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+        
+        let subscription = Subscription.fetchInContext(managedObjectContext) { (request) in
+            request.predicate = self.predicateForId(subscriptionId)
+            request.fetchLimit = 1
+        }
+        
+        if subscription.count > 0 {
+            return subscription[0]
+        } else {
+            return nil
+        }
+    }
+    
+    public static func fetchRecordForId(subscriptionId: Int64, inContext moc: NSManagedObjectContext) -> Subscription? {
+        let subscription = Subscription.fetchSingleObjectInContext(moc) { request in
+            request.predicate = predicateForId(subscriptionId)
+            request.fetchLimit = 1
+        }
+        return subscription ?? nil
+    }
+    
 }
 
 extension Subscription: ManagedObjectType {
@@ -63,27 +108,6 @@ extension Subscription: ManagedObjectType {
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedDate.rawValue, ascending: false)]
         return request
-    }
-    
-    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: String?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String) -> Subscription {
-        let subscription: Subscription = moc.insertObject()
-        subscription.billTimes = billTimes
-        subscription.created = created
-        subscription.customer = customer
-        subscription.expiration = expiration
-        subscription.gateway = gateway
-        subscription.initialAmount = initialAmount
-        subscription.notes = notes
-        subscription.parentPaymentID = parentPaymentID
-        subscription.period = period
-        subscription.productID = productID
-        subscription.profileID = profileID
-        subscription.recurringAmount = recurringAmount
-        subscription.sid = sid
-        subscription.status = status
-        subscription.site = Site.fetchRecordForActiveSite(inContext: moc)
-        
-        return subscription
     }
     
 }
