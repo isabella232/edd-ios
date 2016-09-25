@@ -18,7 +18,7 @@ class ProductsDetailViewController: SiteTableViewController {
         case StatsHeading
         case Stats
         case PricingHeading
-//        case Pricing
+        case Pricing
 //        case NotesHeading
 //        case Notes
         case LicensingHeading
@@ -51,8 +51,9 @@ class ProductsDetailViewController: SiteTableViewController {
         tableView.registerClass(ProductsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ProductHeadingTableViewCell")
         tableView.registerClass(ProductsDetailInfoTableViewCell.self, forCellReuseIdentifier: "ProductInfoTableViewCell")
         tableView.registerClass(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
+        tableView.registerClass(ProductsDetailPricingTableViewCell.self, forCellReuseIdentifier: "ProductPricingTableViewCell")
         
-        cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading]
+        cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading, .Pricing]
         
         if product.licensing != nil {
             cells.append(.LicensingHeading)
@@ -117,6 +118,9 @@ class ProductsDetailViewController: SiteTableViewController {
             case .LicensingHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Licensing")
+            case .Pricing:
+                cell = tableView.dequeueReusableCellWithIdentifier("ProductPricingTableViewCell", forIndexPath: indexPath) as! ProductsDetailPricingTableViewCell
+                (cell as! ProductsDetailPricingTableViewCell).configure((product?.hasVariablePricing.boolValue)!, pricing: product!.pricing)
         }
         
         return cell!
