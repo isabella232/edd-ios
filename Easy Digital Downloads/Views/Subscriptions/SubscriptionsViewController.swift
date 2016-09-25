@@ -41,8 +41,6 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        super.leftBarButtonItem = true
-        
         setupInfiniteScrollView()
         setupTableView()
     }
