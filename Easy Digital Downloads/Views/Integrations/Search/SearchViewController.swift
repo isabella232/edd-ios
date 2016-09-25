@@ -9,6 +9,15 @@
 import UIKit
 import SwiftyJSON
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
 class SearchViewController: SiteTableViewController {
 
     var site: Site?
@@ -73,6 +82,8 @@ class SearchViewController: SiteTableViewController {
         searchController.delegate = self
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        
+        extendedLayoutIncludesOpaqueBars = true
         
         tableView.registerClass(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
     
@@ -147,14 +158,46 @@ class SearchViewController: SiteTableViewController {
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let item = self.filteredTableData[indexPath.row]
         
-        // TODO: Push to ProductDetailViewController passing in the ID of the product
+        var stats: NSData?
+        if Site.hasPermissionToViewReports() {
+            stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
+        } else {
+            stats = nil
+        }
+        
+        var files: NSData?
+        var notes: String?
+        if Site.hasPermissionToViewSensitiveData() {
+            if item["files"].arrayObject != nil {
+                files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+            } else {
+                files = nil
+            }
+            
+            notes = item["notes"].stringValue
+        } else {
+            files = nil
+            notes = nil
+        }
+        
+        var hasVariablePricing = false
+        if item["pricing"].dictionary?.count > 1 {
+            hasVariablePricing = true
+        }
+        
+        let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+        
+        let product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
+        
+        navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell
         
         cell.configureForObject(filteredTableData[indexPath.row])
         

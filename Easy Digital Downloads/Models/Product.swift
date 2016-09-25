@@ -63,6 +63,27 @@ public final class Product: ManagedObject {
         return product
     }
     
+    public static func objectForData(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSData?, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String?, pid: Int64, pricing: NSData, stats: NSData?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
+        let entity = NSEntityDescription.entityForName("Product", inManagedObjectContext: moc)
+        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Product
+
+        object.content = content
+        object.createdDate = createdDate
+        object.files = files
+        object.hasVariablePricing = hasVariablePricing
+        object.link = link
+        object.modifiedDate = modifiedDate
+        object.notes = notes
+        object.pid = pid
+        object.pricing = pricing
+        object.stats = stats
+        object.status = status
+        object.thumbnail = thumbnail
+        object.title = title
+        object.licensing = licensing ?? nil
+        return object
+    }
+    
     public static func productForId(productId: Int64) -> Product? {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
