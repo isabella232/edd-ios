@@ -45,6 +45,8 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         
         setupInfiniteScrollView()
         setupTableView()
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     init(site: Site) {

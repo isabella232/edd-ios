@@ -95,6 +95,8 @@
 		F5E7F1651D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1641D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift */; };
 		F5E7F1671D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */; };
 		F5E7F1691D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */; };
+		F5E7F16B1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */; };
+		F5E7F16D1D99BA3800DC62DE /* EDDNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -254,6 +256,8 @@
 		F5E7F1641D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailBillingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailRenewalPaymentsTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailLicensingTableViewCell.swift; sourceTree = "<group>"; };
+		F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDNetworkManager.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -572,6 +576,7 @@
 				F5E7F1641D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift */,
 				F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */,
 				F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */,
+				F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -650,6 +655,7 @@
 				F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */,
 				F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */,
 				F5B061221D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift */,
+				F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */,
 			);
 			path = "Data Sources and Providers";
 			sourceTree = "<group>";
@@ -903,6 +909,7 @@
 				F5E4887D1D973E0B00C7A2A8 /* Array+Unique.swift in Sources */,
 				F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
+				F5E7F16D1D99BA3800DC62DE /* EDDNetworkManager.swift in Sources */,
 				F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */,
 				F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
@@ -913,6 +920,7 @@
 				F5FAF3CD1CFBA18100F9F1FF /* FetchedResultsDataProvider.swift in Sources */,
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
+				F5E7F16B1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift in Sources */,
 				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,
 				F5CA01931D97C8640000C529 /* ManageSitesViewController.swift in Sources */,
 				F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */,

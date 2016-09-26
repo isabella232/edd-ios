@@ -183,8 +183,8 @@ public final class EDDAPIWrapper: NSObject {
         passedParameters.update(parameters)
         
         print("Request made to \(strURL)")
-        
-        let request = Alamofire.request(.GET, strURL, parameters: passedParameters)
+
+        let request = EDDNetworkManager.sharedInstance.request(.GET, strURL, parameters: passedParameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in

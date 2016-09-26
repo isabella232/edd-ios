@@ -23,8 +23,11 @@ private let sharedDateFormatter: NSDateFormatter = {
 class SubscriptionsDetailViewController: SiteTableViewController {
     
     private enum CellType {
+        case BillingHeading
         case Billing
+        case RenewalPaymentsHeading
         case RenewalPayments
+        case LicensingHeading
         case Licensing
     }
     
@@ -47,11 +50,12 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         
         title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.sid)"
         
+        tableView.registerClass(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
         tableView.registerClass(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
         tableView.registerClass(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")
         tableView.registerClass(SubscriptionsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailLicensingTableViewCell")
         
-        cells = [.Billing, .RenewalPayments, .Licensing]
+        cells = [.BillingHeading, .Billing, .RenewalPaymentsHeading, .RenewalPayments, .LicensingHeading, .Licensing]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,10 +78,20 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
+            case .BillingHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+                (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Billing", comment: ""))
             case .Billing:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailBillingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailBillingTableViewCell
+                (cell as! SubscriptionsDetailBillingTableViewCell).configure(subscription!)
+            case .RenewalPaymentsHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+                (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Renewal Payments", comment: ""))
             case .RenewalPayments:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailRenewalPaymentsTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailRenewalPaymentsTableViewCell
+            case .LicensingHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+                (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Licensing", comment: ""))
             case .Licensing:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailLicensingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailLicensingTableViewCell
         }
