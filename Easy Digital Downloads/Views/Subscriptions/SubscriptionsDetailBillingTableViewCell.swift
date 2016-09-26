@@ -73,6 +73,8 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         productText.textColor = .EDDBlackColor()
         paymentMethodHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         paymentMethodHeading.textColor = .EDDBlueColor()
+        paymentMethodText.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        paymentMethodText.textColor = .EDDBlackColor()
         profileHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         profileHeading.textColor = .EDDBlueColor()
         profileText.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
@@ -112,7 +114,14 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
     }
     
     func configure(subscription: Subscription) {
-     
+        billingCycleText.text = Site.currencyFormat(subscription.initialAmount) + " " + NSLocalizedString("then", comment: "") + " " + Site.currencyFormat(subscription.recurringAmount)
+        timesBilledText.text = "\(subscription.billTimes)"
+        paymentMethodText.text = subscription.gateway.capitalizedString
+        profileText.text = subscription.profileID
+        dateCreatedText.text = sharedDateFormatter.stringFromDate(subscription.created)
+        expirationDateText.text = sharedDateFormatter.stringFromDate(subscription.expiration)
+        statusText.text = subscription.status.capitalizedString
+        
         layout()
     }
     
@@ -147,20 +156,28 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         var constraints = [NSLayoutConstraint]()
         constraints.append(billingCycleHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(billingCycleText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(billingCycleText.bottomAnchor.constraintEqualToAnchor(timesBilledHeading.topAnchor, constant: -20))
         constraints.append(timesBilledHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(timesBilledText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(timesBilledText.bottomAnchor.constraintEqualToAnchor(productHeading.topAnchor, constant: -20))
         constraints.append(productHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(productText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(productText.bottomAnchor.constraintEqualToAnchor(paymentMethodHeading.topAnchor, constant: -20))
         constraints.append(paymentMethodHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(paymentMethodText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(paymentMethodText.bottomAnchor.constraintEqualToAnchor(profileHeading.topAnchor, constant: -20))
         constraints.append(profileHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(profileText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(profileText.bottomAnchor.constraintEqualToAnchor(transactionIdHeading.topAnchor, constant: -20))
         constraints.append(transactionIdHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(transactionIdText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(transactionIdText.bottomAnchor.constraintEqualToAnchor(dateCreatedHeading.topAnchor, constant: -20))
         constraints.append(dateCreatedHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(dateCreatedText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateCreatedText.bottomAnchor.constraintEqualToAnchor(expirationDateHeading.topAnchor, constant: -20))
         constraints.append(expirationDateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(expirationDateText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(expirationDateText.bottomAnchor.constraintEqualToAnchor(statusHeading.topAnchor, constant: -20))
         constraints.append(statusHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(statusText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
