@@ -83,7 +83,6 @@ public final class Sale: ManagedObject {
         object.tax = tax
         object.total = total
         object.transactionId = transactionId
-        object.site = Site.fetchRecordForActiveSite(inContext: moc)
         object.products = NSKeyedArchiver.archivedDataWithRootObject(products)
         object.discounts = discounts
         

@@ -124,6 +124,11 @@ class SalesDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
         }
         
+        if cells[indexPath.row] == CellType.Product {
+            let product = products![indexPath.row - 2]
+        }
+            
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     

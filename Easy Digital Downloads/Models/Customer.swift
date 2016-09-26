@@ -73,7 +73,6 @@ public final class Customer: ManagedObject {
         object.uid = uid
         object.username = username
         object.dateCreated = dateCreated
-        object.site = Site.fetchRecordForActiveSite(inContext: moc)
         
         return object
     }
