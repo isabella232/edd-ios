@@ -21,6 +21,12 @@ private let sharedDateFormatter: NSDateFormatter = {
 }()
 
 class SubscriptionsDetailViewController: SiteTableViewController {
+    
+    private enum CellType {
+        case Billing
+        case RenewalPayments
+        case Licensing
+    }
 
     var site: Site?
     var subscription: Subscription?
@@ -38,6 +44,10 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.separatorStyle = .None
         
         title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.sid)"
+        
+        tableView.registerClass(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
+        tableView.registerClass(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")
+        tableView.registerClass(SubscriptionsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailLicensingTableViewCell")
     }
     
     required init?(coder aDecoder: NSCoder) {
