@@ -93,6 +93,17 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         sharedDefaults.synchronize()
     }
     
+    // MARK: Scroll View Delegate
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let actualPosition: CGFloat = scrollView.contentOffset.y
+        let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
+        
+        if actualPosition >= contentHeight {
+            self.requestNextPage()
+        }
+    }
+    
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

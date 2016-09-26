@@ -39,6 +39,9 @@ class SiteInformationTableViewCell: UITableViewCell {
         
         label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         label.textColor = .EDDBlueColor()
+        
+        textField.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        textField.textColor = .EDDBlackColor()
     }
     
     required init?(coder aDecoder: NSCoder) {
