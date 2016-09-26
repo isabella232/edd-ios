@@ -146,7 +146,7 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
             return
         }
         
-        
+        navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: subscription), animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

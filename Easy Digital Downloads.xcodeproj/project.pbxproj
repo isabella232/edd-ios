@@ -90,6 +90,7 @@
 		F5E7827E1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */; };
 		F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */; };
 		F5E7F15F1D9863A300DC62DE /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F15E1D9863A300DC62DE /* SearchDetailViewController.swift */; };
+		F5E7F1611D989E3300DC62DE /* SubscriptionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1601D989E3300DC62DE /* SubscriptionsDetailViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -244,6 +245,7 @@
 		F5E7827D1D8EEB5C00D29268 /* SiteInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteInformationTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7827F1D8F381200D29268 /* ManageSitesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageSitesTableViewController.swift; sourceTree = "<group>"; };
 		F5E7F15E1D9863A300DC62DE /* SearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
+		F5E7F1601D989E3300DC62DE /* SubscriptionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -557,6 +559,7 @@
 			children = (
 				F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */,
 				F51A90631D9498D5003E06C2 /* SubscriptionsTableViewCell.swift */,
+				F5E7F1601D989E3300DC62DE /* SubscriptionsDetailViewController.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -854,6 +857,7 @@
 				F5FAF3C51CFB619800F9F1FF /* Stack.swift in Sources */,
 				F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */,
 				F51A90641D9498D5003E06C2 /* SubscriptionsTableViewCell.swift in Sources */,
+				F5E7F1611D989E3300DC62DE /* SubscriptionsDetailViewController.swift in Sources */,
 				F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */,
 				F51A905E1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift in Sources */,
 				F5CA019B1D981F140000C529 /* ProductsDetailPricingTableViewCell.swift in Sources */,
