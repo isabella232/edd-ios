@@ -69,6 +69,39 @@ public final class Sale: ManagedObject {
         return sale
     }
     
+    public static func objectForData(moc: NSManagedObjectContext, customer: String, date: NSDate, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
+        let entity = NSEntityDescription.entityForName("Customer", inManagedObjectContext: moc)
+        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Sale
+        
+        object.customer = customer
+        object.date = date
+        object.email = email
+        object.gateway = gateway
+        object.key = key
+        object.sid = sid
+        object.subtotal = subtotal
+        object.tax = tax
+        object.total = total
+        object.transactionId = transactionId
+        object.site = Site.fetchRecordForActiveSite(inContext: moc)
+        object.products = NSKeyedArchiver.archivedDataWithRootObject(products)
+        object.discounts = discounts
+        
+        if licenses != nil {
+            object.licenses = NSKeyedArchiver.archivedDataWithRootObject(licenses!)
+        } else {
+            object.licenses = nil
+        }
+        
+        if let feesObject = fees {
+            object.fees = NSKeyedArchiver.archivedDataWithRootObject(feesObject)
+        } else {
+            object.fees = nil
+        }
+        
+        return object
+    }
+    
     public static func predicateForTransactionId(transactionId: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", Sale.Keys.TransactionID.rawValue, transactionId)
     }
