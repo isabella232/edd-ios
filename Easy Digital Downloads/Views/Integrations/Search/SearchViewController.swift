@@ -85,6 +85,10 @@ class SearchViewController: SiteTableViewController {
         
         extendedLayoutIncludesOpaqueBars = true
         
+        navigationController?.navigationBar.clipsToBounds = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        
         tableView.registerClass(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
     
         for view in searchController.searchBar.subviews {

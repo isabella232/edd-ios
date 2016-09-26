@@ -119,6 +119,27 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         }
     }
     
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view: UIView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 40))
+        view.backgroundColor = .EDDGreyColor()
+        view.userInteractionEnabled = false
+        view.tag = section
+        
+        let label = UILabel(frame: CGRectMake(15, 25, tableView.bounds.size.width - 10, 20))
+        label.text = self.tableView(tableView, titleForHeaderInSection: section)?.uppercaseString
+        label.textColor = .EDDBlackColor()
+        label.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        label.textAlignment = .Left
+        
+        view.addSubview(label)
+        
+        return view
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

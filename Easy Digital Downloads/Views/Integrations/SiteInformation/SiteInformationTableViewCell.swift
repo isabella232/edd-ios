@@ -34,8 +34,8 @@ class SiteInformationTableViewCell: UITableViewCell {
         layer.opaque = true
         opaque = true
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .whiteColor()
+        contentView.backgroundColor = .whiteColor()
         
         label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         label.textColor = .EDDBlueColor()
