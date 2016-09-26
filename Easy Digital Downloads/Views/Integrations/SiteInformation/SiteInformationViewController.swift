@@ -139,7 +139,7 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         let label = UILabel(frame: CGRectMake(15, 25, tableView.bounds.size.width - 10, 20))
         label.text = self.tableView(tableView, titleForHeaderInSection: section)?.uppercaseString
         label.textColor = .EDDBlackColor()
-        label.font = g
+        label.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         label.textAlignment = .Left
         
         view.addSubview(label)
