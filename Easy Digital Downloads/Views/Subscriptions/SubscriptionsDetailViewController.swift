@@ -11,6 +11,15 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
 class SubscriptionsDetailViewController: SiteTableViewController {
 
     var site: Site?
