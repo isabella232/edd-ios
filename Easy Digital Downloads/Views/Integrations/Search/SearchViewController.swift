@@ -238,8 +238,13 @@ extension SearchViewController: UISearchBarDelegate {
                         self.loadingView.removeFromSuperview()
                     })
                     if items.count == 0 {
-                        self.showNoResultsView()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.showNoResultsView()
+                        })
                     } else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.noResultsView.removeFromSuperview()
+                        })
                         for item in items {
                             self.filteredTableData.append(item)
                             dispatch_async(dispatch_get_main_queue(), {
