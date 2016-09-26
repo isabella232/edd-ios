@@ -6,7 +6,6 @@
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 struct GraphData {
@@ -37,7 +36,7 @@ struct GraphData {
             return false
         }
     }
-
+    
 }
 
 extension GraphData {
@@ -84,9 +83,9 @@ extension GraphData {
                 super.init()
                 return nil
             }
-
+            
             graphData = GraphData(salesGraphDates: salesGraphDates, salesGraphData: salesGraphData, earningsGraphDates: earningsGraphDates, earningsGraphData: earningsGraphData)
-
+            
             super.init()
         }
         

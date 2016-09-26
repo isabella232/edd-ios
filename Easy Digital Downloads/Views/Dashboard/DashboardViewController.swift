@@ -265,12 +265,14 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
             if self.site?.hasCommissions != nil {
-                self.stats = Stats(sales: sales, earnings: earnings, commissions: nil, storeCommissions: nil, updatedAt: NSDate())
+                self.stats = Stats(sales: sales, earnings: earnings, commissions: NSDictionary(), storeCommissions: ["storeCommissions": ""], updatedAt: NSDate())
+                Stats.encode(self.stats!)
             } else {
                 self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
+                Stats.encode(self.stats!)
             }
             self.cachedGraphData = GraphData(salesGraphDates: self.salesGraphDates, salesGraphData: self.salesGraphData, earningsGraphDates: self.earningsGraphDates, earningsGraphData: self.earningsGraphData)
-            Stats.encode(self.stats!)
+            
             GraphData.encode(self.cachedGraphData!)
             self.tableView.reloadData()
         }
@@ -284,7 +286,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     // MARK: Stats
     
     private func processCachedStats() {
-        stats = Stats.decode()
+        self.stats = Stats.decode()
+        tableView.reloadData()
     }
     
     private func processCachedGraphData() {

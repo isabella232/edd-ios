@@ -106,12 +106,13 @@ extension Customer: ManagedObjectType {
     }
     
     public static var defaultPredicate: NSPredicate {
-        return NSPredicate()
+        return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
     }
     
     public static func defaultFetchRequest() -> NSFetchRequest {
         let request = NSFetchRequest(entityName: self.entityName)
         request.fetchLimit = 20
+        request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: Customer.Keys.DateCreated.rawValue, ascending: false)]
         return request
