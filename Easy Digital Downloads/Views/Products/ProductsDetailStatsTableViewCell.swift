@@ -44,8 +44,12 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
         
         totalStatsLabel.lineBreakMode = .ByWordWrapping
         totalStatsLabel.numberOfLines = 0
+        totalStatsLabel.textColor = .EDDBlackColor()
+        totalStatsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         monthlyAverageStatsLabel.lineBreakMode = .ByWordWrapping
         monthlyAverageStatsLabel.numberOfLines = 0
+        monthlyAverageStatsLabel.textColor = .EDDBlackColor()
+        monthlyAverageStatsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }
@@ -61,13 +65,14 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
         let totalSales = total["sales"] as! String
         
         let monthly = statsDict["monthly_average"]!
-        let monthlyAverageSales = monthly["sales"]! as! String
-        let monthlyAverageEarnings = NSNumber(double: (monthly["earnings"] as! NSString).doubleValue)
-
+        let monthlyEarningsStat = monthly["earnings"]!
+        let monthlyAverageSales = monthly["sales"]!
+        let monthlyAverageEarnings = monthlyEarningsStat!.doubleValue
+        
         let totalStatsString = NSLocalizedString("Sales", comment: "") + ": \(totalSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat((total["earnings"] as! NSString).doubleValue)
         totalStatsLabel.text = totalStatsString
         
-        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": \(monthlyAverageSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(monthlyAverageEarnings)
+        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": \(monthlyAverageSales!.stringValue)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(monthlyAverageEarnings)
         monthlyAverageStatsLabel.text = monthlyAverageStatsString
         
         totalStatsLabel.sizeToFit()

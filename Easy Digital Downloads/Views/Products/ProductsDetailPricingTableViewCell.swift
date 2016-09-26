@@ -33,8 +33,13 @@ class ProductsDetailPricingTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        hasVariablePricingLabel.textColor = .EDDBlackColor()
+        hasVariablePricingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
         pricingOptionsLabel.lineBreakMode = .ByWordWrapping
         pricingOptionsLabel.numberOfLines = 0
+        pricingOptionsLabel.textColor = .EDDBlackColor()
+        pricingOptionsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }

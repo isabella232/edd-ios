@@ -36,6 +36,14 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
         
         licensingDisabledLabel.lineBreakMode = .ByWordWrapping
         licensingDisabledLabel.numberOfLines = 0
+        licensingDisabledLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        licensingDisabledLabel.textColor = .EDDBlackColor()
+        
+        licensingVersionLabel.textColor = .EDDBlackColor()
+        licensingVersionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        licensingExpiryLabel.textColor = .EDDBlackColor()
+        licensingExpiryLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
         selectionStyle = .None
     }
