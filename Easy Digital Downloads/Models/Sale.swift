@@ -70,7 +70,7 @@ public final class Sale: ManagedObject {
     }
     
     public static func objectForData(moc: NSManagedObjectContext, customer: String, date: NSDate, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
-        let entity = NSEntityDescription.entityForName("Customer", inManagedObjectContext: moc)
+        let entity = NSEntityDescription.entityForName("Sale", inManagedObjectContext: moc)
         let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Sale
         
         object.customer = customer

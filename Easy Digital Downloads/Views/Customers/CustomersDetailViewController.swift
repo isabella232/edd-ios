@@ -7,10 +7,22 @@
 //
 
 import UIKit
+import CoreData
 import SwiftyJSON
+
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
 
 class CustomersDetailViewController: SiteTableViewController {
 
+    var managedObjectContext: NSManagedObjectContext!
+    
     private enum CellType {
         case Profile
         case Stats
@@ -32,6 +44,7 @@ class CustomersDetailViewController: SiteTableViewController {
         
         self.site = Site.activeSite()
         self.customer = customer
+        self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = customer.displayName
         
@@ -109,6 +122,34 @@ class CustomersDetailViewController: SiteTableViewController {
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if cells[indexPath.row] == CellType.Sales {
+            var offset = 0
+            if cells[2] == CellType.SubscriptionsHeading {
+                offset = indexPath.row - (recentSubscriptions?.count)! - 4
+                
+            } else {
+                offset = indexPath.row - 3
+            }
+            
+            let item = recentSales![offset]
+            
+            let sale = Sale.objectForData(managedObjectContext, customer: item["customer"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].arrayObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int64(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue, products: item["products"].arrayObject!, discounts: item["discounts"].dictionaryObject, licenses: item["licenses"].arrayObject ?? nil)
+            
+            navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
+        }
+        
+        if cells[indexPath.row] == CellType.Subscriptions {
+            var offset = 0
+            if cells[2] == CellType.SalesHeading {
+                offset = indexPath.row - (recentSales?.count)! - 4
+                
+            } else {
+                offset = indexPath.row - 3
+            }
+            
+            let item = recentSubscriptions![offset]
+        }
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
