@@ -97,6 +97,9 @@
 		F5E7F1691D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */; };
 		F5E7F16B1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */; };
 		F5E7F16D1D99BA3800DC62DE /* EDDNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */; };
+		F5E7F16F1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */; };
+		F5E7F1711D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1701D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift */; };
+		F5E7F1731D99CD5500DC62DE /* CustomerOfflineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1721D99CD5500DC62DE /* CustomerOfflineViewController.swift */; };
 		F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */; };
 		F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E891CF26E4700298841 /* DashboardViewController.swift */; };
 		F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */; };
@@ -258,6 +261,9 @@
 		F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailLicensingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDNetworkManager.swift; sourceTree = "<group>"; };
+		F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailProductTableViewCell.swift; sourceTree = "<group>"; };
+		F5E7F1701D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailCustomerTableViewCell.swift; sourceTree = "<group>"; };
+		F5E7F1721D99CD5500DC62DE /* CustomerOfflineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerOfflineViewController.swift; sourceTree = "<group>"; };
 		F5EBDDB61D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditDashboardLayoutViewController.swift; path = Dashboard/EditDashboardLayoutViewController.swift; sourceTree = "<group>"; };
 		F5EF5E891CF26E4700298841 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = Dashboard/DashboardViewController.swift; sourceTree = "<group>"; };
 		F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "Easy Digital Downloads/Views/Login/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -396,6 +402,7 @@
 				F512E4111D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift */,
 				F512E4131D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift */,
 				F5E7F1621D991CFD00DC62DE /* CustomerDetailSubscriptionTableViewCell.swift */,
+				F5E7F1721D99CD5500DC62DE /* CustomerOfflineViewController.swift */,
 			);
 			path = Customers;
 			sourceTree = "<group>";
@@ -577,6 +584,8 @@
 				F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */,
 				F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */,
 				F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */,
+				F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */,
+				F5E7F1701D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -870,6 +879,7 @@
 				F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */,
 				F5CA019F1D98327B0000C529 /* ProductsDetailFilesTableViewCell.swift in Sources */,
 				F5E7F1671D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift in Sources */,
+				F5E7F16F1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift in Sources */,
 				F540EF8F1D6F8EF90012B453 /* FileDownloadLog.swift in Sources */,
 				F5FAF3C11CFB5E0800F9F1FF /* ManagedObject.swift in Sources */,
 				F5FAF3CF1CFBA1B800F9F1FF /* DataProvider.swift in Sources */,
@@ -914,6 +924,7 @@
 				F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
 				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
+				F5E7F1711D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift in Sources */,
 				F5FAF3C31CFB5FCC00F9F1FF /* NSURL+Utilities.swift in Sources */,
 				F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */,
 				F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */,
@@ -924,6 +935,7 @@
 				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,
 				F5CA01931D97C8640000C529 /* ManageSitesViewController.swift in Sources */,
 				F51A90621D947E33003E06C2 /* SalesDetailCustomerTableViewCell.swift in Sources */,
+				F5E7F1731D99CD5500DC62DE /* CustomerOfflineViewController.swift in Sources */,
 				F5E4887B1D97086A00C7A2A8 /* DiscountsViewController.swift in Sources */,
 				F5FAF3D91CFC1FED00F9F1FF /* NSManagedObjectContext+Helpers.swift in Sources */,
 				F5FAF3DD1CFDBAA900F9F1FF /* NSManagedObjectContext+Observers.swift in Sources */,

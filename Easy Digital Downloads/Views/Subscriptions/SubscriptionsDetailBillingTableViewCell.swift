@@ -13,7 +13,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
     formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
     formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-    formatter.dateFormat = "EEE d MMM yyyy"
+    formatter.dateFormat = "EEE d MMM yyyy HH:mm:ss"
     return formatter
 }()
 
@@ -37,12 +37,12 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         return view
     }()
     
+    var subscription: Subscription?
+    
     private let billingCycleHeading: UILabel = UILabel(frame: CGRectZero)
     private let billingCycleText: UILabel = UILabel(frame: CGRectZero)
     private let timesBilledHeading: UILabel = UILabel(frame: CGRectZero)
     private let timesBilledText: UILabel = UILabel(frame: CGRectZero)
-    private let productHeading: UILabel = UILabel(frame: CGRectZero)
-    private let productText: UILabel = UILabel(frame: CGRectZero)
     private let paymentMethodHeading: UILabel = UILabel(frame: CGRectZero)
     private let paymentMethodText: UILabel = UILabel(frame: CGRectZero)
     private let profileHeading: UILabel = UILabel(frame: CGRectZero)
@@ -67,10 +67,6 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         timesBilledHeading.textColor = .EDDBlueColor()
         timesBilledText.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         timesBilledText.textColor = .EDDBlackColor()
-        productHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        productHeading.textColor = .EDDBlueColor()
-        productText.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-        productText.textColor = .EDDBlackColor()
         paymentMethodHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         paymentMethodHeading.textColor = .EDDBlueColor()
         paymentMethodText.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
@@ -98,7 +94,6 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         
         billingCycleHeading.text = NSLocalizedString("Billing Cycle", comment: "")
         timesBilledHeading.text = NSLocalizedString("Times Billed", comment: "")
-        productHeading.text = NSLocalizedString("Product", comment: "")
         paymentMethodHeading.text = NSLocalizedString("Payment Method", comment: "")
         profileHeading.text = NSLocalizedString("Profile ID", comment: "")
         transactionIdHeading.text = NSLocalizedString("Transaction ID", comment: "")
@@ -114,6 +109,8 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
     }
     
     func configure(subscription: Subscription) {
+        self.subscription = subscription
+        
         billingCycleText.text = Site.currencyFormat(subscription.initialAmount) + " " + NSLocalizedString("then", comment: "") + " " + Site.currencyFormat(subscription.recurringAmount)
         timesBilledText.text = "\(subscription.billTimes)"
         paymentMethodText.text = subscription.gateway.capitalizedString
@@ -121,6 +118,10 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         dateCreatedText.text = sharedDateFormatter.stringFromDate(subscription.created)
         expirationDateText.text = sharedDateFormatter.stringFromDate(subscription.expiration)
         statusText.text = subscription.status.capitalizedString
+        
+        if let transactionId = subscription.transactionId {
+            transactionIdText.text = transactionId
+        }
         
         layout()
     }
@@ -130,8 +131,6 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(billingCycleText)
         stackView.addArrangedSubview(timesBilledHeading)
         stackView.addArrangedSubview(timesBilledText)
-        stackView.addArrangedSubview(productHeading)
-        stackView.addArrangedSubview(productText)
         stackView.addArrangedSubview(paymentMethodHeading)
         stackView.addArrangedSubview(paymentMethodText)
         stackView.addArrangedSubview(profileHeading)
@@ -159,10 +158,7 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         constraints.append(billingCycleText.bottomAnchor.constraintEqualToAnchor(timesBilledHeading.topAnchor, constant: -20))
         constraints.append(timesBilledHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(timesBilledText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(timesBilledText.bottomAnchor.constraintEqualToAnchor(productHeading.topAnchor, constant: -20))
-        constraints.append(productHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(productText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(productText.bottomAnchor.constraintEqualToAnchor(paymentMethodHeading.topAnchor, constant: -20))
+        constraints.append(timesBilledText.bottomAnchor.constraintEqualToAnchor(paymentMethodHeading.topAnchor, constant: -20))
         constraints.append(paymentMethodHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(paymentMethodText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(paymentMethodText.bottomAnchor.constraintEqualToAnchor(profileHeading.topAnchor, constant: -20))

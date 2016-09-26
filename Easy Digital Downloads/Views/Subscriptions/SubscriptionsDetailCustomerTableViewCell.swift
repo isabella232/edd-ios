@@ -1,15 +1,14 @@
 //
-//  SalesDetailCustomerTableViewCell.swift
+//  SubscriptionsDetailCustomerTableViewCell.swift
 //  Easy Digital Downloads
 //
-//  Created by Sunny Ratilal on 22/09/2016.
+//  Created by Sunny Ratilal on 26/09/2016.
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
 import UIKit
-import SwiftyJSON
 
-class SalesDetailCustomerTableViewCell: UITableViewCell {
+class SubscriptionsDetailCustomerTableViewCell: UITableViewCell {
 
     private var hasSetupConstraints = false
     
@@ -67,21 +66,17 @@ class SalesDetailCustomerTableViewCell: UITableViewCell {
         var constraints = [NSLayoutConstraint]()
         constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
         constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 20))
+        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -20))
+        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 20))
+        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -20))
         
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure(object: JSON?) {
-        guard object != nil else {
-            return
-        }
-
-        nameLabel.text = "\(object!["info"]["display_name"])"
-        emailLabel.text = "\(object!["info"]["email"])"
+    func configure(object: [String: AnyObject]) {
+        nameLabel.text = object["name"] as? String
+        emailLabel.text = object["email"] as? String
     }
 
 }

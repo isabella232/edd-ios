@@ -27,6 +27,8 @@ public final class Subscription: ManagedObject {
     @NSManaged public private(set) var recurringAmount: Double
     @NSManaged public private(set) var sid: Int64
     @NSManaged public private(set) var status: String
+    @NSManaged public private(set) var transactionId: String?
+    @NSManaged public private(set) var payments: [AnyObject]?
     
     // Relationships
     @NSManaged public private(set) var site: Site
@@ -40,7 +42,7 @@ public final class Subscription: ManagedObject {
         return NSPredicate(format: "%K == %lld", Subscription.Keys.ID.rawValue, subscriptionId)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: [AnyObject]?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String) -> Subscription {
+    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: [AnyObject]?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String, transactionId: String?, payments: [AnyObject]?) -> Subscription {
         let subscription: Subscription = moc.insertObject()
         subscription.billTimes = billTimes
         subscription.created = created
@@ -56,6 +58,8 @@ public final class Subscription: ManagedObject {
         subscription.recurringAmount = recurringAmount
         subscription.sid = sid
         subscription.status = status
+        subscription.transactionId = transactionId
+        subscription.payments = payments
         subscription.site = Site.fetchRecordForActiveSite(inContext: moc)
         
         return subscription
