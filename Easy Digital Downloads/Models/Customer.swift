@@ -59,6 +59,25 @@ public final class Customer: ManagedObject {
         return customer
     }
     
+    public static func objectForData(moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: NSDate) -> Customer {
+        let entity = NSEntityDescription.entityForName("Customer", inManagedObjectContext: moc)
+        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Customer
+
+        object.displayName = displayName
+        object.email = email
+        object.firstName = firstName
+        object.lastName = lastName
+        object.totalDownloads = totalDownloads
+        object.totalPurchases = totalPurchases
+        object.totalSpent = totalSpent
+        object.uid = uid
+        object.username = username
+        object.dateCreated = dateCreated
+        object.site = Site.fetchRecordForActiveSite(inContext: moc)
+        
+        return object
+    }
+    
     public static func customerForId(customerId: Int64) -> Customer? {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
