@@ -49,6 +49,7 @@ class CustomersDetailViewController: SiteTableViewController {
         tableView.registerClass(CustomerStatsTableViewCell.self, forCellReuseIdentifier: "CustomerStatsTableViewCell")
         tableView.registerClass(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
         tableView.registerClass(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
+        tableView.registerClass(CustomerDetailSubscriptionTableViewCell.self, forCellReuseIdentifier: "CustomerSubscriptionTableViewCell")
         
         cells = [.Profile, .Stats]
     }
@@ -66,14 +67,8 @@ class CustomersDetailViewController: SiteTableViewController {
             if let items = json["sales"].array {
                 self.cells.append(.SalesHeading)
                 self.recentSales = items
-                if items.count > 5 {
-                    for _ in 1...5 {
-                        self.cells.append(.Sales)
-                    }
-                } else {
-                    for _ in 1...items.count {
-                        self.cells.append(.Sales)
-                    }
+                for _ in 1...items.count {
+                    self.cells.append(.Sales)
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
@@ -88,15 +83,8 @@ class CustomersDetailViewController: SiteTableViewController {
                 if let items = json["subscriptions"].array {
                     self.cells.append(.SubscriptionsHeading)
                     self.recentSubscriptions = items
-                    
-                    if items.count > 5 {
-                        for _ in 1...5 {
-                            self.cells.append(.Subscriptions)
-                        }
-                    } else {
-                        for _ in 1...items.count {
-                            self.cells.append(.Subscriptions)
-                        }
+                    for _ in 1...items.count {
+                        self.cells.append(.Subscriptions)
                     }
                     dispatch_async(dispatch_get_main_queue(), {
                         self.tableView.reloadData()
@@ -144,8 +132,15 @@ class CustomersDetailViewController: SiteTableViewController {
                 cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
             case .Subscriptions:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
-                (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
+                cell = tableView.dequeueReusableCellWithIdentifier("CustomerSubscriptionTableViewCell", forIndexPath: indexPath) as! CustomerDetailSubscriptionTableViewCell
+                var offset = 0
+                if cells[2] == CellType.SalesHeading {
+                    offset = indexPath.row - (recentSales?.count)! - 4
+                    
+                } else {
+                    offset = indexPath.row - 3
+                }
+                (cell as! CustomerDetailSubscriptionTableViewCell).configure(recentSubscriptions![offset])
         }
         
         return cell!

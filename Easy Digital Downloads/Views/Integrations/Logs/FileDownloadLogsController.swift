@@ -17,6 +17,16 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     var site: Site?
     var logs: [JSON]?
     
+    var hasMoreLogs: Bool = true {
+        didSet {
+            if (!hasMoreLogs) {
+                activityIndicatorView.stopAnimating()
+            } else {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+    
     init(site: Site) {
         super.init(style: .Plain)
         
@@ -47,6 +57,8 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         networkOperations()
         
         registerForPreviewingWithDelegate(self, sourceView: view)
+        
+        setupInfiniteScrollView()
     }
     
     // MARK: Network Operations
@@ -57,12 +69,36 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
             if let items = json["download_logs"].array {
                 self.logs = items
+                self.requestNextPage(2)
             }
             self.tableView.reloadData()
             }) { (error) in
                 fatalError()
         }
     }
+    
+    private func requestNextPage(page: Int) {
+        EDDAPIWrapper.sharedInstance.requestCustomers([ "page": page ], success: { (json) in
+            if let items = json["download_logs"].array {
+                if items.count == 20 {
+                    self.hasMoreLogs = true
+                } else {
+                    self.hasMoreLogs = false
+                }
+                for item in items {
+                    self.logs?.append(item)
+                }
+            } else {
+                self.hasMoreLogs = false
+            }
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.tableView.reloadData()
+            })
+        }) { (error) in
+            fatalError()
+        }
+    }
+
     
     // MARK: Table View Data Source
     
@@ -113,4 +149,22 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 
+}
+
+extension FileDownloadLogsController: InfiniteScrollingTableView {
+    
+    func setupInfiniteScrollView() {
+        let bounds = UIScreen.mainScreen().bounds
+        let width = bounds.size.width
+        
+        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
+        footerView.backgroundColor = .clearColor()
+        
+        activityIndicatorView.startAnimating()
+        
+        footerView.addSubview(activityIndicatorView)
+        
+        tableView.tableFooterView = footerView
+    }
+    
 }
