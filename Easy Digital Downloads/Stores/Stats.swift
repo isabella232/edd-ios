@@ -11,11 +11,11 @@ import UIKit
 
 struct Stats {
     
-    let sales: NSDictionary
-    let earnings: NSDictionary
-    let commissions: NSDictionary
-    let storeCommissions: NSDictionary
-    let updatedAt: NSDate
+    var sales: NSDictionary
+    var earnings: NSDictionary
+    var commissions: NSDictionary
+    var storeCommissions: NSDictionary
+    var updatedAt: NSDate
     
     static func encode(stats: Stats) {
         let statsClassObject = StatsStorageAgent(stats: stats)

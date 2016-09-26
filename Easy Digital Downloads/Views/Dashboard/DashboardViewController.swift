@@ -114,6 +114,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.didReceiveMemoryWarning()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     func handleRefresh(refreshControl: UIRefreshControl) {
         if refreshControl.refreshing {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {

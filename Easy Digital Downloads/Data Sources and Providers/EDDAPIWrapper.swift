@@ -37,6 +37,8 @@ public final class EDDAPIWrapper: NSObject {
         case Products = "products"
     }
     
+    var requests: [Request] = [Request]()
+    
     private override init() {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
@@ -45,6 +47,10 @@ public final class EDDAPIWrapper: NSObject {
     
     public func refreshActiveSite() {
         site = Site.activeSite()
+    }
+    
+    public func cancelAllRequests() {
+        requests.forEach { $0.cancel() }
     }
     
     public func requestStats(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
@@ -171,15 +177,18 @@ public final class EDDAPIWrapper: NSObject {
     }
     
     public func requestGETURL(strURL: String, parameters: [String: AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let auth : [String : AnyObject] = ["key": site.key, "token": site.token, "number" : 20]
+        let auth : [String : AnyObject] = ["key": site.key, "token": site.token]
         var passedParameters : [String: AnyObject] = auth
 
         passedParameters.update(parameters)
         
-        Alamofire.request(.GET, strURL, parameters: passedParameters)
+        print("Request made to \(strURL)")
+        
+        let request = Alamofire.request(.GET, strURL, parameters: passedParameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
+                print(response.timeline)
                 if response.result.isSuccess {
                     let resJSON = JSON(response.result.value!)
                     success(resJSON)
@@ -189,7 +198,9 @@ public final class EDDAPIWrapper: NSObject {
                     let error: NSError = response.result.error!
                     failure(error)
                 }
-        }
+            }
+        
+        requests.append(request)
     }
     
     public func hasRecurringPaymentsIntegration() -> Bool {

@@ -73,8 +73,20 @@ class SalesViewController: SiteTableViewController {
     }
     
     private func networkOperations() {
+        EDDAPIWrapper.sharedInstance.requestSales(["number" : 1], success: { json in
+            if let item = json["sales"].array {
+                if Sale.saleForId(item[0]["ID"].stringValue) == nil {
+                    self.loadMoreData()
+                }
+            }
+            }) { (error) in
+                print(error)
+        }
+    }
+    
+    private func loadMoreData() {
         sales = [JSON]()
-        
+
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
             if let items = json["sales"].array {
                 self.sales = items
