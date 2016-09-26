@@ -65,11 +65,11 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         }
         
         if Site.activeSite().hasReviews == true && Site.activeSite().hasRecurring == true {
-            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts, .Reviews]))
+            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Reviews]))
         } else if (Site.activeSite().hasReviews == true) {
-            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews]))
+            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Reviews]))
         } else if (Site.activeSite().hasRecurring == true) {
-            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts]))
+            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs]))
         }
     }
     
