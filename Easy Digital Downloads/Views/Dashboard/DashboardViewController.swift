@@ -117,7 +117,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         let rightNavigationBarButton = UIBarButtonItem(customView: rightNavigationItemButton)
         rightNavigationBarButton.accessibilityIdentifier = "Edit Layout"
         
-        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
+//        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
     }
     
     override func didReceiveMemoryWarning() {
