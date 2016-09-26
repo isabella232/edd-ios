@@ -38,7 +38,7 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     init(site: Site) {
         super.init(style: .Plain)
         
-        self.site = site
+        self.site = Site.activeSite()
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Site Information", comment: "Site Information title")
@@ -77,25 +77,36 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         uiBusy.startAnimating()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiBusy)
         
-        let fetchRequest = NSFetchRequest(entityName: "Site")
-        fetchRequest.predicate = Site.predicateForActiveSite()
+        let site = Site.fetchRecordForActiveSite(inContext: managedObjectContext)
         
+        let siteNameIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        let siteNameCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteNameIndexPath) as! SiteInformationTableViewCell
         
-                let siteNameIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-                let siteNameCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteNameIndexPath) as! SiteInformationTableViewCell
-                
-                let siteURLIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-                let siteURLCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteURLIndexPath) as! SiteInformationTableViewCell
-                
-                let apiKeyIndexPath = NSIndexPath(forRow: 0, inSection: 1)
-                let apiKeyCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(apiKeyIndexPath) as! SiteInformationTableViewCell
-                
-                let tokenIndexPath = NSIndexPath(forRow: 1, inSection: 1)
-                let tokenCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(tokenIndexPath) as! SiteInformationTableViewCell
+        let siteURLIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+        let siteURLCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteURLIndexPath) as! SiteInformationTableViewCell
+        
+        let apiKeyIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+        let apiKeyCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(apiKeyIndexPath) as! SiteInformationTableViewCell
+        
+        let tokenIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+        let tokenCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(tokenIndexPath) as! SiteInformationTableViewCell
+        
+        site.setValue(siteNameCell.textFieldText(), forKey: "name")
+        site.setValue(siteURLCell.textFieldText(), forKey: "url")
+        
+        site.key = apiKeyCell.textFieldText()
+        site.token = tokenCell.textFieldText()
 
-//                var managedObject = results[0]
-//                managedObject.setValue(siteNameCell.textFieldText(), forKey: "name")
-//                managedObject.setValue(siteURLCell.textFieldText(), forKey: "url")
+        do {
+            try managedObjectContext.save()
+            self.site = site
+            tableView.reloadData()
+            
+            let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
+            navigationItem.rightBarButtonItem = saveButton
+        } catch {
+            print("Unable to save context")
+        }
     }
     
     // MARK: Table View Delegate
@@ -151,13 +162,13 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         
         switch sections[indexPath.section].items[indexPath.row] {
             case .SiteName:
-                cell!.configure("Site Name", text: Site.activeSite().name!)
+                cell!.configure("Site Name", text: site!.name!)
             case .SiteURL:
-                cell!.configure("Site URL", text: Site.activeSite().url!)
+                cell!.configure("Site URL", text: site!.url!)
             case .APIKey:
-                cell!.configure("API Key", text: Site.activeSite().key)
+                cell!.configure("API Key", text: site!.key)
             case .Token:
-                cell!.configure("Token", text: Site.activeSite().token)
+                cell!.configure("Token", text: site!.token)
         }
         
         cell!.layout()
