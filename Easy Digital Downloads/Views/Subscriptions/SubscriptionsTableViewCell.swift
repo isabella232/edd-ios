@@ -90,8 +90,13 @@ extension SubscriptionsTableViewCell: ConfigurableCell {
     
     func configureForObject(object: Subscription) {
         let customer: [String: AnyObject] = object.customer
-        let name = customer["name"]!
-        nameLabel.text = name as? String
+        var name = customer["name"]! as? String
+        
+        if name?.characters.count == 0 {
+            name = customer["email"]! as? String
+        }
+        
+        nameLabel.text = name
         dateLabel.text = sharedDateFormatter.stringFromDate(object.created)
     }
     
