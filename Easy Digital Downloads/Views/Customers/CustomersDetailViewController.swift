@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import CoreData
 import SwiftyJSON
 
@@ -72,6 +73,10 @@ class CustomersDetailViewController: SiteTableViewController {
     }
     
     private func networkOperations() {
+        Manager.sharedInstance.session.getAllTasksWithCompletionHandler { (tasks) in
+            tasks.forEach({ $0.cancel() })
+        }
+        
         guard customer != nil else {
             return
         }
@@ -88,7 +93,7 @@ class CustomersDetailViewController: SiteTableViewController {
                 })
             }
             }) { (error) in
-                fatalError()
+                print(error.localizedDescription)
         }
         
         if (Site.activeSite().hasRecurring != nil) {
@@ -104,7 +109,7 @@ class CustomersDetailViewController: SiteTableViewController {
                     })
                 }
                 }) { (error) in
-                    fatalError()
+                    print(error.localizedDescription)
             }
         }
     }

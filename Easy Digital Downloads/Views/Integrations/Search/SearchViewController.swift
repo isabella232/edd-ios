@@ -254,7 +254,7 @@ extension SearchViewController: UISearchBarDelegate {
                     }
                 }
                 }, failure: { (error) in
-                    fatalError()
+                    print(error.localizedDescription)
             })
         }
     }

@@ -77,7 +77,7 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
             }
             
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
     }
     
@@ -96,7 +96,7 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
             }
             self.persistSubscriptions()
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
     }
     

@@ -73,7 +73,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
             }
             self.tableView.reloadData()
             }) { (error) in
-                fatalError()
+                print(error.localizedDescription)
         }
     }
     
@@ -95,7 +95,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
                 self.tableView.reloadData()
             })
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
     }
 

@@ -83,7 +83,7 @@ class SalesViewController: SiteTableViewController {
             }
             
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
     }
     
@@ -102,7 +102,7 @@ class SalesViewController: SiteTableViewController {
             }
             self.persistSales()
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
     }
     

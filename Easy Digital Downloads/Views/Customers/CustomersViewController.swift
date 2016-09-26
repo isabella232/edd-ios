@@ -116,7 +116,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
             }
             self.persistCustomers()
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
     }
     

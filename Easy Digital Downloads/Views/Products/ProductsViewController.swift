@@ -123,7 +123,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             }
             self.persistProducts()
         }) { (error) in
-            fatalError()
+            print(error.localizedDescription)
         }
 
     }

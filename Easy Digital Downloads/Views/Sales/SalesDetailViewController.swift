@@ -70,7 +70,7 @@ class SalesDetailViewController: SiteTableViewController {
                 self.tableView.reloadData()
             })
             }) { (error) in
-                fatalError()
+                print(error.localizedDescription)
         }
         
         products = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.products)! as! [AnyObject])
