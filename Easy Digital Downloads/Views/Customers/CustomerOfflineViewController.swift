@@ -65,6 +65,15 @@ class CustomerOfflineViewController: SiteTableViewController {
             return view
         }()
         
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.center = view.center
+        loadingView.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
+        
+        view.addSubview(loadingView)
+        
         networkOperations()
         
         tableView.delegate = self
@@ -96,6 +105,7 @@ class CustomerOfflineViewController: SiteTableViewController {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.title = item["info"]["display_name"].stringValue
                     self.tableView.reloadData()
+                    self.loadingView.removeFromSuperview()
                 })
             }
             }) { (error) in
