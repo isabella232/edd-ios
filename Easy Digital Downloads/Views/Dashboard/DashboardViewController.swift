@@ -17,14 +17,17 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     var managedObjectContext: NSManagedObjectContext!
     
+    private enum CellType {
+        case Sales
+        case Earnings
+        case Commissions
+        case StoreCommissions
+    }
+    
+    private var cells = [CellType]()
+    
     var site: Site?
-    var cells: NSArray = [
-        ["title": NSLocalizedString("Sales", comment: ""), "type": 1],
-        ["title": NSLocalizedString("Earnings", comment: ""), "type": 2],
-        ["title": NSLocalizedString("Commissions", comment: ""), "type": 3],
-        ["title": NSLocalizedString("Store Commissions", comment: ""), "type": 4],
-        ["title": NSLocalizedString("Reviews", comment: ""), "type": 5],
-    ]
+
     var cachedGraphData: GraphData?
     var stats: Stats?
     var commissionsStats: NSDictionary?
@@ -44,6 +47,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         tableView.dataSource = self
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        cells = [.Sales, .Earnings]
+        
+        if ((site.hasCommissions) != false) {
+            cells.append(.Commissions)
+            cells.append(.StoreCommissions)
+        }
         
         topLayoutAnchor = -10.0
     }
@@ -139,7 +149,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4;
+        return cells.count
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -156,24 +166,19 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         cell?.selectionStyle = .None
         
-        let config = (cells.objectAtIndex(indexPath.row) as? NSDictionary)!
-        
-        switch config["type"] as! Int {
-            case 1:
-                cell!.configure(config, stats: stats, data: salesGraphData, dates: salesGraphDates)
+        switch cells[indexPath.row] {
+            case .Sales:
+                cell!.configure("Sales", stats: stats, data: salesGraphData, dates: salesGraphDates)
                 break
-            case 2:
-                cell!.configure(config, stats: stats, data: earningsGraphData, dates: earningsGraphDates)
+            case .Earnings:
+                cell!.configure("Earnings", stats: stats, data: earningsGraphData, dates: earningsGraphDates)
                 break
-            case 4:
-                cell!.configureSmallStaticCell(config, cellStat: storeCommission)
+            case .Commissions:
+                cell!.configureStaticCell("Commissions", data: commissionsStats)
                 break
-            default:
+            case .StoreCommissions:
+                cell!.configureSmallStaticCell("Store Commissions", cellStat: storeCommission)
                 break
-        }
-        
-        if ((site?.hasCommissions) != false) {
-            cell!.configureStaticCell(config, data: commissionsStats)
         }
         
         cell!.layout()
@@ -234,30 +239,36 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             NSLog(error.localizedDescription)
         }
         
-        dispatch_group_enter(networkOperationGroup)
-        
-        EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
-            self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-        }) { (error) in
-            self.hasNoInternetConnection = true
-            NSLog(error.localizedDescription)
-        }
-        
-        dispatch_group_enter(networkOperationGroup)
-        
-        EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
-            self.storeCommission = json["total_unpaid"].stringValue
-            self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
-        }) { (error) in
-            self.hasNoInternetConnection = true
-            NSLog(error.localizedDescription)
+        if (Site.activeSite().hasCommissions == true) {
+            dispatch_group_enter(networkOperationGroup)
+            
+            EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
+                self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
+                self.tableView.reloadData()
+                dispatch_group_leave(networkOperationGroup)
+            }) { (error) in
+                self.hasNoInternetConnection = true
+                NSLog(error.localizedDescription)
+            }
+            
+            dispatch_group_enter(networkOperationGroup)
+            
+            EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
+                self.storeCommission = json["total_unpaid"].stringValue
+                self.tableView.reloadData()
+                dispatch_group_leave(networkOperationGroup)
+            }) { (error) in
+                self.hasNoInternetConnection = true
+                NSLog(error.localizedDescription)
+            }
         }
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
-            self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
+            if self.site?.hasCommissions != nil {
+                self.stats = Stats(sales: sales, earnings: earnings, commissions: nil, storeCommissions: nil, updatedAt: NSDate())
+            } else {
+                self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
+            }
             self.cachedGraphData = GraphData(salesGraphDates: self.salesGraphDates, salesGraphData: self.salesGraphData, earningsGraphDates: self.earningsGraphDates, earningsGraphData: self.earningsGraphData)
             Stats.encode(self.stats!)
             GraphData.encode(self.cachedGraphData!)

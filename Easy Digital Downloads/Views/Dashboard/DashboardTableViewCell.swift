@@ -238,8 +238,8 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure<T>(cellData: NSDictionary, stats: Stats?, data: Array<T>, dates: Array<String>) {
-        title = cellData["title"] as! String
+    func configure<T>(heading: String, stats: Stats?, data: Array<T>, dates: Array<String>) {
+        title = heading
         
         guard let cellStats = stats else {
             return
@@ -248,7 +248,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         _dates = dates
         
         // Sales
-        if cellData["type"] as! Int == 1 {
+        if heading == "Sales" {
             stat = "\(cellStats.sales["today"]!)"
             _salesData = data.map({ Item -> Int in
                 return Item as! Int
@@ -261,7 +261,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
         
         // Earnings
-        if cellData["type"] as! Int == 2 {
+        if heading == "Earnings" {
             stat = Site.currencyFormat(cellStats.earnings["today"] as! NSNumber)
             
             _earningsData = data.map({ Item -> Double in
@@ -275,8 +275,8 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
     }
     
-    func configureSmallStaticCell(cellData: NSDictionary, cellStat: String?) {
-        title = cellData["title"] as! String
+    func configureSmallStaticCell(heading: String, cellStat: String?) {
+        title = heading
         
         guard let cellStat_ = cellStat else {
             return
@@ -285,16 +285,16 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         stat = Site.currencyFormat((cellStat_ as NSString).doubleValue)
         
         // Store Commissions
-        if cellData["type"] as! Int == 4 {
+        if heading == "Store Commissions" {
             type = .StoreCommissions
         }
     }
     
-    func configureStaticCell(cellData: NSDictionary, data: NSDictionary?) {
-        title = cellData["title"] as! String
+    func configureStaticCell(heading: String, data: NSDictionary?) {
+        title = heading
         
         // Commissions
-        if cellData["type"] as! Int == 3 {
+        if heading == "Commissions" {
             type = .Commissions
             
             guard let data_ = data else {

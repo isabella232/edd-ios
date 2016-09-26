@@ -13,8 +13,8 @@ struct Stats {
     
     var sales: NSDictionary
     var earnings: NSDictionary
-    var commissions: NSDictionary
-    var storeCommissions: NSDictionary
+    var commissions: NSDictionary?
+    var storeCommissions: NSDictionary?
     var updatedAt: NSDate
     
     static func encode(stats: Stats) {
@@ -77,8 +77,15 @@ extension Stats {
         func encodeWithCoder(aCoder: NSCoder) {
             aCoder.encodeObject(stats!.sales, forKey: "sales")
             aCoder.encodeObject(stats!.earnings, forKey: "earnings")
-            aCoder.encodeObject(stats!.commissions, forKey: "commissions")
-            aCoder.encodeObject(stats!.storeCommissions, forKey: "storeCommissions")
+            
+            if let commissions = stats?.commissions {
+                aCoder.encodeObject(commissions, forKey: "commissions")
+            }
+            
+            if let storeCommissions = stats?.storeCommissions {
+                aCoder.encodeObject(storeCommissions, forKey: "storeCommissions")
+            }
+
             aCoder.encodeObject(stats!.updatedAt, forKey: "updatedAt")
         }
         
