@@ -27,6 +27,8 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         case RenewalPayments
         case Licensing
     }
+    
+    private var cells = [CellType]()
 
     var site: Site?
     var subscription: Subscription?
@@ -48,6 +50,8 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.registerClass(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
         tableView.registerClass(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")
         tableView.registerClass(SubscriptionsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailLicensingTableViewCell")
+        
+        cells = [.Billing, .RenewalPayments, .Licensing]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,6 +62,27 @@ class SubscriptionsDetailViewController: SiteTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cells.count
+    }
+    
+    // MARK: Table View Delegate
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell: UITableViewCell!
+        
+        switch cells[indexPath.row] {
+            case .Billing:
+                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailBillingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailBillingTableViewCell
+            case .RenewalPayments:
+                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailRenewalPaymentsTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailRenewalPaymentsTableViewCell
+            case .Licensing:
+                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailLicensingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailLicensingTableViewCell
+        }
+        
+        return cell!
     }
 
 }
