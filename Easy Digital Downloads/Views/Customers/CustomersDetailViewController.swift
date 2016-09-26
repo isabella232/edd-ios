@@ -92,7 +92,7 @@ class CustomersDetailViewController: SiteTableViewController {
         }
         
         if (Site.activeSite().hasRecurring != nil) {
-            EDDAPIWrapper.sharedInstance.requestSubscriptions(["email" : customer!.email], success: { (json) in
+            EDDAPIWrapper.sharedInstance.requestSubscriptions(["customer" : customer!.email], success: { (json) in
                 if let items = json["subscriptions"].array {
                     self.cells.append(.SubscriptionsHeading)
                     self.recentSubscriptions = items
