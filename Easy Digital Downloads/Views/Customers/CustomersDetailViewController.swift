@@ -127,7 +127,14 @@ class CustomersDetailViewController: SiteTableViewController {
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Sales")
             case .Sales:
                 cell = tableView.dequeueReusableCellWithIdentifier("CustomerRecentSaleTableViewCell", forIndexPath: indexPath) as! CustomerRecentSaleTableViewCell
-                (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![indexPath.row - 3])
+                var offset = 0
+                if cells[2] == CellType.SubscriptionsHeading {
+                    offset = indexPath.row - (recentSubscriptions?.count)! - 4
+                    
+                } else {
+                    offset = indexPath.row - 3
+                }
+                (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![offset])
             case .SubscriptionsHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
