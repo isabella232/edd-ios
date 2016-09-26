@@ -62,11 +62,11 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         ]
         
         if Site.activeSite().hasReviews != nil && Site.activeSite().hasRecurring != nil {
-            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews, .Subscriptions]))
+            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts, .Reviews]))
         } else if (Site.activeSite().hasReviews != nil) {
             sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews]))
         } else if (Site.activeSite().hasRecurring != nil) {
-            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Subscriptions]))
+            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts]))
         }
     }
     
