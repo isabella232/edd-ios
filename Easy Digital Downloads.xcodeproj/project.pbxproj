@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7C14DC6DD9510FCA4A4DAC2D /* Pods_Easy_Digital_Downloads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619A29A076A169C9D993D7AC /* Pods_Easy_Digital_Downloads.framework */; };
 		CD9021C0801F1E02FBA0AD0C /* Pods_EDD_Easy_Digital_Downloads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B1CBEF62024057411CFCDD /* Pods_EDD_Easy_Digital_Downloads.framework */; };
-		D6CE78C2858D9E8BB10083C3 /* Pods_EDD_EDDToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F20B0B77A3F7F17B151F7B1 /* Pods_EDD_EDDToday.framework */; };
 		F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502B0021CF435790089EEE1 /* LoginTextField.swift */; };
 		F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */; };
 		F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */; };
@@ -68,9 +67,6 @@
 		F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061201D6A206000F9B4E1 /* KeyCodable.swift */; };
 		F5B061231D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061221D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift */; };
 		F5B061251D6A392C00F9B4E1 /* SalesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */; };
-		F5B0612E1D6B015000F9B4E1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */; };
-		F5B061311D6B015000F9B4E1 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061301D6B015000F9B4E1 /* TodayViewController.swift */; };
-		F5B061381D6B015000F9B4E1 /* EDDToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F5B982AD1D6BA0D500679271 /* SiteInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982AC1D6BA0D500679271 /* SiteInformationViewController.swift */; };
 		F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982AE1D6BA19300679271 /* FileDownloadLogsController.swift */; };
 		F5B982B11D6BA1C800679271 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B982B01D6BA1C800679271 /* ReviewsViewController.swift */; };
@@ -123,16 +119,6 @@
 		F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FAF3DE1CFDBB2300F9F1FF /* SequenceType+Utilities.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		F5B061361D6B015000F9B4E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5A3127D1CF1DAE1000F4F6F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F5B0612B1D6B014F00F9B4E1;
-			remoteInfo = EDDToday;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -140,7 +126,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F5B061381D6B015000F9B4E1 /* EDDToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,7 +215,6 @@
 		F5B061201D6A206000F9B4E1 /* KeyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodable.swift; sourceTree = "<group>"; };
 		F5B061221D6A38BD00F9B4E1 /* AugmentedDataProviderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AugmentedDataProviderDelegate.swift; sourceTree = "<group>"; };
 		F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesTableViewCell.swift; sourceTree = "<group>"; };
-		F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EDDToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F5B061301D6B015000F9B4E1 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		F5B061351D6B015000F9B4E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -295,15 +279,6 @@
 				F512E40E1D9186FC0086AD68 /* Security.framework in Frameworks */,
 				7C14DC6DD9510FCA4A4DAC2D /* Pods_Easy_Digital_Downloads.framework in Frameworks */,
 				CD9021C0801F1E02FBA0AD0C /* Pods_EDD_Easy_Digital_Downloads.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F5B061291D6B014F00F9B4E1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F5B0612E1D6B015000F9B4E1 /* NotificationCenter.framework in Frameworks */,
-				D6CE78C2858D9E8BB10083C3 /* Pods_EDD_EDDToday.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,7 +453,6 @@
 			isa = PBXGroup;
 			children = (
 				F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */,
-				F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -687,31 +661,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				F5B061371D6B015000F9B4E1 /* PBXTargetDependency */,
 			);
 			name = "Easy Digital Downloads";
 			productName = "Easy Digital Downloads";
 			productReference = F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */;
 			productType = "com.apple.product-type.application";
-		};
-		F5B0612B1D6B014F00F9B4E1 /* EDDToday */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F5B061391D6B015000F9B4E1 /* Build configuration list for PBXNativeTarget "EDDToday" */;
-			buildPhases = (
-				787532EF8194CF4DF527C766 /* [CP] Check Pods Manifest.lock */,
-				F5B061281D6B014F00F9B4E1 /* Sources */,
-				F5B061291D6B014F00F9B4E1 /* Frameworks */,
-				F5B0612A1D6B014F00F9B4E1 /* Resources */,
-				2EB3817FAE5168121CF23C30 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = EDDToday;
-			productName = EDDToday;
-			productReference = F5B0612C1D6B014F00F9B4E1 /* EDDToday.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -725,19 +679,6 @@
 				TargetAttributes = {
 					F5A312841CF1DAE1000F4F6F = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = H7B3257R6N;
-						LastSwiftMigration = 0800;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-							com.apple.Keychain = {
-								enabled = 1;
-							};
-						};
-					};
-					F5B0612B1D6B014F00F9B4E1 = {
-						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H7B3257R6N;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
@@ -765,7 +706,6 @@
 			projectRoot = "";
 			targets = (
 				F5A312841CF1DAE1000F4F6F /* Easy Digital Downloads */,
-				F5B0612B1D6B014F00F9B4E1 /* EDDToday */,
 			);
 		};
 /* End PBXProject section */
@@ -780,31 +720,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F5B0612A1D6B014F00F9B4E1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2EB3817FAE5168121CF23C30 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDD-EDDToday/Pods-EDD-EDDToday-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5073586A433310F390DF3B55 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -818,21 +736,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDD-Easy Digital Downloads/Pods-EDD-Easy Digital Downloads-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		787532EF8194CF4DF527C766 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ADB1BA03EA6070F9653B44BE /* [CP] Embed Pods Frameworks */ = {
@@ -980,23 +883,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F5B061281D6B014F00F9B4E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F5B061311D6B015000F9B4E1 /* TodayViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F5B061371D6B015000F9B4E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F5B0612B1D6B014F00F9B4E1 /* EDDToday */;
-			targetProxy = F5B061361D6B015000F9B4E1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F5A312911CF1DAE1000F4F6F /* LaunchScreen.storyboard */ = {
@@ -1116,6 +1003,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1134,34 +1022,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Easy Digital Downloads/Easy Digital Downloads-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
-			};
-			name = Release;
-		};
-		F5B0613A1D6B015000F9B4E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1CD92666F5B5787429402AB /* Pods-EDD-EDDToday.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = EDDToday/EDDToday.entitlements;
-				INFOPLIST_FILE = EDDToday/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.EDDToday;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
-			};
-			name = Debug;
-		};
-		F5B0613B1D6B015000F9B4E1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3DD97B0F116D34940763117 /* Pods-EDD-EDDToday.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = EDDToday/EDDToday.entitlements;
-				INFOPLIST_FILE = EDDToday/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.EDDToday;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1182,15 +1043,6 @@
 			buildConfigurations = (
 				F5A312981CF1DAE1000F4F6F /* Debug */,
 				F5A312991CF1DAE1000F4F6F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F5B061391D6B015000F9B4E1 /* Build configuration list for PBXNativeTarget "EDDToday" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F5B0613A1D6B015000F9B4E1 /* Debug */,
-				F5B0613B1D6B015000F9B4E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
