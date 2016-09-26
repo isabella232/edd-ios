@@ -58,14 +58,17 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         
         sections = [
             Section(type: .General, items: [.SiteInformation, .ManageSites, .ProductSearch]),
-            Section(type: .Commissions, items: [.Commissions, .StoreCommissions]),
         ]
         
-        if Site.activeSite().hasReviews != nil && Site.activeSite().hasRecurring != nil {
+        if Site.activeSite().hasCommissions == true {
+            sections.append(Section(type: .Commissions, items: [.Commissions, .StoreCommissions]))
+        }
+        
+        if Site.activeSite().hasReviews == true && Site.activeSite().hasRecurring == true {
             sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts, .Reviews]))
-        } else if (Site.activeSite().hasReviews != nil) {
+        } else if (Site.activeSite().hasReviews == true) {
             sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews]))
-        } else if (Site.activeSite().hasRecurring != nil) {
+        } else if (Site.activeSite().hasRecurring == true) {
             sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts]))
         }
     }
