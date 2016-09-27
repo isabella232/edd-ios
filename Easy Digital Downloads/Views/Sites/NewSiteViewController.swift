@@ -379,11 +379,12 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
                         SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
                         
                         // Only set the defaultSite if this is the first site being added
-                        if appDelegate.noSitesSetup() {
-                            self.sharedDefaults.setValue(uid, forKey: "defaultSite")
-                            self.sharedDefaults.setValue(uid, forKey: "activeSite")
-                            self.sharedDefaults.synchronize()
-                        }
+                        self.sharedDefaults.setValue(uid, forKey: "defaultSite")
+                        self.sharedDefaults.setValue(uid, forKey: "activeSite")
+                        self.sharedDefaults.setValue(self.siteName.text!, forKey: "activeSiteName")
+                        self.sharedDefaults.setValue(currency, forKey: "activeSiteCurrency")
+                        self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
+                        self.sharedDefaults.synchronize()
                         
                         // Create the dashboard layout based on the permissions granted
                         let dashboardLayout: NSMutableArray = [1, 2];

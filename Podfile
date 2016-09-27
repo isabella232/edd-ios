@@ -18,5 +18,5 @@ abstract_target 'EDD' do
     pod 'AlamofireImage', '= 2.5.0'
   end
 
-  target 'EDDToday'
+  target 'Today'
 end

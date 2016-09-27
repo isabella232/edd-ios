@@ -364,6 +364,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             if appDelegate.noSitesSetup() {
                                 self.sharedDefaults.setValue(uid, forKey: "defaultSite")
                                 self.sharedDefaults.setValue(uid, forKey: "activeSite")
+                                self.sharedDefaults.setValue(self.siteName.text!, forKey: "activeSiteName")
+                                self.sharedDefaults.setValue(currency, forKey: "activeSiteCurrency")
+                                self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
                                 self.sharedDefaults.synchronize()
                             }
                             

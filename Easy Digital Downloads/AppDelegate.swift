@@ -125,6 +125,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sharedDefaults.setValue(siteID, forKey: "defaultSite")
         sharedDefaults.setValue(siteID, forKey: "activeSite")
         sharedDefaults.synchronize()
+        sharedDefaults.setValue(Site.activeSite().name, forKey: "activeSiteName")
+        sharedDefaults.setValue(Site.activeSite().currency, forKey: "activeSiteCurrency")
+        sharedDefaults.setValue(Site.activeSite().url, forKey: "activeSiteURL")
+        sharedDefaults.synchronize()
         EDDAPIWrapper.sharedInstance.refreshActiveSite()
     }
     
