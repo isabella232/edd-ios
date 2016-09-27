@@ -218,7 +218,7 @@
 		F56546DF1D78859600003019 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
 		F56622B41D460523006E8648 /* Easy Digital Downloads-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Easy Digital Downloads-Bridging-Header.h"; sourceTree = "<group>"; };
-		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
+		F56B88E51CFADD5700DCF41F /* Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
 		F577F9B71D833CAA006A3FD9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
