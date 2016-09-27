@@ -71,17 +71,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         earningsLabel.numberOfLines = 0
         earningsLabel.lineBreakMode = .ByWordWrapping
         
-        salesLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        earningsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        salesLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+        earningsLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
         
         let salesString = NSMutableAttributedString()
         let earningsString = NSMutableAttributedString()
         let headingAttributes: [String: AnyObject] = [
-            NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+            NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
         ]
         
         let textAttributes: [String: AnyObject] = [
-            NSFontAttributeName: UIFont.systemFontOfSize(40, weight: UIFontWeightLight)
+            NSFontAttributeName: UIFont.systemFontOfSize(32, weight: UIFontWeightLight)
         ]
         
         containerStackView.addArrangedSubview(salesLabel)
@@ -91,8 +91,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         visualEffectView.contentView.addSubview(activeSiteLabel)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 30))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor, constant: -10))
+        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 20))
+        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor, constant: -5))
         constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 10))
         constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -10))
         
