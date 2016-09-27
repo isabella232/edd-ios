@@ -60,6 +60,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             return stack
         }()
         
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TodayViewController.handleTap))
+        gestureRecognizer.numberOfTapsRequired = 1
+        containerStackView.addGestureRecognizer(gestureRecognizer)
+        containerStackView.userInteractionEnabled = true
+        
         let activeSiteLabel: UILabel = UILabel(frame: CGRectMake(10, 2 , view.frame.size.width, 30))
         activeSiteLabel.text = NSLocalizedString("Active Site:", comment: "") + " " + sharedDefaults.stringForKey("activeSiteName")!
         activeSiteLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightUltraLight)
@@ -161,6 +166,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // If there's an update, use NCUpdateResult.NewData
         
         completionHandler(NCUpdateResult.NewData)
+    }
+    
+    func handleTap() {
+        self.extensionContext?.openURL(NSURL(string: "edd://dashboard")!, completionHandler: nil)
     }
     
 }

@@ -72,6 +72,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         if url.scheme == "edd" {
+            if url.URLString == "edd://dashboard" {
+                EDDAPIWrapper.sharedInstance
+                setupShortcutItems()
+                self.window?.rootViewController = SiteTabBarController(site: Site.defaultSite())
+                return true
+            }
+            
             let components = (NSURLComponents(URL: url, resolvingAgainstBaseURL: false)?.queryItems)! as [NSURLQueryItem]
             
             let login = LoginViewController()
