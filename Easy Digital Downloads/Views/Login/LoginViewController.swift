@@ -368,6 +368,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             self.sharedDefaults.setValue(currency, forKey: "activeSiteCurrency")
                             self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
                             self.sharedDefaults.synchronize()
+                            
+                            AppDelegate.sharedInstance.switchActiveSite(uid)
                         
                             // Create the dashboard layout based on the permissions granted
                             let dashboardLayout: NSMutableArray = [1, 2];

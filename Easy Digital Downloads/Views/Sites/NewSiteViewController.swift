@@ -386,6 +386,8 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
                         self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
                         self.sharedDefaults.synchronize()
                         
+                        AppDelegate.sharedInstance.switchActiveSite(uid)
+                        
                         // Create the dashboard layout based on the permissions granted
                         let dashboardLayout: NSMutableArray = [1, 2];
                         if hasCommissions {
