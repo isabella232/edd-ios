@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let sharedInstance = AppDelegate()
     
     var window: UIWindow?
+    
+    var launchedShortcutItem: UIApplicationShortcutItem?
+
 
     let managedObjectContext = createEDDMainContext()
     
@@ -42,6 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDASLLogger())
         DDLog.addLogger(DDTTYLogger())
         DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
+        
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+            launchedShortcutItem = shortcutItem
+            handleShortcut(shortcutItem)
+            return false
+        }
         
         if sharedDefaults.boolForKey("DashboardLoaded") {
             sharedDefaults.setBool(false, forKey: "DashboardLoaded")
@@ -107,7 +116,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        guard let shortcut = launchedShortcutItem else { return }
+        
+        handleShortcut(shortcut)
+        
+        launchedShortcutItem = nil
     }
     
     func applicationDidReceiveMemoryWarning(application: UIApplication) {
@@ -160,6 +173,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableViewCell.appearance().selectedBackgroundView = selectionView
     }
     
+    // MARK: 3D Touch
+    
     private func setupShortcutItems() {        
         let dashboardShortcutIcon = UIApplicationShortcutIcon(templateImageName: "ShortcutIcon-Dashboard")
         let salesShortcutIcon = UIApplicationShortcutIcon(templateImageName: "ShortcutIcon-Sales")
@@ -169,9 +184,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dashboard = UIApplicationShortcutItem(type: "edd.dashboard", localizedTitle: "Dashboard", localizedSubtitle: "", icon: dashboardShortcutIcon, userInfo:nil)
         let sales = UIApplicationShortcutItem(type: "edd.sales", localizedTitle: "Sales", localizedSubtitle: "", icon: salesShortcutIcon, userInfo:nil)
         let customers = UIApplicationShortcutItem(type: "edd.customers", localizedTitle: "Customers", localizedSubtitle: "", icon: customersShortcutIcon, userInfo:nil)
-        let reports = UIApplicationShortcutItem(type: "edd.reports", localizedTitle: "Reports", localizedSubtitle: "", icon: reportsShortcutIcon, userInfo:nil)
+        let reports = UIApplicationShortcutItem(type: "edd.prodcuts", localizedTitle: "Products", localizedSubtitle: "", icon: reportsShortcutIcon, userInfo:nil)
         
         UIApplication.sharedApplication().shortcutItems = [dashboard, sales, customers, reports]
+    }
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        completionHandler(handleShortcut(shortcutItem))
+    }
+    
+    private func handleShortcut(shortcutItem: UIApplicationShortcutItem) -> Bool {
+        guard let shortCutType = shortcutItem.type as String? else {
+            return false
+        }
         
+        EDDAPIWrapper.sharedInstance
+        
+        guard let _ = self.window?.rootViewController as? SiteTabBarController else {
+            return false
+        }
+        
+        if shortCutType == "edd.dashboard"  {
+            EDDAPIWrapper.sharedInstance
+            (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 0
+        }
+        
+        if shortcutItem == "edd.sales" {
+            EDDAPIWrapper.sharedInstance
+            (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 1
+        }
+        
+        if shortcutItem == "edd.customers" {
+            EDDAPIWrapper.sharedInstance
+            (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 2
+        }
+        
+        if shortcutItem == "edd.products" {
+            EDDAPIWrapper.sharedInstance
+            (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 3
+        }
+        
+        return true
     }
 }
