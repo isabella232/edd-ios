@@ -205,8 +205,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
             if item.name == "token" {
                 token.text = item.value
             }
-            
         }
+        
+        self.addButtonPressed(self.addButton)
     }
     
     func appearance() {

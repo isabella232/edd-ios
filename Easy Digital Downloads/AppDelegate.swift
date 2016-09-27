@@ -91,10 +91,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let components = (NSURLComponents(URL: url, resolvingAgainstBaseURL: false)?.queryItems)! as [NSURLQueryItem]
             
             let login = LoginViewController()
-            login.fillInFields(components)
-            
             self.window?.rootViewController = login
-            
+            guard let vc = self.window?.rootViewController as? ManagedObjectContextSettable else {
+                fatalError("Wrong view controller type")
+            }
+            vc.managedObjectContext = managedObjectContext            
+            login.fillInFields(components)
+
             return true
         }
         
