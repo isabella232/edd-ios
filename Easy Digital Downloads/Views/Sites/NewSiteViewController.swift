@@ -293,8 +293,13 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
     
     func handleHelpButtonTapped(sender: UIButton) {
         let svc = SFSafariViewController(URL: NSURL(string: "http://docs.easydigitaldownloads.com/article/1134-edd-rest-api---authentication")!)
+        if #available(iOS 10.0, *) {
+            svc.preferredBarTintColor = .EDDBlackColor()
+            svc.preferredControlTintColor = .whiteColor()
+        } else {
+            svc.view.tintColor = .EDDBlueColor()
+        }
         svc.modalPresentationStyle = .OverCurrentContext
-        svc.view.tintColor = .EDDBlueColor()
         presentViewController(svc, animated: true, completion: nil)
     }
     
