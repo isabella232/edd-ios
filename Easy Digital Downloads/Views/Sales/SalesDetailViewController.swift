@@ -63,7 +63,7 @@ class SalesDetailViewController: SiteTableViewController {
         
         cells = [.Meta, .ProductsHeading]
         
-        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.customer], success: { json in
+        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email], success: { json in
             let items = json["customers"].arrayValue
             self.customer = items[0]
             dispatch_async(dispatch_get_main_queue(), { 
