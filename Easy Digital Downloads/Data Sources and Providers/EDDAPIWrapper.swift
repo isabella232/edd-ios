@@ -200,6 +200,8 @@ public final class EDDAPIWrapper: NSObject {
                 }
             }
         
+        print(request)
+        
         requests.append(request)
     }
     

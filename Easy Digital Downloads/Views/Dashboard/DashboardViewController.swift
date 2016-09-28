@@ -50,10 +50,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         cells = [.Sales, .Earnings]
         
-        if ((site.hasCommissions) != false) {
-            cells.append(.Commissions)
-            cells.append(.StoreCommissions)
-        }
+//        if ((site.hasCommissions) != false) {
+//            cells.append(.Commissions)
+//            cells.append(.StoreCommissions)
+//        }
         
         topLayoutAnchor = -10.0
     }
@@ -239,29 +239,29 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             NSLog(error.localizedDescription)
         }
         
-        if (Site.activeSite().hasCommissions == true) {
-            dispatch_group_enter(networkOperationGroup)
-            
-            EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
-                self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
-                self.tableView.reloadData()
-                dispatch_group_leave(networkOperationGroup)
-            }) { (error) in
-                self.hasNoInternetConnection = true
-                NSLog(error.localizedDescription)
-            }
-            
-            dispatch_group_enter(networkOperationGroup)
-            
-            EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
-                self.storeCommission = json["total_unpaid"].stringValue
-                self.tableView.reloadData()
-                dispatch_group_leave(networkOperationGroup)
-            }) { (error) in
-                self.hasNoInternetConnection = true
-                NSLog(error.localizedDescription)
-            }
-        }
+//        if (Site.activeSite().hasCommissions == true) {
+//            dispatch_group_enter(networkOperationGroup)
+//            
+//            EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
+//                self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
+//                self.tableView.reloadData()
+//                dispatch_group_leave(networkOperationGroup)
+//            }) { (error) in
+//                self.hasNoInternetConnection = true
+//                NSLog(error.localizedDescription)
+//            }
+//            
+//            dispatch_group_enter(networkOperationGroup)
+//            
+//            EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
+//                self.storeCommission = json["total_unpaid"].stringValue
+//                self.tableView.reloadData()
+//                dispatch_group_leave(networkOperationGroup)
+//            }) { (error) in
+//                self.hasNoInternetConnection = true
+//                NSLog(error.localizedDescription)
+//            }
+//        }
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
             if self.site?.hasCommissions != nil {
