@@ -146,6 +146,8 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         connectionTest.text = "Connecting to " + siteName.text! + "..."
         connectionTest.textAlignment = .Center
         connectionTest.hidden = true
+        connectionTest.numberOfLines = 0
+        connectionTest.lineBreakMode = .ByWordWrapping
         
         let buttonSpacerView = UIView()
         buttonSpacerView.heightAnchor.constraintEqualToConstant(20).active = true
@@ -386,8 +388,6 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
                         self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
                         self.sharedDefaults.synchronize()
                         
-                        AppDelegate.sharedInstance.switchActiveSite(uid)
-                        
                         // Create the dashboard layout based on the permissions granted
                         let dashboardLayout: NSMutableArray = [1, 2];
                         if hasCommissions {
@@ -407,6 +407,8 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
                             self.managedObjectContext.performSaveOrRollback()
                         }
                         
+                        AppDelegate.sharedInstance.switchActiveSite(uid)
+                        
                         UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
                             self.logo.transform = CGAffineTransformMakeTranslation(0, -400)
                             self.addButton.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
@@ -423,9 +425,8 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
                     }
                     break;
                 case .Failure(let error):
-                    NSLog(error.localizedDescription)
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.connectionTest.text = NSLocalizedString("Connection failed", comment: "")
+                        self.connectionTest.text = NSLocalizedString("Connection failed.", comment: "") + " " + error.localizedDescription
                         for textField in textFields {
                             textField.enabled = true
                             textField.layer.opacity = 1

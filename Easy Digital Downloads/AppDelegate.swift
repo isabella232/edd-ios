@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             EDDAPIWrapper.sharedInstance
             setupShortcutItems()
-            self.window?.rootViewController = SiteTabBarController(site: Site.defaultSite())
+            self.window?.rootViewController = SiteTabBarController(site: Site.activeSite())
         }
         
         guard let vc = self.window?.rootViewController as? ManagedObjectContextSettable else {
@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if url.URLString == "edd://dashboard" {
                 EDDAPIWrapper.sharedInstance
                 setupShortcutItems()
-                self.window?.rootViewController = SiteTabBarController(site: Site.defaultSite())
+                self.window?.rootViewController = SiteTabBarController(site: Site.activeSite())
                 return true
             }
             
@@ -137,7 +137,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func noSitesSetup() -> Bool {
-        guard let _ = sharedDefaults.objectForKey("defaultSite") as? String else {
+        guard let _ = sharedDefaults.objectForKey("defaultSite") as? String,
+              let _ = Site.hasActiveSite() else {
             return true
         }
 
@@ -153,6 +154,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sharedDefaults.setValue(Site.activeSite().url, forKey: "activeSiteURL")
         sharedDefaults.synchronize()
         EDDAPIWrapper.sharedInstance.refreshActiveSite()
+    }
+    
+    func handleNoActiveSite() {
+        self.window?.rootViewController = LoginViewController()
     }
     
     // MARK: Private

@@ -134,6 +134,22 @@ public final class Site: ManagedObject {
         return site!
     }
     
+    public static func hasActiveSite() -> Bool? {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedObjectContext = appDelegate.managedObjectContext
+
+        let site = Site.fetchSingleObjectInContext(managedObjectContext) { request in
+            request.predicate = self.predicateForActiveSite()
+            request.fetchLimit = 1
+        }
+        
+        if site == nil {
+            return nil
+        } else {
+            return true
+        }
+    }
+    
     public static func activeSite() -> Site {
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
@@ -143,15 +159,20 @@ public final class Site: ManagedObject {
             request.fetchLimit = 1
         }
         
-        let auth = SSKeychain.accountsForService(site!.uid)
+        guard let site_ = site else {
+            AppDelegate.sharedInstance.handleNoActiveSite()
+            return Site()
+        }
+        
+        let auth = SSKeychain.accountsForService(site_.uid)
         let data = auth[0] as NSDictionary
         let acct = data.objectForKey("acct") as! String
-        let password = SSKeychain.passwordForService(site!.uid, account: acct)
+        let password = SSKeychain.passwordForService(site_.uid, account: acct)
         
-        site!.key = acct
-        site!.token = password
+        site_.key = acct
+        site_.token = password
         
-        return site!
+        return site_
     }
     
     public static func decodePermissionsForActiveSite() -> NSDictionary {

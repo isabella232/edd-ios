@@ -85,7 +85,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     private var _earningsData: Array<Double>?
     private var _dates: Array<String>?
     
-    private let site: Site = Site.defaultSite()
+    private let site: Site = Site.activeSite()
     
     var title:String {
         get {
