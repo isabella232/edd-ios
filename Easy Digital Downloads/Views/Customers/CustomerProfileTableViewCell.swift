@@ -98,7 +98,7 @@ class CustomerProfileTableViewCell: UITableViewCell {
         self.customer = customer
         
         nameLabel.text = customer.displayName
-        emailLabel.text = customer.email + "\n" + "Customer since " + sharedDateFormatter.stringFromDate(customer.dateCreated)
+        emailLabel.text = customer.email.lowercaseString + "\n" + "Customer since " + sharedDateFormatter.stringFromDate(customer.dateCreated)
         
         setupImageView()
         layout()

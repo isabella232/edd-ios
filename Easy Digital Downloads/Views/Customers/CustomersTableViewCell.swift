@@ -80,7 +80,7 @@ extension CustomersTableViewCell: ConfigurableCell {
     
     func configureForObject(object: Customer) {
         nameLabel.text = object.displayName
-        emailLabel.text = object.email
+        emailLabel.text = object.email.lowercaseString
     }
     
 }
