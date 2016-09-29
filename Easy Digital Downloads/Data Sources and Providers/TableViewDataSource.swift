@@ -25,6 +25,10 @@ class TableViewDataSource<Delegate: DataSourceDelegate, Data: DataProvider, Cell
         return dataProvider.objectAtIndexPath(indexPath)
     }
     
+    func objectAtIndexPath(indexPath: NSIndexPath) -> Data.Object? {
+        return dataProvider.objectAtIndexPath(indexPath)
+    }
+    
     func processUpdates(updates: [DataProviderUpdate<Data.Object>]?) {
         guard let updates = updates else { return tableView.reloadData() }
         tableView.beginUpdates()

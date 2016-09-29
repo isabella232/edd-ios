@@ -49,6 +49,12 @@
 		F54725001D3C3ADC009D5E8D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54724FF1D3C3ADC009D5E8D /* Product.swift */; };
 		F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725011D3C3AE2009D5E8D /* Sale.swift */; };
 		F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54725031D3C3AEA009D5E8D /* Subscription.swift */; };
+		F553C8881D9D055600C77B5D /* CommissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553C8871D9D055600C77B5D /* CommissionsViewController.swift */; };
+		F553C88A1D9D056300C77B5D /* CommissionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553C8891D9D056300C77B5D /* CommissionsTableViewCell.swift */; };
+		F553C88C1D9D057500C77B5D /* CommissionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553C88B1D9D057500C77B5D /* CommissionsDetailViewController.swift */; };
+		F553C88E1D9D057D00C77B5D /* StoreCommissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553C88D1D9D057D00C77B5D /* StoreCommissionsViewController.swift */; };
+		F553C8901D9D058600C77B5D /* StoreCommissionsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553C88F1D9D058600C77B5D /* StoreCommissionsDetailViewController.swift */; };
+		F553C8921D9D059200C77B5D /* StoreCommissionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553C8911D9D059200C77B5D /* StoreCommissionsTableViewCell.swift */; };
 		F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */; };
 		F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */; };
 		F56546E01D78859600003019 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56546DF1D78859600003019 /* ProductsViewController.swift */; };
@@ -212,6 +218,12 @@
 		F54724FF1D3C3ADC009D5E8D /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		F54725011D3C3AE2009D5E8D /* Sale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sale.swift; sourceTree = "<group>"; };
 		F54725031D3C3AEA009D5E8D /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		F553C8871D9D055600C77B5D /* CommissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsViewController.swift; sourceTree = "<group>"; };
+		F553C8891D9D056300C77B5D /* CommissionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsTableViewCell.swift; sourceTree = "<group>"; };
+		F553C88B1D9D057500C77B5D /* CommissionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsDetailViewController.swift; sourceTree = "<group>"; };
+		F553C88D1D9D057D00C77B5D /* StoreCommissionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCommissionsViewController.swift; sourceTree = "<group>"; };
+		F553C88F1D9D058600C77B5D /* StoreCommissionsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCommissionsDetailViewController.swift; sourceTree = "<group>"; };
+		F553C8911D9D059200C77B5D /* StoreCommissionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCommissionsTableViewCell.swift; sourceTree = "<group>"; };
 		F555ED911D65EBA300C02C0B /* Easy Digital Downloads.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Easy Digital Downloads.entitlements"; sourceTree = "<group>"; };
 		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
 		F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
@@ -443,6 +455,8 @@
 		F523F2201D6650B7000AB028 /* Integrations */ = {
 			isa = PBXGroup;
 			children = (
+				F553C8861D9C845F00C77B5D /* StoreCommissions */,
+				F553C8851D9C845B00C77B5D /* Commissions */,
 				F5E488791D97084C00C7A2A8 /* Discounts */,
 				F5E7827C1D8EEB0E00D29268 /* SiteInformation */,
 				F50388911D7493DF0059BB38 /* Search */,
@@ -452,6 +466,26 @@
 				F5CA01921D97C8640000C529 /* ManageSitesViewController.swift */,
 			);
 			path = Integrations;
+			sourceTree = "<group>";
+		};
+		F553C8851D9C845B00C77B5D /* Commissions */ = {
+			isa = PBXGroup;
+			children = (
+				F553C8871D9D055600C77B5D /* CommissionsViewController.swift */,
+				F553C8891D9D056300C77B5D /* CommissionsTableViewCell.swift */,
+				F553C88B1D9D057500C77B5D /* CommissionsDetailViewController.swift */,
+			);
+			path = Commissions;
+			sourceTree = "<group>";
+		};
+		F553C8861D9C845F00C77B5D /* StoreCommissions */ = {
+			isa = PBXGroup;
+			children = (
+				F553C88D1D9D057D00C77B5D /* StoreCommissionsViewController.swift */,
+				F553C88F1D9D058600C77B5D /* StoreCommissionsDetailViewController.swift */,
+				F553C8911D9D059200C77B5D /* StoreCommissionsTableViewCell.swift */,
+			);
+			path = StoreCommissions;
 			sourceTree = "<group>";
 		};
 		F56546DE1D78857300003019 /* Products */ = {
@@ -752,6 +786,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -904,11 +941,14 @@
 				F56490781D4635B100F4F1F0 /* FetchedResultsController.swift in Sources */,
 				F5E7F1651D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift in Sources */,
 				F5FAF3C51CFB619800F9F1FF /* Stack.swift in Sources */,
+				F553C8901D9D058600C77B5D /* StoreCommissionsDetailViewController.swift in Sources */,
+				F553C88C1D9D057500C77B5D /* CommissionsDetailViewController.swift in Sources */,
 				F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */,
 				F51A90641D9498D5003E06C2 /* SubscriptionsTableViewCell.swift in Sources */,
 				F5E7F1611D989E3300DC62DE /* SubscriptionsDetailViewController.swift in Sources */,
 				F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */,
 				F51A905E1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift in Sources */,
+				F553C88E1D9D057D00C77B5D /* StoreCommissionsViewController.swift in Sources */,
 				F5CA019B1D981F140000C529 /* ProductsDetailPricingTableViewCell.swift in Sources */,
 				F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */,
 				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
@@ -931,10 +971,12 @@
 				F51A90691D951FE9003E06C2 /* SearchController.swift in Sources */,
 				F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */,
 				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
+				F553C88A1D9D056300C77B5D /* CommissionsTableViewCell.swift in Sources */,
 				F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */,
 				F5CA019D1D982CE80000C529 /* ProductsDetailLicensingTableViewCell.swift in Sources */,
 				F5FAF3D51CFBA32A00F9F1FF /* ConfigurableCell.swift in Sources */,
 				F5E4887D1D973E0B00C7A2A8 /* Array+Unique.swift in Sources */,
+				F553C8881D9D055600C77B5D /* CommissionsViewController.swift in Sources */,
 				F54724FA1D3C3ABC009D5E8D /* Commission.swift in Sources */,
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
 				F5E7F16D1D99BA3800DC62DE /* EDDNetworkManager.swift in Sources */,
@@ -948,6 +990,7 @@
 				F5E782801D8F381200D29268 /* ManageSitesTableViewController.swift in Sources */,
 				F5FAF3CD1CFBA18100F9F1FF /* FetchedResultsDataProvider.swift in Sources */,
 				F5A312891CF1DAE1000F4F6F /* AppDelegate.swift in Sources */,
+				F553C8921D9D059200C77B5D /* StoreCommissionsTableViewCell.swift in Sources */,
 				F52825211CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift in Sources */,
 				F5E7F16B1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift in Sources */,
 				F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */,

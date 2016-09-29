@@ -19,7 +19,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     return formatter
 }()
 
-class CustomersViewController: SiteTableViewController, ManagedObjectContextSettable {
+class CustomersViewController: SiteTableViewController, ManagedObjectContextSettable, UIViewControllerPreviewingDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
     
@@ -44,6 +44,8 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         super.viewDidLoad()
         
         super.leftBarButtonItem = true
+        
+        registerForPreviewingWithDelegate(self, sourceView: view)
         
         setupInfiniteScrollView()
         setupTableView()
@@ -162,6 +164,23 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
         dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
+    }
+    
+    // MARK: 3D Touch
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRowAtPoint(location) {
+            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+            guard let customer = dataSource.objectAtIndexPath(indexPath) else {
+                return nil
+            }
+            return CustomersDetailViewController(customer: customer)
+        }
+        return nil
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
 }

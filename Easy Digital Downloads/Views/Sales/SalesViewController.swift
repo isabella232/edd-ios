@@ -19,7 +19,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     return formatter
 }()
 
-class SalesViewController: SiteTableViewController {
+class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDelegate {
     
     var managedObjectContext: NSManagedObjectContext!
 
@@ -44,6 +44,8 @@ class SalesViewController: SiteTableViewController {
         super.viewDidLoad()
         
         super.leftBarButtonItem = true
+        
+        registerForPreviewingWithDelegate(self, sourceView: view)
         
         setupInfiniteScrollView()
         setupTableView()
@@ -186,6 +188,23 @@ class SalesViewController: SiteTableViewController {
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
         dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
+    }
+    
+    // MARK: 3D Touch
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRowAtPoint(location) {
+            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+            guard let sale = dataSource.objectAtIndexPath(indexPath) else {
+                return nil
+            }
+            return SalesDetailViewController(sale: sale)
+        }
+        return nil
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
 }
