@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 class ProductsDetailViewController: SiteTableViewController {
@@ -32,6 +34,7 @@ class ProductsDetailViewController: SiteTableViewController {
     var site: Site?
     var product: Product?
     var fetchedProduct: [JSON]?
+    var imageView: UIImageView?
     
     init(product: Product) {
         super.init(style: .Plain)
@@ -73,6 +76,10 @@ class ProductsDetailViewController: SiteTableViewController {
             cells.append(.LicensingHeading)
             cells.append(.Licensing)
         }
+        
+        if product.thumbnail?.characters.count > 0 {
+            setupHeaderView()
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,6 +87,20 @@ class ProductsDetailViewController: SiteTableViewController {
     }
     
     // MARK: Private
+    
+    private func setupHeaderView() {
+        imageView = UIImageView(frame: CGRectMake(0, 0, view.frame.width, 150))
+        imageView!.contentMode = .ScaleAspectFill
+        
+        let url = NSURL(string: product!.thumbnail!)
+        imageView!.af_setImageWithURL(url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+        
+        tableView.addSubview(imageView!)
+        tableView.sendSubviewToBack(imageView!)
+        tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, 150))
+//        tableView.contentInset = UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0)
+//        tableView.contentOffset = CGPoint(x: 0, y: -150)
+    }
     
     private func networkOperations() {
         guard product != nil else {
@@ -154,6 +175,16 @@ class ProductsDetailViewController: SiteTableViewController {
         }
         
         return cell!
+    }
+    
+    // MARK: Scroll View Delegate
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let y: CGFloat = -tableView.contentOffset.y
+        if y > 0 {
+            imageView!.frame = CGRectMake(0, tableView.contentOffset.y, tableView.bounds.width + y, 150 + y)
+            imageView!.center = CGPointMake(view.center.x, imageView!.center.y)
+        }
     }
     
 }
