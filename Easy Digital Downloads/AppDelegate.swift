@@ -42,10 +42,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Background Fetch
+        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+
+        // Setup CocoaLumberjack
         DDLog.addLogger(DDASLLogger())
         DDLog.addLogger(DDTTYLogger())
         DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
+        // Handle 3D Touch
         if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
             launchedShortcutItem = shortcutItem
             handleShortcut(shortcutItem)
