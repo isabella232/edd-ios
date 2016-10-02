@@ -10,6 +10,15 @@ import UIKit
 
 class SiteTableViewController: UITableViewController {
     
+    var refreshLoadingView : UIView!
+    var refreshColorView : UIView!
+    var compass_background : UIImageView!
+    var eddImageView : UIImageView!
+    var compass_spinner : UIImageView!
+    
+    var isRefreshIconsOverlap = false
+    var isRefreshAnimating = false
+    
     var leftBarButtonItem : Bool? {
         didSet {
             setupSwitchSiteIcon()
@@ -138,5 +147,5 @@ class SiteTableViewController: UITableViewController {
             self.noInternetConnection.transform = CGAffineTransformMakeTranslation(0, self.topLayoutAnchor)
             }, completion: nil)
     }
-
+    
 }

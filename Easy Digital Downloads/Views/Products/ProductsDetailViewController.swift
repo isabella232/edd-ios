@@ -98,8 +98,6 @@ class ProductsDetailViewController: SiteTableViewController {
         tableView.addSubview(imageView!)
         tableView.sendSubviewToBack(imageView!)
         tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, 150))
-//        tableView.contentInset = UIEdgeInsets(top: 150, left: 0, bottom: 0, right: 0)
-//        tableView.contentOffset = CGPoint(x: 0, y: -150)
     }
     
     private func networkOperations() {

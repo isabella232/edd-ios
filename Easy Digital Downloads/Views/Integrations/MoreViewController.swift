@@ -77,6 +77,8 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         super.viewDidLoad()
         
         super.leftBarButtonItem = true
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,7 +117,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .FileDownloadLogs:
                 self.navigationController?.pushViewController(FileDownloadLogsController(site: self.site!), animated: true)
             case .Commissions:
-                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+                self.navigationController?.pushViewController(CommissionsViewController(site: site!), animated: true)
             case .StoreCommissions:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Discounts:

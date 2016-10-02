@@ -45,6 +45,18 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         
         super.leftBarButtonItem = true
         
+        let rightNavigationItemImage = UIImage(named: "NavigationBar-Filter")
+        let rightNavigationItemButton = HighlightButton(type: .Custom)
+        rightNavigationItemButton.tintColor = .whiteColor()
+        rightNavigationItemButton.setImage(rightNavigationItemImage, forState: .Normal)
+        rightNavigationItemButton.addTarget(self, action: #selector(SalesViewController.filterButtonPressed), forControlEvents: .TouchUpInside)
+        rightNavigationItemButton.sizeToFit()
+        
+        let rightNavigationBarButton = UIBarButtonItem(customView: rightNavigationItemButton)
+        rightNavigationBarButton.accessibilityIdentifier = "Filter"
+        
+        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
+        
         registerForPreviewingWithDelegate(self, sourceView: view)
         
         setupInfiniteScrollView()
@@ -205,6 +217,14 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+    
+    func filterButtonPressed() {
+        let salesFilterTableViewController = SalesFilterTableViewController()
+        salesFilterTableViewController.view.backgroundColor = .EDDGreyColor()
+        salesFilterTableViewController.modalPresentationStyle = .CurrentContext
+        salesFilterTableViewController.modalPresentationCapturesStatusBarAppearance = true
+        presentViewController(salesFilterTableViewController, animated: true, completion: nil)
     }
     
 }

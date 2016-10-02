@@ -27,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+        // Handle 3D Touch
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+            launchedShortcutItem = shortcutItem
+            handleShortcut(shortcutItem)
+            return false
+        }
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.backgroundColor = UIColor.whiteColor()
         
@@ -49,13 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDASLLogger())
         DDLog.addLogger(DDTTYLogger())
         DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
-        
-        // Handle 3D Touch
-        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
-            launchedShortcutItem = shortcutItem
-            handleShortcut(shortcutItem)
-            return false
-        }
         
         if sharedDefaults.boolForKey("DashboardLoaded") {
             sharedDefaults.setBool(false, forKey: "DashboardLoaded")

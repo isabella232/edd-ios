@@ -11,6 +11,7 @@ abstract_target 'EDD' do
   pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
   pod 'SSKeychain'
   pod 'SwiftyJSON', '~> 2.3'
+  pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-2.3'
 
   target 'Easy Digital Downloads' do
     pod 'AlamofireNetworkActivityIndicator', '= 1.1.0'
