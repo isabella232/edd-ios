@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import SwiftyJSON
 import Haneke
 
@@ -22,6 +21,7 @@ private let sharedDateFormatter: NSDateFormatter = {
 
 public struct Commissions {
     var amount: Double!
+    var rate: Double!
     var currency: String!
     var renewal: Int64?
     var item: String!
@@ -73,19 +73,19 @@ class CommissionsViewController: SiteTableViewController {
             
             if let revoked = json["revoked"].array {
                 for item in revoked {
-                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "revoked"))
+                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "revoked"))
                 }
             }
             
             if let paid = json["paid"].array {
                 for item in paid {
-                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "paid"))
+                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "paid"))
                 }
             }
             
             if let unpaid = json["unpaid"].array {
                 for item in unpaid {
-                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "unpaid"))
+                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "unpaid"))
                 }
             }
             

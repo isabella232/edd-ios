@@ -119,7 +119,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .Commissions:
                 self.navigationController?.pushViewController(CommissionsViewController(site: site!), animated: true)
             case .StoreCommissions:
-                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+                self.navigationController?.pushViewController(StoreCommissionsViewController(site: site!), animated: true)
             case .Discounts:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Reviews:
