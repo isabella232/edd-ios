@@ -32,12 +32,14 @@ public struct Commissions {
 class CommissionsViewController: SiteTableViewController {
     
     var commissionsObjects = [Commissions]()
+    var filteredCommissionsObjects = [Commissions]()
     
     typealias JSON = SwiftyJSON.JSON
     
     var site: Site?
     var commissions: JSON?
     let sharedCache = Shared.dataCache
+    var segmentedControl: UISegmentedControl!
     
     var hasMoreCommissions: Bool = true {
         didSet {
@@ -56,12 +58,13 @@ class CommissionsViewController: SiteTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let segmentedControl = UISegmentedControl(items: [NSLocalizedString("All", comment: ""), NSLocalizedString("Unpaid", comment: ""), NSLocalizedString("Paid", comment: ""), NSLocalizedString("Revoked", comment: "")])
+        segmentedControl = UISegmentedControl(items: [NSLocalizedString("All", comment: ""), NSLocalizedString("Unpaid", comment: ""), NSLocalizedString("Paid", comment: ""), NSLocalizedString("Revoked", comment: "")])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.tintColor = .whiteColor()
         segmentedControl.autoresizingMask = [.FlexibleWidth]
         segmentedControl.frame = CGRectMake(0, 0, 400, 30)
         segmentedControl.contentMode = .ScaleToFill
+        segmentedControl.addTarget(self, action: #selector(CommissionsViewController.segmentAction), forControlEvents: .ValueChanged)
         segmentedControl.sizeToFit()
         
         sharedCache.fetch(key: "Commissions").onSuccess({ result in
@@ -87,6 +90,7 @@ class CommissionsViewController: SiteTableViewController {
             }
             
             self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredCommissionsObjects = self.commissionsObjects
             
             self.tableView.reloadData()
         })
@@ -169,7 +173,7 @@ class CommissionsViewController: SiteTableViewController {
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.commissionsObjects.count ?? 0
+        return self.filteredCommissionsObjects.count ?? 0
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -185,9 +189,37 @@ class CommissionsViewController: SiteTableViewController {
             cell = CommissionsTableViewCell()
         }
         
-        cell?.configure(commissionsObjects[indexPath.row])
+        cell?.configure(filteredCommissionsObjects[indexPath.row])
         
         return cell!
+    }
+    
+    // MARK: Segmented Control
+    
+    func segmentAction() {
+        switch segmentedControl.selectedSegmentIndex {
+            case 0:
+                self.filteredCommissionsObjects = self.commissionsObjects
+                reload()
+            case 1:
+                self.filteredCommissionsObjects = self.commissionsObjects.filter({ $0.status == "unpaid" })
+                reload()
+            case 2:
+                self.filteredCommissionsObjects = self.commissionsObjects.filter({ $0.status == "paid" })
+                reload()
+            case 3:
+                self.filteredCommissionsObjects = self.commissionsObjects.filter({ $0.status == "revoked" })
+                reload()
+            default:
+                self.filteredCommissionsObjects = self.commissionsObjects
+                reload()
+        }
+    }
+    
+    private func reload() {
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.tableView.reloadData()
+        }
     }
     
 }
