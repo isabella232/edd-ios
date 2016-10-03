@@ -125,7 +125,9 @@ class SalesDetailViewController: SiteTableViewController {
         }
         
         if cells[indexPath.row] == CellType.Product {
-            let product = products![indexPath.row - 2]
+            let product: AnyObject = products![indexPath.row - 2]
+            let id = product["id"] as! NSNumber
+            navigationController?.pushViewController(ProductsOfflineViewController(id: id), animated: true)
         }
             
         
