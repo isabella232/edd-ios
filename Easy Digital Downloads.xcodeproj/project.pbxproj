@@ -82,6 +82,7 @@
 		F5A99B1B1DA2C6FC002AB7A0 /* SalesFilterDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A99B1A1DA2C6FC002AB7A0 /* SalesFilterDatePickerTableViewCell.swift */; };
 		F5A99B1D1DA2FDC7002AB7A0 /* ViewControllerTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A99B1C1DA2FDC7002AB7A0 /* ViewControllerTitleLabel.swift */; };
 		F5A99B1E1DA30807002AB7A0 /* JSON+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A31DA114E3003D4F39 /* JSON+Cache.swift */; };
+		F5A99B201DA31C71002AB7A0 /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A99B1F1DA31C71002AB7A0 /* String+HTML.swift */; };
 		F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */; };
 		F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */; };
 		F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061201D6A206000F9B4E1 /* KeyCodable.swift */; };
@@ -262,6 +263,7 @@
 		F5A99B181DA2A0E8002AB7A0 /* ProductsOfflineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsOfflineViewController.swift; sourceTree = "<group>"; };
 		F5A99B1A1DA2C6FC002AB7A0 /* SalesFilterDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesFilterDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		F5A99B1C1DA2FDC7002AB7A0 /* ViewControllerTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTitleLabel.swift; sourceTree = "<group>"; };
+		F5A99B1F1DA31C71002AB7A0 /* String+HTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
 		F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Null.swift"; sourceTree = "<group>"; };
 		F5B061201D6A206000F9B4E1 /* KeyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodable.swift; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 				F5E4887C1D973E0B00C7A2A8 /* Array+Unique.swift */,
 				F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */,
 				F574E5A31DA114E3003D4F39 /* JSON+Cache.swift */,
+				F5A99B1F1DA31C71002AB7A0 /* String+HTML.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -960,6 +963,7 @@
 				F553C88C1D9D057500C77B5D /* CommissionsDetailViewController.swift in Sources */,
 				F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */,
 				F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */,
+				F5A99B201DA31C71002AB7A0 /* String+HTML.swift in Sources */,
 				F51A90641D9498D5003E06C2 /* SubscriptionsTableViewCell.swift in Sources */,
 				F5E7F1611D989E3300DC62DE /* SubscriptionsDetailViewController.swift in Sources */,
 				F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */,

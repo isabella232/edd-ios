@@ -85,7 +85,7 @@ class FileDownloadLogsTableViewCell: UITableViewCell {
             return
         }
         
-        productNameLabel.text = data["product_name"] as? String
+        productNameLabel.text = String(htmlEncodedString: (data["product_name"] as? String)!)
         
         let date = data["date"] as! String
         let dateObject = sharedDateFormatter.dateFromString(date)
