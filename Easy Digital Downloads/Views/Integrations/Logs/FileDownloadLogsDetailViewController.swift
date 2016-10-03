@@ -58,6 +58,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.registerClass(FileDownloadLogsCustomerTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogCustomerCell")
         tableView.registerClass(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")
         tableView.registerClass(FileDownloadLogsProductTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogProductCell")
+        tableView.registerClass(FileDownloadLogsHeadingTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsHeadingCell")
         
         cells = [.MetaHeading, .Meta, .ProductHeading, .Product, .PaymentHeading, .Payment, .CustomerHeading, .Customer]
     }
@@ -82,18 +83,30 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
+            case .MetaHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+                (cell as! FileDownloadLogsHeadingTableViewCell).configure("Meta")
             case .Meta:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogMetaCell", forIndexPath: indexPath) as! FileDownloadLogsMetaTableViewCell
                 (cell as! FileDownloadLogsMetaTableViewCell).configure(log!)
                 (cell as! FileDownloadLogsMetaTableViewCell).layout()
+            case .CustomerHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+                (cell as! FileDownloadLogsHeadingTableViewCell).configure("Customer")
             case .Customer:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogCustomerCell", forIndexPath: indexPath) as! FileDownloadLogsCustomerTableViewCell
                 (cell as! FileDownloadLogsCustomerTableViewCell).setTitle(NSLocalizedString("Customer", comment: "Customser title"))
                 (cell as! FileDownloadLogsCustomerTableViewCell).layout()
+            case .PaymentHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+                (cell as! FileDownloadLogsHeadingTableViewCell).configure("Payment")
             case .Payment:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogPaymentCell", forIndexPath: indexPath) as! FileDownloadLogsPaymentTableViewCell
                 (cell as! FileDownloadLogsPaymentTableViewCell).setTitle(NSLocalizedString("Payment", comment: "Payment title"))
                 (cell as! FileDownloadLogsPaymentTableViewCell).layout()
+            case .ProductHeading:
+                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+                (cell as! FileDownloadLogsHeadingTableViewCell).configure("Product")
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogProductCell", forIndexPath: indexPath) as! FileDownloadLogsProductTableViewCell
                 (cell as! FileDownloadLogsProductTableViewCell).setTitle(NSLocalizedString("Product", comment: "Product title"))
