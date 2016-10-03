@@ -27,6 +27,7 @@ class SalesDetailCustomerTableViewCell: UITableViewCell {
     let nameLabel: UILabel = UILabel(frame: CGRectZero)
     let emailLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,7 +46,8 @@ class SalesDetailCustomerTableViewCell: UITableViewCell {
         emailLabel.textColor = .EDDBlackColor()
         emailLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         
-        layout()
+        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.center = contentView.center
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,11 +79,15 @@ class SalesDetailCustomerTableViewCell: UITableViewCell {
     
     func configure(object: JSON?) {
         guard object != nil else {
+            activityIndicator.startAnimating()
+            contentView.addSubview(activityIndicator)
             return
         }
 
         nameLabel.text = "\(object!["info"]["display_name"])"
         emailLabel.text = "\(object!["info"]["email"])"
+        
+        layout()
     }
 
 }
