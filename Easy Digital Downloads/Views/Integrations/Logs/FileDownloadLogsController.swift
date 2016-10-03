@@ -9,13 +9,17 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+import Haneke
 
 class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextSettable, UIViewControllerPreviewingDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
     
+    typealias JSON = SwiftyJSON.JSON
+    
     var site: Site?
     var logs: [JSON]?
+    let sharedCache = Shared.dataCache
     
     var hasMoreLogs: Bool = true {
         didSet {
@@ -53,14 +57,23 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+//        networkOperations()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkOperations()
-        
         registerForPreviewingWithDelegate(self, sourceView: view)
+        
+        sharedCache.fetch(key: Site.activeSite().uid! + "-FileDownloadLogs").onSuccess({ result in
+            let json = JSON.convertFromData(result)! as JSON
+            self.logs = json["download_logs"].array
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        })
         
         setupInfiniteScrollView()
     }
@@ -71,18 +84,25 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         logs = [JSON]()
 
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
+            self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-FileDownloadLogs")
+
+            self.logs?.removeAll(keepCapacity: false)
+            
             if let items = json["download_logs"].array {
                 self.logs = items
                 self.requestNextPage(2)
             }
-            self.tableView.reloadData()
-            }) { (error) in
-                print(error.localizedDescription)
+            
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.tableView.reloadData()
+            })
+        }) { (error) in
+            print(error.localizedDescription)
         }
     }
     
     private func requestNextPage(page: Int) {
-        EDDAPIWrapper.sharedInstance.requestCustomers([ "page": page ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([ "page": page ], success: { (json) in
             if let items = json["download_logs"].array {
                 if items.count == 20 {
                     self.hasMoreLogs = true
