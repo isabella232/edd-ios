@@ -65,11 +65,11 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         }
         
         if Site.activeSite().hasReviews == true && Site.activeSite().hasRecurring == true {
-            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Reviews]))
+            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts, .Reviews]))
         } else if (Site.activeSite().hasReviews == true) {
-            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Reviews]))
+            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews]))
         } else if (Site.activeSite().hasRecurring == true) {
-            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs]))
+            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts]))
         }
     }
     
@@ -121,7 +121,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .StoreCommissions:
                 self.navigationController?.pushViewController(StoreCommissionsViewController(site: site!), animated: true)
             case .Discounts:
-                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+                self.navigationController?.pushViewController(DiscountsViewController(site: site!), animated: true)
             case .Reviews:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
             case .Subscriptions:

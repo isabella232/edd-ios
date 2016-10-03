@@ -35,6 +35,7 @@ public final class EDDAPIWrapper: NSObject {
         case Customers = "customers"
         case Logs = "file-download-logs"
         case Products = "products"
+        case Discounts = "discounts"
     }
     
     var requests: [Request] = [Request]()
@@ -169,6 +170,15 @@ public final class EDDAPIWrapper: NSObject {
     
     public func requestSubscriptions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Subscriptions.rawValue
+        requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
+            success(response)
+        }) { (error) -> Void in
+            failure(error)
+        }
+    }
+    
+    public func requestDiscounts(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+        let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Discounts.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
         }) { (error) -> Void in

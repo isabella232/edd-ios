@@ -64,6 +64,7 @@
 		F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */; };
 		F574E5A41DA114E3003D4F39 /* JSON+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A31DA114E3003D4F39 /* JSON+Cache.swift */; };
 		F574E5A61DA1C55B003D4F39 /* CommissionsStatusLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A51DA1C55B003D4F39 /* CommissionsStatusLabel.swift */; };
+		F574E5A81DA1D4FB003D4F39 /* DiscountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A71DA1D4FB003D4F39 /* DiscountsTableViewCell.swift */; };
 		F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F577F9B71D833CAA006A3FD9 /* Constants.swift */; };
 		F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
@@ -239,6 +240,7 @@
 		F56B88E81CFB027000DCF41F /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardTableViewCell.swift; path = Dashboard/DashboardTableViewCell.swift; sourceTree = "<group>"; };
 		F574E5A31DA114E3003D4F39 /* JSON+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Cache.swift"; sourceTree = "<group>"; };
 		F574E5A51DA1C55B003D4F39 /* CommissionsStatusLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsStatusLabel.swift; sourceTree = "<group>"; };
+		F574E5A71DA1D4FB003D4F39 /* DiscountsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsTableViewCell.swift; sourceTree = "<group>"; };
 		F577F9B71D833CAA006A3FD9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 			isa = PBXGroup;
 			children = (
 				F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */,
+				F574E5A71DA1D4FB003D4F39 /* DiscountsTableViewCell.swift */,
 			);
 			path = Discounts;
 			sourceTree = "<group>";
@@ -1041,6 +1044,7 @@
 				F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */,
 				F5E7F15F1D9863A300DC62DE /* SearchDetailViewController.swift in Sources */,
 				F5B982AF1D6BA19300679271 /* FileDownloadLogsController.swift in Sources */,
+				F574E5A81DA1D4FB003D4F39 /* DiscountsTableViewCell.swift in Sources */,
 				F503888C1D73710E0059BB38 /* FileDownloadLogsPaymentTableViewCell.swift in Sources */,
 				F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */,
 				F5FAF3C81CFB628A00F9F1FF /* ManagedObjectContextSettable.swift in Sources */,
