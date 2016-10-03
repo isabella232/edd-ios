@@ -57,10 +57,8 @@ class CommissionsTableViewCell: UITableViewCell {
         
         statusLabel.font = UIFont.systemFontOfSize(13, weight: UIFontWeightMedium)
         statusLabel.textColor = .whiteColor()
-        statusLabel.backgroundColor = .orangeColor()
         statusLabel.layer.cornerRadius = 2
         statusLabel.layer.borderWidth = 1
-        statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
         statusLabel.layer.masksToBounds = true
     }
     
@@ -95,12 +93,12 @@ class CommissionsTableViewCell: UITableViewCell {
         dateLabel.text = sharedDateFormatter.stringFromDate(data.date)
         
         if data.status == "paid" {
-            statusLabel.backgroundColor = .validColor()
+            statusLabel.layer.backgroundColor = UIColor.validColor().CGColor
             statusLabel.layer.borderColor = UIColor.validColor().CGColor
         }
         
         if data.status == "revoked" {
-            statusLabel.backgroundColor = .errorColor()
+            statusLabel.layer.backgroundColor = UIColor.errorColor().CGColor
             statusLabel.layer.borderColor = UIColor.errorColor().CGColor
         }
         

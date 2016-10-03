@@ -57,10 +57,8 @@ class SubscriptionsTableViewCell: UITableViewCell {
         
         statusLabel.font = UIFont.systemFontOfSize(13, weight: UIFontWeightMedium)
         statusLabel.textColor = .whiteColor()
-        statusLabel.backgroundColor = .orangeColor()
         statusLabel.layer.cornerRadius = 2
         statusLabel.layer.borderWidth = 1
-        statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
         statusLabel.layer.masksToBounds = true
         
         layout()
@@ -112,17 +110,17 @@ extension SubscriptionsTableViewCell: ConfigurableCell {
         }
         
         if object.status == "cancelled" || object.status == "expired" || object.status == "failing" {
-            statusLabel.backgroundColor = .errorColor()
+            statusLabel.layer.backgroundColor = UIColor.errorColor().CGColor
             statusLabel.layer.borderColor = UIColor.errorColor().CGColor
         }
         
         if object.status == "pending" {
-            statusLabel.backgroundColor = .orangeColor()
+            statusLabel.layer.backgroundColor = UIColor.orangeColor().CGColor
             statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
         }
         
         if object.status == "active" {
-            statusLabel.backgroundColor = .validColor()
+            statusLabel.layer.backgroundColor = UIColor.validColor().CGColor
             statusLabel.layer.borderColor = UIColor.validColor().CGColor
         }
         

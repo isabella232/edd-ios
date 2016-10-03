@@ -56,10 +56,8 @@ class DiscountsTableViewCell: UITableViewCell {
         
         statusLabel.font = UIFont.systemFontOfSize(13, weight: UIFontWeightMedium)
         statusLabel.textColor = .whiteColor()
-        statusLabel.backgroundColor = .orangeColor()
         statusLabel.layer.cornerRadius = 2
         statusLabel.layer.borderWidth = 1
-        statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
         statusLabel.layer.masksToBounds = true
     }
     
@@ -93,12 +91,12 @@ class DiscountsTableViewCell: UITableViewCell {
         codeLabel.text = data.code
         
         if data.status == "active" {
-            statusLabel.backgroundColor = .validColor()
+            statusLabel.layer.backgroundColor = UIColor.validColor().CGColor
             statusLabel.layer.borderColor = UIColor.validColor().CGColor
         }
         
         if data.status == "inactive" {
-            statusLabel.backgroundColor = .errorColor()
+            statusLabel.layer.backgroundColor = UIColor.errorColor().CGColor
             statusLabel.layer.borderColor = UIColor.errorColor().CGColor
         }
         
