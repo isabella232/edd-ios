@@ -59,6 +59,10 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         
         title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.sid)"
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.sid)")
+        navigationItem.titleView = titleLabel
+        
         tableView.registerClass(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
         tableView.registerClass(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
         tableView.registerClass(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")

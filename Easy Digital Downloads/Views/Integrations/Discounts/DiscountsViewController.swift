@@ -95,6 +95,10 @@ class DiscountsViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Discounts", comment: "Discounts title"))
+        navigationItem.titleView = titleLabel
     }
     
     required init?(coder aDecoder: NSCoder) {

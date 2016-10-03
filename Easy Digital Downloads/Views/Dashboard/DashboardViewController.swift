@@ -48,6 +48,11 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Dashboard", comment: "Dashboard title"))
+        
+        navigationItem.titleView = titleLabel
+        
         cells = [.Sales, .Earnings]
         
 //        if ((site.hasCommissions) != false) {

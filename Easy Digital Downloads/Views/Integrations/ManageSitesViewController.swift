@@ -31,6 +31,10 @@ class ManageSitesViewController: SiteTableViewController {
         tableView.editing = true
         
         title = NSLocalizedString("Manage Sites", comment: "")
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Manage Sites", comment: "Manage Sites title"))
+        navigationItem.titleView = titleLabel
     }
     
     func addButtonPressed() {

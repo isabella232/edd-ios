@@ -44,6 +44,10 @@ class SearchViewController: SiteTableViewController {
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Search", comment: "Product Search View Controller title"))
+        navigationItem.titleView = titleLabel
 
         loadingView = {
             var frame: CGRect = self.view.frame;

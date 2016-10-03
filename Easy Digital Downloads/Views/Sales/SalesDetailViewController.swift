@@ -55,6 +55,10 @@ class SalesDetailViewController: SiteTableViewController {
         
         title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.sid)"
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Sale", comment: "") + " #" + "\(sale.sid)")
+        navigationItem.titleView = titleLabel
+        
         tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
         tableView.registerClass(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
         tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")

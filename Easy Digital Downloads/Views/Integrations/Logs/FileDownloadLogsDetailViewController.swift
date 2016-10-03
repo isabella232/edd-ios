@@ -46,6 +46,10 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle((log["product_name"] as? String)!)
+        navigationItem.titleView = titleLabel
+        
         tableView.registerClass(FileDownloadLogsMetaTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogMetaCell")
         tableView.registerClass(FileDownloadLogsCustomerTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogCustomerCell")
         tableView.registerClass(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")

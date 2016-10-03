@@ -45,7 +45,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         
         self.site = site
         
-        title = NSLocalizedString("More", comment: "More View Controller title")
+        title = NSLocalizedString("More", comment: "More title")
         tableView.scrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
@@ -55,6 +55,10 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         tableView.estimatedRowHeight = estimatedHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("More", comment: "More title"))
+        navigationItem.titleView = titleLabel
         
         sections = [
             Section(type: .General, items: [.SiteInformation, .ManageSites, .ProductSearch]),

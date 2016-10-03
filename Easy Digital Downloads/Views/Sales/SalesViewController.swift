@@ -74,6 +74,10 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Sales", comment: "Sales title")
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Sales", comment: "Sales title"))
+        navigationItem.titleView = titleLabel
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -49,6 +49,10 @@ class CustomersDetailViewController: SiteTableViewController {
         
         title = customer.displayName
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(customer.displayName)
+        navigationItem.titleView = titleLabel
+        
         view.backgroundColor = .EDDGreyColor()
         
         networkOperations()

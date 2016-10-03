@@ -62,6 +62,10 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Products", comment: "Products title")
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Products", comment: "Products title"))
+        navigationItem.titleView = titleLabel
     }
     
     

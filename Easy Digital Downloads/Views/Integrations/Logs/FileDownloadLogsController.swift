@@ -40,6 +40,10 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("File Download Logs", comment: "File Download Logs title"))
+        navigationItem.titleView = titleLabel
+        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     

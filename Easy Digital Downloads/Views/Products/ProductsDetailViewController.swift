@@ -60,6 +60,10 @@ class ProductsDetailViewController: SiteTableViewController {
         tableView.registerClass(ProductsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "ProductLicensingTableViewCell")
         tableView.registerClass(ProductsDetailFilesTableViewCell.self, forCellReuseIdentifier: "ProductFilesTableViwCell")
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(product.title)
+        navigationItem.titleView = titleLabel
+        
         cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading, .Pricing]
         
         if product.files != nil {

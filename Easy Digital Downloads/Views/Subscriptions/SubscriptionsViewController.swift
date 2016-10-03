@@ -56,6 +56,10 @@ class SubscriptionsViewController: SiteTableViewController, ManagedObjectContext
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Subscriptions", comment: "Subscriptions title")
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Subscriptions", comment: "Subscriptions title"))
+        navigationItem.titleView = titleLabel
     }
     
     required init?(coder aDecoder: NSCoder) {

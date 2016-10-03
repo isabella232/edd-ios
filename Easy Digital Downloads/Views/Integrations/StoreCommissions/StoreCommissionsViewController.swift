@@ -87,12 +87,16 @@ class StoreCommissionsViewController: SiteTableViewController {
         
         self.site = site
         
-        title = NSLocalizedString("Store Commissions", comment: "Commissions title")
+        title = NSLocalizedString("Store Commissions", comment: "Store Commissions title")
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Store Commissions", comment: "Store Commissions title"))
+        navigationItem.titleView = titleLabel
     }
     
     required init?(coder aDecoder: NSCoder) {

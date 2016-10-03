@@ -86,6 +86,10 @@ class ProductsOfflineViewController: SiteTableViewController {
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Fetching Product...", comment: ""))
+        navigationItem.titleView = titleLabel
+        
         tableView.registerClass(ProductsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ProductHeadingTableViewCell")
         tableView.registerClass(ProductsDetailInfoTableViewCell.self, forCellReuseIdentifier: "ProductInfoTableViewCell")
         tableView.registerClass(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
@@ -190,6 +194,10 @@ class ProductsOfflineViewController: SiteTableViewController {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.title = self.product?.title
+                    let titleLabel = ViewControllerTitleLabel()
+                    titleLabel.setTitle((self.product?.title)!)
+                    self.navigationItem.titleView = titleLabel
+                    
                     self.operation = false
                     self.loadingView.removeFromSuperview()
                     self.tableView.reloadData()

@@ -117,6 +117,10 @@ class CommissionsViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Commissions", comment: "Commissions title"))
+        navigationItem.titleView = titleLabel
     }
     
     required init?(coder aDecoder: NSCoder) {

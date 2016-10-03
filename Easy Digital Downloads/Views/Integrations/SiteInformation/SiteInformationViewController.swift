@@ -50,6 +50,10 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         tableView.allowsSelection = false
         tableView.tableFooterView = UIView()
         
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Site Information", comment: "Site Information title"))
+        navigationItem.titleView = titleLabel
+        
         sections = [
             Section(type: .General, items: [.SiteName, .SiteURL]),
             Section(type: .Authentication, items: [.APIKey, .Token])
