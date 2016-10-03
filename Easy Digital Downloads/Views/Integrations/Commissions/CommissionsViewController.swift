@@ -67,7 +67,7 @@ class CommissionsViewController: SiteTableViewController {
         segmentedControl.addTarget(self, action: #selector(CommissionsViewController.segmentAction), forControlEvents: .ValueChanged)
         segmentedControl.sizeToFit()
         
-        sharedCache.fetch(key: "Commissions").onSuccess({ result in
+        sharedCache.fetch(key: Site.activeSite().uid! + "-Commissions").onSuccess({ result in
             let json = JSON.convertFromData(result)! as JSON
             self.commissions = json
             
@@ -131,7 +131,7 @@ class CommissionsViewController: SiteTableViewController {
     
     private func networkOperations() {
         EDDAPIWrapper.sharedInstance.requestCommissions([ : ], success: { (json) in
-            self.sharedCache.set(value: json.asData(), key: "Commissions")
+            self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Commissions")
             
             self.commissionsObjects.removeAll(keepCapacity: false)
             

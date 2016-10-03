@@ -57,7 +57,7 @@ class StoreCommissionsViewController: SiteTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sharedCache.fetch(key: "StoreCommissions").onSuccess({ result in
+        sharedCache.fetch(key: Site.activeSite().uid! + "-StoreCommissions").onSuccess({ result in
             let json = JSON.convertFromData(result)! as JSON
             self.commissions = json
             
@@ -111,7 +111,7 @@ class StoreCommissionsViewController: SiteTableViewController {
     
     private func networkOperations() {
         EDDAPIWrapper.sharedInstance.requestStoreCommissions([ : ], success: { (json) in
-            self.sharedCache.set(value: json.asData(), key: "StoreCommissions")
+            self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-StoreCommissions")
             
             self.commissionsObjects.removeAll(keepCapacity: false)
             
