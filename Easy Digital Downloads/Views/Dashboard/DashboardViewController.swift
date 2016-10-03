@@ -295,11 +295,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             return
         }
         
-        print("Sales data:")
-        print(data.salesGraphData)
-        print("Earnings data:")
-        print(data.earningsGraphData)
-        
         self.salesGraphData = data.salesGraphData
         self.salesGraphDates = data.salesGraphDates
         self.earningsGraphData = data.earningsGraphData
