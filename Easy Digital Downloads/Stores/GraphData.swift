@@ -66,7 +66,7 @@ extension GraphData {
                 return nil
             }
             
-            guard let salesGraphData = aDecoder.decodeObjectForKey("earningsGraphData") as? Array<Int> else {
+            guard let salesGraphData = aDecoder.decodeObjectForKey("salesGraphData") as? Array<Int> else {
                 graphData = nil
                 super.init()
                 return nil
