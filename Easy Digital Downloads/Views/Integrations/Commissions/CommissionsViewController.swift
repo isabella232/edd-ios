@@ -92,7 +92,9 @@ class CommissionsViewController: SiteTableViewController {
             self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
             self.filteredCommissionsObjects = self.commissionsObjects
             
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
         })
         
         navigationItem.titleView = segmentedControl
@@ -130,6 +132,33 @@ class CommissionsViewController: SiteTableViewController {
     private func networkOperations() {
         EDDAPIWrapper.sharedInstance.requestCommissions([ : ], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: "Commissions")
+            
+            self.commissionsObjects.removeAll(keepCapacity: false)
+            
+            if let revoked = json["revoked"].array {
+                for item in revoked {
+                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "revoked"))
+                }
+            }
+            
+            if let paid = json["paid"].array {
+                for item in paid {
+                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "paid"))
+                }
+            }
+            
+            if let unpaid = json["unpaid"].array {
+                for item in unpaid {
+                    self.commissionsObjects.append(Commissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: "unpaid"))
+                }
+            }
+            
+            self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredCommissionsObjects = self.commissionsObjects
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
         }) { (error) in
             print(error.localizedDescription)
         }

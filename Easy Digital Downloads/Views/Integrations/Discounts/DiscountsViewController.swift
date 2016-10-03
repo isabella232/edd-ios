@@ -72,7 +72,9 @@ class DiscountsViewController: SiteTableViewController {
             
             self.discountsObjects.sortInPlace({ $0.ID < $1.ID })
             
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
         })
         
         setupInfiniteScrollView()
@@ -106,8 +108,22 @@ class DiscountsViewController: SiteTableViewController {
     }
     
     private func networkOperations() {
-        EDDAPIWrapper.sharedInstance.requestDiscounts([ : ], success: { (json) in
-            self.sharedCache.set(value: json.asData(), key: "Discounts")
+        EDDAPIWrapper.sharedInstance.requestDiscounts([ : ], success: { (result) in
+            self.sharedCache.set(value: result.asData(), key: "Discounts")
+            
+            self.discountsObjects.removeAll(keepCapacity: false)
+            
+            if let items = result["discounts"].array {
+                for item in items {
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: sharedDateFormatter.dateFromString(item["start_date"].stringValue), expiryDate: sharedDateFormatter.dateFromString(item["exp_date"].stringValue), status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue))
+                }
+            }
+            
+            self.discountsObjects.sortInPlace({ $0.ID < $1.ID })
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
         }) { (error) in
             print(error.localizedDescription)
         }

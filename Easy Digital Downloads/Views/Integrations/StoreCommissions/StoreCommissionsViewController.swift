@@ -70,7 +70,9 @@ class StoreCommissionsViewController: SiteTableViewController {
             self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
             self.filteredCommissionsObjects = self.commissionsObjects
             
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
         })
         
         setupInfiniteScrollView()
@@ -106,6 +108,21 @@ class StoreCommissionsViewController: SiteTableViewController {
     private func networkOperations() {
         EDDAPIWrapper.sharedInstance.requestStoreCommissions([ : ], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: "StoreCommissions")
+            
+            self.commissionsObjects.removeAll(keepCapacity: false)
+            
+            if let items = json["commissions"].array {
+                for item in items {
+                    self.commissionsObjects.append(StoreCommissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: item["status"].stringValue))
+                }
+            }
+            
+            self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredCommissionsObjects = self.commissionsObjects
+            
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.tableView.reloadData()
+            })
         }) { (error) in
             print(error.localizedDescription)
         }
