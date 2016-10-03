@@ -33,14 +33,8 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
     
     lazy var containerView: UIView! = {
         let view = UIView()
-        view.backgroundColor = .EDDBlueColor()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 2
         view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSizeZero
-        view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowColor = UIColor.blackColor().CGColor
         return view
     }()
     
@@ -51,10 +45,6 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .None
-        
-        titleLabel.textColor = .whiteColor()
-        titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
-        titleLabel.textAlignment = .Center
         
         dataLabel.textColor = .whiteColor()
         dataLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
@@ -67,7 +57,6 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
     }
     
     func layout() {
-        stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(dataLabel)
         
         containerView.addSubview(stackView)
@@ -79,7 +68,6 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
         constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
@@ -90,10 +78,6 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
         
         NSLayoutConstraint.activateConstraints(constraints)
-    }
-    
-    func setTitle(title: String) {
-        titleLabel.text = title
     }
     
     func configure(data: [String: AnyObject]) {

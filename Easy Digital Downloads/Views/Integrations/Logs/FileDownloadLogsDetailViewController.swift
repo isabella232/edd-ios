@@ -13,9 +13,13 @@ import SwiftyJSON
 class FileDownloadLogsDetailViewController: SiteTableViewController {
     
     private enum CellType {
+        case MetaHeading
         case Meta
+        case ProductHeading
         case Product
+        case PaymentHeading
         case Payment
+        case CustomerHeading
         case Customer
     }
     
@@ -55,7 +59,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.registerClass(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")
         tableView.registerClass(FileDownloadLogsProductTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogProductCell")
         
-        cells = [.Meta, .Product, .Payment, .Customer]
+        cells = [.MetaHeading, .Meta, .ProductHeading, .Product, .PaymentHeading, .Payment, .CustomerHeading, .Customer]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,7 +84,6 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         switch cells[indexPath.row] {
             case .Meta:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogMetaCell", forIndexPath: indexPath) as! FileDownloadLogsMetaTableViewCell
-                (cell as! FileDownloadLogsMetaTableViewCell).setTitle(NSLocalizedString("Meta", comment: "Meta title"))
                 (cell as! FileDownloadLogsMetaTableViewCell).configure(log!)
                 (cell as! FileDownloadLogsMetaTableViewCell).layout()
             case .Customer:
