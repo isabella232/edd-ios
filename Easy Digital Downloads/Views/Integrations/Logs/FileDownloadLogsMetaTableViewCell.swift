@@ -38,18 +38,38 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let titleLabel = UILabel(frame: CGRectZero)
-    private let dataLabel = UILabel(frame: CGRectZero)
+    private let ipHeading: UILabel = UILabel(frame: CGRectZero)
+    private let ipLabel: UILabel = UILabel(frame: CGRectZero)
+    private let fileHeading: UILabel = UILabel(frame: CGRectZero)
+    private let fileLabel: UILabel = UILabel(frame: CGRectZero)
+    private let dateHeading: UILabel = UILabel(frame: CGRectZero)
+    private let dateLabel: UILabel = UILabel(frame: CGRectZero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .None
         
-        dataLabel.textColor = .whiteColor()
-        dataLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-        dataLabel.numberOfLines = 0
-        dataLabel.lineBreakMode = .ByWordWrapping
+        // Styling for headings
+        ipHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        ipHeading.textColor = .EDDBlueColor()
+        fileHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        fileHeading.textColor = .EDDBlueColor()
+        dateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        dateHeading.textColor = .EDDBlueColor()
+        
+        // Text for Headings
+        ipHeading.text = NSLocalizedString("IP Address", comment: "")
+        fileHeading.text = NSLocalizedString("File", comment: "")
+        dateHeading.text = NSLocalizedString("Date", comment: "")
+        
+        // Styling for labels
+        ipLabel.textColor = .EDDBlackColor()
+        ipLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        fileLabel.textColor = .EDDBlackColor()
+        fileLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.textColor = .EDDBlackColor()
+        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,7 +77,12 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
     }
     
     func layout() {
-        stackView.addArrangedSubview(dataLabel)
+        stackView.addArrangedSubview(ipHeading)
+        stackView.addArrangedSubview(ipLabel)
+        stackView.addArrangedSubview(fileHeading)
+        stackView.addArrangedSubview(fileLabel)
+        stackView.addArrangedSubview(dateHeading)
+        stackView.addArrangedSubview(dateLabel)
         
         containerView.addSubview(stackView)
         
@@ -68,14 +93,22 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(ipHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(ipLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(ipLabel.bottomAnchor.constraintEqualToAnchor(fileHeading.topAnchor, constant: -20))
+        constraints.append(fileHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(fileLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(fileLabel.bottomAnchor.constraintEqualToAnchor(dateHeading.topAnchor, constant: -20))
+        constraints.append(dateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
         
         NSLayoutConstraint.activateConstraints(constraints)
     }
@@ -84,14 +117,13 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         let date = data["date"] as! String
         let dateObject = sharedDateFormatter.dateFromString(date)
         
+        if let file: String = data["file"] as? String, let ip: String = data["ip"] as? String {
+            fileLabel.text = file
+            ipLabel.text = ip
+        }
+        
         sharedDateFormatter.dateFormat = "EEE dd MMM yyyy HH:mm:ss"
-        
-        let dataText = "IP Address: \(data["ip"]!)" + "\n" +
-                     "File: \(data["file"]!)" + "\n" +
-                     "Date: \(sharedDateFormatter.stringFromDate(dateObject!))"
-        
-        dataLabel.text = dataText
-        dataLabel.sizeToFit()
+        dateLabel.text = sharedDateFormatter.stringFromDate(dateObject!)
         
         // Reset date format
         sharedDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
