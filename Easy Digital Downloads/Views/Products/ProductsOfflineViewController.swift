@@ -122,7 +122,7 @@ class ProductsOfflineViewController: SiteTableViewController {
         self.operation = true
         view.addSubview(loadingView)
 
-        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(productId)"], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(productId!)"], success: { (json) in
             if let items = json["products"].array {
                 self.fetchedProduct = items
                 
