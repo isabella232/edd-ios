@@ -13,6 +13,7 @@ import SwiftyJSON
 class FileDownloadLogsDetailViewController: SiteTableViewController {
     
     private enum CellType {
+        case Title
         case MetaHeading
         case Meta
         case ProductHeading
@@ -59,8 +60,9 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.registerClass(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")
         tableView.registerClass(FileDownloadLogsProductTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogProductCell")
         tableView.registerClass(FileDownloadLogsHeadingTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsHeadingCell")
+        tableView.registerClass(FileDownloadLogsTitleTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsTitleCell")
         
-        cells = [.MetaHeading, .Meta, .ProductHeading, .Product, .PaymentHeading, .Payment, .CustomerHeading, .Customer]
+        cells = [.Title, s.MetaHeading, .Meta, .ProductHeading, .Product, .PaymentHeading, .Payment, .CustomerHeading, .Customer]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,6 +85,9 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
+            case .Title:
+                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsTitleTableViewCell
+                (cell as! FileDownloadLogsTitleTableViewCell).configure("Log #\(log!["ID"]!)")
             case .MetaHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Meta")

@@ -18,6 +18,13 @@
 		F50388901D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F503888F1D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift */; };
 		F50388931D74940A0059BB38 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388921D74940A0059BB38 /* SearchViewController.swift */; };
 		F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388941D74A75B0059BB38 /* CustomersTableViewCell.swift */; };
+		F50AE5DE1DA50C98002F99F5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F50AE5DC1DA50C98002F99F5 /* Interface.storyboard */; };
+		F50AE5E01DA50C98002F99F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F50AE5DF1DA50C98002F99F5 /* Assets.xcassets */; };
+		F50AE5E71DA50C99002F99F5 /* Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F50AE5E61DA50C99002F99F5 /* Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F50AE5EC1DA50C99002F99F5 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50AE5EB1DA50C99002F99F5 /* InterfaceController.swift */; };
+		F50AE5EE1DA50C99002F99F5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50AE5ED1DA50C99002F99F5 /* ExtensionDelegate.swift */; };
+		F50AE5F01DA50C99002F99F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F50AE5EF1DA50C99002F99F5 /* Assets.xcassets */; };
+		F50AE5F41DA50C99002F99F5 /* Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F50AE5DA1DA50C98002F99F5 /* Watch.app */; };
 		F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */; };
 		F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB511CFA4EFC001A6A51 /* CustomersViewController.swift */; };
 		F50DEB551CFAD228001A6A51 /* HighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50DEB541CFAD228001A6A51 /* HighlightButton.swift */; };
@@ -84,6 +91,7 @@
 		F5A99B1E1DA30807002AB7A0 /* JSON+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A31DA114E3003D4F39 /* JSON+Cache.swift */; };
 		F5A99B201DA31C71002AB7A0 /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A99B1F1DA31C71002AB7A0 /* String+HTML.swift */; };
 		F5A99B221DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A99B211DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift */; };
+		F5A99B241DA327F6002AB7A0 /* FileDownloadLogsTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A99B231DA327F6002AB7A0 /* FileDownloadLogsTitleTableViewCell.swift */; };
 		F5AE176F1D703639003C7AF7 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */; };
 		F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */; };
 		F5B061211D6A206000F9B4E1 /* KeyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B061201D6A206000F9B4E1 /* KeyCodable.swift */; };
@@ -141,6 +149,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F50AE5E81DA50C99002F99F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5A3127D1CF1DAE1000F4F6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F50AE5E51DA50C99002F99F5;
+			remoteInfo = "Watch Extension";
+		};
+		F50AE5F21DA50C99002F99F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5A3127D1CF1DAE1000F4F6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F50AE5D91DA50C98002F99F5;
+			remoteInfo = Watch;
+		};
 		F59E21351D9A76D800955440 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5A3127D1CF1DAE1000F4F6F /* Project object */;
@@ -151,6 +173,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		F50AE5FA1DA50C99002F99F5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F50AE5E71DA50C99002F99F5 /* Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F50AE5FC1DA50C99002F99F5 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F50AE5F41DA50C99002F99F5 /* Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +230,15 @@
 		F503888F1D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsProductTableViewCell.swift; sourceTree = "<group>"; };
 		F50388921D74940A0059BB38 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F50388941D74A75B0059BB38 /* CustomersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersTableViewCell.swift; sourceTree = "<group>"; };
+		F50AE5DA1DA50C98002F99F5 /* Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F50AE5DD1DA50C98002F99F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		F50AE5DF1DA50C98002F99F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F50AE5E11DA50C99002F99F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F50AE5E61DA50C99002F99F5 /* Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F50AE5EB1DA50C99002F99F5 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		F50AE5ED1DA50C99002F99F5 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		F50AE5EF1DA50C99002F99F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F50AE5F11DA50C99002F99F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F50DEB381CF9F775001A6A51 /* Gridicons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gridicons.framework; path = "../../Library/Developer/Xcode/DerivedData/Easy_Digital_Downloads-gcyabyxxojsfobctwmcnytlvnhie/Build/Products/Debug-iphonesimulator/Gridicons/Gridicons.framework"; sourceTree = "<group>"; };
 		F50DEB391CF9F775001A6A51 /* MCDateExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MCDateExtensions.framework; path = "Pods/../build/Debug-iphoneos/MCDateExtensions/MCDateExtensions.framework"; sourceTree = "<group>"; };
 		F50DEB3A1CF9F775001A6A51 /* MZAppearance.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MZAppearance.framework; path = "Pods/../build/Debug-iphoneos/MZAppearance/MZAppearance.framework"; sourceTree = "<group>"; };
@@ -266,6 +319,7 @@
 		F5A99B1C1DA2FDC7002AB7A0 /* ViewControllerTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTitleLabel.swift; sourceTree = "<group>"; };
 		F5A99B1F1DA31C71002AB7A0 /* String+HTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		F5A99B211DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F5A99B231DA327F6002AB7A0 /* FileDownloadLogsTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsTitleTableViewCell.swift; sourceTree = "<group>"; };
 		F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
 		F5B0611E1D69F43700F9B4E1 /* JSON+Null.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Null.swift"; sourceTree = "<group>"; };
 		F5B061201D6A206000F9B4E1 /* KeyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodable.swift; sourceTree = "<group>"; };
@@ -324,6 +378,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F50AE5E31DA50C99002F99F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F59E21291D9A76D700955440 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,6 +490,27 @@
 				F5E7F15E1D9863A300DC62DE /* SearchDetailViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		F50AE5DB1DA50C98002F99F5 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				F50AE5DC1DA50C98002F99F5 /* Interface.storyboard */,
+				F50AE5DF1DA50C98002F99F5 /* Assets.xcassets */,
+				F50AE5E11DA50C99002F99F5 /* Info.plist */,
+			);
+			path = Watch;
+			sourceTree = "<group>";
+		};
+		F50AE5EA1DA50C99002F99F5 /* Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F50AE5EB1DA50C99002F99F5 /* InterfaceController.swift */,
+				F50AE5ED1DA50C99002F99F5 /* ExtensionDelegate.swift */,
+				F50AE5EF1DA50C99002F99F5 /* Assets.xcassets */,
+				F50AE5F11DA50C99002F99F5 /* Info.plist */,
+			);
+			path = "Watch Extension";
 			sourceTree = "<group>";
 		};
 		F50DEB501CFA4EE8001A6A51 /* Customers */ = {
@@ -544,6 +626,8 @@
 			children = (
 				F5A312871CF1DAE1000F4F6F /* Easy Digital Downloads */,
 				F59E212E1D9A76D800955440 /* Today */,
+				F50AE5DB1DA50C98002F99F5 /* Watch */,
+				F50AE5EA1DA50C99002F99F5 /* Watch Extension */,
 				F5A312861CF1DAE1000F4F6F /* Products */,
 				6E4542EF9900145ABAE43598 /* Pods */,
 				7C5F97A647D663D04F05894B /* Frameworks */,
@@ -555,6 +639,8 @@
 			children = (
 				F5A312851CF1DAE1000F4F6F /* Easy Digital Downloads.app */,
 				F59E212C1D9A76D700955440 /* Today.appex */,
+				F50AE5DA1DA50C98002F99F5 /* Watch.app */,
+				F50AE5E61DA50C99002F99F5 /* Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -672,6 +758,7 @@
 				F503888D1D73711F0059BB38 /* FileDownloadLogsCustomerTableViewCell.swift */,
 				F503888F1D7371450059BB38 /* FileDownloadLogsProductTableViewCell.swift */,
 				F5A99B211DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift */,
+				F5A99B231DA327F6002AB7A0 /* FileDownloadLogsTitleTableViewCell.swift */,
 			);
 			path = Logs;
 			sourceTree = "<group>";
@@ -734,6 +821,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F50AE5D91DA50C98002F99F5 /* Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F50AE5FB1DA50C99002F99F5 /* Build configuration list for PBXNativeTarget "Watch" */;
+			buildPhases = (
+				F50AE5D81DA50C98002F99F5 /* Resources */,
+				F50AE5FA1DA50C99002F99F5 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F50AE5E91DA50C99002F99F5 /* PBXTargetDependency */,
+			);
+			name = Watch;
+			productName = Watch;
+			productReference = F50AE5DA1DA50C98002F99F5 /* Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		F50AE5E51DA50C99002F99F5 /* Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F50AE5F91DA50C99002F99F5 /* Build configuration list for PBXNativeTarget "Watch Extension" */;
+			buildPhases = (
+				F50AE5E21DA50C99002F99F5 /* Sources */,
+				F50AE5E31DA50C99002F99F5 /* Frameworks */,
+				F50AE5E41DA50C99002F99F5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Watch Extension";
+			productName = "Watch Extension";
+			productReference = F50AE5E61DA50C99002F99F5 /* Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		F59E212B1D9A76D700955440 /* Today */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F59E21381D9A76D800955440 /* Build configuration list for PBXNativeTarget "Today" */;
@@ -764,11 +885,13 @@
 				ADB1BA03EA6070F9653B44BE /* [CP] Embed Pods Frameworks */,
 				5073586A433310F390DF3B55 /* [CP] Copy Pods Resources */,
 				F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */,
+				F50AE5FC1DA50C99002F99F5 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F59E21361D9A76D800955440 /* PBXTargetDependency */,
+				F50AE5F31DA50C99002F99F5 /* PBXTargetDependency */,
 			);
 			name = "Easy Digital Downloads";
 			productName = "Easy Digital Downloads";
@@ -785,6 +908,16 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Easy Digital Downloads";
 				TargetAttributes = {
+					F50AE5D91DA50C98002F99F5 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = H7B3257R6N;
+						ProvisioningStyle = Automatic;
+					};
+					F50AE5E51DA50C99002F99F5 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = H7B3257R6N;
+						ProvisioningStyle = Automatic;
+					};
 					F59E212B1D9A76D700955440 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = H7B3257R6N;
@@ -831,11 +964,30 @@
 			targets = (
 				F5A312841CF1DAE1000F4F6F /* Easy Digital Downloads */,
 				F59E212B1D9A76D700955440 /* Today */,
+				F50AE5D91DA50C98002F99F5 /* Watch */,
+				F50AE5E51DA50C99002F99F5 /* Watch Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F50AE5D81DA50C98002F99F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F50AE5E01DA50C98002F99F5 /* Assets.xcassets in Resources */,
+				F50AE5DE1DA50C98002F99F5 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F50AE5E41DA50C99002F99F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F50AE5F01DA50C99002F99F5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F59E212A1D9A76D700955440 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -934,6 +1086,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F50AE5E21DA50C99002F99F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F50AE5EE1DA50C99002F99F5 /* ExtensionDelegate.swift in Sources */,
+				F50AE5EC1DA50C99002F99F5 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F59E21281D9A76D700955440 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -978,6 +1139,7 @@
 				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
 				F5A99B221DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift in Sources */,
+				F5A99B241DA327F6002AB7A0 /* FileDownloadLogsTitleTableViewCell.swift in Sources */,
 				F5FAF3D71CFBA6EF00F9F1FF /* DataSource.swift in Sources */,
 				F5EF5E8A1CF26E4700298841 /* DashboardViewController.swift in Sources */,
 				F51F224A1D3B948600D114E8 /* GraphData.swift in Sources */,
@@ -1074,6 +1236,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F50AE5E91DA50C99002F99F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F50AE5E51DA50C99002F99F5 /* Watch Extension */;
+			targetProxy = F50AE5E81DA50C99002F99F5 /* PBXContainerItemProxy */;
+		};
+		F50AE5F31DA50C99002F99F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F50AE5D91DA50C98002F99F5 /* Watch */;
+			targetProxy = F50AE5F21DA50C99002F99F5 /* PBXContainerItemProxy */;
+		};
 		F59E21361D9A76D800955440 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F59E212B1D9A76D700955440 /* Today */;
@@ -1082,6 +1254,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		F50AE5DC1DA50C98002F99F5 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F50AE5DD1DA50C98002F99F5 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		F59E21311D9A76D800955440 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1101,6 +1281,88 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F50AE5F51DA50C99002F99F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = H7B3257R6N;
+				IBSC_MODULE = Watch_Extension;
+				INFOPLIST_FILE = Watch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		F50AE5F61DA50C99002F99F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = H7B3257R6N;
+				IBSC_MODULE = Watch_Extension;
+				INFOPLIST_FILE = Watch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		F50AE5F71DA50C99002F99F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = H7B3257R6N;
+				INFOPLIST_FILE = "Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		F50AE5F81DA50C99002F99F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = H7B3257R6N;
+				INFOPLIST_FILE = "Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
 		F59E21391D9A76D800955440 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4E52A2FA077E7B1C44A273F2 /* Pods-EDD-Today.debug.xcconfig */;
@@ -1272,6 +1534,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F50AE5F91DA50C99002F99F5 /* Build configuration list for PBXNativeTarget "Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F50AE5F71DA50C99002F99F5 /* Debug */,
+				F50AE5F81DA50C99002F99F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F50AE5FB1DA50C99002F99F5 /* Build configuration list for PBXNativeTarget "Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F50AE5F51DA50C99002F99F5 /* Debug */,
+				F50AE5F61DA50C99002F99F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F59E21381D9A76D800955440 /* Build configuration list for PBXNativeTarget "Today" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
