@@ -329,7 +329,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                             let currency = "\(info["site"]["currency"])"
                             let permissions: NSData = NSKeyedArchiver.archivedDataWithRootObject(info["permissions"].dictionaryObject!)
                             let uid = NSUUID().UUIDString
-                            let appDelegate = AppDelegate()
 
                             self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
                             
