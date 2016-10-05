@@ -81,8 +81,6 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     // MARK: Network Operations
     
     private func networkOperations() {
-        logs = [JSON]()
-
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-FileDownloadLogs")
 
