@@ -58,7 +58,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//        networkOperations()
+        networkOperations()
     }
     
     override func viewDidLoad() {
