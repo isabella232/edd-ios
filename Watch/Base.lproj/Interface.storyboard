@@ -8,7 +8,7 @@
         <!--EDD-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="Dashboard" title="EDD" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Watch_Extension">
+                <controller identifier="Dashboard" title="EDD" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Watch_Extension">
                     <items>
                         <table alignment="left" id="4T8-K1-0vM">
                             <items>
