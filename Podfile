@@ -20,4 +20,7 @@ abstract_target 'EDD' do
   end
 
   target 'Today'
+  target 'Watch Extension' do
+    platform :watchos, ‘3.0’
+  end
 end

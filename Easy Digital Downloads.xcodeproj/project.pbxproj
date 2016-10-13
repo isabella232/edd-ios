@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D5FE48B63CF3ACB8210DAD0 /* Pods_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F856DF9F2E11D6866F6F1E /* Pods_Watch_Extension.framework */; };
 		A22A571F3B11E181F31D66B6 /* Pods_EDD_Today.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 597734C36C483B6090AF044F /* Pods_EDD_Today.framework */; };
 		CD9021C0801F1E02FBA0AD0C /* Pods_EDD_Easy_Digital_Downloads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B1CBEF62024057411CFCDD /* Pods_EDD_Easy_Digital_Downloads.framework */; };
 		F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502B0021CF435790089EEE1 /* LoginTextField.swift */; };
@@ -212,6 +213,7 @@
 /* Begin PBXFileReference section */
 		0417CD63DA9A5FA7967B36FF /* Pods-EDD-Easy Digital Downloads.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-Easy Digital Downloads.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-Easy Digital Downloads/Pods-EDD-Easy Digital Downloads.release.xcconfig"; sourceTree = "<group>"; };
 		4245509389ED9AAD9E3A653B /* Pods-EDD-Easy Digital Downloads.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-Easy Digital Downloads.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-Easy Digital Downloads/Pods-EDD-Easy Digital Downloads.debug.xcconfig"; sourceTree = "<group>"; };
+		47F856DF9F2E11D6866F6F1E /* Pods_Watch_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watch_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E52A2FA077E7B1C44A273F2 /* Pods-EDD-Today.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-Today.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-Today/Pods-EDD-Today.debug.xcconfig"; sourceTree = "<group>"; };
 		5882D613D54F927F6699E1E9 /* Pods-Easy Digital Downloads.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Easy Digital Downloads.release.xcconfig"; path = "Pods/Target Support Files/Pods-Easy Digital Downloads/Pods-Easy Digital Downloads.release.xcconfig"; sourceTree = "<group>"; };
 		597734C36C483B6090AF044F /* Pods_EDD_Today.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EDD_Today.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,9 +221,11 @@
 		82B99EF72DAA8AE69B865C56 /* Pods-Easy Digital Downloads.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Easy Digital Downloads.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Easy Digital Downloads/Pods-Easy Digital Downloads.debug.xcconfig"; sourceTree = "<group>"; };
 		8F20B0B77A3F7F17B151F7B1 /* Pods_EDD_EDDToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EDD_EDDToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91B1CBEF62024057411CFCDD /* Pods_EDD_Easy_Digital_Downloads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EDD_Easy_Digital_Downloads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1AB584FC58ACCDEFC02C883 /* Pods-Watch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		B1CD92666F5B5787429402AB /* Pods-EDD-EDDToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-EDDToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-EDDToday/Pods-EDD-EDDToday.debug.xcconfig"; sourceTree = "<group>"; };
 		C1361E3C742CE92CAB0D8A55 /* Pods-EDD-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-Today/Pods-EDD-Today.release.xcconfig"; sourceTree = "<group>"; };
 		D3DD97B0F116D34940763117 /* Pods-EDD-EDDToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-EDDToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-EDDToday/Pods-EDD-EDDToday.release.xcconfig"; sourceTree = "<group>"; };
+		DC144F630E6437BD1D9181E9 /* Pods-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
 		F502B0021CF435790089EEE1 /* LoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsTableViewCell.swift; sourceTree = "<group>"; };
 		F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollingTableView.swift; sourceTree = "<group>"; };
@@ -393,6 +397,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D5FE48B63CF3ACB8210DAD0 /* Pods_Watch_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +433,8 @@
 				0417CD63DA9A5FA7967B36FF /* Pods-EDD-Easy Digital Downloads.release.xcconfig */,
 				4E52A2FA077E7B1C44A273F2 /* Pods-EDD-Today.debug.xcconfig */,
 				C1361E3C742CE92CAB0D8A55 /* Pods-EDD-Today.release.xcconfig */,
+				A1AB584FC58ACCDEFC02C883 /* Pods-Watch Extension.debug.xcconfig */,
+				DC144F630E6437BD1D9181E9 /* Pods-Watch Extension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -452,6 +459,7 @@
 				8F20B0B77A3F7F17B151F7B1 /* Pods_EDD_EDDToday.framework */,
 				91B1CBEF62024057411CFCDD /* Pods_EDD_Easy_Digital_Downloads.framework */,
 				597734C36C483B6090AF044F /* Pods_EDD_Today.framework */,
+				47F856DF9F2E11D6866F6F1E /* Pods_Watch_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -857,9 +865,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F50AE5F91DA50C99002F99F5 /* Build configuration list for PBXNativeTarget "Watch Extension" */;
 			buildPhases = (
+				4ED8BF64BE907B59AF63ED01 /* [CP] Check Pods Manifest.lock */,
 				F50AE5E21DA50C99002F99F5 /* Sources */,
 				F50AE5E31DA50C99002F99F5 /* Frameworks */,
 				F50AE5E41DA50C99002F99F5 /* Resources */,
+				26D3AABE5CA42D4A93EA8B77 /* [CP] Embed Pods Frameworks */,
+				9893EC8C3DFA8477BD023FF5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1039,7 +1050,37 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		26D3AABE5CA42D4A93EA8B77 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		32E657991D40B48686869275 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4ED8BF64BE907B59AF63ED01 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1067,6 +1108,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDD-Easy Digital Downloads/Pods-EDD-Easy Digital Downloads-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9893EC8C3DFA8477BD023FF5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ADB1BA03EA6070F9653B44BE /* [CP] Embed Pods Frameworks */ = {
@@ -1325,7 +1381,7 @@
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1348,7 +1404,7 @@
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				IBSC_MODULE = Watch_Extension;
 				INFOPLIST_FILE = Watch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1360,6 +1416,7 @@
 		};
 		F50AE5F71DA50C99002F99F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1AB584FC58ACCDEFC02C883 /* Pods-Watch Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1368,7 +1425,7 @@
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkit.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1381,6 +1438,7 @@
 		};
 		F50AE5F81DA50C99002F99F5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC144F630E6437BD1D9181E9 /* Pods-Watch Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1389,7 +1447,7 @@
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker.watchkit.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
