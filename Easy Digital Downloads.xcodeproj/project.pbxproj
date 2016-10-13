@@ -275,6 +275,8 @@
 		F52825201CFDCF2E00AB62D9 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		F52825221CFE1F9600AB62D9 /* EDDAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDAPIWrapper.swift; sourceTree = "<group>"; };
 		F52825241CFE41B000AB62D9 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		F52BFD0B1DAF07A1007C5EE6 /* Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Watch.entitlements; sourceTree = "<group>"; };
+		F52BFD0C1DAF07AB007C5EE6 /* Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Watch Extension.entitlements"; sourceTree = "<group>"; };
 		F540EF8E1D6F8EF90012B453 /* FileDownloadLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLog.swift; sourceTree = "<group>"; };
 		F54724F91D3C3ABC009D5E8D /* Commission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commission.swift; sourceTree = "<group>"; };
 		F54724FB1D3C3AD1009D5E8D /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -380,6 +382,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		191C6FDF94D19CB1A5A4A388 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F50AE5E31DA50C99002F99F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -497,6 +506,7 @@
 		F50AE5DB1DA50C98002F99F5 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				F52BFD0B1DAF07A1007C5EE6 /* Watch.entitlements */,
 				F50AE5DC1DA50C98002F99F5 /* Interface.storyboard */,
 				F50AE5DF1DA50C98002F99F5 /* Assets.xcassets */,
 				F50AE5E11DA50C99002F99F5 /* Info.plist */,
@@ -507,6 +517,7 @@
 		F50AE5EA1DA50C99002F99F5 /* Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				F52BFD0C1DAF07AB007C5EE6 /* Watch Extension.entitlements */,
 				F50AE5EB1DA50C99002F99F5 /* InterfaceController.swift */,
 				F50AE5ED1DA50C99002F99F5 /* ExtensionDelegate.swift */,
 				F50AE5EF1DA50C99002F99F5 /* Assets.xcassets */,
@@ -830,6 +841,7 @@
 			buildPhases = (
 				F50AE5D81DA50C98002F99F5 /* Resources */,
 				F50AE5FA1DA50C99002F99F5 /* Embed App Extensions */,
+				191C6FDF94D19CB1A5A4A388 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -915,11 +927,27 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = H7B3257R6N;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					F50AE5E51DA50C99002F99F5 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = H7B3257R6N;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
 					};
 					F59E212B1D9A76D700955440 = {
 						CreatedOnToolsVersion = 8.0;
@@ -1292,6 +1320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = Watch/Watch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				IBSC_MODULE = Watch_Extension;
@@ -1314,6 +1343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = Watch/Watch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				IBSC_MODULE = Watch_Extension;
@@ -1334,6 +1364,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Watch Extension/Watch Extension.entitlements";
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1354,6 +1385,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Watch Extension/Watch Extension.entitlements";
 				DEVELOPMENT_TEAM = H7B3257R6N;
 				INFOPLIST_FILE = "Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
