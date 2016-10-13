@@ -12,10 +12,21 @@ import Foundation
 
 class InterfaceController: WKInterfaceController {
 
+    @IBOutlet var tableView: WKInterfaceTable!
+    
+    var items = ["Sales", "Earnings"]
+
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
+        tableView.setNumberOfRows(2, withRowType: "DashboardRow")
+        
+        var i = 0
+        for item in items {
+            let row = tableView.rowController(at: i) as! DashboardRowObject
+            row.label.setText(item)
+            i += 1
+        }
     }
     
     override func willActivate() {

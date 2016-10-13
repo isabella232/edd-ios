@@ -73,6 +73,7 @@
 		F574E5A61DA1C55B003D4F39 /* CommissionsStatusLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A51DA1C55B003D4F39 /* CommissionsStatusLabel.swift */; };
 		F574E5A81DA1D4FB003D4F39 /* DiscountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F574E5A71DA1D4FB003D4F39 /* DiscountsTableViewCell.swift */; };
 		F577F9B81D833CAA006A3FD9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F577F9B71D833CAA006A3FD9 /* Constants.swift */; };
+		F57DB37A1DA704BF00639C58 /* DashboardRowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */; };
 		F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
 		F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5890D151D0FF2C1004F2B37 /* Stats.swift */; };
@@ -300,6 +301,7 @@
 		F574E5A51DA1C55B003D4F39 /* CommissionsStatusLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsStatusLabel.swift; sourceTree = "<group>"; };
 		F574E5A71DA1D4FB003D4F39 /* DiscountsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsTableViewCell.swift; sourceTree = "<group>"; };
 		F577F9B71D833CAA006A3FD9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardRowObject.swift; sourceTree = "<group>"; };
 		F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
 		F5890D151D0FF2C1004F2B37 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				F50AE5ED1DA50C99002F99F5 /* ExtensionDelegate.swift */,
 				F50AE5EF1DA50C99002F99F5 /* Assets.xcassets */,
 				F50AE5F11DA50C99002F99F5 /* Info.plist */,
+				F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */,
 			);
 			path = "Watch Extension";
 			sourceTree = "<group>";
@@ -1091,6 +1094,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F50AE5EE1DA50C99002F99F5 /* ExtensionDelegate.swift in Sources */,
+				F57DB37A1DA704BF00639C58 /* DashboardRowObject.swift in Sources */,
 				F50AE5EC1DA50C99002F99F5 /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1541,6 +1545,7 @@
 				F50AE5F81DA50C99002F99F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F50AE5FB1DA50C99002F99F5 /* Build configuration list for PBXNativeTarget "Watch" */ = {
 			isa = XCConfigurationList;
@@ -1549,6 +1554,7 @@
 				F50AE5F61DA50C99002F99F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F59E21381D9A76D800955440 /* Build configuration list for PBXNativeTarget "Today" */ = {
 			isa = XCConfigurationList;
