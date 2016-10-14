@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 private let sharedDateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
@@ -37,7 +38,7 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         return view
     }()
     
-    var subscription: Subscription?
+    var subscription: Subscriptions!
     
     private let billingCycleHeading: UILabel = UILabel(frame: CGRectZero)
     private let billingCycleText: UILabel = UILabel(frame: CGRectZero)
@@ -108,13 +109,13 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(subscription: Subscription) {
+    func configure(subscription: Subscriptions) {
         self.subscription = subscription
         
         billingCycleText.text = Site.currencyFormat(subscription.initialAmount) + " " + NSLocalizedString("then", comment: "") + " " + Site.currencyFormat(subscription.recurringAmount)
         timesBilledText.text = "\(subscription.billTimes)"
         paymentMethodText.text = subscription.gateway.capitalizedString
-        profileText.text = subscription.profileID
+        profileText.text = subscription.profileId
         dateCreatedText.text = sharedDateFormatter.stringFromDate(subscription.created)
         expirationDateText.text = sharedDateFormatter.stringFromDate(subscription.expiration)
         statusText.text = subscription.status.capitalizedString

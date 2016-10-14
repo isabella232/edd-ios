@@ -38,14 +38,14 @@ class SubscriptionsDetailViewController: SiteTableViewController {
     private var cells = [CellType]()
 
     var site: Site?
-    var subscription: Subscription?
+    var subscription: Subscriptions!
     
     var product: JSON?
     var customer: JSON?
     
     var productObject: Product?
     
-    init(subscription: Subscription) {
+    init(subscription: Subscriptions) {
         super.init(style: .Plain)
         
         self.site = Site.activeSite()
@@ -57,10 +57,10 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
-        title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.sid)"
+        title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.ID)"
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.sid)")
+        titleLabel.setTitle(NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.ID)")
         navigationItem.titleView = titleLabel
         
         tableView.registerClass(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
@@ -80,11 +80,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
     }
     
     func networkOperations() {
-        guard let subscription_ = subscription else {
-            return
-        }
-
-        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(subscription_.productID)"], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(subscription.productId)"], success: { (json) in
             if let items = json["products"].array {
                 self.product = items[0]
                 
@@ -150,11 +146,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         }
         
         if cells[indexPath.row] == CellType.Customer {
-//            guard let customer = self.customer else {
-//                return
-//            }
-            
-            navigationController?.pushViewController(CustomerOfflineViewController(email: (subscription!.customer["email"] as? String)!), animated: true)
+            navigationController?.pushViewController(CustomerOfflineViewController(email: subscription.customer["email"]!.stringValue), animated: true)
         }
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -171,7 +163,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Billing", comment: ""))
             case .Billing:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailBillingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailBillingTableViewCell
-                (cell as! SubscriptionsDetailBillingTableViewCell).configure(subscription!)
+                (cell as! SubscriptionsDetailBillingTableViewCell).configure(subscription)
             case .ProductHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Product", comment: ""))
@@ -183,7 +175,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Customer", comment: ""))
             case .Customer:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailCustomerTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailCustomerTableViewCell
-                (cell as! SubscriptionsDetailCustomerTableViewCell).configure(subscription!.customer)
+                (cell as! SubscriptionsDetailCustomerTableViewCell).configure(subscription.customer)
             case .RenewalPaymentsHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Renewal Payments", comment: ""))

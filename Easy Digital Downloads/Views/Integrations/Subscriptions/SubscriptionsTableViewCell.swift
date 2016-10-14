@@ -96,38 +96,35 @@ class SubscriptionsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activateConstraints(constraints)
     }
-
-}
-
-extension SubscriptionsTableViewCell: ConfigurableCell {
     
-    func configureForObject(object: Subscription) {
-        let customer: [String: AnyObject] = object.customer
-        var name = customer["name"]! as? String
+    func configure(subscription: Subscriptions) {
+        let customer = subscription.customer
         
-        if name?.characters.count == 0 {
-            name = customer["email"]! as? String
+        var name = customer["name"]!.stringValue
+        
+        if name.characters.count == 0 {
+            name = customer["email"]!.stringValue
         }
         
-        if object.status == "cancelled" || object.status == "expired" || object.status == "failing" {
+        if subscription.status == "cancelled" || subscription.status == "expired" || subscription.status == "failing" {
             statusLabel.layer.backgroundColor = UIColor.errorColor().CGColor
             statusLabel.layer.borderColor = UIColor.errorColor().CGColor
         }
         
-        if object.status == "pending" {
+        if subscription.status == "pending" {
             statusLabel.layer.backgroundColor = UIColor.orangeColor().CGColor
             statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
         }
         
-        if object.status == "active" {
+        if subscription.status == "active" {
             statusLabel.layer.backgroundColor = UIColor.validColor().CGColor
             statusLabel.layer.borderColor = UIColor.validColor().CGColor
         }
         
-        statusLabel.text = object.status.uppercaseString
+        statusLabel.text = subscription.status.uppercaseString
         
         nameLabel.text = name
-        dateLabel.text = sharedDateFormatter.stringFromDate(object.created)
+        dateLabel.text = sharedDateFormatter.stringFromDate(subscription.created)
     }
-    
+
 }

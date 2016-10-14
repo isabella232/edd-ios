@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class SubscriptionsDetailCustomerTableViewCell: UITableViewCell {
 
@@ -74,9 +75,9 @@ class SubscriptionsDetailCustomerTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure(object: [String: AnyObject]) {
-        nameLabel.text = object["name"] as? String
-        emailLabel.text = object["email"] as? String
+    func configure(object: [String: JSON]) {
+        nameLabel.text = object["name"]?.stringValue
+        emailLabel.text = object["email"]?.stringValue
     }
 
 }
