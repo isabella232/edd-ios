@@ -119,7 +119,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .ProductSearch:
                 self.navigationController?.pushViewController(SearchViewController(site: site!), animated: true)
             case .FileDownloadLogs:
-                self.navigationController?.pushViewController(FileDownloadLogsController(site: self.site!), animated: true)
+                self.navigationController?.pushViewController(FileDownloadLogsViewController(site: self.site!), animated: true)
             case .Commissions:
                 self.navigationController?.pushViewController(CommissionsViewController(site: site!), animated: true)
             case .StoreCommissions:
@@ -127,7 +127,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
             case .Discounts:
                 self.navigationController?.pushViewController(DiscountsViewController(site: site!), animated: true)
             case .Reviews:
-                self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
+                self.navigationController?.pushViewController(ReviewsViewController(site: site!), animated: true)
             case .Subscriptions:
                 self.navigationController?.pushViewController(SubscriptionsViewController(site: site!), animated: true)
         }

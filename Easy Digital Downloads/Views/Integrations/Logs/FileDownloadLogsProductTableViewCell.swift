@@ -35,6 +35,7 @@ class FileDownloadLogsProductTableViewCell: UITableViewCell {
     }()
     
     private let titleLabel = UILabel(frame: CGRectZero)
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -1,5 +1,5 @@
 //
-//  FileDownloadLogsController.swift
+//  FileDownloadLogsViewController.swift
 //  Easy Digital Downloads
 //
 //  Created by Sunny Ratilal on 22/08/2016.
@@ -11,15 +11,40 @@ import CoreData
 import SwiftyJSON
 import Haneke
 
-class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextSettable, UIViewControllerPreviewingDelegate {
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
+public struct Log {
+    var ID: Int64!
+    var userId: Int64!
+    var productId: Int64!
+    var productName: String!
+    var customerId: Int64!
+    var paymentId: Int64!
+    var file: String!
+    var ip: String!
+    var date: NSDate!
+    
+}
+
+class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectContextSettable, UIViewControllerPreviewingDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
     
     typealias JSON = SwiftyJSON.JSON
     
     var site: Site?
-    var logs: [JSON]?
+    var logs: JSON?
     let sharedCache = Shared.dataCache
+    
+    var logObjects = [Log]()
+    var filteredLogObjects = [Log]()
     
     var hasMoreLogs: Bool = true {
         didSet {
@@ -68,7 +93,16 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         
         sharedCache.fetch(key: Site.activeSite().uid! + "-FileDownloadLogs").onSuccess({ result in
             let json = JSON.convertFromData(result)! as JSON
-            self.logs = json["download_logs"].array
+            self.logs = json
+            
+            if let items = json["download_logs"].array {
+                for item in items {
+                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
+                }
+            }
+            
+            self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredLogObjects = self.logObjects
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
@@ -84,12 +118,16 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-FileDownloadLogs")
 
-            self.logs?.removeAll(keepCapacity: false)
+            self.logObjects.removeAll(keepCapacity: false)
             
             if let items = json["download_logs"].array {
-                self.logs = items
-                self.requestNextPage(2)
+                for item in items {
+                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
+                }
             }
+            
+            self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredLogObjects = self.logObjects
             
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
@@ -108,11 +146,15 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
                     self.hasMoreLogs = false
                 }
                 for item in items {
-                    self.logs?.append(item)
+                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
                 }
             } else {
                 self.hasMoreLogs = false
             }
+            
+            self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredLogObjects = self.logObjects
+            
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
             })
@@ -129,7 +171,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.logs?.count ?? 0
+        return self.filteredLogObjects.count ?? 0
     }
     
     // MARK: Table View Delegate
@@ -140,10 +182,8 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
         if cell == nil {
             cell = FileDownloadLogsTableViewCell()
         }
-        
-        let logData = self.logs![indexPath.row].dictionaryObject!
-        
-        cell!.configure(logData)
+    
+        cell!.configure(filteredLogObjects[indexPath.row])
         
         cell!.layout()
         
@@ -151,7 +191,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let logData = self.logs![indexPath.row].dictionaryObject!
+        let logData = filteredLogObjects[indexPath.row]
         navigationController?.pushViewController(FileDownloadLogsDetailViewController(log: logData), animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -161,7 +201,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let indexPath = tableView.indexPathForRowAtPoint(location) {
             previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
-            let logData = self.logs![indexPath.row].dictionaryObject!
+            let logData = filteredLogObjects[indexPath.row]
             return FileDownloadLogsDetailViewController(log: logData)
         }
         return nil
@@ -173,7 +213,7 @@ class FileDownloadLogsController: SiteTableViewController, ManagedObjectContextS
 
 }
 
-extension FileDownloadLogsController: InfiniteScrollingTableView {
+extension FileDownloadLogsViewController: InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
         let bounds = UIScreen.mainScreen().bounds

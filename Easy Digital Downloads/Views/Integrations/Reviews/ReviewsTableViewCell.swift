@@ -1,16 +1,27 @@
 //
-//  FileDownloadLogsTitleTableViewCell.swift
+//  ReviewsTableViewCell.swift
 //  Easy Digital Downloads
 //
-//  Created by Sunny Ratilal on 04/10/2016.
+//  Created by Sunny Ratilal on 14/10/2016.
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
 import UIKit
 
-class FileDownloadLogsTitleTableViewCell: UITableViewCell {
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "EEE dd MMM yyyy HH:mm"
+    return formatter
+}()
 
-    lazy var stackView : UIStackView! = {
+class ReviewsTableViewCell: UITableViewCell {
+
+    var hasSetupConstraints = false
+    
+    lazy var stackView: UIStackView! = {
         let stack = UIStackView()
         stack.axis = .Vertical
         stack.distribution = .Fill
@@ -28,30 +39,36 @@ class FileDownloadLogsTitleTableViewCell: UITableViewCell {
         return view
     }()
 
-    private let titleLabel: UILabel = UILabel(frame: CGRectZero)
+    let titleLabel = UILabel(frame: CGRectZero)
+    let dateLabel = UILabel(frame: CGRectZero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
+        layer.opaque = true
+        opaque = true
         
-        titleLabel.textColor = .EDDBlackColor()
-        titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
-        titleLabel.textAlignment = .Left
+        backgroundColor = .clearColor()
+        contentView.backgroundColor = .clearColor()
+        
+        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        titleLabel.textColor = .EDDBlueColor()
+        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.numberOfLines = 0
+        
+        dateLabel.textColor = .EDDBlackColor()
+        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-    func configure(title: String) {
-        titleLabel.text = title
-        
-        layout()
-    }
     
     func layout() {
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(dateLabel)
         
         containerView.addSubview(stackView)
         
@@ -62,7 +79,7 @@ class FileDownloadLogsTitleTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 0.7))
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
         constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
@@ -74,4 +91,13 @@ class FileDownloadLogsTitleTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activateConstraints(constraints)
     }
+    
+    func configure(data: Review) {
+        titleLabel.text = data.title
+        
+        dateLabel.text = sharedDateFormatter.stringFromDate(data.date)
+        
+        layout()
+    }
+
 }

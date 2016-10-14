@@ -14,7 +14,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
     formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
     formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    formatter.dateFormat = "EEE dd MMM yyyy HH:mm:ss"
     return formatter
 }()
 
@@ -113,20 +113,11 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure(data: [String: AnyObject]) {
-        let date = data["date"] as! String
-        let dateObject = sharedDateFormatter.dateFromString(date)
+    func configure(log: Log) {
+        fileLabel.text = log.file
+        ipLabel.text = log.ip
         
-        if let file: String = data["file"] as? String, let ip: String = data["ip"] as? String {
-            fileLabel.text = file
-            ipLabel.text = ip
-        }
-        
-        sharedDateFormatter.dateFormat = "EEE dd MMM yyyy HH:mm:ss"
-        dateLabel.text = sharedDateFormatter.stringFromDate(dateObject!)
-        
-        // Reset date format
-        sharedDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateLabel.text = sharedDateFormatter.stringFromDate(log.date)
     }
     
 }

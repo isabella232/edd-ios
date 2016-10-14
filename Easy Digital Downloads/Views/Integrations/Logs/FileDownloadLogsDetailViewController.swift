@@ -27,23 +27,23 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     private var cells = [CellType]()
 
     var site: Site?
-    var log: [String: AnyObject]?
+    var log: Log!
     
-    var paymentId: Int = 0
-    var customerId: Int = 0
-    var productId: Int = 0
+    var paymentId: Int64 = 0
+    var customerId: Int64 = 0
+    var productId: Int64 = 0
     
-    init(log: [String: AnyObject]) {
+    init(log: Log) {
         super.init(style: .Plain)
         
         self.site = Site.activeSite()
         self.log = log
         
-        self.paymentId = (log["payment_id"] as! NSString).integerValue
-        self.customerId = (log["customer_id"] as! NSString).integerValue
-        self.productId = log["product_id"] as! Int
+        self.paymentId = log.paymentId
+        self.customerId = log.customerId
+        self.productId = log.productId
         
-        title = log["product_name"] as? String
+        title = log.productName
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -52,7 +52,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.separatorStyle = .None
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle((log["product_name"] as? String)!)
+        titleLabel.setTitle(log.productName)
         navigationItem.titleView = titleLabel
         
         tableView.registerClass(FileDownloadLogsMetaTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogMetaCell")
@@ -86,14 +86,14 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         
         switch cells[indexPath.row] {
             case .Title:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsTitleTableViewCell
-                (cell as! FileDownloadLogsTitleTableViewCell).configure("Log #\(log!["ID"]!)")
+                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsTitleCell", forIndexPath: indexPath) as! FileDownloadLogsTitleTableViewCell
+                (cell as! FileDownloadLogsTitleTableViewCell).configure("Log #\(log.ID)")
             case .MetaHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Meta")
             case .Meta:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogMetaCell", forIndexPath: indexPath) as! FileDownloadLogsMetaTableViewCell
-                (cell as! FileDownloadLogsMetaTableViewCell).configure(log!)
+                (cell as! FileDownloadLogsMetaTableViewCell).configure(log)
                 (cell as! FileDownloadLogsMetaTableViewCell).layout()
             case .CustomerHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
@@ -121,6 +121,5 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         
         return cell!
     }
-    
 
 }
