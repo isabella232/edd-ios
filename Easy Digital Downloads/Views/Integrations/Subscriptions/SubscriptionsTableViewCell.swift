@@ -135,7 +135,7 @@ class SubscriptionsTableViewCell: UITableViewCell {
             statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
         }
         
-        if subscription.status == "active" {
+        if subscription.status == "active" || subscription.status == "completed" {
             statusLabel.layer.backgroundColor = UIColor.validColor().CGColor
             statusLabel.layer.borderColor = UIColor.validColor().CGColor
         }
