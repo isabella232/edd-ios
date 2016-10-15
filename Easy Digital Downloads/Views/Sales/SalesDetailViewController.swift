@@ -11,6 +11,7 @@ import CoreData
 import Alamofire
 import AlamofireImage
 import SwiftyJSON
+import Haneke
 
 private let sharedDateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
@@ -33,15 +34,17 @@ class SalesDetailViewController: SiteTableViewController {
         case License
     }
     
+    typealias JSON = SwiftyJSON.JSON
+    
     private var cells = [CellType]()
     
     var site: Site?
-    var sale: Sale?
-    var products: [AnyObject]?
-    var licenses: [AnyObject]?
+    var sale: Sales!
+    var products: [JSON]!
+    var licenses: [JSON]?
     var customer: JSON?
     
-    init(sale: Sale) {
+    init(sale: Sales) {
         super.init(style: .Plain)
         
         self.site = Site.activeSite()
@@ -53,10 +56,10 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
-        title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.sid)"
+        title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.ID)"
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Sale", comment: "") + " #" + "\(sale.sid)")
+        titleLabel.setTitle(NSLocalizedString("Sale", comment: "") + " #" + "\(sale.ID)")
         navigationItem.titleView = titleLabel
         
         tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
@@ -77,13 +80,18 @@ class SalesDetailViewController: SiteTableViewController {
                 print(error.localizedDescription)
         }
         
-        products = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.products)! as! [AnyObject])
-        
-        if products!.count == 1 {
+        if sale.products!.count == 1 {
             cells.append(.Product)
         } else {
-            for _ in 1...products!.count {
+            for _ in 1...sale.products!.count {
                 cells.append(.Product)
+            }
+        }
+        
+        if let items = sale.products {
+            products = [JSON]()
+            for item in items {
+                products.append(item)
             }
         }
 
@@ -93,12 +101,11 @@ class SalesDetailViewController: SiteTableViewController {
         if sale.licenses != nil {
             cells.append(.LicensesHeading)
             
-            licenses = (NSKeyedUnarchiver.unarchiveObjectWithData(sale.licenses!)! as! [AnyObject])
-            
-            if licenses!.count == 1 {
+            if sale.licenses!.count == 1 {
                 cells.append(.License)
             } else {
-                for _ in 1...licenses!.count {
+                licenses = [JSON]()
+                for _ in 1...sale.licenses!.count {
                     cells.append(.License)
                 }
             }
@@ -119,25 +126,6 @@ class SalesDetailViewController: SiteTableViewController {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cells[indexPath.row] == CellType.Customer {
-            guard let item = customer else {
-                return
-            }
-            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
-            navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
-        }
-        
-        if cells[indexPath.row] == CellType.Product {
-            let product: AnyObject = products![indexPath.row - 2]
-            let id = product["id"] as! NSNumber
-            navigationController?.pushViewController(ProductsOfflineViewController(id: id), animated: true)
-        }
-            
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -152,7 +140,7 @@ class SalesDetailViewController: SiteTableViewController {
                 (cell as! SalesDetailHeadingTableViewCell).configure("Products")
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
-                (cell as! SalesDetailProductTableViewCell).configure(products![indexPath.row - 2])
+                (cell as! SalesDetailProductTableViewCell).configure(sale.products[indexPath.row - 2])
             case .CustomerHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
                 (cell as! SalesDetailHeadingTableViewCell).configure("Customer")
@@ -164,10 +152,29 @@ class SalesDetailViewController: SiteTableViewController {
                 (cell as! SalesDetailHeadingTableViewCell).configure("Licenses")
             case .License:
                 cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailLicensesTableViewCell", forIndexPath: indexPath) as! SalesDetailLicensesTableViewCell
-                (cell as! SalesDetailLicensesTableViewCell).configure(licenses![indexPath.row - 5 - (products?.count)!])
+                (cell as! SalesDetailLicensesTableViewCell).configure(sale.licenses![indexPath.row - 5 - (products?.count)!])
         }
         
         return cell!
     }
+    
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if cells[indexPath.row] == CellType.Customer {
+//            guard let item = customer else {
+//                return
+//            }
+//            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+//            navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
+//        }
+//        
+//        if cells[indexPath.row] == CellType.Product {
+//            let product: JSON = sale.products[indexPath.row - 2]
+//            let id = product["id"] as! NSNumber
+//            //            navigationController?.pushViewController(ProductsOfflineViewController(id: id), animated: true)
+//        }
+//        
+//        
+//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//    }
 
 }

@@ -84,18 +84,13 @@ final class SalesTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-}
-
-extension SalesTableViewCell: ConfigurableCell {
-
-    func configureForObject(object: Sale) {
+    func configure(sale: Sales) {
         let chargedText: String = NSLocalizedString("charged", comment: "")
-        amountLabel.text = "\(Site.currencyFormat(object.total)) \(chargedText)"
+        amountLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
         
-        let date = object.date
-        let reformattedDate = sharedDateFormatter.stringFromDate(date)
+        let reformattedDate = sharedDateFormatter.stringFromDate(sale.date)
         dateLabel.text = reformattedDate
         dateLabel.sizeToFit()
     }
-
+    
 }

@@ -40,7 +40,7 @@ class DiscountsViewController: SiteTableViewController {
     typealias JSON = SwiftyJSON.JSON
     
     var site: Site?
-    var commissions: JSON?
+    var discounts: JSON?
     let sharedCache = Shared.dataCache
     
     var hasMoreDiscounts: Bool = true {
@@ -62,9 +62,18 @@ class DiscountsViewController: SiteTableViewController {
         
         sharedCache.fetch(key: "Discounts").onSuccess({ result in
             let json = JSON.convertFromData(result)! as JSON
-            self.commissions = json
+            self.discounts = json
             
             if let items = json["discounts"].array {
+                if items.count == 20 {
+                    self.hasMoreDiscounts = true
+                } else {
+                    self.hasMoreDiscounts = false
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        self.activityIndicatorView.stopAnimating()
+                    })
+                }
+                
                 for item in items {
                     self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: sharedDateFormatter.dateFromString(item["start_date"].stringValue), expiryDate: sharedDateFormatter.dateFromString(item["exp_date"].stringValue), status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue))
                 }
@@ -118,6 +127,16 @@ class DiscountsViewController: SiteTableViewController {
             self.discountsObjects.removeAll(keepCapacity: false)
             
             if let items = result["discounts"].array {
+                if items.count == 20 {
+                    self.hasMoreDiscounts = true
+                } else {
+                    self.hasMoreDiscounts = false
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        self.activityIndicatorView.stopAnimating()
+                    })
+                }
+                
+                
                 for item in items {
                     self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: sharedDateFormatter.dateFromString(item["start_date"].stringValue), expiryDate: sharedDateFormatter.dateFromString(item["exp_date"].stringValue), status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue))
                 }

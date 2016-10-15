@@ -38,6 +38,8 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         return view
     }()
     
+    var sale: Sales!
+    
     private var hasDiscounts = false
     private var hasFees = false
     
@@ -112,7 +114,9 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(sale: Sale) {        
+    func configure(sale: Sales) {
+        self.sale = sale
+        
         let chargedText: String = NSLocalizedString("payment", comment: "")
         titleLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
         transactionIdLabel.text = sale.transactionId
@@ -124,15 +128,15 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         
         if let discounts = sale.discounts {
             hasDiscounts = true
-            let dictionary = NSDictionary(dictionary: discounts)
-            if dictionary.count > 1 {
+            
+            if discounts.count > 1 {
                 discountHeading.text = NSLocalizedString("Discount Codes", comment: "")
             } else {
                 discountHeading.text = NSLocalizedString("Discount Code", comment: "")
             }
             var discountCodeString = ""
-            for (key, _) in dictionary {
-                discountCodeString += (key as! String) + " "
+            for (key, _) in discounts {
+                discountCodeString += key + " "
             }
             discountCodeString = String(discountCodeString.characters.dropLast())
             discountCodeString = discountCodeString.stringByReplacingOccurrencesOfString(" ", withString: ", ")
@@ -141,20 +145,21 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         
         if let fees = sale.fees {
             hasFees = true
-            let feesArray: [AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(fees)! as! [AnyObject]
             
             var feesString = ""
             
-            for fee in feesArray {
-                let label = fee["label"] as! String
-                let amount = (fee["amount"] as? NSString)?.doubleValue
-                feesString = label + ": " + Site.currencyFormat(amount!) + "\n"
+            for fee in fees {
+                let label = fee["label"].stringValue
+                let amount = fee["amount"].doubleValue
+                feesString = label + ": " + Site.currencyFormat(amount) + "\n"
             }
 
             feesLabel.text = feesString
         }
         
-        taxLabel.text = Site.currencyFormat(sale.tax)
+        if let tax = sale.tax {
+            taxLabel.text = Site.currencyFormat(tax)
+        }
         
         layout()
     }
@@ -179,8 +184,10 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             stackView.addArrangedSubview(feesLabel)
         }
         
-        stackView.addArrangedSubview(taxHeading)
-        stackView.addArrangedSubview(taxLabel)
+        if let _ = sale.tax {
+            stackView.addArrangedSubview(taxHeading)
+            stackView.addArrangedSubview(taxLabel)
+        }
 
         containerView.addSubview(stackView)
         
@@ -213,17 +220,26 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             constraints.append(discountLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
             constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
             constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+            if let _ = sale.tax {
+                constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+            }
         } else if hasFees == true && hasDiscounts == false {
             constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
             constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
             constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+            if let _ = sale.tax {
+                constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+            }
         } else if hasFees == false && hasDiscounts == false {
-            constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+            if let _ = sale.tax {
+                constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+            }
         }
-        constraints.append(taxHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(taxLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        
+        if let _ = sale.tax {
+            constraints.append(taxHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(taxLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        }
         constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
         constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
         constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))

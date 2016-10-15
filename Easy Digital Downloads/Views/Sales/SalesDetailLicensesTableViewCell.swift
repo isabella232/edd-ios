@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class SalesDetailLicensesTableViewCell: UITableViewCell {
 
@@ -44,6 +45,8 @@ class SalesDetailLicensesTableViewCell: UITableViewCell {
         keyLabel.textColor = .EDDBlackColor()
         statusLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         statusLabel.textColor = .EDDBlackColor()
+        
+        selectionStyle = .None
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,10 +82,10 @@ class SalesDetailLicensesTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure(license: AnyObject) {
-        let name = license["name"] as! String
-        let status = license["status"] as! String
-        let key = license["key"] as! String
+    func configure(license: JSON) {
+        let name = license["name"].stringValue
+        let status = license["status"].stringValue
+        let key = license["key"].stringValue
         nameLabel.text = name
         statusLabel.text = status.capitalizedString
         keyLabel.text = key

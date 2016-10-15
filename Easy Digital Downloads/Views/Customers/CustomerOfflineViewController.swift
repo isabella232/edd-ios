@@ -197,7 +197,7 @@ class CustomerOfflineViewController: SiteTableViewController {
             
             let sale = Sale.objectForData(managedObjectContext, customer: item["customer"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].arrayObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int64(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue, products: item["products"].arrayObject!, discounts: item["discounts"].dictionaryObject, licenses: item["licenses"].arrayObject ?? nil)
             
-            navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
+//            navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
         }
         
         if cells[indexPath.row] == CellType.Subscriptions {

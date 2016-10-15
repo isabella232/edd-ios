@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+import Haneke
 
 private let sharedDateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
@@ -19,12 +20,34 @@ private let sharedDateFormatter: NSDateFormatter = {
     return formatter
 }()
 
+public struct Sales {
+    var ID: Int64!
+    var transactionId: String?
+    var key: String?
+    var subtotal: Double!
+    var tax: Double?
+    var fees: [SwiftyJSON.JSON]?
+    var total: Double!
+    var gateway: String!
+    var email: String!
+    var date: NSDate!
+    var discounts: [String: SwiftyJSON.JSON]?
+    var products: [SwiftyJSON.JSON]!
+    var licenses: [SwiftyJSON.JSON]?
+}
+
 class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDelegate {
     
     var managedObjectContext: NSManagedObjectContext!
 
+    typealias JSON = SwiftyJSON.JSON
+    
     var site: Site?
-    var sales: [JSON]?
+    var sales: JSON?
+    let sharedCache = Shared.dataCache
+    
+    var saleObjects = [Sales]()
+    var filteredSaleObjects = [Sales]()
     
     var hasMoreSales: Bool = true {
         didSet {
@@ -39,6 +62,36 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 1
+    
+    init(site: Site) {
+        super.init(style: .Plain)
+        
+        self.site = site
+        self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
+        
+        title = NSLocalizedString("Sales", comment: "Sales title")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 85.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        tableView.registerClass(SalesTableViewCell.self, forCellReuseIdentifier: "SalesTableViewCell")
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(NSLocalizedString("Sales", comment: "Sales title"))
+        navigationItem.titleView = titleLabel
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        networkOperations()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,61 +112,59 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         
         registerForPreviewingWithDelegate(self, sourceView: view)
         
+        sharedCache.fetch(key: Site.activeSite().uid! + "-Sales").onSuccess({ result in
+            let json = JSON.convertFromData(result)! as JSON
+            self.sales = json
+            
+            if let items = json["sales"].array {
+                for item in items {
+                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
+                }
+            }
+            
+            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredSaleObjects = self.saleObjects
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        })
+        
         setupInfiniteScrollView()
-        setupTableView()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    init(site: Site) {
-        super.init(style: .Plain)
-        
-        self.site = site
-        self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
-        
-        title = NSLocalizedString("Sales", comment: "Sales title")
-        
-        let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Sales", comment: "Sales title"))
-        navigationItem.titleView = titleLabel
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        networkOperations()
-    }
-    
     private func networkOperations() {
-        EDDAPIWrapper.sharedInstance.requestSales(["number" : 1], success: { json in
-            if let item = json["sales"].array {
-                if Sale.saleForId(item[0]["ID"].stringValue) == nil {
-                    self.loadMoreData()
+        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { json in
+            self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Sales")
+            
+            self.saleObjects.removeAll(keepCapacity: false)
+            
+            if let items = json["sales"].array {
+                for item in items {
+                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
+                }
+                
+                if items.count <= 20 {
+                    self.hasMoreSales = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.activityIndicatorView.stopAnimating()
+                    })
                 }
             }
+            
+            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredSaleObjects = self.saleObjects
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+            
             }) { (error) in
                 print(error)
-        }
-    }
-    
-    private func loadMoreData() {
-        sales = [JSON]()
-
-        EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { (json) in
-            if let items = json["sales"].array {
-                self.sales = items
-                self.updateLastDownloadedPage()
-                self.requestNextPage()
-            }
-            
-        }) { (error) in
-            print(error.localizedDescription)
         }
     }
     
@@ -126,11 +177,10 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
                     self.hasMoreSales = false
                 }
                 for item in items {
-                    self.sales?.append(item)
+                    
                 }
                 self.updateLastDownloadedPage()
             }
-            self.persistSales()
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -142,68 +192,46 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         sharedDefaults.synchronize()
     }
     
-    private func persistSales() {
-        guard let sales_ = sales else {
-            return
-        }
-        
-        for item in sales_.unique {
-            if Sale.saleForId(item["ID"].stringValue) !== nil {
-                continue
-            }
-
-            Sale.insertIntoContext(managedObjectContext, customer: item["customer"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].arrayObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int64(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue, products: item["products"].arrayObject!, discounts: item["discounts"].dictionaryObject, licenses: item["licenses"].arrayObject ?? nil)
-        }
-        
-        do {
-            try managedObjectContext.save()
-            managedObjectContext.processPendingChanges()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
-    }
-    
     // MARK: Scroll View Delegate
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight {
+        if actualPosition >= contentHeight && hasMoreSales {
             self.requestNextPage()
         }
     }
     
+    // MARK: Table View Data Source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.filteredSaleObjects.count ?? 0
+    }
+    
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let sale = dataSource.selectedObject else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            return
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell: SalesTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SalesTableViewCell") as! SalesTableViewCell?
+        
+        if cell == nil {
+            cell = SalesTableViewCell()
         }
         
-        navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
+        cell!.configure(filteredSaleObjects[indexPath.row])
+        
+        return cell!
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        navigationController?.pushViewController(SalesDetailViewController(sale: filteredSaleObjects[indexPath.row]), animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    // MARK: Private
-    
-    private typealias Data = FetchedResultsDataProvider<SalesViewController>
-    private var dataSource: TableViewDataSource<SalesViewController, Data, SalesTableViewCell>!
-    
-    private func setupTableView() {
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44
-        tableView.registerClass(SalesTableViewCell.self, forCellReuseIdentifier: "SaleCell")
-        setupDataSource()
-    }
-    
-    private func setupDataSource() {
-        let request = Sale.defaultFetchRequest()
-        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
-        dataSource = TableViewDataSource(tableView: tableView, dataProvider: dataProvider, delegate: self)
     }
     
     // MARK: 3D Touch
@@ -211,10 +239,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let indexPath = tableView.indexPathForRowAtPoint(location) {
             previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
-            guard let sale = dataSource.objectAtIndexPath(indexPath) else {
-                return nil
-            }
-            return SalesDetailViewController(sale: sale)
+            return SalesDetailViewController(sale: filteredSaleObjects[indexPath.row])
         }
         return nil
     }
@@ -229,22 +254,6 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         salesFilterTableViewController.modalPresentationStyle = .CurrentContext
         salesFilterTableViewController.modalPresentationCapturesStatusBarAppearance = true
         presentViewController(salesFilterTableViewController, animated: true, completion: nil)
-    }
-    
-}
-
-extension SalesViewController: DataProviderDelegate {
-
-    func dataProviderDidUpdate(updates: [DataProviderUpdate<Sale>]?) {
-        dataSource.processUpdates(updates)
-    }
-
-}
-
-extension SalesViewController: DataSourceDelegate {
-    
-    func cellIdentifierForObject(object: Sale) -> String {
-        return "SaleCell"
     }
     
 }

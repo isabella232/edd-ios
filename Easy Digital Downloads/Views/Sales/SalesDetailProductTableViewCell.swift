@@ -82,22 +82,22 @@ class SalesDetailProductTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(layoutConstraints)
     }
 
-    func configure(object: AnyObject) {
-        titleLabel.text = object["name"] as? String
+    func configure(object: JSON) {
+        titleLabel.text = object["name"].stringValue
         
-        let quantity = object["quantity"] as! NSNumber
+        let quantity = object["quantity"].intValue
         
         quantityLabel.text = NSLocalizedString("Quantity", comment: "") + ": \(quantity)"
         
-        let priceName = object["price_name"] as? String
+        let priceName = object["price_name"].stringValue
         
-        if priceName?.characters.count == 0 {
-            if let price = object["price"] as? NSNumber {
+        if priceName.characters.count == 0 {
+            if let price = object["price"].double {
                 pricingLabel.text = Site.currencyFormat(price)
             }
         } else {
-            if let price = object["price"] as? Double {
-                pricingLabel.text = priceName! + " - " + Site.currencyFormat(NSNumber(double: price))
+            if let price = object["price"].double {
+                pricingLabel.text = priceName + " - " + Site.currencyFormat(NSNumber(double: price))
             }
         }
     }
