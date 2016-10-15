@@ -21,7 +21,7 @@ private let sharedDateFormatter: NSDateFormatter = {
 
 class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
 
-    lazy var stackView : UIStackView! = {
+    lazy var containerStackView: UIStackView! = {
         let stack = UIStackView()
         stack.axis = .Vertical
         stack.distribution = .Fill
@@ -30,12 +30,6 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
         return stack
-    }()
-    
-    lazy var containerView: UIView! = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     var subscription: Subscriptions!
@@ -130,75 +124,69 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
     }
     
     func layout() {
-        stackView.addArrangedSubview(billingCycleHeading)
-        stackView.addArrangedSubview(billingCycleText)
-        stackView.addArrangedSubview(timesBilledHeading)
-        stackView.addArrangedSubview(timesBilledText)
-        stackView.addArrangedSubview(paymentMethodHeading)
-        stackView.addArrangedSubview(paymentMethodText)
-        stackView.addArrangedSubview(profileHeading)
-        stackView.addArrangedSubview(profileText)
+        containerStackView.addArrangedSubview(billingCycleHeading)
+        containerStackView.addArrangedSubview(billingCycleText)
+        containerStackView.addArrangedSubview(timesBilledHeading)
+        containerStackView.addArrangedSubview(timesBilledText)
+        containerStackView.addArrangedSubview(paymentMethodHeading)
+        containerStackView.addArrangedSubview(paymentMethodText)
+        containerStackView.addArrangedSubview(profileHeading)
+        containerStackView.addArrangedSubview(profileText)
         
         if let transactionId = subscription.transactionId {
             if transactionId.characters.count > 0 && transactionId != "false" {
-                stackView.addArrangedSubview(transactionIdHeading)
-                stackView.addArrangedSubview(transactionIdText)
+                containerStackView.addArrangedSubview(transactionIdHeading)
+                containerStackView.addArrangedSubview(transactionIdText)
             }
         }
         
-        stackView.addArrangedSubview(dateCreatedHeading)
-        stackView.addArrangedSubview(dateCreatedText)
-        stackView.addArrangedSubview(expirationDateHeading)
-        stackView.addArrangedSubview(expirationDateText)
-        stackView.addArrangedSubview(statusHeading)
-        stackView.addArrangedSubview(statusText)
+        containerStackView.addArrangedSubview(dateCreatedHeading)
+        containerStackView.addArrangedSubview(dateCreatedText)
+        containerStackView.addArrangedSubview(expirationDateHeading)
+        containerStackView.addArrangedSubview(expirationDateText)
+        containerStackView.addArrangedSubview(statusHeading)
+        containerStackView.addArrangedSubview(statusText)
         
-        containerView.addSubview(stackView)
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.layoutMarginsRelativeArrangement = true
+        containerStackView.alignment = .Top
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
-        
-        contentView.addSubview(containerView)
+        contentView.addSubview(containerStackView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(billingCycleHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(billingCycleText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(billingCycleHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(billingCycleText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
         constraints.append(billingCycleText.bottomAnchor.constraintEqualToAnchor(timesBilledHeading.topAnchor, constant: -20))
-        constraints.append(timesBilledHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(timesBilledText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(timesBilledHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(timesBilledText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
         constraints.append(timesBilledText.bottomAnchor.constraintEqualToAnchor(paymentMethodHeading.topAnchor, constant: -20))
-        constraints.append(paymentMethodHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(paymentMethodText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(paymentMethodHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(paymentMethodText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
         constraints.append(paymentMethodText.bottomAnchor.constraintEqualToAnchor(profileHeading.topAnchor, constant: -20))
-        constraints.append(profileHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(profileText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(profileHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(profileText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
         if let transactionId = subscription.transactionId {
             if transactionId.characters.count > 0 && transactionId != "false" {
                 constraints.append(profileText.bottomAnchor.constraintEqualToAnchor(transactionIdHeading.topAnchor, constant: -20))
-                constraints.append(transactionIdHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-                constraints.append(transactionIdText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+                constraints.append(transactionIdHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+                constraints.append(transactionIdText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
                 constraints.append(transactionIdText.bottomAnchor.constraintEqualToAnchor(dateCreatedHeading.topAnchor, constant: -20))
             } else {
                 constraints.append(profileText.bottomAnchor.constraintEqualToAnchor(dateCreatedHeading.topAnchor, constant: -20))
             }
         }
-        constraints.append(dateCreatedHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateCreatedText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateCreatedHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateCreatedText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
         constraints.append(dateCreatedText.bottomAnchor.constraintEqualToAnchor(expirationDateHeading.topAnchor, constant: -20))
-        constraints.append(expirationDateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(expirationDateText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(expirationDateHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(expirationDateText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
         constraints.append(expirationDateText.bottomAnchor.constraintEqualToAnchor(statusHeading.topAnchor, constant: -20))
-        constraints.append(statusHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(statusText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(statusHeading.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(statusText.widthAnchor.constraintEqualToAnchor(containerStackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
+        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
+        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
         
         NSLayoutConstraint.activateConstraints(constraints)
     }

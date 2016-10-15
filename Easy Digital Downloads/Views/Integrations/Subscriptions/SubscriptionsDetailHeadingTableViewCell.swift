@@ -10,7 +10,7 @@ import UIKit
 
 class SubscriptionsDetailHeadingTableViewCell: UITableViewCell {
 
-    lazy var stackView : UIStackView! = {
+    lazy var containerStackView  : UIStackView! = {
         let stack = UIStackView()
         stack.axis = .Vertical
         stack.distribution = .Fill
@@ -19,12 +19,6 @@ class SubscriptionsDetailHeadingTableViewCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
         return stack
-    }()
-    
-    lazy var containerView: UIView! = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     private let headingLabel = UILabel(frame: CGRectZero)
@@ -46,27 +40,21 @@ class SubscriptionsDetailHeadingTableViewCell: UITableViewCell {
     }
     
     private func layout() {
-        stackView.addArrangedSubview(headingLabel)
+        containerStackView .addArrangedSubview(headingLabel)
         
-        containerView.addSubview(stackView)
+        containerStackView .translatesAutoresizingMaskIntoConstraints = false
+        containerStackView .layoutMarginsRelativeArrangement = true
+        containerStackView .alignment = .Top
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
-        
-        contentView.addSubview(containerView)
+        contentView.addSubview(containerStackView )
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(headingLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(headingLabel.widthAnchor.constraintEqualToAnchor(containerStackView .widthAnchor, multiplier: 1.0))
         constraints.append(headingLabel.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
+        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
+        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
         
         NSLayoutConstraint.activateConstraints(constraints)
     }
