@@ -158,23 +158,28 @@ class SalesDetailViewController: SiteTableViewController {
         return cell!
     }
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if cells[indexPath.row] == CellType.Customer {
-//            guard let item = customer else {
-//                return
-//            }
-//            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
-//            navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
-//        }
-//        
-//        if cells[indexPath.row] == CellType.Product {
-//            let product: JSON = sale.products[indexPath.row - 2]
-//            let id = product["id"] as! NSNumber
-//            //            navigationController?.pushViewController(ProductsOfflineViewController(id: id), animated: true)
-//        }
-//        
-//        
-//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if cells[indexPath.row] == CellType.Customer {
+            guard let item = customer else {
+                return
+            }
+            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+            navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
+        }
+        
+        if cells[indexPath.row] == CellType.Product {
+            let product: JSON = sale.products[indexPath.row - 2]
+            let id = product["id"].int64Value
+            
+            if let product = Product.productForId(id) {
+                navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
+            } else {
+                navigationController?.pushViewController(ProductsOfflineViewController(id: id), animated: true)
+            }
+        }
+        
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
 }

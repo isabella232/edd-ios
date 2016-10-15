@@ -42,14 +42,14 @@ class ProductsOfflineViewController: SiteTableViewController {
     
     var site: Site?
     var product: Product?
-    var productId: NSNumber?
+    var productId: Int64?
     var fetchedProduct: [JSON]?
     var imageView: UIImageView?
     var operation: Bool = false
     
     var loadingView = UIView()
     
-    init(id: NSNumber) {
+    init(id: Int64) {
         super.init(style: .Plain)
         
         site = Site.activeSite()
