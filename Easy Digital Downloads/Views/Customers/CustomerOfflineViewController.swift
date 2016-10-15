@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+import Haneke
 
 private let sharedDateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
@@ -22,6 +23,8 @@ private let sharedDateFormatter: NSDateFormatter = {
 class CustomerOfflineViewController: SiteTableViewController {
 
     var managedObjectContext: NSManagedObjectContext!
+    
+    typealias JSON = SwiftyJSON.JSON
     
     private enum CellType {
         case Profile
@@ -39,11 +42,32 @@ class CustomerOfflineViewController: SiteTableViewController {
     var recentSales: [JSON]?
     var recentSubscriptions: [JSON]?
     var email: String?
+    let sharedCache = Shared.dataCache
     
     var loadingView = UIView()
     
     init(email: String) {
         super.init(style: .Plain)
+        
+        sharedCache.fetch(key: Site.activeSite().uid! + "-Customer-" + email).onSuccess({ result in
+            let json = JSON.convertFromData(result)! as JSON
+            
+            if let items = json["customers"].array {
+                let item = items[0]
+                
+                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.title = item["info"]["display_name"].stringValue
+                    self.tableView.reloadData()
+                    self.loadingView.removeFromSuperview()
+                })
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        })
         
         self.site = Site.activeSite()
         self.email = email
@@ -97,6 +121,9 @@ class CustomerOfflineViewController: SiteTableViewController {
     
     private func networkOperations() {
         EDDAPIWrapper.sharedInstance.requestCustomers(["customer" : email!], success: { (json) in
+            // Cache the returned customer
+            self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Customer-" + self.email!)
+
             if let items = json["customers"].array {
                 let item = items[0]
                 
