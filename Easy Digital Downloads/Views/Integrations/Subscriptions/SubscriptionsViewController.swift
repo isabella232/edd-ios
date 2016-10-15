@@ -128,7 +128,8 @@ class SubscriptionsViewController: SiteTableViewController {
                 }
                 
                 if items.count <= 20 {
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    self.hasMoreSubscriptions = false
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
@@ -179,7 +180,7 @@ class SubscriptionsViewController: SiteTableViewController {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight {
+        if actualPosition >= contentHeight && hasMoreSubscriptions {
             self.requestNextPage()
         }
     }
