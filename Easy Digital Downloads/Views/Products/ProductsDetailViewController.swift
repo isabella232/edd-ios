@@ -33,7 +33,7 @@ class ProductsDetailViewController: SiteTableViewController {
     
     var site: Site?
     var product: Product?
-    var fetchedProduct: [JSON]?
+    var fetchedProduct: JSON?
     var imageView: UIImageView?
     
     init(product: Product) {
@@ -47,6 +47,11 @@ class ProductsDetailViewController: SiteTableViewController {
         view.backgroundColor = .EDDGreyColor()
         
         networkOperations()
+
+        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        uiBusy.hidesWhenStopped = true
+        uiBusy.startAnimating()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiBusy)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -111,9 +116,37 @@ class ProductsDetailViewController: SiteTableViewController {
             return
         }
         
+        let productRecord = Product.fetchSingleObjectInContext(AppDelegate.sharedInstance.managedObjectContext) { (request) in
+            request.predicate = Product.predicateForId(self.product!.pid)
+            request.fetchLimit = 1
+        }!
+        
         EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(product!.pid)"], success: { (json) in
             if let items = json["products"].array {
-                self.fetchedProduct = items
+                self.fetchedProduct = items[0]
+                
+                var stats: NSData?
+                if Site.hasPermissionToViewReports() {
+                    stats = NSKeyedArchiver.archivedDataWithRootObject(self.fetchedProduct!["stats"].dictionaryObject!)
+                } else {
+                    stats = nil
+                }
+                
+                productRecord.setValue(stats, forKey: "stats")
+                
+                self.product?.stats = stats
+
+                dispatch_async(dispatch_get_main_queue(), { 
+                    do {
+                        try AppDelegate.sharedInstance.managedObjectContext.save()
+                        self.tableView.reloadData()
+                        
+                        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
+                        self.navigationItem.rightBarButtonItem = saveButton
+                    } catch {
+                        print("Unable to save context")
+                    }
+                })
             }
             }) { (error) in
                 fatalError()

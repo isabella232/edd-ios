@@ -23,6 +23,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
 
     var managedObjectContext: NSManagedObjectContext!
     
+    var isLoadingProducts = false
     var site: Site?
     var products: [JSON]?
     
@@ -36,9 +37,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         }
     }
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
-    
-    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-ProductsPage") ?? 1
+    var lastDownloadedPage =  1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,11 +81,13 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     func networkOperations() {
         products = [JSON]()
         
+        self.isLoadingProducts = true
+        
         EDDAPIWrapper.sharedInstance.requestProducts([:], success: { (json) in
+            self.isLoadingProducts = false
             if let items = json["products"].array {
                 self.products = items
                 self.updateLastDownloadedPage()
-                self.requestNextPage()
             }
         }) { (error) in
             NSLog(error.localizedDescription)
@@ -95,8 +96,6 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     
     private func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-ProductsPage")
-        sharedDefaults.synchronize()
     }
     
     // MARK: Scroll View Delegate
@@ -105,7 +104,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight {
+        if actualPosition >= contentHeight && !isLoadingProducts {
             self.requestNextPage()
         }
     }
@@ -126,7 +125,9 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     // MARK: Private
     
     private func requestNextPage() {
+        self.isLoadingProducts = true
         EDDAPIWrapper.sharedInstance.requestProducts([ "page": lastDownloadedPage ], success: { (json) in
+            self.isLoadingProducts = false
             if let items = json["products"].array {
                 if items.count == 20 {
                     self.hasMoreProducts = true
