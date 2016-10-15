@@ -73,6 +73,11 @@ class SubscriptionsViewController: SiteTableViewController {
         
         title = NSLocalizedString("Subscriptions", comment: "Subscriptions title")
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 85.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Subscriptions", comment: "Subscriptions title"))
         navigationItem.titleView = titleLabel
