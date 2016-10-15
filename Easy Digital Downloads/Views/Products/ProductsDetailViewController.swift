@@ -125,6 +125,8 @@ class ProductsDetailViewController: SiteTableViewController {
             if let items = json["products"].array {
                 self.fetchedProduct = items[0]
                 
+                let item = items[0]
+                
                 var stats: NSData?
                 if Site.hasPermissionToViewReports() {
                     stats = NSKeyedArchiver.archivedDataWithRootObject(self.fetchedProduct!["stats"].dictionaryObject!)
@@ -132,7 +134,34 @@ class ProductsDetailViewController: SiteTableViewController {
                     stats = nil
                 }
                 
+                var files: NSData?
+                var notes: String?
+                if Site.hasPermissionToViewSensitiveData() {
+                    if item["files"].arrayObject != nil {
+                        files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+                    } else {
+                        files = nil
+                    }
+                    
+                    notes = item["notes"].stringValue
+                } else {
+                    files = nil
+                    notes = nil
+                }
+                
+                var hasVariablePricing = false
+                if item["pricing"].dictionary?.count > 1 {
+                    hasVariablePricing = true
+                }
+                
+                let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+                
                 productRecord.setValue(stats, forKey: "stats")
+                productRecord.setValue(pricing, forKey: "pricing")
+                productRecord.setValue(files, forKey: "files")
+                productRecord.setValue(item["info"]["title"].stringValue, forKey: "title")
+                productRecord.setValue(item["licensing"].dictionaryObject, forKey: "licensing")
+                productRecord.setValue(hasVariablePricing, forKey: "hasVariablePricing")
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     do {
