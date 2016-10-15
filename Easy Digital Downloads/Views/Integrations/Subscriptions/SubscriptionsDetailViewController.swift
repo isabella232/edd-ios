@@ -70,7 +70,18 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.registerClass(SubscriptionsDetailProductTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailProductTableViewCell")
         tableView.registerClass(SubscriptionsDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailCustomerTableViewCell")
         
-        cells = [.BillingHeading, .Billing, .ProductHeading, .Product, .CustomerHeading, .Customer, .RenewalPaymentsHeading, .RenewalPayments, .LicensingHeading, .Licensing]
+        cells = [.BillingHeading, .Billing, .ProductHeading, .Product, .CustomerHeading, .Customer, .RenewalPaymentsHeading]
+        
+        if let renewalPayments = subscription.renewalPayments {
+            if renewalPayments.count > 0 {
+                for _ in 1...renewalPayments.count {
+                    cells.append(.RenewalPayments)
+                }
+            }
+        }
+        
+        cells.append(.LicensingHeading)
+        cells.append(.Licensing)
         
         networkOperations()
     }
@@ -181,6 +192,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Renewal Payments", comment: ""))
             case .RenewalPayments:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailRenewalPaymentsTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailRenewalPaymentsTableViewCell
+                (cell as! SubscriptionsDetailRenewalPaymentsTableViewCell).configure(subscription.renewalPayments![indexPath.row-7])
             case .LicensingHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Licensing", comment: ""))
