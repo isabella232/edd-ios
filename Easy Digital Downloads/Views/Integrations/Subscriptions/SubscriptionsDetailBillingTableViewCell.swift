@@ -121,7 +121,9 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         statusText.text = subscription.status.capitalizedString
         
         if let transactionId = subscription.transactionId {
-            transactionIdText.text = transactionId
+            if transactionId.characters.count > 0 && transactionId != "false" {
+                transactionIdText.text = transactionId
+            }
         }
         
         layout()
@@ -136,8 +138,14 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(paymentMethodText)
         stackView.addArrangedSubview(profileHeading)
         stackView.addArrangedSubview(profileText)
-        stackView.addArrangedSubview(transactionIdHeading)
-        stackView.addArrangedSubview(transactionIdText)
+        
+        if let transactionId = subscription.transactionId {
+            if transactionId.characters.count > 0 && transactionId != "false" {
+                stackView.addArrangedSubview(transactionIdHeading)
+                stackView.addArrangedSubview(transactionIdText)
+            }
+        }
+        
         stackView.addArrangedSubview(dateCreatedHeading)
         stackView.addArrangedSubview(dateCreatedText)
         stackView.addArrangedSubview(expirationDateHeading)
@@ -165,10 +173,16 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
         constraints.append(paymentMethodText.bottomAnchor.constraintEqualToAnchor(profileHeading.topAnchor, constant: -20))
         constraints.append(profileHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(profileText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(profileText.bottomAnchor.constraintEqualToAnchor(transactionIdHeading.topAnchor, constant: -20))
-        constraints.append(transactionIdHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(transactionIdText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(transactionIdText.bottomAnchor.constraintEqualToAnchor(dateCreatedHeading.topAnchor, constant: -20))
+        if let transactionId = subscription.transactionId {
+            if transactionId.characters.count > 0 && transactionId != "false" {
+                constraints.append(profileText.bottomAnchor.constraintEqualToAnchor(transactionIdHeading.topAnchor, constant: -20))
+                constraints.append(transactionIdHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+                constraints.append(transactionIdText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+                constraints.append(transactionIdText.bottomAnchor.constraintEqualToAnchor(dateCreatedHeading.topAnchor, constant: -20))
+            } else {
+                constraints.append(profileText.bottomAnchor.constraintEqualToAnchor(dateCreatedHeading.topAnchor, constant: -20))
+            }
+        }
         constraints.append(dateCreatedHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(dateCreatedText.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(dateCreatedText.bottomAnchor.constraintEqualToAnchor(expirationDateHeading.topAnchor, constant: -20))
