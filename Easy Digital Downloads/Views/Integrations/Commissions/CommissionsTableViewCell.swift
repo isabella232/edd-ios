@@ -97,6 +97,11 @@ class CommissionsTableViewCell: UITableViewCell {
             statusLabel.layer.borderColor = UIColor.validColor().CGColor
         }
         
+        if data.status == "unpaid" {
+            statusLabel.layer.backgroundColor = UIColor.orangeColor().CGColor
+            statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
+        }
+        
         if data.status == "revoked" {
             statusLabel.layer.backgroundColor = UIColor.errorColor().CGColor
             statusLabel.layer.borderColor = UIColor.errorColor().CGColor

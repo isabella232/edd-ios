@@ -81,8 +81,10 @@ class ProductsDetailViewController: SiteTableViewController {
             cells.append(.Licensing)
         }
         
-        if product.thumbnail?.characters.count > 0 {
-            setupHeaderView()
+        if let thumbnail = product.thumbnail {
+            if thumbnail.characters.count > 0 && thumbnail != "false" {
+                setupHeaderView()
+            }
         }
     }
 
