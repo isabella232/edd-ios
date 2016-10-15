@@ -134,15 +134,12 @@ class ProductsDetailViewController: SiteTableViewController {
                 
                 productRecord.setValue(stats, forKey: "stats")
                 
-                self.product?.stats = stats
-
-                dispatch_async(dispatch_get_main_queue(), { 
+                dispatch_async(dispatch_get_main_queue(), {
                     do {
                         try AppDelegate.sharedInstance.managedObjectContext.save()
                         self.tableView.reloadData()
-                        
-                        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
-                        self.navigationItem.rightBarButtonItem = saveButton
+
+                        self.navigationItem.rightBarButtonItem = nil
                     } catch {
                         print("Unable to save context")
                     }
