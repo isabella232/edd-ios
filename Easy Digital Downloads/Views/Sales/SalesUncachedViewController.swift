@@ -94,49 +94,6 @@ class SalesUncachedViewController: SiteTableViewController {
         tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
         tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
         tableView.registerClass(SalesDetailLicensesTableViewCell.self, forCellReuseIdentifier: "SalesDetailLicensesTableViewCell")
-        
-        cells = [.Meta, .ProductsHeading]
-        
-        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email], success: { json in
-            let items = json["customers"].arrayValue
-            self.customer = items[0]
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadData()
-            })
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-        if sale.products!.count == 1 {
-            cells.append(.Product)
-        } else {
-            for _ in 1...sale.products!.count {
-                cells.append(.Product)
-            }
-        }
-        
-        if let items = sale.products {
-            products = [JSON]()
-            for item in items {
-                products.append(item)
-            }
-        }
-        
-        cells.append(.CustomerHeading)
-        cells.append(.Customer)
-        
-        if sale.licenses != nil {
-            cells.append(.LicensesHeading)
-            
-            if sale.licenses!.count == 1 {
-                cells.append(.License)
-            } else {
-                licenses = [JSON]()
-                for _ in 1...sale.licenses!.count {
-                    cells.append(.License)
-                }
-            }
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -156,6 +113,49 @@ class SalesUncachedViewController: SiteTableViewController {
                 self.sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
                 
                 self.operation = true
+                
+                self.cells = [.Meta, .ProductsHeading]
+                
+                EDDAPIWrapper.sharedInstance.requestCustomers(["customer": self.sale.email], success: { json in
+                    let items = json["customers"].arrayValue
+                    self.customer = items[0]
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView.reloadData()
+                    })
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+                
+                if self.sale.products!.count == 1 {
+                    self.cells.append(.Product)
+                } else {
+                    for _ in 1...self.sale.products!.count {
+                        self.cells.append(.Product)
+                    }
+                }
+                
+                if let items = self.sale.products {
+                    self.products = [JSON]()
+                    for item in items {
+                        self.products.append(item)
+                    }
+                }
+                
+                self.cells.append(.CustomerHeading)
+                self.cells.append(.Customer)
+                
+                if self.sale.licenses != nil {
+                    self.cells.append(.LicensesHeading)
+                    
+                    if self.sale.licenses!.count == 1 {
+                        self.cells.append(.License)
+                    } else {
+                        self.licenses = [JSON]()
+                        for _ in 1...self.sale.licenses!.count {
+                            self.cells.append(.License)
+                        }
+                    }
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     let titleLabel = ViewControllerTitleLabel()

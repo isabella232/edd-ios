@@ -156,6 +156,14 @@ class SubscriptionsDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
         }
         
+        if cells[indexPath.row] == CellType.RenewalPayments {
+            guard let payments = subscription.renewalPayments else {
+                return
+            }
+            
+            navigationController?.pushViewController(SalesUncachedViewController(id: payments[indexPath.row - 7]["id"].int64Value), animated: true)
+        }
+        
         if cells[indexPath.row] == CellType.Customer {
             navigationController?.pushViewController(CustomerOfflineViewController(email: subscription.customer["email"]!.stringValue), animated: true)
         }
