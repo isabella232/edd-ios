@@ -64,7 +64,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     // MARK: Table View Delegate
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -84,6 +84,8 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
             case 0:
                 return 1
             case 1:
+                return 2
+            case 2:
                 return 6
             default:
                 return 0
@@ -92,6 +94,10 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
+            return NSLocalizedString("Type", comment: "")
+        }
+        
+        if section == 2 {
             return NSLocalizedString("Date Filter", comment: "")
         }
         
@@ -116,7 +122,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {
+        if section == 1 || section == 2 {
             return 50
         }
         
@@ -124,7 +130,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 && indexPath.row == 4 {
+        if indexPath.section == 2 && indexPath.row == 4 {
             message = ""
             if dates[0].characters.count > 0 && dates[1].characters.count > 0 {
                 let startDate = sharedDateFormatter.dateFromString(dates[0])!
@@ -137,7 +143,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
             }
         }
         
-        let indexPath = NSIndexPath(forRow: 5, inSection: 1)
+        let indexPath = NSIndexPath(forRow: 5, inSection: 2)
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         })
@@ -161,14 +167,33 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
             return cell
         }
         
-        if indexPath.section == 1 && (indexPath.row == 1 || indexPath.row == 3) {
+        if indexPath.section == 1 {
+            let cell: UITableViewCell = UITableViewCell()
+            
+            cell.selectionStyle = .None
+            cell.backgroundColor = .whiteColor()
+            cell.textLabel?.textColor = .EDDBlackColor()
+            cell.textLabel?.lineBreakMode = .ByWordWrapping
+            cell.textLabel?.numberOfLines = 0
+            
+            if indexPath.row == 0 {
+                cell.textLabel?.text = NSLocalizedString("Sales", comment: "")
+                cell.accessoryType = .Checkmark
+            } else {
+                cell.textLabel?.text = NSLocalizedString("Earnings", comment: "")
+            }
+            
+            return cell
+        }
+        
+        if indexPath.section == 2 && (indexPath.row == 1 || indexPath.row == 3) {
             let cell: SalesFilterDatePickerTableViewCell = tableView.dequeueReusableCellWithIdentifier("SalesFilterDatePickerTableViewCell", forIndexPath: indexPath) as! SalesFilterDatePickerTableViewCell
         
             cell.tag = indexPath.row
             cell.delegate = self
             
             return cell
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == 2 {
             if indexPath.row == 4 {
                 let cell: UITableViewCell = UITableViewCell()
                 cell.backgroundColor = .whiteColor()
@@ -217,20 +242,18 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     func sendDate(date: NSDate, tag: Int) {
         // Start Date
         if tag == 1 {
-            let indexPath = NSIndexPath(forRow: 0, inSection: 1)
+            let indexPath = NSIndexPath(forRow: 0, inSection: 2)
             dates[0] = sharedDateFormatter.stringFromDate(date)
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-            })
+            
+            tableView.cellForRowAtIndexPath(indexPath)?.detailTextLabel?.text = dates[0]
         }
         
         // End Date
         if tag == 3 {
-            let indexPath = NSIndexPath(forRow: 2, inSection: 1)
+            let indexPath = NSIndexPath(forRow: 2, inSection: 2)
             dates[1] = sharedDateFormatter.stringFromDate(date)
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-            })
+            
+            tableView.cellForRowAtIndexPath(indexPath)?.detailTextLabel?.text = dates[1]
         }
     }
 

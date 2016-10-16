@@ -507,12 +507,12 @@
 				F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */,
 				F5A99B1A1DA2C6FC002AB7A0 /* SalesFilterDatePickerTableViewCell.swift */,
 				F57A7AB21DB3EA9F00144FFF /* SalesFilterFetchViewController.swift */,
+				F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */,
 				F553C8931D9D642E00C77B5D /* SalesFilterTableViewController.swift */,
 				F57A7AAE1DB389AD00144FFF /* SalesSearchViewController.swift */,
 				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
 				F57A7AAC1DB2EF6600144FFF /* SalesUncachedViewController.swift */,
 				F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */,
-				F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
