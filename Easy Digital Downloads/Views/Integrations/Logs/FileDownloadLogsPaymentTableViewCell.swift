@@ -45,8 +45,8 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
         layer.opaque = true
         opaque = true
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .whiteColor()
+        contentView.backgroundColor = .whiteColor()
         
         amountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         amountLabel.textColor = .EDDBlueColor()

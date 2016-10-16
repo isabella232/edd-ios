@@ -10,6 +10,15 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    return formatter
+}()
+
 class FileDownloadLogsDetailViewController: SiteTableViewController {
     
     private enum CellType {
@@ -92,6 +101,33 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     }
     
     func networkOperations() {
+        EDDAPIWrapper.sharedInstance.requestCustomers(["customer" : "\(log.customerId)"], success: { (json) in
+            if let items = json["customers"].array {
+                let item = items[0]
+                
+                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            }
+        }) { (error) in
+            NSLog(error.localizedDescription)
+        }
+        
+        EDDAPIWrapper.sharedInstance.requestSales(["id" : "\(log.paymentId)"], success: { (json) in
+            if let items = json["sales"].array {
+                let item = items[0]
+                
+                self.payment = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            }
+        }) { (error) in
+            NSLog(error.localizedDescription)
+        }
         
     }
     
