@@ -31,6 +31,7 @@ class SalesFilterDatePickerTableViewCell: UITableViewCell, UIPickerViewDelegate 
         datePicker.backgroundColor = .clearColor()
         datePicker.datePickerMode = .Date
         datePicker.addTarget(self, action: #selector(SalesFilterDatePickerTableViewCell.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
+        datePicker.maximumDate = NSDate()
         
         backgroundColor = .clearColor()
         contentView.backgroundColor = .clearColor()
