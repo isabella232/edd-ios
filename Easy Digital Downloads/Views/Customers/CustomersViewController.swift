@@ -39,21 +39,6 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 1
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        super.leftBarButtonItem = true
-        
-        registerForPreviewingWithDelegate(self, sourceView: view)
-        
-        setupInfiniteScrollView()
-        setupTableView()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -87,6 +72,37 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
             }) { (error) in
                 NSLog(error.localizedDescription)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        super.leftBarButtonItem = true
+        
+        registerForPreviewingWithDelegate(self, sourceView: view)
+        
+        let searchNavigationItemImage = UIImage(named: "NavigationBar-Search")
+        let searchNavigationItemButton = HighlightButton(type: .Custom)
+        searchNavigationItemButton.tintColor = .whiteColor()
+        searchNavigationItemButton.setImage(searchNavigationItemImage, forState: .Normal)
+        searchNavigationItemButton.addTarget(self, action: #selector(CustomersViewController.searchButtonPressed), forControlEvents: .TouchUpInside)
+        searchNavigationItemButton.sizeToFit()
+        
+        let searchNavigationBarButton = UIBarButtonItem(customView: searchNavigationItemButton)
+        searchNavigationBarButton.accessibilityIdentifier = "Search"
+        
+        navigationItem.rightBarButtonItems = [searchNavigationBarButton]
+        
+        setupInfiniteScrollView()
+        setupTableView()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func searchButtonPressed() {
+        
     }
     
     // MARK: Table View Delegate
