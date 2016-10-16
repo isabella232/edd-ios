@@ -9,9 +9,20 @@
 import UIKit
 import SwiftyJSON
 
+private let sharedDateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+    formatter.dateFormat = "EEE dd MMM yyyy HH:mm"
+    return formatter
+}()
+
 class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
 
-    lazy var stackView : UIStackView! = {
+    private var hasSetupConstraints = false
+    
+    lazy var containerStackView: UIStackView! = {
         let stack = UIStackView()
         stack.axis = .Vertical
         stack.distribution = .Fill
@@ -22,62 +33,64 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
         return stack
     }()
     
-    lazy var containerView: UIView! = {
-        let view = UIView()
-        view.backgroundColor = .EDDBlueColor()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 2
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSizeZero
-        view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowColor = UIColor.blackColor().CGColor
-        return view
-    }()
+    let amountLabel: UILabel = UILabel(frame: CGRectZero)
+    let dateLabel: UILabel = UILabel(frame: CGRectZero)
+    let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
     
-    private let titleLabel = UILabel(frame: CGRectZero)
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
+        layer.opaque = true
+        opaque = true
         
-        titleLabel.textColor = .whiteColor()
-        titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
-        titleLabel.textAlignment = .Center
+        backgroundColor = .clearColor()
+        contentView.backgroundColor = .clearColor()
+        
+        amountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        amountLabel.textColor = .EDDBlueColor()
+        
+        dateLabel.textColor = .EDDBlackColor()
+        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        layout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func layout() {
-        stackView.addArrangedSubview(titleLabel)
+    // MARK: Private
+    
+    private func layout() {
+        containerStackView.addArrangedSubview(amountLabel)
+        containerStackView.addArrangedSubview(dateLabel)
         
-        containerView.addSubview(stackView)
+        contentView.addSubview(containerStackView)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
-        
-        contentView.addSubview(containerView)
+        disclosureImageView.translatesAutoresizingMaskIntoConstraints = false
+        disclosureImageView.sizeToFit()
+        contentView.addSubview(disclosureImageView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
+        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
+        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
+        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
         
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func setTitle(title: String) {
-        titleLabel.text = title
+    func configure(sale: Sales) {
+        let chargedText: String = NSLocalizedString("charged", comment: "")
+        amountLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
+        
+        let reformattedDate = sharedDateFormatter.stringFromDate(sale.date)
+        dateLabel.text = reformattedDate
+        dateLabel.sizeToFit()
     }
-    
+
 }
