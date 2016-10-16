@@ -20,7 +20,25 @@ private let sharedDateFormatter: NSDateFormatter = {
 
 class SalesSearchViewController: SiteTableViewController {
 
+    private enum CellType {
+        case Meta
+        case ProductsHeading
+        case Product
+        case CustomerHeading
+        case Customer
+        case LicensesHeading
+        case License
+    }
+    
+    typealias JSON = SwiftyJSON.JSON
+    
+    private var cells = [CellType]()
+    
     var site: Site?
+    var sale: Sales!
+    var products: [JSON]!
+    var licenses: [JSON]?
+    var customer: JSON?
     
     var filteredTableData = [JSON]()
     
@@ -48,6 +66,14 @@ class SalesSearchViewController: SiteTableViewController {
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Search", comment: "Sales Search View Controller title"))
         navigationItem.titleView = titleLabel
+        
+        tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
+        tableView.registerClass(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
+        tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
+        tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
+        tableView.registerClass(SalesDetailLicensesTableViewCell.self, forCellReuseIdentifier: "SalesDetailLicensesTableViewCell")
+        
+        cells = [.Meta, .ProductsHeading]
         
         loadingView = {
             var frame: CGRect = self.view.frame;
@@ -157,7 +183,7 @@ class SalesSearchViewController: SiteTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.active {
-            return filteredTableData.count
+            return cells.count
         } else {
             return 0
         }
@@ -166,17 +192,57 @@ class SalesSearchViewController: SiteTableViewController {
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let item = self.filteredTableData[indexPath.row]
+        if cells[indexPath.row] == CellType.Customer {
+            guard let item = customer else {
+                return
+            }
+            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["user_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+            navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
+        }
+        
+        if cells[indexPath.row] == CellType.Product {
+            let product: JSON = sale.products[indexPath.row - 2]
+            let id = product["id"].int64Value
+            
+            if let product = Product.productForId(id) {
+                navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
+            } else {
+                navigationController?.pushViewController(ProductsOfflineViewController(id: id), animated: true)
+            }
+        }
+        
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell
+        var cell: UITableViewCell!
         
-//        cell.configureForObject(filteredTableData[indexPath.row])
+        switch cells[indexPath.row] {
+        case .Meta:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailMetaTableViewCell", forIndexPath: indexPath) as! SalesDetailMetaTableViewCell
+            (cell as! SalesDetailMetaTableViewCell).configure(sale!)
+        case .ProductsHeading:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+            (cell as! SalesDetailHeadingTableViewCell).configure("Products")
+        case .Product:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
+            (cell as! SalesDetailProductTableViewCell).configure(sale.products[indexPath.row - 2])
+        case .CustomerHeading:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+            (cell as! SalesDetailHeadingTableViewCell).configure("Customer")
+        case .Customer:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailCustomerTableViewCell", forIndexPath: indexPath) as! SalesDetailCustomerTableViewCell
+            (cell as! SalesDetailCustomerTableViewCell).configure(customer)
+        case .LicensesHeading:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+            (cell as! SalesDetailHeadingTableViewCell).configure("Licenses")
+        case .License:
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailLicensesTableViewCell", forIndexPath: indexPath) as! SalesDetailLicensesTableViewCell
+            (cell as! SalesDetailLicensesTableViewCell).configure(sale.licenses![indexPath.row - 5 - (products?.count)!])
+        }
         
-        return cell
+        return cell!
     }
 
 }
@@ -215,14 +281,54 @@ extension SalesSearchViewController: UISearchBarDelegate {
                             self.showNoResultsView()
                         })
                     } else {
+                        let sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
+                        
+                        self.sale = sale
+                        
+                        if sale.products!.count == 1 {
+                            self.cells.append(.Product)
+                        } else {
+                            for _ in 1...sale.products!.count {
+                                self.cells.append(.Product)
+                            }
+                        }
+                        
+                        if let items = sale.products {
+                            self.products = [JSON]()
+                            for item in items {
+                                self.products.append(item)
+                            }
+                        }
+                        
+                        self.cells.append(.CustomerHeading)
+                        self.cells.append(.Customer)
+                        
+                        if sale.licenses != nil {
+                            self.cells.append(.LicensesHeading)
+                            
+                            if sale.licenses!.count == 1 {
+                                self.cells.append(.License)
+                            } else {
+                                self.licenses = [JSON]()
+                                for _ in 1...sale.licenses!.count {
+                                    self.cells.append(.License)
+                                }
+                            }
+                        }
+                        
                         dispatch_async(dispatch_get_main_queue(), {
                             self.noResultsView.removeFromSuperview()
+                            self.tableView.reloadData()
                         })
-                        for item in items {
-                            self.filteredTableData.append(item)
+                        
+                        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email], success: { json in
+                            let items = json["customers"].arrayValue
+                            self.customer = items[0]
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.tableView.reloadData()
                             })
+                        }) { (error) in
+                            print(error.localizedDescription)
                         }
                     }
                 }
