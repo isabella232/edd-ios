@@ -40,7 +40,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
         
         tableView.registerClass(SalesFilterDatePickerTableViewCell.self, forCellReuseIdentifier: "SalesFilterDatePickerTableViewCell")
         
-        title = NSLocalizedString("Filter Sales", comment: "")
+        title = NSLocalizedString("Filter Sales/Earnings", comment: "")
         
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Filter Sales", comment: "Sales title"))
