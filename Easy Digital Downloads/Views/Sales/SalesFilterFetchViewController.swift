@@ -24,11 +24,15 @@ class SalesFilterFetchViewController: SiteTableViewController {
     var startDate: NSDate?
     var endDate: NSDate?
     
+    var readableStartDate: String?
+    var readableEndDate: String?
+    
     var loadingView = UIView()
     
     var site: Site?
     var operation: Bool = false
-    var data: [String: JSON]?
+    var data: [String: JSON] = [String: JSON]()
+    var total: Int64?
     
     init(startDate: NSDate, endDate: NSDate) {
         super.init(style: .Plain)
@@ -37,6 +41,11 @@ class SalesFilterFetchViewController: SiteTableViewController {
 
         self.startDate = startDate
         self.endDate = endDate
+        
+        sharedDateFormatter.dateFormat = "dd/MM/yyyy"
+        self.readableStartDate = sharedDateFormatter.stringFromDate(startDate)
+        self.readableEndDate = sharedDateFormatter.stringFromDate(endDate)
+        sharedDateFormatter.dateFormat = "yyyyMMdd"
         
         title = NSLocalizedString("Fetching Sales Data...", comment: "")
         
@@ -68,6 +77,8 @@ class SalesFilterFetchViewController: SiteTableViewController {
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        tableView.registerClass(SalesFilterHeadingTableViewCell.self, forCellReuseIdentifier: "SalesFilterHeadingTableViewCell")
+        
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Fetching Sales Data...", comment: ""))
         navigationItem.titleView = titleLabel
@@ -78,6 +89,31 @@ class SalesFilterFetchViewController: SiteTableViewController {
     }
     
     func networkOperations() {
+        self.operation = true
+        view.addSubview(loadingView)
+        
+        EDDAPIWrapper.sharedInstance.requestStats(["type" : "sales", "date" : "range", "startdate" : sharedDateFormatter.stringFromDate(startDate!), "enddate" : sharedDateFormatter.stringFromDate(endDate!)], success: { (json) in
+            if let items = json["sales"].dictionary {
+                self.data = [String: JSON]()
+                self.data = items
+                
+                self.total = json["totals"].int64Value
+                
+                self.operation = true
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    let titleLabel = ViewControllerTitleLabel()
+                    titleLabel.setTitle(NSLocalizedString("Filtered Sales", comment: ""))
+                    self.navigationItem.titleView = titleLabel
+                    
+                    self.operation = false
+                    self.loadingView.removeFromSuperview()
+                    self.tableView.reloadData()
+                })
+            }
+        }) { (error) in
+            NSLog(error.localizedDescription)
+        }
     }
     
     // MARK: Table View Delegate
@@ -87,7 +123,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.operation ? 0 : (data?.count ?? 0)
+        return self.operation ? 0 : (data.count + 2 ?? 0)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -97,7 +133,13 @@ class SalesFilterFetchViewController: SiteTableViewController {
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        var cell = UITableViewCell()
+        
+        if indexPath.row == 0 {
+            cell = tableView.dequeueReusableCellWithIdentifier("SalesFilterHeadingTableViewCell", forIndexPath: indexPath) as! SalesFilterHeadingTableViewCell
+            (cell as! SalesFilterHeadingTableViewCell).configure("Showing sales between " + readableStartDate! + " and " + readableEndDate!)
+        }
+        
         return cell
     }
     

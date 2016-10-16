@@ -79,6 +79,7 @@
 		F57A7AAF1DB389AD00144FFF /* SalesSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AAE1DB389AD00144FFF /* SalesSearchViewController.swift */; };
 		F57A7AB11DB38D6A00144FFF /* CustomersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AB01DB38D6A00144FFF /* CustomersSearchViewController.swift */; };
 		F57A7AB31DB3EA9F00144FFF /* SalesFilterFetchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AB21DB3EA9F00144FFF /* SalesFilterFetchViewController.swift */; };
+		F57A7AB51DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */; };
 		F57DB37A1DA704BF00639C58 /* DashboardRowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */; };
 		F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
@@ -317,6 +318,7 @@
 		F57A7AAE1DB389AD00144FFF /* SalesSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesSearchViewController.swift; sourceTree = "<group>"; };
 		F57A7AB01DB38D6A00144FFF /* CustomersSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersSearchViewController.swift; sourceTree = "<group>"; };
 		F57A7AB21DB3EA9F00144FFF /* SalesFilterFetchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesFilterFetchViewController.swift; sourceTree = "<group>"; };
+		F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesFilterHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardRowObject.swift; sourceTree = "<group>"; };
 		F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				F5B061241D6A392C00F9B4E1 /* SalesTableViewCell.swift */,
 				F57A7AAC1DB2EF6600144FFF /* SalesUncachedViewController.swift */,
 				F50DEB4E1CFA4A37001A6A51 /* SalesViewController.swift */,
+				F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -1264,6 +1267,7 @@
 				F54725041D3C3AEA009D5E8D /* Subscription.swift in Sources */,
 				F553C88A1D9D056300C77B5D /* CommissionsTableViewCell.swift in Sources */,
 				F5A99B191DA2A0E8002AB7A0 /* ProductsOfflineViewController.swift in Sources */,
+				F57A7AB51DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift in Sources */,
 				F5A99B1B1DA2C6FC002AB7A0 /* SalesFilterDatePickerTableViewCell.swift in Sources */,
 				F5B982B31D6BA1D500679271 /* ReviewsDetailViewController.swift in Sources */,
 				F5CA019D1D982CE80000C529 /* ProductsDetailLicensingTableViewCell.swift in Sources */,
