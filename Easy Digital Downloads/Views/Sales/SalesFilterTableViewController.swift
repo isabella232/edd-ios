@@ -22,6 +22,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     
     private var dates: [String] = ["", ""]
     private var message: String = ""
+    private var chosenFilter: String = "sales"
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -136,9 +137,31 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
                 let startDate = sharedDateFormatter.dateFromString(dates[0])!
                 let endDate = sharedDateFormatter.dateFromString(dates[1])!
                 
-                navigationController?.pushViewController(SalesFilterFetchViewController(startDate: startDate, endDate: endDate), animated: true)
+                navigationController?.pushViewController(SalesFilterFetchViewController(startDate: startDate, endDate: endDate, filter: chosenFilter), animated: true)
             } else {
                 message = NSLocalizedString("Please select a start and end date", comment: "")
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+        }
+        
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                chosenFilter = "sales"
+                tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark
+                
+                let nextIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+                tableView.cellForRowAtIndexPath(nextIndexPath)?.accessoryType = .None
+                
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+            
+            if indexPath.row == 1 {
+                chosenFilter = "earnings"
+                tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark
+                
+                let previousIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+                tableView.cellForRowAtIndexPath(previousIndexPath)?.accessoryType = .None
+                
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
@@ -170,7 +193,6 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
         if indexPath.section == 1 {
             let cell: UITableViewCell = UITableViewCell()
             
-            cell.selectionStyle = .None
             cell.backgroundColor = .whiteColor()
             cell.textLabel?.textColor = .EDDBlackColor()
             cell.textLabel?.lineBreakMode = .ByWordWrapping

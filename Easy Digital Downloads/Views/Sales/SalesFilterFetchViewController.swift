@@ -25,6 +25,8 @@ class SalesFilterFetchViewController: SiteTableViewController {
     
     private var dataSource = [Data]()
     
+    var filter: String!
+    
     var startDate: NSDate?
     var endDate: NSDate?
     
@@ -35,12 +37,14 @@ class SalesFilterFetchViewController: SiteTableViewController {
     
     var site: Site?
     var operation: Bool = false
-    var total: Int64?
+    var total: Double?
     
-    init(startDate: NSDate, endDate: NSDate) {
+    init(startDate: NSDate, endDate: NSDate, filter: String) {
         super.init(style: .Plain)
         
         site = Site.activeSite()
+        
+        self.filter = filter
 
         self.startDate = startDate
         self.endDate = endDate
@@ -50,7 +54,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
         self.readableEndDate = sharedDateFormatter.stringFromDate(endDate)
         sharedDateFormatter.dateFormat = "yyyyMMdd"
         
-        title = NSLocalizedString("Fetching Sales Data...", comment: "")
+        title = "Fetching " + filter.capitalizedString + " Data..."
         
         view.backgroundColor = .EDDGreyColor()
         
@@ -83,7 +87,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
         tableView.registerClass(SalesFilterHeadingTableViewCell.self, forCellReuseIdentifier: "SalesFilterHeadingTableViewCell")
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Fetching Sales Data...", comment: ""))
+        titleLabel.setTitle("Fetching " + filter.capitalizedString + " Data...")
         navigationItem.titleView = titleLabel
     }
     
@@ -95,7 +99,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
         self.operation = true
         view.addSubview(loadingView)
         
-        EDDAPIWrapper.sharedInstance.requestStats(["type" : "sales", "date" : "range", "startdate" : sharedDateFormatter.stringFromDate(startDate!), "enddate" : sharedDateFormatter.stringFromDate(endDate!)], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestStats(["type" : self.filter, "date" : "range", "startdate" : sharedDateFormatter.stringFromDate(startDate!), "enddate" : sharedDateFormatter.stringFromDate(endDate!)], success: { (json) in
             if let items = json["sales"].dictionary {
                 for item in items {
                     self.dataSource.append(Data(date: item.0, stat: item.1.stringValue))
@@ -103,13 +107,35 @@ class SalesFilterFetchViewController: SiteTableViewController {
                 
                 self.dataSource.sortInPlace{ $0.date < $1.date }
                 
-                self.total = json["totals"].int64Value
+                self.total = json["totals"].doubleValue
                 
                 self.operation = true
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     let titleLabel = ViewControllerTitleLabel()
                     titleLabel.setTitle(NSLocalizedString("Filtered Sales", comment: ""))
+                    self.navigationItem.titleView = titleLabel
+                    
+                    self.operation = false
+                    self.loadingView.removeFromSuperview()
+                    self.tableView.reloadData()
+                })
+            }
+            
+            if let items = json["earnings"].dictionary {
+                for item in items {
+                    self.dataSource.append(Data(date: item.0, stat: Site.currencyFormat(item.1.doubleValue)))
+                }
+                
+                self.dataSource.sortInPlace{ $0.date < $1.date }
+                
+                self.total = json["totals"].doubleValue
+                
+                self.operation = true
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    let titleLabel = ViewControllerTitleLabel()
+                    titleLabel.setTitle(NSLocalizedString("Filtered Earnings", comment: ""))
                     self.navigationItem.titleView = titleLabel
                     
                     self.operation = false
@@ -143,7 +169,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
         
         if indexPath.row == 0 {
             cell = tableView.dequeueReusableCellWithIdentifier("SalesFilterHeadingTableViewCell", forIndexPath: indexPath) as! SalesFilterHeadingTableViewCell
-            (cell as! SalesFilterHeadingTableViewCell).configure("Showing sales between " + readableStartDate! + " and " + readableEndDate!)
+            (cell as! SalesFilterHeadingTableViewCell).configure("Showing " + filter + " between " + readableStartDate! + " and " + readableEndDate!)
             return cell
         }
         
@@ -151,10 +177,16 @@ class SalesFilterFetchViewController: SiteTableViewController {
         cell.selectionStyle = .None
         
         if indexPath.row == 1 {
-            cell.textLabel?.text = NSLocalizedString("Total sales this period", comment: "")
+            cell.textLabel?.text = NSLocalizedString("Total " + filter + " this period", comment: "")
             cell.textLabel?.textColor = .EDDBlackColor()
             cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-            cell.detailTextLabel?.text = "\(total!)"
+            
+            if filter == "earnings" {
+                cell.detailTextLabel?.text = Site.currencyFormat(total!)
+            } else {
+                cell.detailTextLabel?.text = "\(total!)"
+            }
+
             cell.detailTextLabel?.textColor = .EDDBlackColor()
             cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             cell.backgroundColor = .tableViewCellHighlightColor()
