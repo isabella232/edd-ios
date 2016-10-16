@@ -46,7 +46,6 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.estimatedRowHeight = 200.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.registerClass(SalesFilterDatePickerTableViewCell.self, forCellReuseIdentifier: "SalesFilterDatePickerTableViewCell")
@@ -82,7 +81,19 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: Table View Delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 1 && (indexPath.row == 1 || indexPath.row == 3) {
+            return CGFloat(200)
+        }
+        
+        if indexPath.section == 0 {
+            return CGFloat(70)
+        }
+        
+        return CGFloat(44)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,11 +101,9 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
             case 0:
                 return 1
             case 1:
-                return 4
-            case 2:
-                return 1
+                return 5
             default:
-                return 1
+                return 0
         }
     }
     
@@ -124,7 +133,11 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        if section == 1 {
+            return 50
+        }
+        
+        return 0
     }
     
     // MARK: Table View Data Source
@@ -151,6 +164,16 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
             
             return cell
         } else if indexPath.section == 1 {
+            if indexPath.row == 4 {
+                let cell: UITableViewCell = UITableViewCell()
+                cell.backgroundColor = .whiteColor()
+                cell.selectionStyle = .Default
+                cell.textLabel?.text = NSLocalizedString("Filter", comment: "")
+                cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+                cell.textLabel?.textAlignment = .Center
+                return cell
+            }
+            
             let cell: UITableViewCell = UITableViewCell(style: .Value1, reuseIdentifier: "StaticCell")
             cell.backgroundColor = .whiteColor()
             cell.textLabel?.textColor = .EDDBlackColor()
@@ -181,7 +204,7 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
             let indexPath = NSIndexPath(forRow: 0, inSection: 1)
             dates[0] = sharedDateFormatter.stringFromDate(date)
             dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
             })
         }
         
@@ -190,7 +213,7 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
             let indexPath = NSIndexPath(forRow: 2, inSection: 1)
             dates[1] = sharedDateFormatter.stringFromDate(date)
             dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
             })
         }
     }

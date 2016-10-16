@@ -261,7 +261,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     func filterButtonPressed() {
         let salesFilterTableViewController = SalesFilterTableViewController()
         salesFilterTableViewController.view.backgroundColor = .EDDGreyColor()
-        salesFilterTableViewController.modalPresentationStyle = .CurrentContext
+        salesFilterTableViewController.modalPresentationStyle = .FullScreen
         salesFilterTableViewController.modalPresentationCapturesStatusBarAppearance = true
         presentViewController(salesFilterTableViewController, animated: true, completion: nil)
     }
