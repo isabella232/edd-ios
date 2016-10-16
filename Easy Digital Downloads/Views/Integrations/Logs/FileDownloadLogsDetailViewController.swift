@@ -132,8 +132,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Payment")
             case .Payment:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogPaymentCell", forIndexPath: indexPath) as! FileDownloadLogsPaymentTableViewCell
-                (cell as! FileDownloadLogsPaymentTableViewCell).setTitle(NSLocalizedString("Payment", comment: "Payment title"))
-                (cell as! FileDownloadLogsPaymentTableViewCell).layout()
+                (cell as! FileDownloadLogsPaymentTableViewCell).configure(payment)
             case .ProductHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Product")

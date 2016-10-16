@@ -84,7 +84,11 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
         NSLayoutConstraint.activateConstraints(constraints)
     }
     
-    func configure(sale: Sales) {
+    func configure(object: Sales?) {
+        guard let sale = object else {
+            return
+        }
+        
         let chargedText: String = NSLocalizedString("charged", comment: "")
         amountLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
         
