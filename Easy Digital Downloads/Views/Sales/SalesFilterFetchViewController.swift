@@ -11,9 +11,6 @@ import SwiftyJSON
 
 private let sharedDateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
     formatter.dateFormat = "yyyyMMdd"
     return formatter
 }()
@@ -21,6 +18,13 @@ private let sharedDateFormatter: NSDateFormatter = {
 
 class SalesFilterFetchViewController: SiteTableViewController {
 
+    private struct Data {
+        var date: String
+        var stat: String
+    }
+    
+    private var dataSource = [Data]()
+    
     var startDate: NSDate?
     var endDate: NSDate?
     
@@ -31,9 +35,6 @@ class SalesFilterFetchViewController: SiteTableViewController {
     
     var site: Site?
     var operation: Bool = false
-    var data: [[String: JSON]] = [[String: JSON]]()
-    var keys: [String] = [String]()
-    var stats: [JSON] = [JSON]()
     var total: Int64?
     
     init(startDate: NSDate, endDate: NSDate) {
@@ -96,15 +97,11 @@ class SalesFilterFetchViewController: SiteTableViewController {
         
         EDDAPIWrapper.sharedInstance.requestStats(["type" : "sales", "date" : "range", "startdate" : sharedDateFormatter.stringFromDate(startDate!), "enddate" : sharedDateFormatter.stringFromDate(endDate!)], success: { (json) in
             if let items = json["sales"].dictionary {
-                for (key, value) in json["sales"] {
-                    let object = [key: value]
-                    self.data.append(object)
+                for item in items {
+                    self.dataSource.append(Data(date: item.0, stat: item.1.stringValue))
                 }
                 
-                for item in items {
-                    self.keys.append(item.0)
-                    self.stats.append(item.1)
-                }
+                self.dataSource.sortInPlace{ $0.date < $1.date }
                 
                 self.total = json["totals"].int64Value
                 
@@ -132,7 +129,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.operation ? 0 : (data.count == 0 ? 0 : data.count + 2)
+        return self.operation ? 0 : (dataSource.count == 0 ? 0 : dataSource.count + 2)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -155,17 +152,24 @@ class SalesFilterFetchViewController: SiteTableViewController {
         
         if indexPath.row == 1 {
             cell.textLabel?.text = NSLocalizedString("Total sales this period", comment: "")
+            cell.textLabel?.textColor = .EDDBlackColor()
+            cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             cell.detailTextLabel?.text = "\(total!)"
+            cell.detailTextLabel?.textColor = .EDDBlackColor()
+            cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             cell.backgroundColor = .tableViewCellHighlightColor()
             return cell
         }
         
         sharedDateFormatter.dateFormat = "yyyyMMdd"
-        let dateObject = sharedDateFormatter.dateFromString(self.keys[indexPath.row - 2])
+        
+        let data = self.dataSource[indexPath.row - 2]
+        
+        let dateObject = sharedDateFormatter.dateFromString(data.date)
         sharedDateFormatter.dateFormat = "dd/MM/yyyy"
         cell.textLabel?.text = sharedDateFormatter.stringFromDate(dateObject!)
         
-        cell.detailTextLabel?.text = self.stats[indexPath.row - 2].stringValue
+        cell.detailTextLabel?.text = data.stat
         
         return cell
     }
