@@ -31,7 +31,9 @@ class SalesFilterFetchViewController: SiteTableViewController {
     
     var site: Site?
     var operation: Bool = false
-    var data: [String: JSON] = [String: JSON]()
+    var data: [[String: JSON]] = [[String: JSON]]()
+    var keys: [String] = [String]()
+    var stats: [JSON] = [JSON]()
     var total: Int64?
     
     init(startDate: NSDate, endDate: NSDate) {
@@ -94,8 +96,15 @@ class SalesFilterFetchViewController: SiteTableViewController {
         
         EDDAPIWrapper.sharedInstance.requestStats(["type" : "sales", "date" : "range", "startdate" : sharedDateFormatter.stringFromDate(startDate!), "enddate" : sharedDateFormatter.stringFromDate(endDate!)], success: { (json) in
             if let items = json["sales"].dictionary {
-                self.data = [String: JSON]()
-                self.data = items
+                for (key, value) in json["sales"] {
+                    let object = [key: value]
+                    self.data.append(object)
+                }
+                
+                for item in items {
+                    self.keys.append(item.0)
+                    self.stats.append(item.1)
+                }
                 
                 self.total = json["totals"].int64Value
                 
@@ -123,7 +132,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.operation ? 0 : (data.count + 2 ?? 0)
+        return self.operation ? 0 : (data.count == 0 ? 0 : data.count + 2)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -138,7 +147,25 @@ class SalesFilterFetchViewController: SiteTableViewController {
         if indexPath.row == 0 {
             cell = tableView.dequeueReusableCellWithIdentifier("SalesFilterHeadingTableViewCell", forIndexPath: indexPath) as! SalesFilterHeadingTableViewCell
             (cell as! SalesFilterHeadingTableViewCell).configure("Showing sales between " + readableStartDate! + " and " + readableEndDate!)
+            return cell
         }
+        
+        cell = UITableViewCell(style: .Value1, reuseIdentifier: "SalesFilterCell")
+        cell.selectionStyle = .None
+        
+        if indexPath.row == 1 {
+            cell.textLabel?.text = NSLocalizedString("Total sales this period", comment: "")
+            cell.detailTextLabel?.text = "\(total!)"
+            cell.backgroundColor = .tableViewCellHighlightColor()
+            return cell
+        }
+        
+        sharedDateFormatter.dateFormat = "yyyyMMdd"
+        let dateObject = sharedDateFormatter.dateFromString(self.keys[indexPath.row - 2])
+        sharedDateFormatter.dateFormat = "dd/MM/yyyy"
+        cell.textLabel?.text = sharedDateFormatter.stringFromDate(dateObject!)
+        
+        cell.detailTextLabel?.text = self.stats[indexPath.row - 2].stringValue
         
         return cell
     }
