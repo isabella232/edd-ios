@@ -267,7 +267,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     }
     
     func searchButtonPressed() {
-        navigationController?.pushViewController(SearchViewController(site: Site.activeSite()), animated: true)
+        navigationController?.pushViewController(SalesSearchViewController(), animated: true)
     }
     
 }

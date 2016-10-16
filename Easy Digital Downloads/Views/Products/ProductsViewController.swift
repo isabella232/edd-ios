@@ -44,6 +44,18 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         
         super.leftBarButtonItem = true
         
+        let searchNavigationItemImage = UIImage(named: "NavigationBar-Search")
+        let searchNavigationItemButton = HighlightButton(type: .Custom)
+        searchNavigationItemButton.tintColor = .whiteColor()
+        searchNavigationItemButton.setImage(searchNavigationItemImage, forState: .Normal)
+        searchNavigationItemButton.addTarget(self, action: #selector(ProductsViewController.searchButtonPressed), forControlEvents: .TouchUpInside)
+        searchNavigationItemButton.sizeToFit()
+        
+        let searchNavigationBarButton = UIBarButtonItem(customView: searchNavigationItemButton)
+        searchNavigationBarButton.accessibilityIdentifier = "Search"
+        
+        navigationItem.rightBarButtonItems = [searchNavigationBarButton]
+        
         registerForPreviewingWithDelegate(self, sourceView: view)
         
         setupInfiniteScrollView()
@@ -76,6 +88,10 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         super.viewWillAppear(animated)
         
         networkOperations()
+    }
+    
+    func searchButtonPressed() {
+        navigationController?.pushViewController(SearchViewController(site: Site.activeSite()), animated: true)
     }
     
     func networkOperations() {
