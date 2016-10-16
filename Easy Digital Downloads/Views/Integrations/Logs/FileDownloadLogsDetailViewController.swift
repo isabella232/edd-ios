@@ -28,6 +28,9 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
 
     var site: Site?
     var log: Log!
+    var product: Product?
+    var payment: Sales?
+    var customer: Customer?
     
     var paymentId: Int64 = 0
     var customerId: Int64 = 0
@@ -55,6 +58,9 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         titleLabel.setTitle(log.productName)
         navigationItem.titleView = titleLabel
         
+        setupDataSource()
+        networkOperations()
+        
         tableView.registerClass(FileDownloadLogsMetaTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogMetaCell")
         tableView.registerClass(FileDownloadLogsCustomerTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogCustomerCell")
         tableView.registerClass(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")
@@ -67,6 +73,26 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func setupDataSource() {
+        if let product = Product.productForId(log.productId) {
+            self.product = product
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.tableView.reloadData()
+            })
+        }
+        
+        if let customer = Customer.customerForId(log.customerId) {
+            self.customer = customer
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        }
+    }
+    
+    func networkOperations() {
+        
     }
     
     // MARK: Table View Data Source
@@ -100,8 +126,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Customer")
             case .Customer:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogCustomerCell", forIndexPath: indexPath) as! FileDownloadLogsCustomerTableViewCell
-                (cell as! FileDownloadLogsCustomerTableViewCell).setTitle(NSLocalizedString("Customer", comment: "Customser title"))
-                (cell as! FileDownloadLogsCustomerTableViewCell).layout()
+                (cell as! FileDownloadLogsCustomerTableViewCell).configureForObject(customer)
             case .PaymentHeading:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Payment")
@@ -114,8 +139,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Product")
             case .Product:
                 cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogProductCell", forIndexPath: indexPath) as! FileDownloadLogsProductTableViewCell
-                (cell as! FileDownloadLogsProductTableViewCell).setTitle(NSLocalizedString("Product", comment: "Product title"))
-                (cell as! FileDownloadLogsProductTableViewCell).layout()
+                (cell as! FileDownloadLogsProductTableViewCell).configureForObject(product)
             
         }
         
