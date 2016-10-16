@@ -141,6 +141,34 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         return cells.count
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if cells[indexPath.row] == .Customer {
+            guard customer != nil else {
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                return
+            }
+            navigationController?.pushViewController(CustomersDetailViewController(customer: customer!), animated: true)
+        }
+        
+        if cells[indexPath.row] == .Product {
+            guard product != nil else {
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                return
+            }
+            navigationController?.pushViewController(ProductsDetailViewController(product: product!), animated: true)
+        }
+        
+        if cells[indexPath.row] == .Payment {
+            guard payment != nil else {
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                return
+            }
+            navigationController?.pushViewController(SalesDetailViewController(sale: payment!), animated: true)
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     // MARK: Table View Delegate
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
