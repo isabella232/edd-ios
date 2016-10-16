@@ -102,7 +102,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     }
     
     func searchButtonPressed() {
-        
+        navigationController?.pushViewController(CustomersSearchViewController(), animated: true)
     }
     
     // MARK: Table View Delegate
