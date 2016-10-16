@@ -259,11 +259,10 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     }
     
     func filterButtonPressed() {
-        let salesFilterTableViewController = SalesFilterTableViewController()
-        salesFilterTableViewController.view.backgroundColor = .EDDGreyColor()
-        salesFilterTableViewController.modalPresentationStyle = .FullScreen
-        salesFilterTableViewController.modalPresentationCapturesStatusBarAppearance = true
-        presentViewController(salesFilterTableViewController, animated: true, completion: nil)
+        let salesFilterNavigationController: UINavigationController = UINavigationController(rootViewController: SalesFilterTableViewController())
+        salesFilterNavigationController.modalPresentationStyle = .FullScreen
+        salesFilterNavigationController.modalPresentationCapturesStatusBarAppearance = true
+        presentViewController(salesFilterNavigationController, animated: true, completion: nil)
     }
     
     func searchButtonPressed() {

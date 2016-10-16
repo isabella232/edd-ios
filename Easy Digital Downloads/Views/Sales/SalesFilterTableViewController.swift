@@ -15,15 +15,13 @@ private let sharedDateFormatter: NSDateFormatter = {
 }()
 
 
-class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UpdateDateCellDelegate {
+class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDelegate {
 
-    private var tableView: UITableView!
-    private var navigationBar: UINavigationBar!
-    
     private var startDateIndexPath: NSIndexPath!
     private var endDateIndexPath: NSIndexPath!
     
     private var dates: [String] = ["", ""]
+    private var message: String = ""
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,17 +30,8 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar = UINavigationBar(frame: CGRectMake(0, 0, view.frame.width, 64))
-        navigationBar.translucent = false
-        navigationBar.barStyle = .Black
+        view.backgroundColor = .EDDGreyColor()
         
-        tableView = UITableView(frame: CGRectMake(0, navigationBar.frame.height, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
-        tableView.scrollEnabled = true
-        tableView.bounces = true
-        tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
-        tableView.backgroundColor = .clearColor()
-        tableView.separatorColor = UIColor.separatorColor()
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
@@ -51,19 +40,13 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
         tableView.registerClass(SalesFilterDatePickerTableViewCell.self, forCellReuseIdentifier: "SalesFilterDatePickerTableViewCell")
         
         title = NSLocalizedString("Filter Sales", comment: "")
-
-        
-        let navigationItem = UINavigationItem(title: NSLocalizedString("Filter Sales", comment: ""))
-        let closeButton = UIBarButtonItem(title: NSLocalizedString("Close", comment: ""), style: .Plain, target: self, action: #selector(SalesFilterTableViewController.closeButtonPressed))
-        navigationItem.leftBarButtonItem = closeButton
         
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Filter Sales", comment: "Sales title"))
         navigationItem.titleView = titleLabel
-        navigationBar.items = [navigationItem]
         
-        view.addSubview(tableView)
-        view.addSubview(navigationBar)
+        let closeButton = UIBarButtonItem(title: NSLocalizedString("Close", comment: ""), style: .Done, target: self, action: #selector(SalesFilterTableViewController.closeButtonPressed))
+        navigationItem.leftBarButtonItem = closeButton
     }
     
     func closeButtonPressed() {
@@ -80,11 +63,11 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
     
     // MARK: Table View Delegate
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 && (indexPath.row == 1 || indexPath.row == 3) {
             return CGFloat(200)
         }
@@ -96,18 +79,18 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
         return CGFloat(44)
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
             case 0:
                 return 1
             case 1:
-                return 5
+                return 6
             default:
                 return 0
         }
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return NSLocalizedString("Date Filter", comment: "")
         }
@@ -115,7 +98,7 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
         return nil
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view: UIView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 40))
         view.backgroundColor = .EDDGreyColor()
         view.userInteractionEnabled = false
@@ -132,7 +115,7 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
         return view
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 50
         }
@@ -140,9 +123,31 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
         return 0
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 && indexPath.row == 4 {
+            message = ""
+            if dates[0].characters.count > 0 && dates[1].characters.count > 0 {
+                let startDate = sharedDateFormatter.dateFromString(dates[0])!
+                let endDate = sharedDateFormatter.dateFromString(dates[1])!
+                
+                navigationController?.pushViewController(SalesFilterFetchViewController(startDate: startDate, endDate: endDate), animated: true)
+            } else {
+                message = NSLocalizedString("Please select a start and end date", comment: "")
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+        }
+        
+        let indexPath = NSIndexPath(forRow: 5, inSection: 1)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        })
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     // MARK: Table View Data Source
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell: UITableViewCell = UITableViewCell()
             
@@ -170,6 +175,17 @@ class SalesFilterTableViewController: UIViewController, UITableViewDelegate, UIT
                 cell.selectionStyle = .Default
                 cell.textLabel?.text = NSLocalizedString("Filter", comment: "")
                 cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+                cell.textLabel?.textColor = .EDDBlackColor()
+                cell.textLabel?.textAlignment = .Center
+                return cell
+            }
+            
+            if indexPath.row == 5 {
+                let cell: UITableViewCell = UITableViewCell()
+                cell.backgroundColor = .clearColor()
+                cell.selectionStyle = .None
+                cell.textLabel?.text = message
+                cell.textLabel?.textColor = .EDDBlackColor()
                 cell.textLabel?.textAlignment = .Center
                 return cell
             }
