@@ -98,17 +98,27 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         
         super.leftBarButtonItem = true
         
-        let rightNavigationItemImage = UIImage(named: "NavigationBar-Filter")
-        let rightNavigationItemButton = HighlightButton(type: .Custom)
-        rightNavigationItemButton.tintColor = .whiteColor()
-        rightNavigationItemButton.setImage(rightNavigationItemImage, forState: .Normal)
-        rightNavigationItemButton.addTarget(self, action: #selector(SalesViewController.filterButtonPressed), forControlEvents: .TouchUpInside)
-        rightNavigationItemButton.sizeToFit()
+        let filterNavigationItemImage = UIImage(named: "NavigationBar-Filter")
+        let filterNavigationItemButton = HighlightButton(type: .Custom)
+        filterNavigationItemButton.tintColor = .whiteColor()
+        filterNavigationItemButton.setImage(filterNavigationItemImage, forState: .Normal)
+        filterNavigationItemButton.addTarget(self, action: #selector(SalesViewController.filterButtonPressed), forControlEvents: .TouchUpInside)
+        filterNavigationItemButton.sizeToFit()
         
-        let rightNavigationBarButton = UIBarButtonItem(customView: rightNavigationItemButton)
-        rightNavigationBarButton.accessibilityIdentifier = "Filter"
+        let filterNavigationBarButton = UIBarButtonItem(customView: filterNavigationItemButton)
+        filterNavigationBarButton.accessibilityIdentifier = "Filter"
         
-        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
+        let searchNavigationItemImage = UIImage(named: "NavigationBar-Search")
+        let searchNavigationItemButton = HighlightButton(type: .Custom)
+        searchNavigationItemButton.tintColor = .whiteColor()
+        searchNavigationItemButton.setImage(searchNavigationItemImage, forState: .Normal)
+        searchNavigationItemButton.addTarget(self, action: #selector(SalesViewController.searchButtonPressed), forControlEvents: .TouchUpInside)
+        searchNavigationItemButton.sizeToFit()
+        
+        let searchNavigationBarButton = UIBarButtonItem(customView: searchNavigationItemButton)
+        searchNavigationBarButton.accessibilityIdentifier = "Search"
+        
+        navigationItem.rightBarButtonItems = [searchNavigationBarButton, filterNavigationBarButton]
         
         registerForPreviewingWithDelegate(self, sourceView: view)
         
@@ -254,6 +264,10 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         salesFilterTableViewController.modalPresentationStyle = .CurrentContext
         salesFilterTableViewController.modalPresentationCapturesStatusBarAppearance = true
         presentViewController(salesFilterTableViewController, animated: true, completion: nil)
+    }
+    
+    func searchButtonPressed() {
+        navigationController?.pushViewController(SearchViewController(site: Site.activeSite()), animated: true)
     }
     
 }
