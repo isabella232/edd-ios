@@ -57,6 +57,11 @@ class CustomersDetailViewController: SiteTableViewController {
         
         networkOperations()
         
+        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        uiBusy.hidesWhenStopped = true
+        uiBusy.startAnimating()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiBusy)
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
@@ -83,6 +88,37 @@ class CustomersDetailViewController: SiteTableViewController {
         
         guard customer != nil else {
             return
+        }
+        
+        let customerRecord = Customer.fetchSingleObjectInContext(AppDelegate.sharedInstance.managedObjectContext) { (request) in
+            request.predicate = Customer.predicateForId(self.customer!.uid)
+            request.fetchLimit = 1
+            }!
+        
+        EDDAPIWrapper.sharedInstance.requestCustomers(["customer" : customer!.email], success: { (json) in
+            if let items = json["customers"].array {
+                let item = items[0]
+                
+                customerRecord.setValue(item["info"]["display_name"].stringValue, forKey: Customer.Keys.DisplayName.rawValue)
+                customerRecord.setValue(item["info"]["first_name"].stringValue, forKey: Customer.Keys.FirstName.rawValue)
+                customerRecord.setValue(item["info"]["last_name"].stringValue, forKey: Customer.Keys.LastName.rawValue)
+                customerRecord.setValue(NSNumber(longLong: item["stats"]["total_downloads"].int64Value), forKey: Customer.Keys.TotalDownloads.rawValue)
+                customerRecord.setValue(NSNumber(longLong: item["stats"]["total_purchases"].int64Value), forKey: Customer.Keys.TotalPurchases.rawValue)
+                customerRecord.setValue(item["stats"]["total_spent"].doubleValue, forKey: Customer.Keys.TotalSpent.rawValue)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    do {
+                        try AppDelegate.sharedInstance.managedObjectContext.save()
+                        self.tableView.reloadData()
+                        
+                        self.navigationItem.rightBarButtonItem = nil
+                    } catch {
+                        print("Unable to save context")
+                    }
+                })
+            }
+        }) { (error) in
+            print(error.localizedDescription)
         }
         
         EDDAPIWrapper.sharedInstance.requestSales(["email" : customer!.email], success: { (json) in
