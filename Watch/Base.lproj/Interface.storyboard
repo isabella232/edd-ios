@@ -17,9 +17,9 @@
                                         <items>
                                             <group alignment="left" layout="vertical" spacing="0.0" id="jrp-YJ-sZn">
                                                 <items>
-                                                    <group width="1" height="30" alignment="left" spacing="4" id="iKC-wA-2Yq">
+                                                    <group width="1" alignment="left" spacing="4" id="iKC-wA-2Yq">
                                                         <items>
-                                                            <label height="24" alignment="left" verticalAlignment="center" text="US$0.00" numberOfLines="0" id="GZQ-40-90C">
+                                                            <label alignment="left" text="US$0.00" numberOfLines="0" id="GZQ-40-90C">
                                                                 <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
                                                             </label>
                                                         </items>

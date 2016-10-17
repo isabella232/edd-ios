@@ -66,7 +66,7 @@ class InterfaceController: WKInterfaceController {
         
         let row = tableView.rowControllerAtIndex(0) as! DashboardRowObject
         row.label.setText("Error")
-        row.statsLabel.setText("No sites have been set up. Please add a site from the iPhone app and try again")
+        row.statsLabel.setText("No sites have been set up. Please add a site from the iPhone app and try again.")
     }
     
     private func networkOperations() {
