@@ -184,7 +184,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
             if filter == "earnings" {
                 cell.detailTextLabel?.text = Site.currencyFormat(total!)
             } else {
-                cell.detailTextLabel?.text = "\(total!)"
+                cell.detailTextLabel?.text = "\(Int(total!))"
             }
 
             cell.detailTextLabel?.textColor = .EDDBlackColor()
@@ -202,6 +202,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
         cell.textLabel?.text = sharedDateFormatter.stringFromDate(dateObject!)
         
         cell.detailTextLabel?.text = data.stat
+        cell.detailTextLabel?.textColor = .EDDBlueColor()
         
         return cell
     }
