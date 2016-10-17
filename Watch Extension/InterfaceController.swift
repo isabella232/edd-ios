@@ -46,6 +46,10 @@ class InterfaceController: WKInterfaceController {
     override init() {
         super.init()
         
+        guard let _ = sharedDefaults.stringForKey("activeSiteName") else {
+            return
+        }
+
         addMenuItemWithItemIcon(.Resume, title: NSLocalizedString("Refresh", comment: ""), action: #selector(InterfaceController.onRefreshIconTap))
     }
     
