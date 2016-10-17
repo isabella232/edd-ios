@@ -40,14 +40,16 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
         
         tableView.registerClass(SalesFilterDatePickerTableViewCell.self, forCellReuseIdentifier: "SalesFilterDatePickerTableViewCell")
         
-        title = NSLocalizedString("Filter Sales/Earnings", comment: "")
+        title = NSLocalizedString("Filter Sales/Earnings", comment: "Filter Sales/Earnings title")
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Filter Sales", comment: "Sales title"))
+        titleLabel.setTitle(NSLocalizedString("Filter Sales", comment: "Filter Sales title"))
         navigationItem.titleView = titleLabel
         
         let closeButton = UIBarButtonItem(title: NSLocalizedString("Close", comment: ""), style: .Done, target: self, action: #selector(SalesFilterTableViewController.closeButtonPressed))
         navigationItem.leftBarButtonItem = closeButton
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     func closeButtonPressed() {
@@ -153,6 +155,12 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
                 tableView.cellForRowAtIndexPath(nextIndexPath)?.accessoryType = .None
                 
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                
+                title = NSLocalizedString("Filter Sales", comment: "")
+                
+                let titleLabel = ViewControllerTitleLabel()
+                titleLabel.setTitle(NSLocalizedString("Filter Sales", comment: "Filter Sales title"))
+                navigationItem.titleView = titleLabel
             }
             
             if indexPath.row == 1 {
@@ -163,6 +171,12 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
                 tableView.cellForRowAtIndexPath(previousIndexPath)?.accessoryType = .None
                 
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                
+                title = NSLocalizedString("Filter Earnings", comment: "")
+                
+                let titleLabel = ViewControllerTitleLabel()
+                titleLabel.setTitle(NSLocalizedString("Filter Earnings", comment: "Filter Earnings title"))
+                navigationItem.titleView = titleLabel
             }
         }
         
