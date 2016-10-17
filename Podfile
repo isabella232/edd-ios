@@ -22,5 +22,6 @@ abstract_target 'EDD' do
   target 'Today'
   target 'Watch Extension' do
     platform :watchos, ‘3.0’
+    pod 'Alamofire', '~> 3.5'
   end
 end

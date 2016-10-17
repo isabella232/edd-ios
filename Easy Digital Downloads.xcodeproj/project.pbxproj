@@ -80,6 +80,8 @@
 		F57A7AB11DB38D6A00144FFF /* CustomersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AB01DB38D6A00144FFF /* CustomersSearchViewController.swift */; };
 		F57A7AB31DB3EA9F00144FFF /* SalesFilterFetchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AB21DB3EA9F00144FFF /* SalesFilterFetchViewController.swift */; };
 		F57A7AB51DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */; };
+		F57A7AB71DB5170800144FFF /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57A7AB61DB5170800144FFF /* WatchKit.framework */; };
+		F57A7AB91DB5170F00144FFF /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57A7AB81DB5170F00144FFF /* WatchConnectivity.framework */; };
 		F57DB37A1DA704BF00639C58 /* DashboardRowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */; };
 		F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
@@ -319,6 +321,8 @@
 		F57A7AB01DB38D6A00144FFF /* CustomersSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomersSearchViewController.swift; sourceTree = "<group>"; };
 		F57A7AB21DB3EA9F00144FFF /* SalesFilterFetchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesFilterFetchViewController.swift; sourceTree = "<group>"; };
 		F57A7AB41DB4008700144FFF /* SalesFilterHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesFilterHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7AB61DB5170800144FFF /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
+		F57A7AB81DB5170F00144FFF /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardRowObject.swift; sourceTree = "<group>"; };
 		F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F57A7AB91DB5170F00144FFF /* WatchConnectivity.framework in Frameworks */,
+				F57A7AB71DB5170800144FFF /* WatchKit.framework in Frameworks */,
 				5D5FE48B63CF3ACB8210DAD0 /* Pods_Watch_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,6 +460,8 @@
 		7C5F97A647D663D04F05894B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F57A7AB81DB5170F00144FFF /* WatchConnectivity.framework */,
+				F57A7AB61DB5170800144FFF /* WatchKit.framework */,
 				F512E40D1D9186FC0086AD68 /* Security.framework */,
 				F50DEB381CF9F775001A6A51 /* Gridicons.framework */,
 				F50DEB391CF9F775001A6A51 /* MCDateExtensions.framework */,
