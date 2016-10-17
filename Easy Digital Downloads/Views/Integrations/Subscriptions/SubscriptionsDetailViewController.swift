@@ -70,10 +70,11 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.registerClass(SubscriptionsDetailProductTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailProductTableViewCell")
         tableView.registerClass(SubscriptionsDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailCustomerTableViewCell")
         
-        cells = [.BillingHeading, .Billing, .ProductHeading, .Product, .CustomerHeading, .Customer, .RenewalPaymentsHeading]
+        cells = [.BillingHeading, .Billing, .ProductHeading, .Product, .CustomerHeading, .Customer]
         
         if let renewalPayments = subscription.renewalPayments {
             if renewalPayments.count > 0 {
+                cells.append(.RenewalPaymentsHeading)
                 for _ in 1...renewalPayments.count {
                     cells.append(.RenewalPayments)
                 }
