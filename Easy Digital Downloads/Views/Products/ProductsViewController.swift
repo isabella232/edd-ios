@@ -105,6 +105,8 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
                 self.products = items
                 self.updateLastDownloadedPage()
             }
+            
+            self.persistProducts()
         }) { (error) in
             NSLog(error.localizedDescription)
         }
