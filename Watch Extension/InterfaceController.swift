@@ -9,6 +9,8 @@
 import WatchKit
 import Foundation
 import WatchConnectivity
+import Alamofire
+import SwiftyJSON
 
 class InterfaceController: WKInterfaceController {
 
@@ -16,29 +18,35 @@ class InterfaceController: WKInterfaceController {
     
     var session: WCSession!
     
-    var items = ["Sales", "Earnings"]
-
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
+    var items = ["Active Site", "Sales", "Earnings"]
+    
+    override func awakeWithContext(context: AnyObject?) {
+        super.awakeWithContext(context)
         
-        tableView.setNumberOfRows(2, withRowType: "DashboardRow")
+        tableView.setNumberOfRows(3, withRowType: "DashboardRow")
         
         var i = 0
         for item in items {
-            let row = tableView.rowController(at: i) as! DashboardRowObject
+            let row = tableView.rowControllerAtIndex(i) as! DashboardRowObject
             row.label.setText(item)
             i += 1
         }
     }
     
+    override init() {
+        super.init()
+        
+        addMenuItemWithItemIcon(.Resume, title: NSLocalizedString("Refresh", comment: ""), action: #selector(InterfaceController.onRefreshIconTap))
+    }
+    
+    func onRefreshIconTap() {
+        
+    }
+    
     override func willActivate() {
         super.willActivate()
         
-        if (WCSession.isSupported()) {
-            session = WCSession.defaultSession()
-            session.delegate = self
-            session.activateSession()
-        }
+        
     }
     
     override func didDeactivate() {
