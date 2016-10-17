@@ -19,14 +19,14 @@
                                                 <items>
                                                     <group width="1" height="30" alignment="left" spacing="4" id="iKC-wA-2Yq">
                                                         <items>
-                                                            <label height="24" alignment="left" verticalAlignment="center" text="US$0.00" id="GZQ-40-90C">
+                                                            <label height="24" alignment="left" verticalAlignment="center" text="US$0.00" numberOfLines="0" id="GZQ-40-90C">
                                                                 <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
                                                             </label>
                                                         </items>
                                                     </group>
                                                     <group width="1" alignment="left" id="CQv-yO-buA">
                                                         <items>
-                                                            <label alignment="left" verticalAlignment="bottom" text="SALES" id="Wpw-fQ-qNF">
+                                                            <label alignment="left" verticalAlignment="bottom" text="SALES" numberOfLines="0" id="Wpw-fQ-qNF">
                                                                 <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                                             </label>
