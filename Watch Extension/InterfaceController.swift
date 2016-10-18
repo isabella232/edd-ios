@@ -116,7 +116,7 @@ class InterfaceController: WKInterfaceController {
                     let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
                     
                     self.data.removeAll(keepCapacity: false)
-                    self.data.append(site.name)
+                    self.data.append(self.site.name)
                     
                     self.data.append(json["stats"]["sales"]["today"].stringValue)
                     self.data.append(json["stats"]["sales"]["current_month"].stringValue)
@@ -163,7 +163,7 @@ class InterfaceController: WKInterfaceController {
         super.didAppear()
     }
 
-    internal func onRefreshIconTap() {
+    func onRefreshIconTap() {
         let siteURL = site.url + "/edd-api/v2/stats"
         
         let parameters = ["key": site.key, "token": site.token]
@@ -183,8 +183,8 @@ class InterfaceController: WKInterfaceController {
                     
                     self.data.append(json["stats"]["sales"]["today"].stringValue)
                     self.data.append(json["stats"]["sales"]["current_month"].stringValue)
-                    self.data.append(json["stats"]["earnings"]["today"].stringValue)
-                    self.data.append(json["stats"]["earnings"]["current_month"].stringValue)
+                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["today"].doubleValue)!)
+                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["current_month"].doubleValue)!)
                     
                     NSUserDefaults.standardUserDefaults().setObject(earnings, forKey: "earnings")
                     NSUserDefaults.standardUserDefaults().setObject(sales, forKey: "sales")
@@ -231,6 +231,51 @@ extension InterfaceController: WCSessionDelegate {
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
         NSUserDefaults.standardUserDefaults().setObject(userInfo, forKey: "activeSite")
         NSUserDefaults.standardUserDefaults().synchronize()
+        
+        var activeSiteName = ""
+        var activeSiteURL = ""
+        var activeSiteKey = ""
+        var activeSiteToken = ""
+        var activeSiteCurrency = ""
+        
+        for item in userInfo {
+            if item.0 == "activeSiteName" {
+                activeSiteName = item.1 as! String
+            }
+            
+            if item.0 == "activeSiteURL" {
+                activeSiteURL = item.1 as! String
+            }
+            
+            if item.0 == "activeSiteKey" {
+                activeSiteKey = item.1 as! String
+            }
+            
+            if item.0 == "activeSiteToken" {
+                activeSiteToken = item.1 as! String
+            }
+            
+            if item.0 == "activeSiteCurrency" {
+                activeSiteCurrency = item.1 as! String
+            }
+        }
+        
+        let site = Site(name: activeSiteName, url: activeSiteURL, key: activeSiteKey, token: activeSiteToken, currency: activeSiteCurrency)
+        
+        self.site = site
+        
+        self.data.removeAll(keepCapacity: false)
+        self.data.append(self.site.name)
+        self.data.append("Loading...")
+        self.data.append("Loading...")
+        self.data.append("Loading...")
+        self.data.append("Loading...")
+        
+        onRefreshIconTap()
+        
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.tableRefresh()
+        }
     }
     
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {

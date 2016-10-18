@@ -174,6 +174,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sharedDefaults.setValue(Site.activeSite().url, forKey: "activeSiteURL")
         sharedDefaults.synchronize()
         EDDAPIWrapper.sharedInstance.refreshActiveSite()
+        
+        if WCSession.isSupported() {
+            print("Sending data to Watch...")
+            let watchSession = WCSession.defaultSession()
+            watchSession.delegate = self
+            watchSession.activateSession()
+            if watchSession.paired && watchSession.watchAppInstalled {
+                do {
+                    let userInfo = [
+                        "activeSiteName": Site.activeSite().name!,
+                        "activeSiteURL" : Site.activeSite().url!,
+                        "activeSiteKey" : Site.activeSite().key,
+                        "activeSiteToken" : Site.activeSite().token,
+                        "activeSiteCurrency" : Site.activeSite().currency!
+                    ]
+                    try watchSession.transferUserInfo(userInfo)
+                } catch let error as NSError {
+                    print(error.description)
+                }
+            }
+        }
     }
     
     func handleNoActiveSite() {
