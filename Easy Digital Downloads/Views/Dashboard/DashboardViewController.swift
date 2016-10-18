@@ -74,7 +74,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                         "activeSiteName": Site.activeSite().name!,
                         "activeSiteURL" : Site.activeSite().url!,
                         "activeSiteKey" : Site.activeSite().key,
-                        "activeSiteToken" : Site.activeSite().token
+                        "activeSiteToken" : Site.activeSite().token,
+                        "activeSiteCurrency" : Site.activeSite().currency!
                     ]
                     try watchSession.transferUserInfo(userInfo)
                 } catch let error as NSError {

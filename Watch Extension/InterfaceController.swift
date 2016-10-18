@@ -12,6 +12,12 @@ import WatchConnectivity
 import Alamofire
 import SwiftyJSON
 
+private let sharedNumberFormatter: NSNumberFormatter = {
+    let formatter = NSNumberFormatter()
+    formatter.numberStyle = .CurrencyStyle
+    return formatter
+}()
+
 class InterfaceController: WKInterfaceController {
 
     struct Site {
@@ -19,6 +25,7 @@ class InterfaceController: WKInterfaceController {
         var url: String!
         var key: String!
         var token: String!
+        var currency: String!
     }
     
     @IBOutlet var tableView: WKInterfaceTable!
@@ -30,6 +37,8 @@ class InterfaceController: WKInterfaceController {
     
     var activeSite: [String: AnyObject] = [String: AnyObject]()
     
+    var site: Site!
+    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
@@ -40,6 +49,7 @@ class InterfaceController: WKInterfaceController {
         }
         
         guard let activeSite = NSUserDefaults.standardUserDefaults().objectForKey("activeSite") as? [String: AnyObject] else {
+            openiPhoneApp()
             return
         }
         
@@ -47,6 +57,7 @@ class InterfaceController: WKInterfaceController {
         var activeSiteURL = ""
         var activeSiteKey = ""
         var activeSiteToken = ""
+        var activeSiteCurrency = ""
         
         for item in activeSite {
             if item.0 == "activeSiteName" {
@@ -64,16 +75,31 @@ class InterfaceController: WKInterfaceController {
             if item.0 == "activeSiteToken" {
                 activeSiteToken = item.1 as! String
             }
+            
+            if item.0 == "activeSiteCurrency" {
+                activeSiteCurrency = item.1 as! String
+            }
         }
         
-        let site = Site(name: activeSiteName, url: activeSiteURL, key: activeSiteKey, token: activeSiteToken)
+        let site = Site(name: activeSiteName, url: activeSiteURL, key: activeSiteKey, token: activeSiteToken, currency: activeSiteCurrency)
+        
+        self.site = site
+        
+        sharedNumberFormatter.currencyCode = site.currency
         
         data.append(site.name)
-        data.append(site.name)
-        data.append(site.name)
-        data.append(site.name)
-        data.append(site.name)
-        data.append(site.name)
+        
+        if let sales = NSUserDefaults.standardUserDefaults().objectForKey("sales") as? NSDictionary, let earnings = NSUserDefaults.standardUserDefaults().objectForKey("earnings") as? NSDictionary {
+            self.data.append("\(sales["today"]!)")
+            self.data.append("\(sales["current_month"]!)")
+            self.data.append(sharedNumberFormatter.stringFromNumber(earnings["today"]!.doubleValue)!)
+            self.data.append(sharedNumberFormatter.stringFromNumber(earnings["current_month"]!.doubleValue)!)
+        } else {
+            data.append("Loading...")
+            data.append("Loading...")
+            data.append("Loading...")
+            data.append("Loading...")
+        }
         
         let siteURL = site.url + "/edd-api/v2/stats"
         
@@ -89,10 +115,22 @@ class InterfaceController: WKInterfaceController {
                     let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
                     let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
                     
+                    self.data.removeAll(keepCapacity: false)
+                    self.data.append(site.name)
+                    
+                    self.data.append(json["stats"]["sales"]["today"].stringValue)
+                    self.data.append(json["stats"]["sales"]["current_month"].stringValue)
+                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["today"].doubleValue)!)
+                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["current_month"].doubleValue)!)
+                    
                     NSUserDefaults.standardUserDefaults().setObject(earnings, forKey: "earnings")
                     NSUserDefaults.standardUserDefaults().setObject(sales, forKey: "sales")
                     
                     NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        self.tableRefresh()
+                    })
                 }
         }
         
@@ -126,9 +164,48 @@ class InterfaceController: WKInterfaceController {
     }
 
     internal func onRefreshIconTap() {
+        let siteURL = site.url + "/edd-api/v2/stats"
         
+        let parameters = ["key": site.key, "token": site.token]
+        
+        Alamofire.request(.GET, siteURL, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseJSON { response in
+                if response.result.isSuccess {
+                    let json = JSON(response.result.value!)
+                    
+                    let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
+                    let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
+                    
+                    self.data.removeAll(keepCapacity: false)
+                    self.data.append(self.site.name)
+                    
+                    self.data.append(json["stats"]["sales"]["today"].stringValue)
+                    self.data.append(json["stats"]["sales"]["current_month"].stringValue)
+                    self.data.append(json["stats"]["earnings"]["today"].stringValue)
+                    self.data.append(json["stats"]["earnings"]["current_month"].stringValue)
+                    
+                    NSUserDefaults.standardUserDefaults().setObject(earnings, forKey: "earnings")
+                    NSUserDefaults.standardUserDefaults().setObject(sales, forKey: "sales")
+                    
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableRefresh()
+                    })
+                }
+        }
     }
 
+    private func openiPhoneApp () {
+        tableView.setNumberOfRows(1, withRowType: "DashboardRow")
+        
+        let row = tableView.rowControllerAtIndex(0) as! DashboardRowObject
+        row.label.setText("Error")
+        row.statsLabel.setText("Open the iPhone app to begin sync.")
+    }
+    
     private func noSiteSetup () {
         tableView.setNumberOfRows(1, withRowType: "DashboardRow")
         
@@ -136,19 +213,15 @@ class InterfaceController: WKInterfaceController {
         row.label.setText("Error")
         row.statsLabel.setText("No sites have been set up. Please add a site from the iPhone app and try again.")
     }
-
-    private func networkOperations() {
-        
-    }
     
-    func tableRefresh(applicationContext: [String : AnyObject]) {
-        data[0] = (NSUserDefaults.standardUserDefaults().objectForKey("activeSiteName")?.stringValue)!
-        
-        print(data)
-        
-        let row = tableView.rowControllerAtIndex(0) as! DashboardRowObject
-        row.label.setText(items[0])
-        row.statsLabel.setText(data[0])
+    func tableRefresh() {
+        var i = 0
+        for item in items {
+            let row = tableView.rowControllerAtIndex(i) as! DashboardRowObject
+            row.label.setText(item)
+            row.statsLabel.setText(data[i])
+            i += 1
+        }
     }
 
 }
