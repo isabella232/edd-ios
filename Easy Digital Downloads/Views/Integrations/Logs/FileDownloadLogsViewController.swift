@@ -43,6 +43,8 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     var logs: JSON?
     let sharedCache = Shared.dataCache
     
+    var operation = false
+    
     var logObjects = [Log]()
     var filteredLogObjects = [Log]()
     
@@ -55,6 +57,8 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             }
         }
     }
+    
+    var lastDownloadedPage = 1
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -115,6 +119,12 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     // MARK: Network Operations
     
     private func networkOperations() {
+        if (operation) {
+            return
+        }
+        
+        operation = true
+        
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-FileDownloadLogs")
 
@@ -124,6 +134,13 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
                 for item in items {
                     self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
                 }
+                
+                if items.count < 10 {
+                    self.hasMoreLogs = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.activityIndicatorView.stopAnimating()
+                    })
+                }
             }
             
             self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
@@ -132,15 +149,23 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
             })
+            
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     
     private func requestNextPage(page: Int) {
+        if (operation) {
+            return
+        }
+        
+        operation = true
+
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([ "page": page ], success: { (json) in
             if let items = json["download_logs"].array {
-                if items.count == 20 {
+                if items.count == 10 {
                     self.hasMoreLogs = true
                 } else {
                     self.hasMoreLogs = false
@@ -155,11 +180,30 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
             self.filteredLogObjects = self.logObjects
             
+            self.updateLastDownloadedPage()
+            
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
             })
+            
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
+        }
+    }
+    
+    private func updateLastDownloadedPage() {
+        self.lastDownloadedPage = self.lastDownloadedPage + 1;
+    }
+    
+    // MARK: Scroll View Delegate
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let actualPosition: CGFloat = scrollView.contentOffset.y
+        let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
+        
+        if actualPosition >= contentHeight && hasMoreLogs && !operation {
+            self.requestNextPage(self.lastDownloadedPage)
         }
     }
 
