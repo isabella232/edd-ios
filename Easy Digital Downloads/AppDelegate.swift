@@ -12,6 +12,7 @@ import CocoaLumberjack
 import Alamofire
 import AlamofireNetworkActivityIndicator
 import SSKeychain
+import WatchConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var session: WCSession? {
+        didSet {
+            if let session = session {
+                session.delegate = self
+                session.activateSession()
+            }
+        }
+    }
+    
     var launchedShortcutItem: UIApplicationShortcutItem?
-
 
     let managedObjectContext = createEDDMainContext()
     
@@ -52,6 +61,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Background Fetch
         UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 
+        if WCSession.isSupported() {
+            session = WCSession.defaultSession()
+            session?.delegate = self
+            session?.activateSession()
+        }
+        
         // Setup CocoaLumberjack
         DDLog.addLogger(DDASLLogger())
         DDLog.addLogger(DDTTYLogger())
@@ -239,4 +254,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+}
+
+extension AppDelegate: WCSessionDelegate {
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        print(message)
+    }
+    
+    func sessionDidDeactivate(session: WCSession) {
+        session.activateSession()
+    }
+    
+    func sessionDidBecomeInactive(session: WCSession) {
+        
+    }
+    
+    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+        
+    }
+    
+    func sendActiveSiteData() {
+        
+    }
+    
 }

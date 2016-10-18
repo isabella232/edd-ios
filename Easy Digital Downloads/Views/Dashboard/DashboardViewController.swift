@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+import WatchConnectivity
 
 let estimatedHeight: CGFloat = 150
 let reuseIdentifier: String = "dashboardCell"
@@ -61,6 +62,26 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
 //        }
         
         topLayoutAnchor = -10.0
+        
+        // Setup WatchKit Session
+        if WCSession.isSupported() {
+            let watchSession = WCSession.defaultSession()
+            watchSession.delegate = self
+            watchSession.activateSession()
+            if watchSession.paired && watchSession.watchAppInstalled {
+                do {
+                    let userInfo = [
+                        "activeSiteName": Site.activeSite().name!,
+                        "activeSiteURL" : Site.activeSite().url!,
+                        "activeSiteKey" : Site.activeSite().key,
+                        "activeSiteToken" : Site.activeSite().token
+                    ]
+                    try watchSession.transferUserInfo(userInfo)
+                } catch let error as NSError {
+                    print(error.description)
+                }
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -369,6 +390,22 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         }
         
         self.earningsGraphData = earningsGraphData
+    }
+
+}
+
+extension DashboardViewController: WCSessionDelegate {
+
+    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+        print(activationState)
+    }
+
+    func sessionDidBecomeInactive(session: WCSession) {
+        
+    }
+
+    func sessionDidDeactivate(session: WCSession) {
+        
     }
 
 }

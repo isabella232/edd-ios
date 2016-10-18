@@ -17,9 +17,7 @@ class InterfaceController: WKInterfaceController {
 
     @IBOutlet var tableView: WKInterfaceTable!
     
-    var session: WCSession!
-    
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    var session: WCSession?
     
     var items = ["Active Site", "Today's Sales", "Current Month Sales", "Today's Earnings", "Current Month Earnings"]
     var data: [String] = [String]()
@@ -27,8 +25,13 @@ class InterfaceController: WKInterfaceController {
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
-        guard let siteName = sharedDefaults.stringForKey("activeSiteName") else {
-            noSiteSetup()
+        if WCSession.isSupported() {
+            let session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+        }
+        
+        guard let activeSite = NSUserDefaults.standardUserDefaults().objectForKey("activeSite") else {
             return
         }
         
@@ -38,7 +41,7 @@ class InterfaceController: WKInterfaceController {
         for item in items {
             let row = tableView.rowControllerAtIndex(i) as! DashboardRowObject
             row.label.setText(item)
-            row.statsLabel.setText(data[i])
+//            row.statsLabel.setText(data[i])
             i += 1
         }
     }
@@ -46,10 +49,6 @@ class InterfaceController: WKInterfaceController {
     override init() {
         super.init()
         
-        guard let _ = sharedDefaults.stringForKey("activeSiteName") else {
-            return
-        }
-
         addMenuItemWithItemIcon(.Resume, title: NSLocalizedString("Refresh", comment: ""), action: #selector(InterfaceController.onRefreshIconTap))
     }
     
@@ -61,10 +60,14 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
     
+    override func didAppear() {
+        super.didAppear()
+    }
+
     internal func onRefreshIconTap() {
         
     }
-    
+
     private func noSiteSetup () {
         tableView.setNumberOfRows(1, withRowType: "DashboardRow")
         
@@ -72,42 +75,37 @@ class InterfaceController: WKInterfaceController {
         row.label.setText("Error")
         row.statsLabel.setText("No sites have been set up. Please add a site from the iPhone app and try again.")
     }
-    
+
     private func networkOperations() {
-        guard let defaultSite = sharedDefaults.objectForKey("defaultSite") as? String else {
-            return
-        }
-        
-        let auth = SSKeychain.accountsForService(defaultSite)
-        let data = auth[0] as NSDictionary
-        let acct = data.objectForKey("acct") as! String
-        let password = SSKeychain.passwordForService(defaultSite, account: acct)
-        
-        let siteURL = sharedDefaults.stringForKey("activeSiteURL")! + "/edd-api/v2/stats"
-        
-        let parameters = ["key": acct, "token": password]
-        
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
-        formatter.currencyCode = sharedDefaults.stringForKey("activeSiteCurrency")!
-        
-        Alamofire.request(.GET, siteURL, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseJSON { response in
-                if response.result.isSuccess {
-                    let resJSON = JSON(response.result.value!)
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                    })
-                }
-                
-                if response.result.isFailure {
-                }
-        }
         
     }
+    
+    func tableRefresh(applicationContext: [String : AnyObject]) {
+        data[0] = (NSUserDefaults.standardUserDefaults().objectForKey("activeSiteName")?.stringValue)!
+        
+        print(data)
+        
+        let row = tableView.rowControllerAtIndex(0) as! DashboardRowObject
+        row.label.setText(items[0])
+        row.statsLabel.setText(data[0])
+    }
 
+}
+
+extension InterfaceController: WCSessionDelegate {
+
+    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+        NSUserDefaults.standardUserDefaults().setObject(userInfo, forKey: "activeSite")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+        NSUserDefaults.standardUserDefaults().setObject(applicationContext, forKey: "activeSite")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+
+    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+        
+    }
 
 }
