@@ -38,7 +38,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
 
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-CustomersPage") ?? 1
+    var lastDownloadedPage =  1
     
     init(site: Site) {
         super.init(style: .Plain)
