@@ -84,11 +84,15 @@ class InterfaceController: WKInterfaceController {
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 if response.result.isSuccess {
-                    let res = response.result.value!
-                    NSUserDefaults.standardUserDefaults().setObject(res, forKey: "CachedStats")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    let json = JSON(response.result.value!)
+
+                    let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
+                    let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
                     
-                    print(NSUserDefaults.standardUserDefaults().objectForKey("CachedStats") as? JSON)
+                    NSUserDefaults.standardUserDefaults().setObject(earnings, forKey: "earnings")
+                    NSUserDefaults.standardUserDefaults().setObject(sales, forKey: "sales")
+                    
+                    NSUserDefaults.standardUserDefaults().synchronize()
                 }
         }
         
