@@ -31,6 +31,5 @@ abstract_target 'EDD' do
     platform :watchos, ‘3.0’
     pod 'Alamofire', '~> 3.5'
     pod 'SwiftyJSON', '~> 2.3'
-    pod 'SSKeychain'
   end
 end
