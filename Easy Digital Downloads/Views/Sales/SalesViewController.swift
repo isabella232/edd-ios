@@ -46,6 +46,8 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     var sales: JSON?
     let sharedCache = Shared.dataCache
     
+    var operation = false
+    
     var saleObjects = [Sales]()
     var filteredSaleObjects = [Sales]()
     
@@ -148,6 +150,8 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     }
     
     private func networkOperations() {
+        operation = true
+        
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { json in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Sales")
             
@@ -158,7 +162,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
                     self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
                 }
                 
-                if items.count <= 20 {
+                if items.count < 10 {
                     self.hasMoreSales = false
                     dispatch_async(dispatch_get_main_queue(), {
                         self.activityIndicatorView.stopAnimating()
@@ -169,28 +173,51 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
             self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
             self.filteredSaleObjects = self.saleObjects
             
+            self.updateLastDownloadedPage()
+            
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
             })
             
-            }) { (error) in
-                print(error)
+            self.operation = false
+        }) { (error) in
+            print(error)
         }
     }
     
     private func requestNextPage() {
+        if (operation) {
+            return
+        }
+        
+        operation = true
+        
         EDDAPIWrapper.sharedInstance.requestSales([ "page": lastDownloadedPage ], success: { (json) in
             if let items = json["sales"].array {
-                if items.count == 20 {
+                if items.count == 10 {
                     self.hasMoreSales = true
                 } else {
                     self.hasMoreSales = false
                 }
                 for item in items {
-                    
+                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
                 }
                 self.updateLastDownloadedPage()
+            } else {
+                self.hasMoreSales = false
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.activityIndicatorView.stopAnimating()
+                })
             }
+            
+            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.filteredSaleObjects = self.saleObjects
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+            
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -208,7 +235,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight && hasMoreSales {
+        if actualPosition >= contentHeight && hasMoreSales && !operation {
             self.requestNextPage()
         }
     }
