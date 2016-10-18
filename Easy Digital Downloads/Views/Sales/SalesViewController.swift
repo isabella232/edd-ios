@@ -63,7 +63,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = 1
+    var lastDownloadedPage = 2
     
     init(site: Site) {
         super.init(style: .Plain)
@@ -172,9 +172,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
             
             self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
             self.filteredSaleObjects = self.saleObjects
-            
-            self.updateLastDownloadedPage()
-            
+
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
             })

@@ -60,6 +60,8 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         
         setupInfiniteScrollView()
         setupTableView()
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     override func didReceiveMemoryWarning() {
