@@ -77,7 +77,17 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.registerClass(FileDownloadLogsHeadingTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsHeadingCell")
         tableView.registerClass(FileDownloadLogsTitleTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsTitleCell")
         
-        cells = [.Title, .MetaHeading, .Meta, .ProductHeading, .Product, .PaymentHeading, .Payment, .CustomerHeading, .Customer]
+        cells = [.Title, .MetaHeading, .Meta, .ProductHeading, .Product]
+        
+        if let _ = log.paymentId {
+            cells.append(.PaymentHeading)
+            cells.append(.Payment)
+        }
+        
+        if let _ = log.customerId {
+            cells.append(.CustomerHeading)
+            cells.append(.Customer)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

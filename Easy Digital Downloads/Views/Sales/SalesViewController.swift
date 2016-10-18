@@ -61,7 +61,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-SalesPage") ?? 1
+    var lastDownloadedPage = 1
     
     init(site: Site) {
         super.init(style: .Plain)
