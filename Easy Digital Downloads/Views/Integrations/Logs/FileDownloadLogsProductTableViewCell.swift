@@ -29,6 +29,7 @@ class FileDownloadLogsProductTableViewCell: UITableViewCell {
     let titleLabel: UILabel = UILabel(frame: CGRectZero)
     let pricingLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     private var thumbnailImageView: UIImageView = UIImageView(frame: CGRectZero)
     var layoutConstraints = [NSLayoutConstraint]()
     
@@ -58,6 +59,9 @@ class FileDownloadLogsProductTableViewCell: UITableViewCell {
         
         pricingLabel.textColor = .EDDBlackColor()
         pricingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.center = contentView.center
         
         layout()
     }
@@ -94,6 +98,8 @@ class FileDownloadLogsProductTableViewCell: UITableViewCell {
     
     func configureForObject(product: Product?) {
         guard let object = product else {
+            activityIndicator.startAnimating()
+            contentView.addSubview(activityIndicator)
             return
         }
         
