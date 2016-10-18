@@ -36,6 +36,7 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
     let amountLabel: UILabel = UILabel(frame: CGRectZero)
     let dateLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,6 +54,9 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
         
         dateLabel.textColor = .EDDBlackColor()
         dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.center = contentView.center
         
         layout()
     }
@@ -86,6 +90,8 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
     
     func configure(object: Sales?) {
         guard let sale = object else {
+            activityIndicator.startAnimating()
+            contentView.addSubview(activityIndicator)
             return
         }
         

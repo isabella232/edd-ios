@@ -26,6 +26,7 @@ class FileDownloadLogsCustomerTableViewCell: UITableViewCell {
     let nameLabel: UILabel = UILabel(frame: CGRectZero)
     let emailLabel: UILabel = UILabel(frame: CGRectZero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,6 +44,9 @@ class FileDownloadLogsCustomerTableViewCell: UITableViewCell {
         
         emailLabel.textColor = .EDDBlackColor()
         emailLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
+        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.center = contentView.center
         
         layout()
     }
@@ -76,6 +80,8 @@ class FileDownloadLogsCustomerTableViewCell: UITableViewCell {
 
     func configureForObject(customer: Customer?) {
         guard let object = customer else {
+            activityIndicator.startAnimating()
+            contentView.addSubview(activityIndicator)
             return
         }
         
