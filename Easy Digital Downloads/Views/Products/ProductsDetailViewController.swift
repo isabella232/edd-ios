@@ -175,7 +175,7 @@ class ProductsDetailViewController: SiteTableViewController {
                 })
             }
             }) { (error) in
-                fatalError()
+                print(error)
         }
     }
     

@@ -204,7 +204,7 @@ class ProductsOfflineViewController: SiteTableViewController {
                 })
             }
         }) { (error) in
-            fatalError()
+            print(error)
         }
     }
     
