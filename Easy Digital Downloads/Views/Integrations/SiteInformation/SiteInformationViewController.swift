@@ -11,6 +11,8 @@ import CoreData
 
 class SiteInformationViewController: SiteTableViewController, ManagedObjectContextSettable {
     
+    var delegate: ToggleCommissionsDelegate?
+    
     private enum SectionType {
         case General
         case Authentication
@@ -208,9 +210,13 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     
     func toggleCommissionsDisplay(sender: UISwitch) {
         if sender.on {
-            sharedDefaults.setBool(true, forKey: Site.activeSite().uid! + "-DisplayCommissions")
+            dispatch_async(dispatch_get_main_queue(), {
+                self.delegate?.toggleCommissions(true)
+            })
         } else {
-            sharedDefaults.setBool(false, forKey: Site.activeSite().uid! + "-DisplayCommissions")
+            dispatch_async(dispatch_get_main_queue(), {
+                self.delegate?.toggleCommissions(false)
+            })
         }
 
         sharedDefaults.synchronize()

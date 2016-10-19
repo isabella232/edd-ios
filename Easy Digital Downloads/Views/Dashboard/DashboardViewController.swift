@@ -63,8 +63,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             cells.append(.StoreCommissions)
         }
         
-        sharedDefaults.addObserver(self, forKeyPath: Site.activeSite().uid! + "-DisplayCommissions", options: .New, context: nil)
-        
         topLayoutAnchor = -10.0
         
         // Setup WatchKit Session
@@ -91,10 +89,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    deinit {
-        sharedDefaults.removeObserver(self, forKeyPath: Site.activeSite().uid! + "-DisplayCommissions")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -147,26 +141,14 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
     }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == Site.activeSite().uid! + "-DisplayCommissions" {
-            if let change_ = change {
-                let new = change_["new"] as! Bool
-                if !new && cells.contains(.Commissions) && cells.contains(.StoreCommissions) {
-                    self.cells.removeAtIndex(2)
-                    self.cells.removeAtIndex(3)
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), { 
-                    self.tableView.reloadData()
-                })
-            }
-        }
-    }
-    
+
     func handleRefresh(refreshControl: UIRefreshControl) {
         if refreshControl.refreshing {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
