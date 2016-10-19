@@ -93,9 +93,19 @@ class ReviewsTableViewCell: UITableViewCell {
     }
     
     func configure(data: Review) {
-        titleLabel.text = data.title
-        
         dateLabel.text = sharedDateFormatter.stringFromDate(data.date)
+        
+        var stars = ""
+        
+        if data.rating == 1 {
+            stars = "\u{2605}"
+        } else {
+            for _ in 0...data.rating {
+                stars += "\u{2605}"
+            }
+        }
+        
+        titleLabel.text = data.title + " " + stars
         
         layout()
     }

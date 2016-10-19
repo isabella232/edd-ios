@@ -96,6 +96,9 @@
 		F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
 		F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5890D151D0FF2C1004F2B37 /* Stats.swift */; };
+		F58D05521DB802A800854BFB /* ReviewsDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58D05511DB802A800854BFB /* ReviewsDetailMetaTableViewCell.swift */; };
+		F58D05541DB802B200854BFB /* ReviewsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58D05531DB802B200854BFB /* ReviewsDetailHeadingTableViewCell.swift */; };
+		F58D05561DB802BB00854BFB /* ReviewsDetailProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58D05551DB802BB00854BFB /* ReviewsDetailProductTableViewCell.swift */; };
 		F59E212D1D9A76D800955440 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5B0612D1D6B015000F9B4E1 /* NotificationCenter.framework */; };
 		F59E21301D9A76D800955440 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59E212F1D9A76D800955440 /* TodayViewController.swift */; };
 		F59E21331D9A76D800955440 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F59E21311D9A76D800955440 /* MainInterface.storyboard */; };
@@ -346,6 +349,9 @@
 		F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
 		F5890D151D0FF2C1004F2B37 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		F58D05511DB802A800854BFB /* ReviewsDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
+		F58D05531DB802B200854BFB /* ReviewsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F58D05551DB802BB00854BFB /* ReviewsDetailProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailProductTableViewCell.swift; sourceTree = "<group>"; };
 		F59E212C1D9A76D700955440 /* Today.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Today.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59E212F1D9A76D800955440 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		F59E21321D9A76D800955440 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -841,6 +847,9 @@
 				F5B982B21D6BA1D500679271 /* ReviewsDetailViewController.swift */,
 				F5B982B01D6BA1C800679271 /* ReviewsViewController.swift */,
 				F50C690B1DB0CA2F0096A0D2 /* ReviewsTableViewCell.swift */,
+				F58D05511DB802A800854BFB /* ReviewsDetailMetaTableViewCell.swift */,
+				F58D05531DB802B200854BFB /* ReviewsDetailHeadingTableViewCell.swift */,
+				F58D05551DB802BB00854BFB /* ReviewsDetailProductTableViewCell.swift */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
@@ -1281,6 +1290,7 @@
 				F553C88E1D9D057D00C77B5D /* StoreCommissionsViewController.swift in Sources */,
 				F5CA019B1D981F140000C529 /* ProductsDetailPricingTableViewCell.swift in Sources */,
 				F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */,
+				F58D05541DB802B200854BFB /* ReviewsDetailHeadingTableViewCell.swift in Sources */,
 				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
 				F5A99B221DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift in Sources */,
@@ -1300,6 +1310,7 @@
 				F57A7ABF1DB6D6C600144FFF /* DiscountsDetailViewController.swift in Sources */,
 				F5FAF3BF1CFB077500F9F1FF /* SiteTableViewController.swift in Sources */,
 				F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */,
+				F58D05561DB802BB00854BFB /* ReviewsDetailProductTableViewCell.swift in Sources */,
 				F54725001D3C3ADC009D5E8D /* Product.swift in Sources */,
 				F51A90691D951FE9003E06C2 /* SearchController.swift in Sources */,
 				F512E4121D9200BA0086AD68 /* CustomerDetailHeadingTableViewCell.swift in Sources */,
@@ -1323,6 +1334,7 @@
 				F57A7AB31DB3EA9F00144FFF /* SalesFilterFetchViewController.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
 				F5FAF3DB1CFDB9DD00F9F1FF /* ManagedObjectObserver.swift in Sources */,
+				F58D05521DB802A800854BFB /* ReviewsDetailMetaTableViewCell.swift in Sources */,
 				F5E7F1711D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift in Sources */,
 				F5FAF3C31CFB5FCC00F9F1FF /* NSURL+Utilities.swift in Sources */,
 				F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */,
