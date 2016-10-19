@@ -83,6 +83,7 @@ class CommissionsDetailViewController: SiteTableViewController {
                 (cell as! CommissionsDetailHeadingTableViewCell).configure("Meta")
             case .Meta:
                 cell = tableView.dequeueReusableCellWithIdentifier("CommissionsDetailMetaTableViewCell", forIndexPath: indexPath) as! CommissionsDetailMetaTableViewCell
+                (cell as! CommissionsDetailMetaTableViewCell).configure(self.commission!)
         }
         
         return cell!

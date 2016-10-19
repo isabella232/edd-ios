@@ -174,6 +174,11 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
             switchView.addTarget(self, action: #selector(SiteInformationViewController.toggleCommissionsDisplay(_:)), forControlEvents: .TouchUpInside)
             cell.textLabel!.text = NSLocalizedString("Disply Commissions on Dashboard?", comment: "")
             cell.accessoryView = switchView
+            
+            if sharedDefaults.boolForKey(Site.activeSite().uid! + "-DisplayCommissions") == true {
+                switchView.setOn(true, animated: true)
+            }
+            
             return cell
         }
         

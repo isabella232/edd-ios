@@ -154,8 +154,15 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == Site.activeSite().uid! + "-DisplayCommissions" {
             if let change_ = change {
-                let new = change_["new"] as? Bool
-                print(new)
+                let new = change_["new"] as! Bool
+                if !new && cells.contains(.Commissions) && cells.contains(.StoreCommissions) {
+                    self.cells.removeAtIndex(2)
+                    self.cells.removeAtIndex(3)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), { 
+                    self.tableView.reloadData()
+                })
             }
         }
     }
@@ -403,7 +410,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
 extension DashboardViewController: WCSessionDelegate {
 
     func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
-        print(activationState)
+        
     }
 
     func sessionDidBecomeInactive(session: WCSession) {

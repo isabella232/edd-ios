@@ -18,7 +18,6 @@ private let sharedDateFormatter: NSDateFormatter = {
     return formatter
 }()
 
-
 class DiscountsDetailMetaTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
@@ -191,8 +190,11 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(expDateLabel)
         stackView.addArrangedSubview(statusHeading)
         stackView.addArrangedSubview(statusLabel)
-        stackView.addArrangedSubview(requirementsConditionHeading)
-        stackView.addArrangedSubview(requirementsConditionLabel)
+        
+        if self.discount.requirementCondition.characters.count > 0 {
+            stackView.addArrangedSubview(requirementsConditionHeading)
+            stackView.addArrangedSubview(requirementsConditionLabel)
+        }
         stackView.addArrangedSubview(globalDiscountHeading)
         stackView.addArrangedSubview(globalDiscountLabel)
         stackView.addArrangedSubview(singleUseHeading)
@@ -227,10 +229,14 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         constraints.append(expDateLabel.bottomAnchor.constraintEqualToAnchor(statusHeading.topAnchor, constant: -20))
         constraints.append(statusHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(statusLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(statusLabel.bottomAnchor.constraintEqualToAnchor(requirementsConditionHeading.topAnchor, constant: -20))
-        constraints.append(requirementsConditionHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(requirementsConditionLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(requirementsConditionLabel.bottomAnchor.constraintEqualToAnchor(globalDiscountHeading.topAnchor, constant: -20))
+        if self.discount.requirementCondition.characters.count > 0 {
+            constraints.append(statusLabel.bottomAnchor.constraintEqualToAnchor(requirementsConditionHeading.topAnchor, constant: -20))
+            constraints.append(requirementsConditionHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(requirementsConditionLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(requirementsConditionLabel.bottomAnchor.constraintEqualToAnchor(globalDiscountHeading.topAnchor, constant: -20))
+        } else {
+            constraints.append(statusLabel.bottomAnchor.constraintEqualToAnchor(globalDiscountHeading.topAnchor, constant: -20))
+        }
         constraints.append(globalDiscountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(globalDiscountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
         constraints.append(globalDiscountLabel.bottomAnchor.constraintEqualToAnchor(singleUseHeading.topAnchor, constant: -20))
