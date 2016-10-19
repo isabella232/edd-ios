@@ -121,7 +121,7 @@ extension Product: ManagedObjectType {
     }
     
     public static var defaultPredicate: NSPredicate {
-        return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
+        return NSPredicate(format: "(site.uid == %@) AND (status == %@)", Site.activeSite().uid!, "publish")
     }
     
     public static func defaultFetchRequest() -> NSFetchRequest {
