@@ -209,6 +209,12 @@ class CommissionsViewController: SiteTableViewController {
         return 1
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        navigationController?.pushViewController(CommissionsDetailViewController(commission: filteredCommissionsObjects[indexPath.row]), animated: true)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     // MARK: Table View Delegate
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

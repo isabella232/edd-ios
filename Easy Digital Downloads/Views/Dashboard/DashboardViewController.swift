@@ -29,6 +29,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     var site: Site?
 
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+
     var cachedGraphData: GraphData?
     var stats: Stats?
     var commissionsStats: NSDictionary?
@@ -56,10 +58,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         cells = [.Sales, .Earnings]
         
-//        if ((site.hasCommissions) != false) {
-//            cells.append(.Commissions)
-//            cells.append(.StoreCommissions)
-//        }
+        if ((site.hasCommissions) != false && sharedDefaults.boolForKey(Site.activeSite().uid! + "-DisplayCommissions") == true) {
+            cells.append(.Commissions)
+            cells.append(.StoreCommissions)
+        }
+        
+        sharedDefaults.addObserver(self, forKeyPath: Site.activeSite().uid! + "-DisplayCommissions", options: .New, context: nil)
         
         topLayoutAnchor = -10.0
         
@@ -87,6 +91,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    deinit {
+        sharedDefaults.removeObserver(self, forKeyPath: Site.activeSite().uid! + "-DisplayCommissions")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -133,18 +141,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl = refreshControl
-        
-        let rightNavigationItemImage = UIImage(named: "NavigationBar-EditLayout")
-        let rightNavigationItemButton = HighlightButton(type: .Custom)
-        rightNavigationItemButton.tintColor = .whiteColor()
-        rightNavigationItemButton.setImage(rightNavigationItemImage, forState: .Normal)
-        rightNavigationItemButton.addTarget(self, action: #selector(DashboardViewController.editDashboardButtonPressed), forControlEvents: .TouchUpInside)
-        rightNavigationItemButton.sizeToFit()
-        
-        let rightNavigationBarButton = UIBarButtonItem(customView: rightNavigationItemButton)
-        rightNavigationBarButton.accessibilityIdentifier = "Edit Layout"
-        
-//        navigationItem.rightBarButtonItems = [rightNavigationBarButton]
     }
     
     override func didReceiveMemoryWarning() {
@@ -153,6 +149,15 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath == Site.activeSite().uid! + "-DisplayCommissions" {
+            if let change_ = change {
+                let new = change_["new"] as? Bool
+                print(new)
+            }
+        }
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
@@ -266,29 +271,29 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             NSLog(error.localizedDescription)
         }
         
-//        if (Site.activeSite().hasCommissions == true) {
-//            dispatch_group_enter(networkOperationGroup)
-//            
-//            EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
-//                self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
-//                self.tableView.reloadData()
-//                dispatch_group_leave(networkOperationGroup)
-//            }) { (error) in
-//                self.hasNoInternetConnection = true
-//                NSLog(error.localizedDescription)
-//            }
-//            
-//            dispatch_group_enter(networkOperationGroup)
-//            
-//            EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
-//                self.storeCommission = json["total_unpaid"].stringValue
-//                self.tableView.reloadData()
-//                dispatch_group_leave(networkOperationGroup)
-//            }) { (error) in
-//                self.hasNoInternetConnection = true
-//                NSLog(error.localizedDescription)
-//            }
-//        }
+        if (Site.activeSite().hasCommissions == true && sharedDefaults.boolForKey(Site.activeSite().uid! + "-DisplayCommissions") == true) {
+            dispatch_group_enter(networkOperationGroup)
+            
+            EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
+                self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
+                self.tableView.reloadData()
+                dispatch_group_leave(networkOperationGroup)
+            }) { (error) in
+                self.hasNoInternetConnection = true
+                NSLog(error.localizedDescription)
+            }
+            
+            dispatch_group_enter(networkOperationGroup)
+            
+            EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
+                self.storeCommission = json["total_unpaid"].stringValue
+                self.tableView.reloadData()
+                dispatch_group_leave(networkOperationGroup)
+            }) { (error) in
+                self.hasNoInternetConnection = true
+                NSLog(error.localizedDescription)
+            }
+        }
         
         dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
             if self.site?.hasCommissions != nil {

@@ -50,7 +50,7 @@ class CustomersDetailViewController: SiteTableViewController {
         title = customer.displayName
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(customer.displayName)
+        titleLabel.setTitle((customer.displayName.characters.count == 0 ? customer.email : customer.displayName))
         navigationItem.titleView = titleLabel
         
         view.backgroundColor = .EDDGreyColor()

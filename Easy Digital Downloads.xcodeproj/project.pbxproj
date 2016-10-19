@@ -84,6 +84,14 @@
 		F57A7AB91DB5170F00144FFF /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57A7AB81DB5170F00144FFF /* WatchConnectivity.framework */; };
 		F57A7ABC1DB57A8D00144FFF /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57A7ABA1DB57A8D00144FFF /* WatchConnectivity.framework */; };
 		F57A7ABD1DB57A8D00144FFF /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57A7ABB1DB57A8D00144FFF /* WatchKit.framework */; };
+		F57A7ABF1DB6D6C600144FFF /* DiscountsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7ABE1DB6D6C600144FFF /* DiscountsDetailViewController.swift */; };
+		F57A7AC11DB6D6D500144FFF /* DiscountsDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AC01DB6D6D500144FFF /* DiscountsDetailMetaTableViewCell.swift */; };
+		F57A7AC31DB6D6E100144FFF /* DiscountsDetailProductRequirementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AC21DB6D6E100144FFF /* DiscountsDetailProductRequirementTableViewCell.swift */; };
+		F57A7AC51DB6DF2200144FFF /* DiscountsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AC41DB6DF2200144FFF /* DiscountsDetailHeadingTableViewCell.swift */; };
+		F57A7AC71DB74DCF00144FFF /* CommissionsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AC61DB74DCF00144FFF /* CommissionsDetailHeadingTableViewCell.swift */; };
+		F57A7AC91DB74DDB00144FFF /* CommissionsDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7AC81DB74DDB00144FFF /* CommissionsDetailMetaTableViewCell.swift */; };
+		F57A7ACB1DB74DFD00144FFF /* StoreCommissionsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7ACA1DB74DFD00144FFF /* StoreCommissionsDetailHeadingTableViewCell.swift */; };
+		F57A7ACD1DB74E0500144FFF /* StoreCommissionsDetailMetaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7ACC1DB74E0500144FFF /* StoreCommissionsDetailMetaTableViewCell.swift */; };
 		F57DB37A1DA704BF00639C58 /* DashboardRowObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */; };
 		F57E24B71D9FEB3400B3AD96 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */; };
 		F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */; };
@@ -131,7 +139,6 @@
 		F5E7F1631D991CFD00DC62DE /* CustomerDetailSubscriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1621D991CFD00DC62DE /* CustomerDetailSubscriptionTableViewCell.swift */; };
 		F5E7F1651D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1641D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift */; };
 		F5E7F1671D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */; };
-		F5E7F1691D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */; };
 		F5E7F16B1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */; };
 		F5E7F16D1D99BA3800DC62DE /* EDDNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */; };
 		F5E7F16F1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */; };
@@ -327,6 +334,14 @@
 		F57A7AB81DB5170F00144FFF /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		F57A7ABA1DB57A8D00144FFF /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		F57A7ABB1DB57A8D00144FFF /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
+		F57A7ABE1DB6D6C600144FFF /* DiscountsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsDetailViewController.swift; sourceTree = "<group>"; };
+		F57A7AC01DB6D6D500144FFF /* DiscountsDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7AC21DB6D6E100144FFF /* DiscountsDetailProductRequirementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsDetailProductRequirementTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7AC41DB6DF2200144FFF /* DiscountsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7AC61DB74DCF00144FFF /* CommissionsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7AC81DB74DDB00144FFF /* CommissionsDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommissionsDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7ACA1DB74DFD00144FFF /* StoreCommissionsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCommissionsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
+		F57A7ACC1DB74E0500144FFF /* StoreCommissionsDetailMetaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCommissionsDetailMetaTableViewCell.swift; sourceTree = "<group>"; };
 		F57DB3791DA704BF00639C58 /* DashboardRowObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardRowObject.swift; sourceTree = "<group>"; };
 		F57E24B61D9FEB3400B3AD96 /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		F583238E1D7F0D17005153EA /* SalesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesDetailViewController.swift; sourceTree = "<group>"; };
@@ -376,7 +391,6 @@
 		F5E7F1621D991CFD00DC62DE /* CustomerDetailSubscriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerDetailSubscriptionTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F1641D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailBillingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailRenewalPaymentsTableViewCell.swift; sourceTree = "<group>"; };
-		F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailLicensingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailHeadingTableViewCell.swift; sourceTree = "<group>"; };
 		F5E7F16C1D99BA3800DC62DE /* EDDNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDNetworkManager.swift; sourceTree = "<group>"; };
 		F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsDetailProductTableViewCell.swift; sourceTree = "<group>"; };
@@ -635,6 +649,8 @@
 				F574E5A51DA1C55B003D4F39 /* CommissionsStatusLabel.swift */,
 				F553C8891D9D056300C77B5D /* CommissionsTableViewCell.swift */,
 				F553C8871D9D055600C77B5D /* CommissionsViewController.swift */,
+				F57A7AC61DB74DCF00144FFF /* CommissionsDetailHeadingTableViewCell.swift */,
+				F57A7AC81DB74DDB00144FFF /* CommissionsDetailMetaTableViewCell.swift */,
 			);
 			path = Commissions;
 			sourceTree = "<group>";
@@ -645,6 +661,8 @@
 				F553C88F1D9D058600C77B5D /* StoreCommissionsDetailViewController.swift */,
 				F553C8911D9D059200C77B5D /* StoreCommissionsTableViewCell.swift */,
 				F553C88D1D9D057D00C77B5D /* StoreCommissionsViewController.swift */,
+				F57A7ACA1DB74DFD00144FFF /* StoreCommissionsDetailHeadingTableViewCell.swift */,
+				F57A7ACC1DB74E0500144FFF /* StoreCommissionsDetailMetaTableViewCell.swift */,
 			);
 			path = StoreCommissions;
 			sourceTree = "<group>";
@@ -792,7 +810,6 @@
 				F5E7F1641D99443C00DC62DE /* SubscriptionsDetailBillingTableViewCell.swift */,
 				F5E7F1701D99C42600DC62DE /* SubscriptionsDetailCustomerTableViewCell.swift */,
 				F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */,
-				F5E7F1681D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift */,
 				F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */,
 				F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */,
 				F5E7F1601D989E3300DC62DE /* SubscriptionsDetailViewController.swift */,
@@ -833,6 +850,10 @@
 			children = (
 				F574E5A71DA1D4FB003D4F39 /* DiscountsTableViewCell.swift */,
 				F5E4887A1D97086A00C7A2A8 /* DiscountsViewController.swift */,
+				F57A7ABE1DB6D6C600144FFF /* DiscountsDetailViewController.swift */,
+				F57A7AC01DB6D6D500144FFF /* DiscountsDetailMetaTableViewCell.swift */,
+				F57A7AC21DB6D6E100144FFF /* DiscountsDetailProductRequirementTableViewCell.swift */,
+				F57A7AC41DB6DF2200144FFF /* DiscountsDetailHeadingTableViewCell.swift */,
 			);
 			path = Discounts;
 			sourceTree = "<group>";
@@ -1231,13 +1252,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5E7F1691D99446200DC62DE /* SubscriptionsDetailLicensingTableViewCell.swift in Sources */,
 				F52825251CFE41B000AB62D9 /* Dictionary+Helpers.swift in Sources */,
 				F5890D161D0FF2C1004F2B37 /* Stats.swift in Sources */,
 				F56B88E71CFADD5700DCF41F /* Site.swift in Sources */,
 				F5EF5E8D1CF2EDBA00298841 /* LoginViewController.swift in Sources */,
 				F5CA019F1D98327B0000C529 /* ProductsDetailFilesTableViewCell.swift in Sources */,
 				F5E7F1671D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift in Sources */,
+				F57A7ACD1DB74E0500144FFF /* StoreCommissionsDetailMetaTableViewCell.swift in Sources */,
 				F50C690C1DB0CA300096A0D2 /* ReviewsTableViewCell.swift in Sources */,
 				F5E7F16F1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift in Sources */,
 				F540EF8F1D6F8EF90012B453 /* FileDownloadLog.swift in Sources */,
@@ -1255,6 +1276,7 @@
 				F5E7F1611D989E3300DC62DE /* SubscriptionsDetailViewController.swift in Sources */,
 				F51A90601D947E18003E06C2 /* SalesDetailMetaTableViewCell.swift in Sources */,
 				F553C8941D9D642E00C77B5D /* SalesFilterTableViewController.swift in Sources */,
+				F57A7AC71DB74DCF00144FFF /* CommissionsDetailHeadingTableViewCell.swift in Sources */,
 				F51A905E1D947E10003E06C2 /* SalesDetailProductTableViewCell.swift in Sources */,
 				F553C88E1D9D057D00C77B5D /* StoreCommissionsViewController.swift in Sources */,
 				F5CA019B1D981F140000C529 /* ProductsDetailPricingTableViewCell.swift in Sources */,
@@ -1275,6 +1297,7 @@
 				F583238F1D7F0D17005153EA /* SalesDetailViewController.swift in Sources */,
 				F5EF5E9C1CF2FD9E00298841 /* EDD.xcdatamodeld in Sources */,
 				F5B982B11D6BA1C800679271 /* ReviewsViewController.swift in Sources */,
+				F57A7ABF1DB6D6C600144FFF /* DiscountsDetailViewController.swift in Sources */,
 				F5FAF3BF1CFB077500F9F1FF /* SiteTableViewController.swift in Sources */,
 				F56B88E91CFB027000DCF41F /* DashboardTableViewCell.swift in Sources */,
 				F54725001D3C3ADC009D5E8D /* Product.swift in Sources */,
@@ -1295,6 +1318,7 @@
 				F5FAF3D31CFBA30800F9F1FF /* TableViewDataSource.swift in Sources */,
 				F5E7F16D1D99BA3800DC62DE /* EDDNetworkManager.swift in Sources */,
 				F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */,
+				F57A7ACB1DB74DFD00144FFF /* StoreCommissionsDetailHeadingTableViewCell.swift in Sources */,
 				F54725021D3C3AE2009D5E8D /* Sale.swift in Sources */,
 				F57A7AB31DB3EA9F00144FFF /* SalesFilterFetchViewController.swift in Sources */,
 				F50DEB521CFA4EFC001A6A51 /* CustomersViewController.swift in Sources */,
@@ -1338,6 +1362,7 @@
 				F5FAF3DF1CFDBB2300F9F1FF /* SequenceType+Utilities.swift in Sources */,
 				F512E40C1D91847C0086AD68 /* Gravatar.swift in Sources */,
 				F512E4081D9179080086AD68 /* CustomersDetailViewController.swift in Sources */,
+				F57A7AC11DB6D6D500144FFF /* DiscountsDetailMetaTableViewCell.swift in Sources */,
 				F57A7AAD1DB2EF6600144FFF /* SalesUncachedViewController.swift in Sources */,
 				F5EBDDB71D2A889C00DD57D9 /* EditDashboardLayoutViewController.swift in Sources */,
 				F5E7F15F1D9863A300DC62DE /* SearchDetailViewController.swift in Sources */,
@@ -1347,13 +1372,16 @@
 				F57A7AAF1DB389AD00144FFF /* SalesSearchViewController.swift in Sources */,
 				F512E4141D920CA30086AD68 /* CustomerRecentSaleTableViewCell.swift in Sources */,
 				F5FAF3C81CFB628A00F9F1FF /* ManagedObjectContextSettable.swift in Sources */,
+				F57A7AC91DB74DDB00144FFF /* CommissionsDetailMetaTableViewCell.swift in Sources */,
 				F512E4101D918FB90086AD68 /* CustomerStatsTableViewCell.swift in Sources */,
 				F5B0611F1D69F43700F9B4E1 /* JSON+Null.swift in Sources */,
 				F55C60E51CF5155A00A6D812 /* LoginSubmitButton.swift in Sources */,
 				F503888A1D7368DA0059BB38 /* FileDownloadLogsMetaTableViewCell.swift in Sources */,
 				F51A906B1D955AA2003E06C2 /* SearchTableViewCell.swift in Sources */,
 				F5E4887F1D9753FE00C7A2A8 /* SalesDetailHeadingTableViewCell.swift in Sources */,
+				F57A7AC51DB6DF2200144FFF /* DiscountsDetailHeadingTableViewCell.swift in Sources */,
 				F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */,
+				F57A7AC31DB6D6E100144FFF /* DiscountsDetailProductRequirementTableViewCell.swift in Sources */,
 				F512E40A1D917C480086AD68 /* CustomerProfileTableViewCell.swift in Sources */,
 				F5E7F1631D991CFD00DC62DE /* CustomerDetailSubscriptionTableViewCell.swift in Sources */,
 				F57A7AB11DB38D6A00144FFF /* CustomersSearchViewController.swift in Sources */,

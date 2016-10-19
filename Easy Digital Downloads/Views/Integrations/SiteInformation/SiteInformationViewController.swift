@@ -15,6 +15,7 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         case General
         case Authentication
         case Permissions
+        case Misc
     }
     
     private enum Item {
@@ -22,6 +23,7 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         case SiteURL
         case APIKey
         case Token
+        case Commissions
     }
     
     private struct Section {
@@ -32,6 +34,8 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     private var sections = [Section]()
 
     var managedObjectContext: NSManagedObjectContext!
+    
+    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var site: Site?
     
@@ -58,6 +62,10 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
             Section(type: .General, items: [.SiteName, .SiteURL]),
             Section(type: .Authentication, items: [.APIKey, .Token])
         ]
+        
+        if (Site.activeSite().hasCommissions?.boolValue == true) {
+            sections.append(Section(type: .Misc, items: [.Commissions]))
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -131,6 +139,8 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
                 return NSLocalizedString("Authentication", comment: "")
             case .Permissions:
                 return NSLocalizedString("Permissions", comment: "")
+            case .Misc:
+                return NSLocalizedString("Dashboard Layout", comment: "")
         }
     }
     
@@ -158,6 +168,15 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if sections[indexPath.section].items[indexPath.row] == .Commissions {
+            let cell = UITableViewCell(style: .Default, reuseIdentifier: "commissionsToggleCell")
+            let switchView = UISwitch(frame: CGRectZero)
+            switchView.addTarget(self, action: #selector(SiteInformationViewController.toggleCommissionsDisplay(_:)), forControlEvents: .TouchUpInside)
+            cell.textLabel!.text = NSLocalizedString("Disply Commissions on Dashboard?", comment: "")
+            cell.accessoryView = switchView
+            return cell
+        }
+        
         var cell: SiteInformationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SiteInformationCell") as! SiteInformationTableViewCell?
         
         if cell == nil {
@@ -173,11 +192,23 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
                 cell!.configure("API Key", text: site!.key)
             case .Token:
                 cell!.configure("Token", text: site!.token)
+            default:
+                cell!.configure("", text: "")
         }
         
         cell!.layout()
         
         return cell!
+    }
+    
+    func toggleCommissionsDisplay(sender: UISwitch) {
+        if sender.on {
+            sharedDefaults.setBool(true, forKey: Site.activeSite().uid! + "-DisplayCommissions")
+        } else {
+            sharedDefaults.setBool(false, forKey: Site.activeSite().uid! + "-DisplayCommissions")
+        }
+
+        sharedDefaults.synchronize()
     }
     
 }

@@ -15,7 +15,7 @@ private let sharedDateFormatter: NSDateFormatter = {
     formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
     formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
     formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
     return formatter
 }()
 
@@ -31,6 +31,8 @@ public struct Discounts {
     var status: String!
     var globalDiscount: Bool!
     var singleUse: Bool!
+    var productRequirements: [String: SwiftyJSON.JSON]?
+    var requirementCondition: String!
 }
 
 class DiscountsViewController: SiteTableViewController {
@@ -42,6 +44,8 @@ class DiscountsViewController: SiteTableViewController {
     var site: Site?
     var discounts: JSON?
     let sharedCache = Shared.dataCache
+    
+    var operation = false
     
     var hasMoreDiscounts: Bool = true {
         didSet {
@@ -55,7 +59,7 @@ class DiscountsViewController: SiteTableViewController {
     
     let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-DiscountsPage") ?? 1
+    var lastDownloadedPage = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,11 +79,26 @@ class DiscountsViewController: SiteTableViewController {
                 }
                 
                 for item in items {
-                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: sharedDateFormatter.dateFromString(item["start_date"].stringValue), expiryDate: sharedDateFormatter.dateFromString(item["exp_date"].stringValue), status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue))
+                    var startDate: NSDate?
+                    var expDate: NSDate?
+                    
+                    if item["start_date"].stringValue.characters.count == 0 {
+                        startDate = nil
+                    } else {
+                        startDate = sharedDateFormatter.dateFromString(item["start_date"].stringValue)
+                    }
+                    
+                    if item["exp_date"].stringValue.characters.count == 0 {
+                        expDate = nil
+                    } else {
+                        expDate = sharedDateFormatter.dateFromString(item["exp_date"].stringValue)
+                    }
+                    
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate, expiryDate: expDate, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
                 }
             }
             
-            self.discountsObjects.sortInPlace({ $0.ID < $1.ID })
+            self.discountsObjects.sortInPlace({ $0.ID > $1.ID })
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
@@ -121,13 +140,15 @@ class DiscountsViewController: SiteTableViewController {
     }
     
     private func networkOperations() {
+        operation = true
+        
         EDDAPIWrapper.sharedInstance.requestDiscounts([ : ], success: { (result) in
             self.sharedCache.set(value: result.asData(), key: "Discounts")
             
             self.discountsObjects.removeAll(keepCapacity: false)
             
             if let items = result["discounts"].array {
-                if items.count == 20 {
+                if items.count == 10 {
                     self.hasMoreDiscounts = true
                 } else {
                     self.hasMoreDiscounts = false
@@ -138,22 +159,83 @@ class DiscountsViewController: SiteTableViewController {
                 
                 
                 for item in items {
-                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: sharedDateFormatter.dateFromString(item["start_date"].stringValue), expiryDate: sharedDateFormatter.dateFromString(item["exp_date"].stringValue), status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue))
+                    var startDate: NSDate?
+                    var expDate: NSDate?
+                    
+                    if item["start_date"].stringValue.characters.count == 0 {
+                        startDate = nil
+                    } else {
+                        startDate = sharedDateFormatter.dateFromString(item["start_date"].stringValue)
+                    }
+                    
+                    if item["exp_date"].stringValue.characters.count == 0 {
+                        expDate = nil
+                    } else {
+                        expDate = sharedDateFormatter.dateFromString(item["exp_date"].stringValue)
+                    }
+                    
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate, expiryDate: expDate, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
                 }
             }
             
-            self.discountsObjects.sortInPlace({ $0.ID < $1.ID })
+            self.discountsObjects.sortInPlace({ $0.ID > $1.ID })
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
             })
+            
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     
     private func requestNextPage() {
-        
+        operation = true
+
+        EDDAPIWrapper.sharedInstance.requestDiscounts(["page" : self.lastDownloadedPage], success: { (result) in
+            if let items = result["discounts"].array {
+                if items.count == 10 {
+                    self.hasMoreDiscounts = true
+                } else {
+                    self.hasMoreDiscounts = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.activityIndicatorView.stopAnimating()
+                    })
+                }
+                
+                for item in items {
+                    var startDate: NSDate?
+                    var expDate: NSDate?
+                    
+                    if item["start_date"].stringValue.characters.count == 0 {
+                        startDate = nil
+                    } else {
+                        startDate = sharedDateFormatter.dateFromString(item["start_date"].stringValue)
+                    }
+                    
+                    if item["exp_date"].stringValue.characters.count == 0 {
+                        expDate = nil
+                    } else {
+                        expDate = sharedDateFormatter.dateFromString(item["exp_date"].stringValue)
+                    }
+                    
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate, expiryDate: expDate, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
+                }
+                
+                self.updateLastDownloadedPage()
+            }
+            
+            self.discountsObjects.sortInPlace({ $0.ID > $1.ID })
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+            
+            self.operation = false
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     private func updateLastDownloadedPage() {
@@ -167,7 +249,7 @@ class DiscountsViewController: SiteTableViewController {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight {
+        if actualPosition >= contentHeight && hasMoreDiscounts && !operation {
             self.requestNextPage()
         }
     }
@@ -180,6 +262,12 @@ class DiscountsViewController: SiteTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        navigationController?.pushViewController(DiscountsDetailViewController(discount: discountsObjects[indexPath.row]), animated: true)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     // MARK: Table View Delegate

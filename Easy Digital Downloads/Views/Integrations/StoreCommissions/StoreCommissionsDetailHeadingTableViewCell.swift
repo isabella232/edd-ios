@@ -1,14 +1,14 @@
 //
-//  FileDownloadLogsHeadingTableViewCell.swift
+//  StoreCommissionsDetailHeadingTableViewCell.swift
 //  Easy Digital Downloads
 //
-//  Created by Sunny Ratilal on 04/10/2016.
+//  Created by Sunny Ratilal on 19/10/2016.
 //  Copyright © 2016 Easy Digital Downloads. All rights reserved.
 //
 
 import UIKit
 
-class FileDownloadLogsHeadingTableViewCell: UITableViewCell {
+class StoreCommissionsDetailHeadingTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()

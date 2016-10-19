@@ -49,6 +49,8 @@ class SubscriptionsViewController: SiteTableViewController {
     var subscriptions: JSON?
     let sharedCache = Shared.dataCache
     
+    var operation = false
+    
     var subscriptionObjects = [Subscriptions]()
     var filteredSubscriptionObjects = [Subscriptions]()
     
@@ -123,6 +125,8 @@ class SubscriptionsViewController: SiteTableViewController {
     // MARK: Network Operations
     
     private func networkOperations() {
+        operation = true
+        
         EDDAPIWrapper.sharedInstance.requestSubscriptions([ : ], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Subscriptions")
             
@@ -133,7 +137,7 @@ class SubscriptionsViewController: SiteTableViewController {
                     self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
                 }
                 
-                if items.count <= 20 {
+                if items.count < 10 {
                     self.hasMoreSubscriptions = false
                     dispatch_async(dispatch_get_main_queue(), {
                         self.activityIndicatorView.stopAnimating()
@@ -147,15 +151,21 @@ class SubscriptionsViewController: SiteTableViewController {
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
             })
+            
+            self.updateLastDownloadedPage()
+            
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     
     private func requestNextPage() {
+        operation = true
+        
         EDDAPIWrapper.sharedInstance.requestSubscriptions([ "page": lastDownloadedPage ], success: { (json) in
             if let items = json["subscriptions"].array {
-                if items.count == 20 {
+                if items.count == 10 {
                     self.hasMoreSubscriptions = true
                 } else {
                     self.hasMoreSubscriptions = false
@@ -166,9 +176,14 @@ class SubscriptionsViewController: SiteTableViewController {
                 
                 self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == NSComparisonResult.OrderedDescending })
                 self.filteredSubscriptionObjects = self.subscriptionObjects
-                
-                self.updateLastDownloadedPage()
             }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+            
+            self.updateLastDownloadedPage()
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -186,7 +201,7 @@ class SubscriptionsViewController: SiteTableViewController {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight && hasMoreSubscriptions {
+        if actualPosition >= contentHeight && hasMoreSubscriptions && !operation {
             self.requestNextPage()
         }
     }

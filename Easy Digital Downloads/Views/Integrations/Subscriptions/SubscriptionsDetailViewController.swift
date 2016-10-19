@@ -31,8 +31,6 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         case Customer
         case RenewalPaymentsHeading
         case RenewalPayments
-        case LicensingHeading
-        case Licensing
     }
     
     private var cells = [CellType]()
@@ -66,7 +64,6 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.registerClass(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
         tableView.registerClass(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
         tableView.registerClass(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")
-        tableView.registerClass(SubscriptionsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailLicensingTableViewCell")
         tableView.registerClass(SubscriptionsDetailProductTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailProductTableViewCell")
         tableView.registerClass(SubscriptionsDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailCustomerTableViewCell")
         
@@ -80,9 +77,6 @@ class SubscriptionsDetailViewController: SiteTableViewController {
                 }
             }
         }
-        
-        cells.append(.LicensingHeading)
-        cells.append(.Licensing)
         
         networkOperations()
     }
@@ -202,11 +196,6 @@ class SubscriptionsDetailViewController: SiteTableViewController {
             case .RenewalPayments:
                 cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailRenewalPaymentsTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailRenewalPaymentsTableViewCell
                 (cell as! SubscriptionsDetailRenewalPaymentsTableViewCell).configure(subscription.renewalPayments![indexPath.row-7])
-            case .LicensingHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
-                (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Licensing", comment: ""))
-            case .Licensing:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailLicensingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailLicensingTableViewCell
         }
         
         return cell!
