@@ -282,6 +282,37 @@ public final class Site: ManagedObject {
             return false
         }
     }
+    
+    public static func deleteSite(uid: String) {
+        let productRequest = NSFetchRequest(entityName: "Product")
+        productRequest.predicate = Product.defaultPredicate
+        productRequest.returnsObjectsAsFaults = false
+        let productDeleteRequest = NSBatchDeleteRequest(fetchRequest: productRequest)
+        
+        let customerRequest = NSFetchRequest(entityName: "Customer")
+        customerRequest.predicate = Customer.defaultPredicate
+        customerRequest.returnsObjectsAsFaults = false
+        let customerDeleteRequest = NSBatchDeleteRequest(fetchRequest: customerRequest)
+        
+        let siteRequest = NSFetchRequest(entityName: "Site")
+        siteRequest.predicate = NSPredicate(format: "uid == %@", uid)
+        siteRequest.returnsObjectsAsFaults = false
+        let siteDeleteRequest = NSBatchDeleteRequest(fetchRequest: siteRequest)
+        
+        do {
+            try AppDelegate.sharedInstance.managedObjectContext.executeRequest(productDeleteRequest)
+            try AppDelegate.sharedInstance.managedObjectContext.executeRequest(customerDeleteRequest)
+            try AppDelegate.sharedInstance.managedObjectContext.executeRequest(siteDeleteRequest)
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
+    public static func refreshActiveSite() -> Site {
+        return Site.fetchSingleObjectInContext(AppDelegate.sharedInstance.managedObjectContext) { request in
+            request.fetchLimit = 1
+        }!
+    }
 
 }
 

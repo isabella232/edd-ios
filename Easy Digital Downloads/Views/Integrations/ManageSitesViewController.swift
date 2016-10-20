@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ManageSitesViewController: SiteTableViewController {
 
@@ -75,5 +76,43 @@ class ManageSitesViewController: SiteTableViewController {
         
         return cell!
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
 
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let site = sites![indexPath.row] as Site
+            
+            let uid = site.uid!
+            
+            if sites!.count == 1 {
+                Site.deleteSite(uid)
+                sites!.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                presentViewController(LoginViewController(), animated: true, completion: nil)
+                return
+            }
+            
+            if Site.activeSite().uid == site.uid && sites!.count > 1 {
+                Site.deleteSite(uid)
+                sites!.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                let newSite = Site.refreshActiveSite()
+                AppDelegate.sharedInstance.switchActiveSite(newSite.uid!)
+                UIView.transitionWithView(self.view.window!, duration: 0.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {
+                    self.view.window?.rootViewController = SiteTabBarController(site: newSite)
+                    }, completion: nil)
+                return
+            }
+            
+            // Delete from Core Data
+            Site.deleteSite(site.uid!)
+            
+            sites!.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
 }
