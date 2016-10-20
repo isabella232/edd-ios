@@ -397,6 +397,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                                         field.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
                                     }
                                     }, completion: { (finished: Bool) -> Void in
+                                        AppDelegate.sharedInstance.switchActiveSite(site!.uid!)
+                                        EDDAPIWrapper.sharedInstance.refreshActiveSite()
                                         let tabBarController = SiteTabBarController(site: site!)
                                         tabBarController.modalPresentationStyle = .OverCurrentContext
                                         self.presentViewController(tabBarController, animated: true, completion:nil)

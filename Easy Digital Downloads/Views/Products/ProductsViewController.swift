@@ -211,6 +211,10 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         do {
             try managedObjectContext.save()
             managedObjectContext.processPendingChanges()
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
         } catch {
             fatalError("Failure to save context: \(error)")
         }

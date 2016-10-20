@@ -114,8 +114,10 @@ extension ProductsTableViewCell: ConfigurableCell {
             
             pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: sortedArray[0]))) - \(Site.currencyFormat(NSNumber(double: sortedArray[sortedArray.count - 1])))"
         } else {
-            let doubleObject = Double(pricing["amount"] as! String)
-            pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: doubleObject!)))"
+            if let amount = pricing["amount"] as? String {
+                let doubleObject = Double(amount)
+                pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: doubleObject!)))"
+            }
         }
         
         if object.thumbnail?.characters.count > 5 && object.thumbnail != "false" {
