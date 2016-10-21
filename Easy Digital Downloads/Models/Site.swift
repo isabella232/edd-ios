@@ -189,7 +189,7 @@ public final class Site: ManagedObject {
     
     public static func fetchRecordForActiveSite(inContext moc: NSManagedObjectContext) -> Site {
         let site = Site.fetchSingleObjectInContext(moc) { request in
-            request.predicate = self.predicateForDefaultSite()
+            request.predicate = self.predicateForActiveSite()
             request.fetchLimit = 1
         }
         return site!
