@@ -20,7 +20,7 @@ class SalesFilterTableViewController: SiteTableViewController, UpdateDateCellDel
     private var startDateIndexPath: NSIndexPath!
     private var endDateIndexPath: NSIndexPath!
     
-    private var dates: [String] = ["", ""]
+    private var dates: [String] = [sharedDateFormatter.stringFromDate(NSDate()), sharedDateFormatter.stringFromDate(NSDate())]
     private var message: String = ""
     private var chosenFilter: String = "sales"
     
