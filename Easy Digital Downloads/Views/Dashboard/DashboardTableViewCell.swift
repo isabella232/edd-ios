@@ -20,8 +20,8 @@ enum DashboardCell: Int {
     
     func label() -> String {
         switch self {
-            case Sales: return "Sales"
-            case Earnings: return "Earnings"
+            case Sales: return "Sales Today"
+            case Earnings: return "Earning Today"
             case Commissions: return "Commissions"
             case StoreCommissions: return "Store Commissions"
             case Reviews: return "Reviews"
@@ -248,7 +248,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         _dates = dates
         
         // Sales
-        if heading == "Sales" {
+        if heading == "Sales Today" {
             stat = "\(cellStats.sales["today"]!)"
             _salesData = data.map({ Item -> Int in
                 return Item as! Int
@@ -261,7 +261,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
         
         // Earnings
-        if heading == "Earnings" {
+        if heading == "Earnings Today" {
             stat = Site.currencyFormat(cellStats.earnings["today"] as! NSNumber)
             
             _earningsData = data.map({ Item -> Double in

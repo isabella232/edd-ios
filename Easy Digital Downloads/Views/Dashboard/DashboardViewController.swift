@@ -189,10 +189,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         switch cells[indexPath.row] {
             case .Sales:
-                cell!.configure("Sales", stats: stats, data: salesGraphData, dates: salesGraphDates)
+                cell!.configure("Sales Today", stats: stats, data: salesGraphData, dates: salesGraphDates)
                 break
             case .Earnings:
-                cell!.configure("Earnings", stats: stats, data: earningsGraphData, dates: earningsGraphDates)
+                cell!.configure("Earnings Today", stats: stats, data: earningsGraphData, dates: earningsGraphDates)
                 break
             case .Commissions:
                 cell!.configureStaticCell("Commissions", data: commissionsStats)
