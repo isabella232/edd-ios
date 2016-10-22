@@ -41,6 +41,8 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         super.viewWillAppear(animated)
         self.appearance()
         
+        self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
+        
         let textFields = [siteName, siteURL, apiKey, token]
         
         var index = 0;
@@ -377,50 +379,50 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
                             }
                         }
                         
-                        SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text)
-                        
-                        // Only set the defaultSite if this is the first site being added
-                        self.sharedDefaults.setValue(uid, forKey: "defaultSite")
-                        self.sharedDefaults.setValue(uid, forKey: "activeSite")
-                        self.sharedDefaults.setValue(self.siteName.text!, forKey: "activeSiteName")
-                        self.sharedDefaults.setValue(currency, forKey: "activeSiteCurrency")
-                        self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
-                        self.sharedDefaults.synchronize()
-                        
-                        // Create the dashboard layout based on the permissions granted
-                        let dashboardLayout: NSMutableArray = [1, 2];
-                        if hasCommissions {
-                            dashboardLayout.addObject(3);
-                        }
-                        
-                        if hasRecurring {
-                            dashboardLayout.addObject(4);
-                        }
-                        
-                        let dashboardOrder: NSData = NSKeyedArchiver.archivedDataWithRootObject(dashboardLayout);
-                        
-                        var site: Site?
-                        
-                        self.managedObjectContext.performChanges {
-                            site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, hasLicensing: hasLicensing, permissions: permissions, dashboardOrder: dashboardOrder);
-                            self.managedObjectContext.performSaveOrRollback()
-                        }
-                        
-                        AppDelegate.sharedInstance.switchActiveSite(uid)
-                        
-                        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                            self.logo.transform = CGAffineTransformMakeTranslation(0, -400)
-                            self.addButton.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
-                            self.helpButton.transform = CGAffineTransformMakeTranslation(200, 0)
-                            self.connectionTest.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
-                            for field in textFields {
-                                field.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
+                        if (SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text) == true) {
+                            // Only set the defaultSite if this is the first site being added
+                            self.sharedDefaults.setValue(uid, forKey: "defaultSite")
+                            self.sharedDefaults.setValue(uid, forKey: "activeSite")
+                            self.sharedDefaults.setValue(self.siteName.text!, forKey: "activeSiteName")
+                            self.sharedDefaults.setValue(currency, forKey: "activeSiteCurrency")
+                            self.sharedDefaults.setValue(self.siteURL.text!, forKey: "activeSiteURL")
+                            self.sharedDefaults.synchronize()
+                            
+                            // Create the dashboard layout based on the permissions granted
+                            let dashboardLayout: NSMutableArray = [1, 2];
+                            if hasCommissions {
+                                dashboardLayout.addObject(3);
                             }
-                            }, completion: { (finished: Bool) -> Void in
-                                let tabBarController = SiteTabBarController(site: site!)
-                                tabBarController.modalPresentationStyle = .OverCurrentContext
-                                self.presentViewController(tabBarController, animated: true, completion:nil)
-                        })
+                            
+                            if hasRecurring {
+                                dashboardLayout.addObject(4);
+                            }
+                            
+                            let dashboardOrder: NSData = NSKeyedArchiver.archivedDataWithRootObject(dashboardLayout);
+                            
+                            var site: Site?
+                            
+                            self.managedObjectContext.performChanges {
+                                site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, hasLicensing: hasLicensing, permissions: permissions, dashboardOrder: dashboardOrder);
+                                self.managedObjectContext.performSaveOrRollback()
+                            }
+                            
+                            UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                                self.logo.transform = CGAffineTransformMakeTranslation(0, -400)
+                                self.addButton.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
+                                self.helpButton.transform = CGAffineTransformMakeTranslation(200, 0)
+                                self.connectionTest.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
+                                for field in textFields {
+                                    field.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
+                                }
+                                }, completion: { (finished: Bool) -> Void in
+                                    AppDelegate.sharedInstance.switchActiveSite(site!.uid!)
+                                    EDDAPIWrapper.sharedInstance.refreshActiveSite()
+                                    let tabBarController = SiteTabBarController(site: site!)
+                                    tabBarController.modalPresentationStyle = .OverCurrentContext
+                                    self.presentViewController(tabBarController, animated: true, completion:nil)
+                            })
+                        }
                     }
                     break;
                 case .Failure(let error):
