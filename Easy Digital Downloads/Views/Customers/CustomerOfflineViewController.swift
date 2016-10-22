@@ -49,30 +49,15 @@ class CustomerOfflineViewController: SiteTableViewController {
     init(email: String) {
         super.init(style: .Plain)
         
-        sharedCache.fetch(key: Site.activeSite().uid! + "-Customer-" + email).onSuccess({ result in
-            let json = JSON.convertFromData(result)! as JSON
-            
-            if let items = json["customers"].array {
-                let item = items[0]
-                
-                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    let titleLabel = ViewControllerTitleLabel()
-                    titleLabel.setTitle(item["info"]["display_name"].stringValue)
-                    self.navigationItem.titleView = titleLabel
-                    
-                    self.tableView.reloadData()
-                    self.loadingView.removeFromSuperview()
-                })
-            }
-        })
-        
         self.site = Site.activeSite()
         self.email = email
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
         
         title = NSLocalizedString("Fetching Customer...", comment: "")
+        
+        let titleLabel = ViewControllerTitleLabel()
+        titleLabel.setTitle(email)
+        self.navigationItem.titleView = titleLabel
         
         view.backgroundColor = .EDDGreyColor()
         
@@ -111,6 +96,25 @@ class CustomerOfflineViewController: SiteTableViewController {
         tableView.registerClass(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
         tableView.registerClass(CustomerDetailSubscriptionTableViewCell.self, forCellReuseIdentifier: "CustomerSubscriptionTableViewCell")
         
+        sharedCache.fetch(key: Site.activeSite().uid! + "-Customer-" + email).onSuccess({ result in
+            let json = JSON.convertFromData(result)! as JSON
+            
+            if let items = json["customers"].array {
+                let item = items[0]
+                
+                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    let titleLabel = ViewControllerTitleLabel()
+                    titleLabel.setTitle(item["info"]["display_name"].stringValue)
+                    self.navigationItem.titleView = titleLabel
+                    
+                    self.tableView.reloadData()
+                    self.loadingView.removeFromSuperview()
+                })
+            }
+        })
+        
         cells = [.Profile, .Stats]
     }
     
@@ -129,8 +133,12 @@ class CustomerOfflineViewController: SiteTableViewController {
                 self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.title = item["info"]["display_name"].stringValue
                     self.tableView.reloadData()
+                    self.title = item["info"]["display_name"].stringValue
+                    
+                    let titleLabel = ViewControllerTitleLabel()
+                    titleLabel.setTitle(item["info"]["display_name"].stringValue)
+                    self.navigationItem.titleView = titleLabel
                     self.loadingView.removeFromSuperview()
                 })
             }
@@ -195,9 +203,9 @@ class CustomerOfflineViewController: SiteTableViewController {
             
             let item = recentSales![offset]
             
-            let sale = Sale.objectForData(managedObjectContext, customer: item["customer"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)!, email: item["email"].stringValue, fees: item["fees"].arrayObject, gateway: item["gateway"].stringValue, key: item["key"].stringValue, sid: Int64(item["ID"].stringValue)!, subtotal: NSNumber(double: item["subtotal"].doubleValue).doubleValue, tax: NSNumber(double: item["tax"].doubleValue).doubleValue, total: NSNumber(double: item["total"].doubleValue).doubleValue, transactionId: item["transaction_id"].stringValue, products: item["products"].arrayObject!, discounts: item["discounts"].dictionaryObject, licenses: item["licenses"].arrayObject ?? nil)
+            let sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].stringValue, key: item["key"].stringValue, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
             
-//            navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
+            navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
         }
         
         if cells[indexPath.row] == CellType.Subscriptions {
@@ -210,6 +218,10 @@ class CustomerOfflineViewController: SiteTableViewController {
             }
             
             let item = recentSubscriptions![offset]
+            
+            let subscription = Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array)
+            
+            navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: subscription), animated: true)
         }
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
