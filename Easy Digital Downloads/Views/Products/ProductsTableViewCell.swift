@@ -133,7 +133,7 @@ extension ProductsTableViewCell: ConfigurableCell {
             layoutConstraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
             
             let url = NSURL(string: object.thumbnail!)
-            thumbnailImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+            thumbnailImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: true, completion: nil)
         } else {
             thumbnailImageView.removeFromSuperview()
             

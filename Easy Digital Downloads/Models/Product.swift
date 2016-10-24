@@ -126,7 +126,6 @@ extension Product: ManagedObjectType {
     
     public static func defaultFetchRequest() -> NSFetchRequest {
         let request = NSFetchRequest(entityName: self.entityName)
-        request.fetchLimit = 20
         request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedDate.rawValue, ascending: false)]

@@ -23,7 +23,6 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
 
     var managedObjectContext: NSManagedObjectContext!
     
-    var isLoadingProducts = false
     var site: Site?
     var products: [JSON]?
     
@@ -36,6 +35,8 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             }
         }
     }
+    
+    var operation = false
     
     var lastDownloadedPage =  1
     
@@ -99,16 +100,21 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     func networkOperations() {
         products = [JSON]()
         
-        self.isLoadingProducts = true
+        operation = true
         
         EDDAPIWrapper.sharedInstance.requestProducts([:], success: { (json) in
-            self.isLoadingProducts = false
             if let items = json["products"].array {
                 self.products = items
                 self.updateLastDownloadedPage()
             }
             
             self.persistProducts()
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+            
+            self.operation = false
         }) { (error) in
             NSLog(error.localizedDescription)
         }
@@ -124,7 +130,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
-        if actualPosition >= contentHeight && !isLoadingProducts {
+        if actualPosition >= contentHeight && !operation {
             self.requestNextPage()
         }
     }
@@ -145,11 +151,15 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     // MARK: Private
     
     private func requestNextPage() {
-        self.isLoadingProducts = true
+        if (operation) {
+            return
+        }
+        
+        self.operation = true
+
         EDDAPIWrapper.sharedInstance.requestProducts([ "page": lastDownloadedPage ], success: { (json) in
-            self.isLoadingProducts = false
             if let items = json["products"].array {
-                if items.count == 20 {
+                if items.count == 10 {
                     self.hasMoreProducts = true
                 } else {
                     self.hasMoreProducts = false
@@ -159,7 +169,14 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
                 }
                 self.updateLastDownloadedPage()
             }
+
             self.persistProducts()
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+            
+            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -211,10 +228,6 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         do {
             try managedObjectContext.save()
             managedObjectContext.processPendingChanges()
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.tableView.reloadData()
-            })
         } catch {
             fatalError("Failure to save context: \(error)")
         }

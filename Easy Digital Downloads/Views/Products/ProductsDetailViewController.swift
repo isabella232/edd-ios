@@ -245,8 +245,12 @@ class ProductsDetailViewController: SiteTableViewController {
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         let y: CGFloat = -tableView.contentOffset.y
         if y > 0 {
-            imageView!.frame = CGRectMake(0, tableView.contentOffset.y, tableView.bounds.width + y, 150 + y)
-            imageView!.center = CGPointMake(view.center.x, imageView!.center.y)
+            if let thumbnail = self.product!.thumbnail {
+                if thumbnail.characters.count > 0 && thumbnail != "false" {
+                    imageView!.frame = CGRectMake(0, tableView.contentOffset.y, tableView.bounds.width + y, 150 + y)
+                    imageView!.center = CGPointMake(view.center.x, imageView!.center.y)
+                }
+            }
         }
     }
     
