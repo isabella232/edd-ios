@@ -70,7 +70,7 @@ public struct Gravatar {
     public let defaultImage: DefaultImage
     public let rating: Rating
     
-    private static let baseURL = NSURL(string: "https://secure.gravatar.com/avatar")!
+    private static let baseURL = NSURL(string: "https://www.gravatar.com/avatar/")!
     
     public init(
         emailAddress: String,
@@ -93,8 +93,7 @@ public struct Gravatar {
         
         let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false)!
         
-        var queryItems = [defaultImage.queryItem, rating.queryItem]
-        queryItems.append(NSURLQueryItem(name: "f", value: forceDefault ? "y" : "n"))
+        var queryItems = [defaultImage.queryItem]
         queryItems.append(NSURLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
         
         components.queryItems = queryItems

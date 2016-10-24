@@ -281,7 +281,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
     // MARK: Button Handlers
     
     func handleHelpButtonTapped(sender: UIButton) {
-        let svc = SFSafariViewController(URL: NSURL(string: "http://docs.easydigitaldownloads.com/article/1134-edd-rest-api---authentication")!)
+        let svc = SFSafariViewController(URL: NSURL(string: "http://docs.easydigitaldownloads.com/article/1469-site-setup")!)
         if #available(iOS 10.0, *) {
             svc.preferredBarTintColor = .EDDBlackColor()
             svc.preferredControlTintColor = .whiteColor()

@@ -119,7 +119,7 @@ class ProductsDetailViewController: SiteTableViewController {
         let productRecord = Product.fetchSingleObjectInContext(AppDelegate.sharedInstance.managedObjectContext) { (request) in
             request.predicate = Product.predicateForId(self.product!.pid)
             request.fetchLimit = 1
-        }!
+        }
         
         EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(product!.pid)"], success: { (json) in
             if let items = json["products"].array {
@@ -156,12 +156,14 @@ class ProductsDetailViewController: SiteTableViewController {
                 
                 let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
                 
-                productRecord.setValue(stats, forKey: "stats")
-                productRecord.setValue(pricing, forKey: "pricing")
-                productRecord.setValue(files, forKey: "files")
-                productRecord.setValue(item["info"]["title"].stringValue, forKey: "title")
-                productRecord.setValue(item["licensing"].dictionaryObject, forKey: "licensing")
-                productRecord.setValue(hasVariablePricing, forKey: "hasVariablePricing")
+                if productRecord != nil {
+                    productRecord!.setValue(stats, forKey: "stats")
+                    productRecord!.setValue(pricing, forKey: "pricing")
+                    productRecord!.setValue(files, forKey: "files")
+                    productRecord!.setValue(item["info"]["title"].stringValue, forKey: "title")
+                    productRecord!.setValue(item["licensing"].dictionaryObject, forKey: "licensing")
+                    productRecord!.setValue(hasVariablePricing, forKey: "hasVariablePricing")
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     do {

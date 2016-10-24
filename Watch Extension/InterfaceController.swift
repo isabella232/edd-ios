@@ -216,6 +216,9 @@ class InterfaceController: WKInterfaceController {
     
     func tableRefresh() {
         var i = 0
+        
+        tableView.setNumberOfRows(items.count, withRowType: "DashboardRow")
+        
         for item in items {
             let row = tableView.rowControllerAtIndex(i) as! DashboardRowObject
             row.label.setText(item)

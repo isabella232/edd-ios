@@ -91,6 +91,8 @@ class CustomerProfileTableViewCell: UITableViewCell {
         gravatar = Gravatar(emailAddress: customer_.email)
         let url = gravatar?.URL(CGFloat(60))
         
+        print(url);
+        
         profileImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
     }
     
