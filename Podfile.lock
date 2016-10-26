@@ -1,32 +1,59 @@
 PODS:
-  - ARAnalytics/CoreIOS (2.7.2)
-  - ARAnalytics/Crashlytics (2.7.2):
-    - ARAnalytics/CoreIOS
-  - ARAnalytics/GoogleAnalytics (2.7.2):
-    - ARAnalytics/CoreIOS
-    - GoogleAnalytics-iOS-SDK
-  - GoogleAnalytics-iOS-SDK (3.0.9)
-  - NVSlideMenuController (1.5.6)
-  - RFGravatarImageView (1.0):
-    - SDWebImage (~> 3.5)
-  - SAMGradientView (0.2.1)
-  - SDWebImage (3.7.1):
-    - SDWebImage/Core
-  - SDWebImage/Core (3.7.1)
+  - Alamofire (3.5.0)
+  - AlamofireImage (2.5.0):
+    - Alamofire (~> 3.5)
+  - AlamofireNetworkActivityIndicator (1.1.0):
+    - Alamofire (~> 3.3)
+  - BEMSimpleLineGraph (4.1)
+  - CocoaLumberjack/Core (2.3.0)
+  - CocoaLumberjack/Default (2.3.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.3.0):
+    - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.3.0):
+    - CocoaLumberjack/Extensions
+  - HanekeSwift (0.10.1)
+  - MCDateExtensions (1.0.2)
+  - SSKeychain (1.4.1)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - ARAnalytics/Crashlytics
-  - ARAnalytics/GoogleAnalytics
-  - NVSlideMenuController (~> 1.5.6)
-  - RFGravatarImageView (~> 1.0)
-  - SAMGradientView (~> 0.2)
+  - Alamofire (~> 3.5)
+  - AlamofireImage (= 2.5.0)
+  - AlamofireNetworkActivityIndicator (= 1.1.0)
+  - BEMSimpleLineGraph
+  - CocoaLumberjack/Swift
+  - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-2.3`)
+  - MCDateExtensions (from `https://github.com/mirego/MCDateExtensions.git`)
+  - SSKeychain
+  - SwiftyJSON (~> 2.3)
+
+EXTERNAL SOURCES:
+  HanekeSwift:
+    :branch: feature/swift-2.3
+    :git: https://github.com/Haneke/HanekeSwift.git
+  MCDateExtensions:
+    :git: https://github.com/mirego/MCDateExtensions.git
+
+CHECKOUT OPTIONS:
+  HanekeSwift:
+    :commit: b1ee15fa54a15759309461911c3c71d2fa80e093
+    :git: https://github.com/Haneke/HanekeSwift.git
+  MCDateExtensions:
+    :commit: 4f066180898f5c9fd549e4574c520fda8367b139
+    :git: https://github.com/mirego/MCDateExtensions.git
 
 SPEC CHECKSUMS:
-  ARAnalytics: 9b56fa1385710cd8afca391b2ee578f81d6bb389
-  GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
-  NVSlideMenuController: 15f156b3c730a9e9b672f6b0264304e4a3eed4b8
-  RFGravatarImageView: 73a08e4464f077299494c8285cf8a0ddda0982c8
-  SAMGradientView: 37ef027b0da8b5fd85bfdfef49801b5262160998
-  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  AlamofireImage: 2d34936e5201270bb17a316a786e90e83b4a249d
+  AlamofireNetworkActivityIndicator: 36340ebf8d70241b2ebadc3dea38e8fbb95f5127
+  BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
+  CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
+  MCDateExtensions: 93f067b198405405f12c73208619caa436e30bee
+  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-COCOAPODS: 0.34.2
+PODFILE CHECKSUM: 6720ce1b4dd6ebff09c1e9eb694dea2ad3fbc35d
+
+COCOAPODS: 1.1.0.beta.2

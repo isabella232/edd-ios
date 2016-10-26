@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11201" systemVersion="16B2338c" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11077"/>
+    </dependencies>
+    <scenes>
+        <!--EDD-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller identifier="Dashboard" title="EDD" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Watch_Extension">
+                    <items>
+                        <table alignment="left" id="4T8-K1-0vM">
+                            <items>
+                                <tableRow identifier="DashboardRow" id="tFb-gd-aQx" customClass="DashboardRowObject" customModule="Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="nBV-bW-9Ap">
+                                        <items>
+                                            <group alignment="left" layout="vertical" spacing="0.0" id="jrp-YJ-sZn">
+                                                <items>
+                                                    <group width="1" alignment="left" spacing="4" id="iKC-wA-2Yq">
+                                                        <items>
+                                                            <label alignment="left" text="US$0.00" numberOfLines="0" id="GZQ-40-90C">
+                                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                    <group width="1" alignment="left" id="CQv-yO-buA">
+                                                        <items>
+                                                            <label alignment="left" verticalAlignment="bottom" text="SALES" numberOfLines="0" id="Wpw-fQ-qNF">
+                                                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="label" destination="Wpw-fQ-qNF" id="4Zf-fG-J5w"/>
+                                        <outlet property="statsLabel" destination="GZQ-40-90C" id="bpF-RA-pui"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="tableView" destination="4T8-K1-0vM" id="6J6-YU-M5k"/>
+                    </connections>
+                </controller>
+            </objects>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.15294117647058825" green="0.58039215686274503" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+</document>

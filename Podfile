@@ -1,20 +1,35 @@
-platform :ios, '7.0'
+source 'https://github.com/CocoaPods/Specs.git'
 
-xcodeproj 'EDDSalesTracker.xcodeproj'
+inhibit_all_warnings!
+use_frameworks!
 
-target :EDDSalesTracker do
+platform :ios, '10.0'
 
-  # Analytics
-  pod "ARAnalytics/Crashlytics"
-  pod 'ARAnalytics/GoogleAnalytics'
+abstract_target 'EDD' do
+  target 'Easy Digital Downloads' do
+    pod 'Alamofire', '~> 3.5'
+    pod 'CocoaLumberjack/Swift'
+    pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
+    pod 'SSKeychain'
+    pod 'SwiftyJSON', '~> 2.3'
+    pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-2.3'
+    pod 'AlamofireNetworkActivityIndicator', '= 1.1.0'
+    pod 'BEMSimpleLineGraph'
+    pod 'AlamofireImage', '= 2.5.0'
+  end
 
-  # Gravatar
-  pod "RFGravatarImageView", "~> 1.0"
+  target 'Today' do
+    pod 'Alamofire', '~> 3.5'
+    pod 'CocoaLumberjack/Swift'
+    pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
+    pod 'SSKeychain'
+    pod 'SwiftyJSON', '~> 2.3'
+    pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-2.3'
+  end
 
-  # Hamburger Menu
-  pod 'NVSlideMenuController', '~> 1.5.6'
-
-  # Gradients
-  pod 'SAMGradientView', '~> 0.2'
-
+  target 'Watch Extension' do
+    platform :watchos, ‘3.0’
+    pod 'Alamofire', '~> 3.5'
+    pod 'SwiftyJSON', '~> 2.3'
+  end
 end
