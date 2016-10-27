@@ -234,7 +234,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            self.hasNoInternetConnection = true
             NSLog(error.localizedDescription)
         }
         
@@ -245,7 +244,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            self.hasNoInternetConnection = true
             NSLog(error.localizedDescription)
         }
         
@@ -256,7 +254,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             self.tableView.reloadData()
             dispatch_group_leave(networkOperationGroup)
         }) { (error) in
-            self.hasNoInternetConnection = true
             NSLog(error.localizedDescription)
         }
         
@@ -268,7 +265,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                 self.tableView.reloadData()
                 dispatch_group_leave(networkOperationGroup)
             }) { (error) in
-                self.hasNoInternetConnection = true
                 NSLog(error.localizedDescription)
             }
             
@@ -279,7 +275,6 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                 self.tableView.reloadData()
                 dispatch_group_leave(networkOperationGroup)
             }) { (error) in
-                self.hasNoInternetConnection = true
                 NSLog(error.localizedDescription)
             }
         }
