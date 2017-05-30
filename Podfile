@@ -7,30 +7,30 @@ platform :ios, '10.0'
 
 abstract_target 'EDD' do
   target 'Easy Digital Downloads' do
-    pod 'Alamofire', '~> 3.5'
+    pod 'Alamofire', '~> 4.4'
     pod 'CocoaLumberjack/Swift'
     pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
     pod 'SSKeychain'
-    pod 'SwiftyJSON', '~> 2.3'
-    pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-2.3'
-    pod 'AlamofireNetworkActivityIndicator', '= 1.1.0'
+    pod 'SwiftyJSON'
+    pod 'HanekeSwift'
+    pod 'AlamofireNetworkActivityIndicator', '~> 2.0'
     pod 'BEMSimpleLineGraph'
-    pod 'AlamofireImage', '= 2.5.0'
+    pod 'AlamofireImage', '~> 3.1'
   end
 
   target 'Today' do
-    pod 'Alamofire', '~> 3.5'
+    pod 'Alamofire', '~> 4.4'
     pod 'CocoaLumberjack/Swift'
     pod 'MCDateExtensions', :git => 'https://github.com/mirego/MCDateExtensions.git'
     pod 'SSKeychain'
-    pod 'SwiftyJSON', '~> 2.3'
-    pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-2.3'
+    pod 'SwiftyJSON'
+    pod 'HanekeSwift'
   end
 
   target 'Watch Extension' do
     platform :watchos, ‘3.0’
-    pod 'Alamofire', '~> 3.5'
-    pod 'SwiftyJSON', '~> 2.3'
+    pod 'Alamofire', '~> 4.4'
+    pod 'SwiftyJSON'
   end
 end
 
