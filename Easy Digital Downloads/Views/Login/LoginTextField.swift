@@ -19,25 +19,25 @@ class LoginTextField: UITextField {
     }
     
     init() {
-        super.init(frame: CGRectMake(0, 0, 0, 0))
-        backgroundColor = UIColor.whiteColor()
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        backgroundColor = UIColor.white
         adjustsFontSizeToFitWidth = true
-        keyboardAppearance = .Dark
-        autocorrectionType = .No
-        autocapitalizationType = .Words
-        autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
-        returnKeyType = .Next
+        keyboardAppearance = .dark
+        autocorrectionType = .no
+        autocapitalizationType = .words
+        autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
+        returnKeyType = .next
         
         imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         rightView = imageView
-        rightViewMode = .Always
-        rightView?.hidden = true
+        rightViewMode = .always
+        rightView?.isHidden = true
         addSubview(imageView)
     }
     
-    func validated(valid: Bool) {
-        rightView?.hidden = false
+    func validated(_ valid: Bool) {
+        rightView?.isHidden = false
 
         if valid {
             imageView.tintColor = .validColor()
@@ -48,23 +48,23 @@ class LoginTextField: UITextField {
         }
     }
     
-    override func caretRectForPosition(position: UITextPosition) -> CGRect {
+    override func caretRect(for position: UITextPosition) -> CGRect {
         if disableEditing {
             return CGRect.zero
         } else {
-            return super.caretRectForPosition(position)
+            return super.caretRect(for: position)
         }
     }
     
-    override func selectionRectsForRange(range: UITextRange) -> [AnyObject] {
+    override func selectionRects(for range: UITextRange) -> [Any] {
         if disableEditing {
             return []
         } else {
-            return super.selectionRectsForRange(range)
+            return super.selectionRects(for: range)
         }
     }
     
-    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if disableEditing {
             return false
         }
@@ -72,19 +72,19 @@ class LoginTextField: UITextField {
         return super.canPerformAction(action, withSender: sender)
     }
     
-    override func rightViewRectForBounds(bounds: CGRect) -> CGRect {
-        return CGRectMake(bounds.size.width - 25, 10, 20, 20)
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        return CGRect(x: bounds.size.width - 25, y: 10, width: 20, height: 20)
     }
     
-    override func textRectForBounds(bounds: CGRect) -> CGRect {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, textInsets)
     }
     
-    override func placeholderRectForBounds(bounds: CGRect) -> CGRect {
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, textInsets)
     }
     
-    override func editingRectForBounds(bounds: CGRect) -> CGRect {
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, textInsets)
     }
     

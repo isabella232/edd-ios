@@ -12,19 +12,19 @@ class LoginSubmitButton: UIButton {
 
     var isAnimating: Bool {
         get {
-            return activityIndicator.isAnimating()
+            return activityIndicator.isAnimating
         }
     }
     
     let activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
         indicator.hidesWhenStopped = true
         return indicator
     }()
     
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
-            if (highlighted) {
+            if (isHighlighted) {
                 backgroundColor = .EDDBlueHighlightColor()
             } else {
                 backgroundColor = .EDDBlueColor()
@@ -37,15 +37,15 @@ class LoginSubmitButton: UIButton {
     }
     
     init() {
-        super.init(frame: CGRectMake(0, 0, 0, 0))
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         addSubview(activityIndicator)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if activityIndicator.isAnimating() {
-            titleLabel?.frame = CGRectZero
+        if activityIndicator.isAnimating {
+            titleLabel?.frame = CGRect.zero
             
             var frm = activityIndicator.frame
             frm.origin.x = (frame.width - frm.width) / 2.0
@@ -54,7 +54,7 @@ class LoginSubmitButton: UIButton {
         }
     }
     
-    func showActivityIndicator(show: Bool) {
+    func showActivityIndicator(_ show: Bool) {
         if show {
             activityIndicator.startAnimating()
         } else {
