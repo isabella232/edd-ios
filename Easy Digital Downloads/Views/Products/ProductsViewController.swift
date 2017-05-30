@@ -134,7 +134,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             
             self.persistProducts()
             
-            dispatch_async(dispatch_get_main_queue(), {
+            dispatch_get_maDispatchQueue.main {
                 self.tableView.reloadData()
             })
             
@@ -181,7 +181,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         
         self.operation = true
 
-        EDDAPIWrapper.sharedInstance.requestProducts([ "page": lastDownloadedPage ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestProducts([ "page": lastDownloadedPage as AnyObject ], success: { (json) in
             if let items = json["products"].array {
                 if items.count == 10 {
                     self.hasMoreProducts = true
@@ -219,7 +219,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             
             var stats: NSData?
             if Site.hasPermissionToViewReports() {
-                stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
+                stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!)
             } else {
                 stats = nil
             }
@@ -228,7 +228,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             var notes: String?
             if Site.hasPermissionToViewSensitiveData() {
                 if item["files"].arrayObject != nil {
-                    files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!)
                 } else {
                     files = nil
                 }
@@ -244,9 +244,9 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
                 hasVariablePricing = true
             }
             
-            let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+            let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
             
-            Product.insertIntoContext(managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
+            Product.insertIntoContext(managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files as! Data, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
         }
         
         do {

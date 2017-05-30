@@ -320,15 +320,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 switch response.result {
-                    case .Success:
-                        let json = JSON(response.result.value!)
-                        
-                        if json["info"] != nil {
+                    case .success(let json):
+                        if json["info"] != JSON.null {
                             let info = json["info"]
                             let integrations = info["integrations"]
                             let currency = "\(info["site"]["currency"])"
-                            let permissions: NSData = NSKeyedArchiver.archivedDataWithRootObject(info["permissions"].dictionaryObject!)
-                            let uid = NSUUID().UUIDString
+                            let permissions: NSData = NSKeyedArchiver.archivedData(withRootObject: info["permissions"].dictionaryObject!) as NSData
+                            let uid = NSUUID().uuidString
 
                             self.connectionTest.text = NSLocalizedString("Connection successful", comment: "")
                             
@@ -372,45 +370,45 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                                 // Create the dashboard layout based on the permissions granted
                                 let dashboardLayout: NSMutableArray = [1, 2];
                                 if hasCommissions {
-                                    dashboardLayout.addObject(3);
+                                    dashboardLayout.add(3);
                                 }
                                 
                                 if hasRecurring {
-                                    dashboardLayout.addObject(4);
+                                    dashboardLayout.add(4);
                                 }
                                 
-                                let dashboardOrder: NSData = NSKeyedArchiver.archivedDataWithRootObject(dashboardLayout);
+                                let dashboardOrder: NSData = NSKeyedArchiver.archivedData(withRootObject: dashboardLayout) as NSData;
                                 
                                 var site: Site?
                                 
                                 self.managedObjectContext.performChanges {
-                                    site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, hasLicensing: hasLicensing, permissions: permissions, dashboardOrder: dashboardOrder);
+                                    site = Site.insertIntoContext(self.managedObjectContext, uid: uid, name: self.siteName.text!, url: self.siteURL.text!, currency: currency, hasCommissions: hasCommissions, hasFES: hasFES, hasRecurring: hasRecurring, hasReviews: hasReviews, hasLicensing: hasLicensing, permissions: permissions as Data, dashboardOrder: dashboardOrder as Data);
                                     self.managedObjectContext.performSaveOrRollback()
                                 }
                                 
-                                UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                                    self.logo.transform = CGAffineTransformMakeTranslation(0, -400)
-                                    self.addButton.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
-                                    self.helpButton.transform = CGAffineTransformMakeTranslation(200, 0)
-                                    self.connectionTest.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
+                                UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                                    self.logo.transform = CGAffineTransform(translationX: 0, y: -400)
+                                    self.addButton.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
+                                    self.helpButton.transform = CGAffineTransform(translationX: 200, y: 0)
+                                    self.connectionTest.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
                                     for field in textFields {
-                                        field.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.height)
+                                        field.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
                                     }
                                     }, completion: { (finished: Bool) -> Void in
                                         AppDelegate.sharedInstance.switchActiveSite(site!.uid!)
                                         EDDAPIWrapper.sharedInstance.refreshActiveSite()
                                         let tabBarController = SiteTabBarController(site: site!)
-                                        tabBarController.modalPresentationStyle = .OverCurrentContext
-                                        self.presentViewController(tabBarController, animated: true, completion:nil)
+                                        tabBarController.modalPresentationStyle = .overCurrentContext
+                                        self.present(tabBarController, animated: true, completion:nil)
                                 })
                             }
                         }
                         break;
-                    case .Failure(let error):
-                        dispatch_async(dispatch_get_main_queue(), {
+                    case .failure(let error):
+                        DispatchQueue.main.async(execute: {
                             self.connectionTest.text = NSLocalizedString("Connection failed.", comment: "") + " " + error.localizedDescription
                             for textField in textFields {
-                                textField.enabled = true
+                                textField.isEnabled = true
                                 textField.layer.opacity = 1
                             }
                             

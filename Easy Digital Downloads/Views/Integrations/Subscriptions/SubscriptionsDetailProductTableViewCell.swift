@@ -96,7 +96,7 @@ class SubscriptionsDetailProductTableViewCell: UITableViewCell {
             pricingLabel.text = "\(Site.currencyFormat(NSNumber(value: sortedArray[0] as Double))) - \(Site.currencyFormat(NSNumber(value: sortedArray[sortedArray.count - 1] as Double)))"
         } else {
             let doubleObject = Double((pricing["amount"]?.stringValue)!)
-            pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: doubleObject!)))"
+            pricingLabel.text = "\(Site.currencyFormat(NSNumber(value: doubleObject!)))"
         }
 
         titleLabel.text = object["info"]["title"].stringValue

@@ -232,7 +232,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
             
             self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
+            networkOperationGroup.leave()
         }) { (error) in
             NSLog(error.localizedDescription)
         }
@@ -242,7 +242,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
             self.processSalesGraphData(json)
             self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
+            networkOperationGroup.leave()
         }) { (error) in
             NSLog(error.localizedDescription)
         }
@@ -252,7 +252,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
             self.processEarningsGraphData(json)
             self.tableView.reloadData()
-            dispatch_group_leave(networkOperationGroup)
+            networkOperationGroup.leave()
         }) { (error) in
             NSLog(error.localizedDescription)
         }
@@ -263,7 +263,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
                 self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
                 self.tableView.reloadData()
-                dispatch_group_leave(networkOperationGroup)
+                networkOperationGroup.leave()
             }) { (error) in
                 NSLog(error.localizedDescription)
             }
@@ -273,7 +273,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
                 self.storeCommission = json["total_unpaid"].stringValue
                 self.tableView.reloadData()
-                dispatch_group_leave(networkOperationGroup)
+                networkOperationGroup.leave()
             }) { (error) in
                 NSLog(error.localizedDescription)
             }
@@ -321,13 +321,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         let sales = json["sales"].dictionaryObject
         
         let keys = sales?.keys
-        let sorted = keys?.sort {
+        let sorted = keys?.sorted {
             return $0 < $1
         }
         
         var salesGraphData: Array<Int> = []
         for key in sorted! {
-            salesGraphData.append(sales![key]!.integerValue)
+            salesGraphData.append((sales![key]! as AnyObject).integerValue)
             
             let dateR = key.endIndex.advancedBy(-2) ..< key.endIndex
             let dateRange = Range(dateR)
@@ -338,7 +338,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             let date = key[dateRange]
             let month = Int(key[monthRange])
             
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let dateFormatter: DateFormatter = NSDateFormatter()
             let months = dateFormatter.shortMonthSymbols
             let monthSymbol = months[month!-1]
             
@@ -354,13 +354,13 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         let earnings = json["earnings"].dictionaryObject
         
         let keys = earnings?.keys
-        let sorted = keys?.sort {
+        let sorted = keys?.sorted {
             return $0 < $1
         }
         
         var earningsGraphData: Array<Double> = []
         for key in sorted! {
-            earningsGraphData.append(earnings![key]!.doubleValue)
+            earningsGraphData.append((earnings![key]! as AnyObject).doubleValue)
             let dateR = key.endIndex.advancedBy(-2) ..< key.endIndex
             let dateRange = Range(dateR)
             
@@ -370,7 +370,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             let date = key[dateRange]
             let month = Int(key[monthRange])
             
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let dateFormatter: DateFormatter = NSDateFormatter()
             let months = dateFormatter.shortMonthSymbols
             let monthSymbol = months[month!-1]
             

@@ -130,14 +130,14 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
             
             if let items = json["sales"].array {
                 for item in items {
-                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
+                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.datemfrom: ["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
                 }
             }
             
-            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.OrderedDescending })
             self.filteredSaleObjects = self.saleObjects
             
-            dispatch_async(dispatch_get_main_queue(), {
+            dispatch_get_main_queue().async(execute: {
                 self.tableView.reloadData()
             })
         })
@@ -155,25 +155,25 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { json in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Sales")
             
-            self.saleObjects.removeAll(keepCapacity: false)
+            self.saleObjects.removeAll(keepingCapacity: false)
             
             if let items = json["sales"].array {
                 for item in items {
-                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
+                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.datemfrom: ["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
                 }
                 
                 if items.count < 10 {
                     self.hasMoreSales = false
-                    dispatch_async(dispatch_get_main_queue(), {
+                    dispatch_get_maDispatchQueue.main {
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
             }
             
-            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.OrderedDescending })
             self.filteredSaleObjects = self.saleObjects
 
-            dispatch_async(dispatch_get_main_queue(), {
+            dispatch_get_maDispatchQueue.main {
                 self.tableView.reloadData()
             })
             
@@ -190,7 +190,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         
         operation = true
         
-        EDDAPIWrapper.sharedInstance.requestSales([ "page": lastDownloadedPage ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestSales([ "page": lastDownloadedPage as AnyObject ], success: { (json) in
             if let items = json["sales"].array {
                 if items.count == 10 {
                     self.hasMoreSales = true
@@ -223,7 +223,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-SalesPage")
         sharedDefaults.synchronize()
     }
     
@@ -245,7 +245,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredSaleObjects.count ?? 0
+        return self.filteredSaleObjects.count 
     }
     
     // MARK: Table View Delegate

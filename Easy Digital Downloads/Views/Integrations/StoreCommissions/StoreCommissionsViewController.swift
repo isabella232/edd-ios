@@ -52,7 +52,7 @@ class StoreCommissionsViewController: SiteTableViewController {
     
     let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(Site.activeSite().uid)-StoreCommissionsPage") ?? 1
+    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(Site.activeSite().uid)-StoreCommissionsPage") 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +63,14 @@ class StoreCommissionsViewController: SiteTableViewController {
             
             if let items = json["commissions"].array {
                 for item in items {
-                    self.commissionsObjects.append(StoreCommissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: item["status"].stringValue))
+                    self.commissionsObjects.append(StoreCommissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue), status: item["status"].stringValue))
                 }
             }
             
-            self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.commissionsObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredCommissionsObjects = self.commissionsObjects
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         })
@@ -113,18 +113,18 @@ class StoreCommissionsViewController: SiteTableViewController {
         EDDAPIWrapper.sharedInstance.requestStoreCommissions([ : ], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-StoreCommissions")
             
-            self.commissionsObjects.removeAll(keepCapacity: false)
+            self.commissionsObjects.removeAll(keepingCapacity: false)
             
             if let items = json["commissions"].array {
                 for item in items {
-                    self.commissionsObjects.append(StoreCommissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), status: item["status"].stringValue))
+                    self.commissionsObjects.append(StoreCommissions(amount: item["amount"].doubleValue, rate: item["rate"].doubleValue, currency: item["currency"].stringValue, renewal: item["renewal"].int64, item: item["item"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue), status: item["status"].stringValue))
                 }
             }
             
-            self.commissionsObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.commissionsObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredCommissionsObjects = self.commissionsObjects
             
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
         }) { (error) in

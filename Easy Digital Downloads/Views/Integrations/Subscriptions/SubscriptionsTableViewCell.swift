@@ -119,9 +119,9 @@ class SubscriptionsTableViewCell: UITableViewCell {
     func configure(_ subscription: Subscriptions) {
         let customer = subscription.customer
         
-        var name = customer["name"]!.stringValue
+        var name = customer?["name"]!.stringValue
         
-        if name.characters.count == 0 {
+        if name?.characters.count == 0 {
             name = customer["email"]!.stringValue
         }
         

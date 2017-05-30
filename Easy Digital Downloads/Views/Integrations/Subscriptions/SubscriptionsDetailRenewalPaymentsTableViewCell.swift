@@ -77,7 +77,7 @@ class SubscriptionsDetailRenewalPaymentsTableViewCell: UITableViewCell {
     
     func configure(_ sale: JSON) {
         let chargedText: String = NSLocalizedString("charged", comment: "")
-        amountLabel.text = "\(Site.currencyFormat(sale["total"].doubleValue)) \(chargedText)"
+        amountLabel.text = "\(Site.currencyFormat(NSNumber(value: sale["total"].doubleValue))) \(chargedText)"
         
         let date = sale["date"].stringValue
         dateLabel.text = date

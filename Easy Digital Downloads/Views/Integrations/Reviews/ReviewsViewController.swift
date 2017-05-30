@@ -59,7 +59,7 @@ class ReviewsViewController: SiteTableViewController {
     
     let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(Site.activeSite().uid)-ReviewsPage") ?? 1
+    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(String(describing: Site.activeSite().uid))-ReviewsPage") ?? 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,13 +72,13 @@ class ReviewsViewController: SiteTableViewController {
                 for item in items {
                     let reply = (item["type"].stringValue == "reply" ? true : false)
                     
-                    self.reviewObjects.append(Review(ID: item["ID"].int64Value, title: item["title"].stringValue, parent: item["parent"].int64Value, downloadId: item["download_id"].int64Value, rating: item["rating"].int64Value, author: item["author"].stringValue, email: item["email"].stringValue, IP: item["IP"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), content: item["content"].stringValue, status: item["status"].stringValue, userId: item["user_id"].int64Value, type: item["type"].stringValue, isReply: reply, votes: item["votes"].dictionaryValue))
+                    self.reviewObjects.append(Review(ID: item["ID"].int64Value, title: item["title"].stringValue, parent: item["parent"].int64Value, downloadId: item["download_id"].int64Value, rating: item["rating"].int64Value, author: item["author"].stringValue, email: item["email"].stringValue, IP: item["IP"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue), content: item["content"].stringValue, status: item["status"].stringValue, userId: item["user_id"].int64Value, type: item["type"].stringValue, isReply: reply, votes: item["votes"].dictionaryValue))
                 }
             }
             
-            self.reviewObjects.sortInPlace({ $0.ID < $1.ID })
+            self.reviewObjects.sort(by: { $0.ID < $1.ID })
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         })
@@ -121,19 +121,19 @@ class ReviewsViewController: SiteTableViewController {
         EDDAPIWrapper.sharedInstance.requestReviews([ : ], success: { (result) in
             self.sharedCache.set(value: result.asData(), key: Site.activeSite().uid! + "-Reviews")
             
-            self.reviewObjects.removeAll(keepCapacity: false)
+            self.reviewObjects.removeAll(keepingCapacity: false)
             
             if let items = result["reviews"]["most_recent"].array {
                 for item in items {
                     let reply = (item["type"].stringValue == "reply" ? true : false)
                     
-                    self.reviewObjects.append(Review(ID: item["ID"].int64Value, title: item["title"].stringValue, parent: item["parent"].int64Value, downloadId: item["download_id"].int64Value, rating: item["rating"].int64Value, author: item["author"].stringValue, email: item["email"].stringValue, IP: item["IP"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), content: item["content"].stringValue, status: item["status"].stringValue, userId: item["user_id"].int64Value, type: item["type"].stringValue, isReply: reply, votes: item["votes"].dictionaryValue))
+                    self.reviewObjects.append(Review(ID: item["ID"].int64Value, title: item["title"].stringValue, parent: item["parent"].int64Value, downloadId: item["download_id"].int64Value, rating: item["rating"].int64Value, author: item["author"].stringValue, email: item["email"].stringValue, IP: item["IP"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue), content: item["content"].stringValue, status: item["status"].stringValue, userId: item["user_id"].int64Value, type: item["type"].stringValue, isReply: reply, votes: item["votes"].dictionaryValue))
                 }
             }
             
-            self.reviewObjects.sortInPlace({ $0.ID < $1.ID })
+            self.reviewObjects.sort(by: { $0.ID < $1.ID })
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         }) { (error) in
@@ -147,7 +147,7 @@ class ReviewsViewController: SiteTableViewController {
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-ReviewsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-ReviewsPage")
         sharedDefaults.synchronize()
     }
     

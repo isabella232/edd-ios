@@ -26,7 +26,7 @@ extension String {
             
         }
         
-        self.init(attributedString!.string)
+        self.init(attributedString!.string)!
     }
 
 }

@@ -73,7 +73,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
             if renewalPayments.count > 0 {
                 cells.append(.renewalPaymentsHeading)
                 for _ in 1...renewalPayments.count {
-                    cells.append(.RenewalPayments)
+                    cells.append(.renewalPayments)
                 }
             }
         }
@@ -86,7 +86,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
     }
     
     func networkOperations() {
-        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(subscription.productId)"], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(subscription.productId)" as AnyObject], success: { (json) in
             if let items = json["products"].array {
                 self.product = items[0]
                 
@@ -115,7 +115,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
                 }
                 
                 var hasVariablePricing = false
-                if item["pricing"].dictionary?.count > 1 {
+                if (item["pricing"].dictionary?.count)! > 1 {
                     hasVariablePricing = true
                 }
                 
