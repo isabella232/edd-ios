@@ -11,9 +11,9 @@ import Alamofire
 
 class ManageSitesViewController: SiteTableViewController {
 
-    private var sites: [Site]?
+    fileprivate var sites: [Site]?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         sites = Site.fetchAll(inContext: AppDelegate.sharedInstance.managedObjectContext)
@@ -22,14 +22,14 @@ class ManageSitesViewController: SiteTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.scrollEnabled = true
+        tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
+        tableView.isUserInteractionEnabled = true
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.editing = true
+        tableView.isEditing = true
         
         title = NSLocalizedString("Manage Sites", comment: "")
         
@@ -41,33 +41,33 @@ class ManageSitesViewController: SiteTableViewController {
     func addButtonPressed() {
         let newSiteViewController = NewSiteViewController()
         newSiteViewController.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
-        newSiteViewController.view.backgroundColor = .clearColor()
-        newSiteViewController.modalPresentationStyle = .OverFullScreen
+        newSiteViewController.view.backgroundColor = .clear
+        newSiteViewController.modalPresentationStyle = .overFullScreen
         newSiteViewController.modalPresentationCapturesStatusBarAppearance = true
-        presentViewController(newSiteViewController, animated: true, completion: nil)
+        present(newSiteViewController, animated: true, completion: nil)
     }
     
     // MARK: Table View Delegate
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sites?.count ?? 0
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ManageSiteCell")
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "ManageSiteCell")
         
         if (cell == nil) {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "ManageSiteCell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "ManageSiteCell")
         }
         
         let site = sites![indexPath.row] as Site
@@ -77,31 +77,31 @@ class ManageSitesViewController: SiteTableViewController {
         return cell!
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             let site = sites![indexPath.row] as Site
             
             let uid = site.uid!
             
             if sites!.count == 1 {
                 Site.deleteSite(uid)
-                sites!.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                presentViewController(LoginViewController(), animated: true, completion: nil)
+                sites!.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                present(LoginViewController(), animated: true, completion: nil)
                 return
             }
             
             if Site.activeSite().uid == site.uid && sites!.count > 1 {
                 Site.deleteSite(uid)
-                sites!.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                sites!.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
                 let newSite = Site.refreshActiveSite()
                 AppDelegate.sharedInstance.switchActiveSite(newSite.uid!)
-                UIView.transitionWithView(self.view.window!, duration: 0.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {
+                UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft, animations: {
                     self.view.window?.rootViewController = SiteTabBarController(site: newSite)
                     }, completion: nil)
                 return
@@ -110,8 +110,8 @@ class ManageSitesViewController: SiteTableViewController {
             // Delete from Core Data
             Site.deleteSite(site.uid!)
             
-            sites!.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            sites!.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

@@ -10,30 +10,30 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class FileDownloadLogsDetailViewController: SiteTableViewController {
     
-    private enum CellType {
-        case Title
-        case MetaHeading
-        case Meta
-        case ProductHeading
-        case Product
-        case PaymentHeading
-        case Payment
-        case CustomerHeading
-        case Customer
+    fileprivate enum CellType {
+        case title
+        case metaHeading
+        case meta
+        case productHeading
+        case product
+        case paymentHeading
+        case payment
+        case customerHeading
+        case customer
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
 
     var site: Site?
     var log: Log!
@@ -46,7 +46,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     var productId: Int64 = 0
     
     init(log: Log) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.log = log
@@ -61,7 +61,7 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(log.productName)
@@ -70,23 +70,23 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         setupDataSource()
         networkOperations()
         
-        tableView.registerClass(FileDownloadLogsMetaTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogMetaCell")
-        tableView.registerClass(FileDownloadLogsCustomerTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogCustomerCell")
-        tableView.registerClass(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")
-        tableView.registerClass(FileDownloadLogsProductTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogProductCell")
-        tableView.registerClass(FileDownloadLogsHeadingTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsHeadingCell")
-        tableView.registerClass(FileDownloadLogsTitleTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsTitleCell")
+        tableView.register(FileDownloadLogsMetaTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogMetaCell")
+        tableView.register(FileDownloadLogsCustomerTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogCustomerCell")
+        tableView.register(FileDownloadLogsPaymentTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogPaymentCell")
+        tableView.register(FileDownloadLogsProductTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogProductCell")
+        tableView.register(FileDownloadLogsHeadingTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsHeadingCell")
+        tableView.register(FileDownloadLogsTitleTableViewCell.self, forCellReuseIdentifier: "FileDownloadLogsTitleCell")
         
-        cells = [.Title, .MetaHeading, .Meta, .ProductHeading, .Product]
+        cells = [.title, .metaHeading, .meta, .productHeading, .product]
         
         if log.paymentId > 0 {
-            cells.append(.PaymentHeading)
-            cells.append(.Payment)
+            cells.append(.paymentHeading)
+            cells.append(.payment)
         }
         
         if log.customerId > 0 {
-            cells.append(.CustomerHeading)
-            cells.append(.Customer)
+            cells.append(.customerHeading)
+            cells.append(.customer)
         }
     }
     
@@ -97,14 +97,14 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     func setupDataSource() {
         if let product = Product.productForId(log.productId) {
             self.product = product
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
         }
         
         if let customer = Customer.customerForId(log.customerId) {
             self.customer = customer
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         }
@@ -146,75 +146,75 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cells[indexPath.row] == .Customer {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if cells[indexPath.row] == .customer {
             guard customer != nil else {
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
             navigationController?.pushViewController(CustomersDetailViewController(customer: customer!), animated: true)
         }
         
-        if cells[indexPath.row] == .Product {
+        if cells[indexPath.row] == .product {
             guard product != nil else {
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
             navigationController?.pushViewController(ProductsDetailViewController(product: product!), animated: true)
         }
         
-        if cells[indexPath.row] == .Payment {
+        if cells[indexPath.row] == .payment {
             guard payment != nil else {
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
                 return
             }
             navigationController?.pushViewController(SalesDetailViewController(sale: payment!), animated: true)
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
-            case .Title:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsTitleCell", forIndexPath: indexPath) as! FileDownloadLogsTitleTableViewCell
+            case .title:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsTitleCell", for: indexPath) as! FileDownloadLogsTitleTableViewCell
                 (cell as! FileDownloadLogsTitleTableViewCell).configure("Log #\(log.ID)")
-            case .MetaHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+            case .metaHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsHeadingCell", for: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Meta")
-            case .Meta:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogMetaCell", forIndexPath: indexPath) as! FileDownloadLogsMetaTableViewCell
+            case .meta:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogMetaCell", for: indexPath) as! FileDownloadLogsMetaTableViewCell
                 (cell as! FileDownloadLogsMetaTableViewCell).configure(log)
                 (cell as! FileDownloadLogsMetaTableViewCell).layout()
-            case .CustomerHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+            case .customerHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsHeadingCell", for: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Customer")
-            case .Customer:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogCustomerCell", forIndexPath: indexPath) as! FileDownloadLogsCustomerTableViewCell
+            case .customer:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogCustomerCell", for: indexPath) as! FileDownloadLogsCustomerTableViewCell
                 (cell as! FileDownloadLogsCustomerTableViewCell).configureForObject(customer)
-            case .PaymentHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+            case .paymentHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsHeadingCell", for: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Payment")
-            case .Payment:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogPaymentCell", forIndexPath: indexPath) as! FileDownloadLogsPaymentTableViewCell
+            case .payment:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogPaymentCell", for: indexPath) as! FileDownloadLogsPaymentTableViewCell
                 (cell as! FileDownloadLogsPaymentTableViewCell).configure(payment)
-            case .ProductHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogsHeadingCell", forIndexPath: indexPath) as! FileDownloadLogsHeadingTableViewCell
+            case .productHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsHeadingCell", for: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Product")
-            case .Product:
-                cell = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogProductCell", forIndexPath: indexPath) as! FileDownloadLogsProductTableViewCell
+            case .product:
+                cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogProductCell", for: indexPath) as! FileDownloadLogsProductTableViewCell
                 (cell as! FileDownloadLogsProductTableViewCell).configureForObject(product)
             
         }

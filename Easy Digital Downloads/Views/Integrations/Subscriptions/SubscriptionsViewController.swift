@@ -11,11 +11,11 @@ import CoreData
 import SwiftyJSON
 import Haneke
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -30,8 +30,8 @@ public struct Subscriptions {
     var transactionId: String?
     var parentPaymentId: Int64!
     var productId: Int64!
-    var created: NSDate!
-    var expiration: NSDate!
+    var created: Date!
+    var expiration: Date!
     var status: String!
     var profileId: String!
     var gateway: String!
@@ -64,12 +64,12 @@ class SubscriptionsViewController: SiteTableViewController {
         }
     }
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage = 1
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -90,7 +90,7 @@ class SubscriptionsViewController: SiteTableViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
@@ -119,12 +119,12 @@ class SubscriptionsViewController: SiteTableViewController {
         
         setupInfiniteScrollView()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     // MARK: Network Operations
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         operation = true
         
         EDDAPIWrapper.sharedInstance.requestSubscriptions([ : ], success: { (json) in
@@ -160,7 +160,7 @@ class SubscriptionsViewController: SiteTableViewController {
         }
     }
     
-    private func requestNextPage() {
+    fileprivate func requestNextPage() {
         operation = true
         
         EDDAPIWrapper.sharedInstance.requestSubscriptions([ "page": lastDownloadedPage ], success: { (json) in
@@ -189,15 +189,15 @@ class SubscriptionsViewController: SiteTableViewController {
         }
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SubscriptionsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SubscriptionsPage")
         sharedDefaults.synchronize()
     }
 
     // MARK: Scroll View Delegate
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
@@ -208,18 +208,18 @@ class SubscriptionsViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filteredSubscriptionObjects.count ?? 0
     }
     
     // MARK: Table View Delegate
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: SubscriptionsTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SubscriptionsTableViewCell") as! SubscriptionsTableViewCell?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: SubscriptionsTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsTableViewCell") as! SubscriptionsTableViewCell?
         
         if cell == nil {
             cell = SubscriptionsTableViewCell()
@@ -230,10 +230,10 @@ class SubscriptionsViewController: SiteTableViewController {
         return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: filteredSubscriptionObjects[indexPath.row]), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
@@ -241,11 +241,11 @@ class SubscriptionsViewController: SiteTableViewController {
 extension SubscriptionsViewController : InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         

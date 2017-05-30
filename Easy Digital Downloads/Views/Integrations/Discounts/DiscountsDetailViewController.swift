@@ -11,25 +11,25 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class DiscountsDetailViewController: SiteTableViewController {
 
-    private enum CellType {
-        case MetaHeading
-        case Meta
-        case ProductRequirementsHeading
-        case ProductRequirements
+    fileprivate enum CellType {
+        case metaHeading
+        case meta
+        case productRequirementsHeading
+        case productRequirements
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var discount: Discounts?
@@ -37,7 +37,7 @@ class DiscountsDetailViewController: SiteTableViewController {
     var fetchedProducts: [Product] = [Product]()
     
     init(discount: Discounts) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.discount = discount
@@ -46,7 +46,7 @@ class DiscountsDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
         title = NSLocalizedString("Discount", comment: "") + " #" + "\(discount.ID)"
         
@@ -57,17 +57,17 @@ class DiscountsDetailViewController: SiteTableViewController {
         setupDataSource()
         networkOperations()
         
-        tableView.registerClass(DiscountsDetailMetaTableViewCell.self, forCellReuseIdentifier: "DiscountsDetailMetaTableViewCell")
-        tableView.registerClass(DiscountsDetailProductRequirementTableViewCell.self, forCellReuseIdentifier: "DiscountsDetailProductRequirementTableViewCell")
-        tableView.registerClass(DiscountsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "DiscountsDetailHeadingTableViewCell")
+        tableView.register(DiscountsDetailMetaTableViewCell.self, forCellReuseIdentifier: "DiscountsDetailMetaTableViewCell")
+        tableView.register(DiscountsDetailProductRequirementTableViewCell.self, forCellReuseIdentifier: "DiscountsDetailProductRequirementTableViewCell")
+        tableView.register(DiscountsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "DiscountsDetailHeadingTableViewCell")
         
-        cells = [.MetaHeading, .Meta]
+        cells = [.metaHeading, .meta]
         
         if let requirements = discount.productRequirements {
-            cells.append(.ProductRequirementsHeading)
+            cells.append(.productRequirementsHeading)
             
             if requirements.count == 1 {
-                self.cells.append(.ProductRequirements)
+                self.cells.append(.productRequirements)
             } else {
                 for _ in 1...requirements.count {
                     self.cells.append(.ProductRequirements)
@@ -82,7 +82,7 @@ class DiscountsDetailViewController: SiteTableViewController {
     
     // MARK: Private
     
-    private func setupDataSource() {
+    fileprivate func setupDataSource() {
         if let requirements = discount?.productRequirements {
             for item in requirements {
                 if let product = Product.productForId(item.1.int64Value) {
@@ -96,14 +96,14 @@ class DiscountsDetailViewController: SiteTableViewController {
                 }
             }
             
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
             
         }
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         if let requirements = discount?.productRequirements {
             for item in requirements {
                 EDDAPIWrapper.sharedInstance.requestProducts(["product" : item.1.stringValue], success: { (json) in
@@ -117,35 +117,35 @@ class DiscountsDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
-            case .MetaHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("DiscountsDetailHeadingTableViewCell", forIndexPath: indexPath) as! DiscountsDetailHeadingTableViewCell
+            case .metaHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "DiscountsDetailHeadingTableViewCell", for: indexPath) as! DiscountsDetailHeadingTableViewCell
                 (cell as! DiscountsDetailHeadingTableViewCell).configure("Meta")
-            case .Meta:
-                cell = tableView.dequeueReusableCellWithIdentifier("DiscountsDetailMetaTableViewCell", forIndexPath: indexPath) as! DiscountsDetailMetaTableViewCell
+            case .meta:
+                cell = tableView.dequeueReusableCell(withIdentifier: "DiscountsDetailMetaTableViewCell", for: indexPath) as! DiscountsDetailMetaTableViewCell
                 (cell as! DiscountsDetailMetaTableViewCell).configure(discount!)
-            case .ProductRequirementsHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("DiscountsDetailHeadingTableViewCell", forIndexPath: indexPath) as! DiscountsDetailHeadingTableViewCell
+            case .productRequirementsHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "DiscountsDetailHeadingTableViewCell", for: indexPath) as! DiscountsDetailHeadingTableViewCell
                 (cell as! DiscountsDetailHeadingTableViewCell).configure("Product Requirements")
-            case .ProductRequirements:
-                cell = tableView.dequeueReusableCellWithIdentifier("DiscountsDetailProductRequirementTableViewCell", forIndexPath: indexPath) as! DiscountsDetailProductRequirementTableViewCell
+            case .productRequirements:
+                cell = tableView.dequeueReusableCell(withIdentifier: "DiscountsDetailProductRequirementTableViewCell", for: indexPath) as! DiscountsDetailProductRequirementTableViewCell
                 if self.fetchedProducts.indices.contains(indexPath.row - 3) {
                     (cell as! DiscountsDetailProductRequirementTableViewCell).configure(self.fetchedProducts[indexPath.row - 3])
                 } else {

@@ -9,11 +9,11 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE dd MMM yyyy HH:mm:ss"
     return formatter
 }()
@@ -22,12 +22,12 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
     
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -38,24 +38,24 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let ipHeading: UILabel = UILabel(frame: CGRectZero)
-    private let ipLabel: UILabel = UILabel(frame: CGRectZero)
-    private let fileHeading: UILabel = UILabel(frame: CGRectZero)
-    private let fileLabel: UILabel = UILabel(frame: CGRectZero)
-    private let dateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let dateLabel: UILabel = UILabel(frame: CGRectZero)
+    fileprivate let ipHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let ipLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let fileHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let fileLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateLabel: UILabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .None
+        selectionStyle = .none
         
         // Styling for headings
-        ipHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        ipHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         ipHeading.textColor = .EDDBlueColor()
-        fileHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        fileHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         fileHeading.textColor = .EDDBlueColor()
-        dateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        dateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         dateHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
@@ -65,11 +65,11 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         
         // Styling for labels
         ipLabel.textColor = .EDDBlackColor()
-        ipLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        ipLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         fileLabel.textColor = .EDDBlackColor()
-        fileLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        fileLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         dateLabel.textColor = .EDDBlackColor()
-        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,37 +87,37 @@ class FileDownloadLogsMetaTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(ipHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(ipLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(ipLabel.bottomAnchor.constraintEqualToAnchor(fileHeading.topAnchor, constant: -20))
-        constraints.append(fileHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(fileLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(fileLabel.bottomAnchor.constraintEqualToAnchor(dateHeading.topAnchor, constant: -20))
-        constraints.append(dateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(ipHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(ipLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(ipLabel.bottomAnchor.constraint(equalTo: fileHeading.topAnchor, constant: -20))
+        constraints.append(fileHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(fileLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(fileLabel.bottomAnchor.constraint(equalTo: dateHeading.topAnchor, constant: -20))
+        constraints.append(dateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(log: Log) {
+    func configure(_ log: Log) {
         fileLabel.text = log.file
         ipLabel.text = log.ip
         
-        dateLabel.text = sharedDateFormatter.stringFromDate(log.date)
+        dateLabel.text = sharedDateFormatter.string(from: log.date as Date)
     }
     
 }

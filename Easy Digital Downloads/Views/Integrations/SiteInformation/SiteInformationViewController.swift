@@ -11,36 +11,36 @@ import CoreData
 
 class SiteInformationViewController: SiteTableViewController, ManagedObjectContextSettable {
     
-    private enum SectionType {
-        case General
-        case Authentication
-        case Permissions
-        case Misc
+    fileprivate enum SectionType {
+        case general
+        case authentication
+        case permissions
+        case misc
     }
     
-    private enum Item {
-        case SiteName
-        case SiteURL
-        case APIKey
-        case Token
-        case Commissions
+    fileprivate enum Item {
+        case siteName
+        case siteURL
+        case apiKey
+        case token
+        case commissions
     }
     
-    private struct Section {
+    fileprivate struct Section {
         var type: SectionType
         var items: [Item]
     }
     
-    private var sections = [Section]()
+    fileprivate var sections = [Section]()
 
     var managedObjectContext: NSManagedObjectContext!
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var site: Site?
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -59,12 +59,12 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         navigationItem.titleView = titleLabel
         
         sections = [
-            Section(type: .General, items: [.SiteName, .SiteURL]),
-            Section(type: .Authentication, items: [.APIKey, .Token])
+            Section(type: .general, items: [.siteName, .siteURL]),
+            Section(type: .authentication, items: [.apiKey, .token])
         ]
         
         if (Site.activeSite().hasCommissions?.boolValue == true) {
-            sections.append(Section(type: .Misc, items: [.Commissions]))
+            sections.append(Section(type: .misc, items: [.commissions]))
         }
     }
     
@@ -72,36 +72,36 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
         navigationItem.rightBarButtonItem = saveButton
     }
     
     func saveButtonPressed() {
-        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .white)
         uiBusy.hidesWhenStopped = true
         uiBusy.startAnimating()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiBusy)
         
         let site = Site.fetchRecordForActiveSite(inContext: managedObjectContext)
         
-        let siteNameIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-        let siteNameCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteNameIndexPath) as! SiteInformationTableViewCell
+        let siteNameIndexPath = IndexPath(row: 0, section: 0)
+        let siteNameCell: SiteInformationTableViewCell = tableView.cellForRow(at: siteNameIndexPath) as! SiteInformationTableViewCell
         
-        let siteURLIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-        let siteURLCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(siteURLIndexPath) as! SiteInformationTableViewCell
+        let siteURLIndexPath = IndexPath(row: 1, section: 0)
+        let siteURLCell: SiteInformationTableViewCell = tableView.cellForRow(at: siteURLIndexPath) as! SiteInformationTableViewCell
         
-        let apiKeyIndexPath = NSIndexPath(forRow: 0, inSection: 1)
-        let apiKeyCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(apiKeyIndexPath) as! SiteInformationTableViewCell
+        let apiKeyIndexPath = IndexPath(row: 0, section: 1)
+        let apiKeyCell: SiteInformationTableViewCell = tableView.cellForRow(at: apiKeyIndexPath) as! SiteInformationTableViewCell
         
-        let tokenIndexPath = NSIndexPath(forRow: 1, inSection: 1)
-        let tokenCell: SiteInformationTableViewCell = tableView.cellForRowAtIndexPath(tokenIndexPath) as! SiteInformationTableViewCell
+        let tokenIndexPath = IndexPath(row: 1, section: 1)
+        let tokenCell: SiteInformationTableViewCell = tableView.cellForRow(at: tokenIndexPath) as! SiteInformationTableViewCell
         
         site.setValue(siteNameCell.textFieldText(), forKey: "name")
         site.setValue(siteURLCell.textFieldText(), forKey: "url")
@@ -114,7 +114,7 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
             self.site = site
             tableView.reloadData()
             
-            let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
+            let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(SiteInformationViewController.saveButtonPressed))
             navigationItem.rightBarButtonItem = saveButton
         } catch {
             print("Unable to save context")
@@ -123,79 +123,79 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
     
     // MARK: Table View Delegate
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections[section].type {
-            case .General:
+            case .general:
                 return NSLocalizedString("General", comment: "")
-            case .Authentication:
+            case .authentication:
                 return NSLocalizedString("Authentication", comment: "")
-            case .Permissions:
+            case .permissions:
                 return NSLocalizedString("Permissions", comment: "")
-            case .Misc:
+            case .misc:
                 return NSLocalizedString("Dashboard Layout", comment: "")
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view: UIView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 40))
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view: UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 40))
         view.backgroundColor = .EDDGreyColor()
-        view.userInteractionEnabled = false
+        view.isUserInteractionEnabled = false
         view.tag = section
         
-        let label = UILabel(frame: CGRectMake(15, 25, tableView.bounds.size.width - 10, 20))
-        label.text = self.tableView(tableView, titleForHeaderInSection: section)?.uppercaseString
+        let label = UILabel(frame: CGRect(x: 15, y: 25, width: tableView.bounds.size.width - 10, height: 20))
+        label.text = self.tableView(tableView, titleForHeaderInSection: section)?.uppercased()
         label.textColor = .EDDBlackColor()
-        label.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-        label.textAlignment = .Left
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.textAlignment = .left
         
         view.addSubview(label)
         
         return view
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if sections[indexPath.section].items[indexPath.row] == .Commissions {
-            let cell = UITableViewCell(style: .Default, reuseIdentifier: "commissionsToggleCell")
-            let switchView = UISwitch(frame: CGRectZero)
-            switchView.addTarget(self, action: #selector(SiteInformationViewController.toggleCommissionsDisplay(_:)), forControlEvents: .TouchUpInside)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if sections[indexPath.section].items[indexPath.row] == .commissions {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "commissionsToggleCell")
+            let switchView = UISwitch(frame: CGRect.zero)
+            switchView.addTarget(self, action: #selector(SiteInformationViewController.toggleCommissionsDisplay(_:)), for: .touchUpInside)
             cell.textLabel!.text = NSLocalizedString("Disply Commissions on Dashboard?", comment: "")
             cell.accessoryView = switchView
             
-            if sharedDefaults.boolForKey(Site.activeSite().uid! + "-DisplayCommissions") == true {
+            if sharedDefaults.bool(forKey: Site.activeSite().uid! + "-DisplayCommissions") == true {
                 switchView.setOn(true, animated: true)
             }
             
             return cell
         }
         
-        var cell: SiteInformationTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SiteInformationCell") as! SiteInformationTableViewCell?
+        var cell: SiteInformationTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SiteInformationCell") as! SiteInformationTableViewCell?
         
         if cell == nil {
             cell = SiteInformationTableViewCell()
         }
         
         switch sections[indexPath.section].items[indexPath.row] {
-            case .SiteName:
+            case .siteName:
                 cell!.configure("Site Name", text: site!.name!)
-            case .SiteURL:
+            case .siteURL:
                 cell!.configure("Site URL", text: site!.url!)
-            case .APIKey:
+            case .apiKey:
                 cell!.configure("API Key", text: site!.key)
-            case .Token:
+            case .token:
                 cell!.configure("Token", text: site!.token)
             default:
                 cell!.configure("", text: "")
@@ -206,11 +206,11 @@ class SiteInformationViewController: SiteTableViewController, ManagedObjectConte
         return cell!
     }
     
-    func toggleCommissionsDisplay(sender: UISwitch) {
-        if sender.on {
-            sharedDefaults.setBool(true, forKey: Site.activeSite().uid! + "-DisplayCommissions")
+    func toggleCommissionsDisplay(_ sender: UISwitch) {
+        if sender.isOn {
+            sharedDefaults.set(true, forKey: Site.activeSite().uid! + "-DisplayCommissions")
         } else {
-            sharedDefaults.setBool(false, forKey: Site.activeSite().uid! + "-DisplayCommissions")
+            sharedDefaults.set(false, forKey: Site.activeSite().uid! + "-DisplayCommissions")
         }
 
         sharedDefaults.synchronize()

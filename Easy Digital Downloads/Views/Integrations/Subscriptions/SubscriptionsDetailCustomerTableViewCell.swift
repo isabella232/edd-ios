@@ -11,39 +11,39 @@ import SwiftyJSON
 
 class SubscriptionsDetailCustomerTableViewCell: UITableViewCell {
 
-    private var hasSetupConstraints = false
+    fileprivate var hasSetupConstraints = false
     
     lazy var containerStackView: UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
-    let nameLabel: UILabel = UILabel(frame: CGRectZero)
-    let emailLabel: UILabel = UILabel(frame: CGRectZero)
+    let nameLabel: UILabel = UILabel(frame: CGRect.zero)
+    let emailLabel: UILabel = UILabel(frame: CGRect.zero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        backgroundColor = .whiteColor()
-        contentView.backgroundColor = .whiteColor()
+        backgroundColor = .white
+        contentView.backgroundColor = .white
         
-        nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         nameLabel.textColor = .EDDBlueColor()
         
         emailLabel.textColor = .EDDBlackColor()
-        emailLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        emailLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         layout()
     }
@@ -54,7 +54,7 @@ class SubscriptionsDetailCustomerTableViewCell: UITableViewCell {
     
     // MARK: Private
     
-    private func layout() {
+    fileprivate func layout() {
         containerStackView.addArrangedSubview(nameLabel)
         containerStackView.addArrangedSubview(emailLabel)
         
@@ -65,17 +65,17 @@ class SubscriptionsDetailCustomerTableViewCell: UITableViewCell {
         contentView.addSubview(disclosureImageView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
-        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: CGFloat(1), constant: -15))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        constraints.append(containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15))
+        constraints.append(containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15))
+        constraints.append(containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15))
+        constraints.append(containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(object: [String: JSON]) {
+    func configure(_ object: [String: JSON]) {
         nameLabel.text = object["name"]?.stringValue
         emailLabel.text = object["email"]?.stringValue
     }

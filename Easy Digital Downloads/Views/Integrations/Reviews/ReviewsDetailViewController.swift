@@ -11,32 +11,32 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class ReviewsDetailViewController: SiteTableViewController {
 
-    private enum CellType {
-        case MetaHeading
-        case Meta
-        case ProductHeading
-        case Product
+    fileprivate enum CellType {
+        case metaHeading
+        case meta
+        case productHeading
+        case product
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var review: Review?
     var product: Product?
     
     init(review: Review) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.review = review
@@ -45,7 +45,7 @@ class ReviewsDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
         title = review.title
         
@@ -55,21 +55,21 @@ class ReviewsDetailViewController: SiteTableViewController {
         
         networkOperations()
         
-        tableView.registerClass(ReviewsDetailMetaTableViewCell.self, forCellReuseIdentifier: "ReviewsDetailMetaTableViewCell")
-        tableView.registerClass(ReviewsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ReviewsDetailHeadingTableViewCell")
-        tableView.registerClass(ReviewsDetailProductTableViewCell.self, forCellReuseIdentifier: "ReviewsDetailProductTableViewCell")
+        tableView.register(ReviewsDetailMetaTableViewCell.self, forCellReuseIdentifier: "ReviewsDetailMetaTableViewCell")
+        tableView.register(ReviewsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ReviewsDetailHeadingTableViewCell")
+        tableView.register(ReviewsDetailProductTableViewCell.self, forCellReuseIdentifier: "ReviewsDetailProductTableViewCell")
         
-        cells = [.MetaHeading, .Meta, .ProductHeading, .Product]
+        cells = [.metaHeading, .meta, .productHeading, .product]
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         if let product = Product.productForId(review!.downloadId) {
             self.product = product
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         } else {
@@ -120,44 +120,44 @@ class ReviewsDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let product_ = product else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
         
-        if cells[indexPath.row] == .Product {
+        if cells[indexPath.row] == .product {
             navigationController?.pushViewController(ProductsDetailViewController(product: product_), animated: true)
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
-            case .MetaHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("ReviewsDetailHeadingTableViewCell", forIndexPath: indexPath) as! ReviewsDetailHeadingTableViewCell
+            case .metaHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "ReviewsDetailHeadingTableViewCell", for: indexPath) as! ReviewsDetailHeadingTableViewCell
                 (cell as! ReviewsDetailHeadingTableViewCell).configure("Meta")
-            case .Meta:
-                cell = tableView.dequeueReusableCellWithIdentifier("ReviewsDetailMetaTableViewCell", forIndexPath: indexPath) as! ReviewsDetailMetaTableViewCell
+            case .meta:
+                cell = tableView.dequeueReusableCell(withIdentifier: "ReviewsDetailMetaTableViewCell", for: indexPath) as! ReviewsDetailMetaTableViewCell
                 (cell as! ReviewsDetailMetaTableViewCell).configure(review!)
-            case .ProductHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("ReviewsDetailHeadingTableViewCell", forIndexPath: indexPath) as! ReviewsDetailHeadingTableViewCell
+            case .productHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "ReviewsDetailHeadingTableViewCell", for: indexPath) as! ReviewsDetailHeadingTableViewCell
                 (cell as! ReviewsDetailHeadingTableViewCell).configure("Product")
-            case .Product:
-                cell = tableView.dequeueReusableCellWithIdentifier("ReviewsDetailProductTableViewCell", forIndexPath: indexPath) as! ReviewsDetailProductTableViewCell
+            case .product:
+                cell = tableView.dequeueReusableCell(withIdentifier: "ReviewsDetailProductTableViewCell", for: indexPath) as! ReviewsDetailProductTableViewCell
                 (cell as! ReviewsDetailProductTableViewCell).configureForObject(product)
         }
      

@@ -10,11 +10,11 @@ import UIKit
 import SwiftyJSON
 import Haneke
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
     return formatter
 }()
@@ -26,8 +26,8 @@ public struct Discounts {
     var amount: Double!
     var minPrice: Double!
     var type: String!
-    var startDate: NSDate?
-    var expiryDate: NSDate?
+    var startDate: Date?
+    var expiryDate: Date?
     var status: String!
     var globalDiscount: Bool!
     var singleUse: Bool!
@@ -57,7 +57,7 @@ class DiscountsViewController: SiteTableViewController {
         }
     }
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage = 2
     
@@ -113,7 +113,7 @@ class DiscountsViewController: SiteTableViewController {
     }
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         
@@ -133,13 +133,13 @@ class DiscountsViewController: SiteTableViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         operation = true
         
         EDDAPIWrapper.sharedInstance.requestDiscounts([ : ], success: { (result) in
@@ -190,7 +190,7 @@ class DiscountsViewController: SiteTableViewController {
         }
     }
     
-    private func requestNextPage() {
+    fileprivate func requestNextPage() {
         operation = true
 
         EDDAPIWrapper.sharedInstance.requestDiscounts(["page" : self.lastDownloadedPage], success: { (result) in
@@ -238,14 +238,14 @@ class DiscountsViewController: SiteTableViewController {
         }
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-DiscountsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-DiscountsPage")
         sharedDefaults.synchronize()
     }
     
     // MARK: Scroll View Delegate
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
@@ -256,24 +256,24 @@ class DiscountsViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.discountsObjects.count ?? 0
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(DiscountsDetailViewController(discount: discountsObjects[indexPath.row]), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: DiscountsTableViewCell? = tableView.dequeueReusableCellWithIdentifier("DiscountsCell") as! DiscountsTableViewCell?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: DiscountsTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "DiscountsCell") as! DiscountsTableViewCell?
         
         if cell == nil {
             cell = DiscountsTableViewCell()
@@ -289,11 +289,11 @@ class DiscountsViewController: SiteTableViewController {
 extension DiscountsViewController : InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         

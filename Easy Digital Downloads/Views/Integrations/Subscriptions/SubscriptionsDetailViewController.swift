@@ -11,29 +11,29 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class SubscriptionsDetailViewController: SiteTableViewController {
     
-    private enum CellType {
-        case BillingHeading
-        case Billing
-        case ProductHeading
-        case Product
-        case CustomerHeading
-        case Customer
-        case RenewalPaymentsHeading
-        case RenewalPayments
+    fileprivate enum CellType {
+        case billingHeading
+        case billing
+        case productHeading
+        case product
+        case customerHeading
+        case customer
+        case renewalPaymentsHeading
+        case renewalPayments
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
 
     var site: Site?
     var subscription: Subscriptions!
@@ -44,7 +44,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
     var productObject: Product?
     
     init(subscription: Subscriptions) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.subscription = subscription
@@ -53,7 +53,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
         title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.ID)"
         
@@ -61,17 +61,17 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         titleLabel.setTitle(NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.ID)")
         navigationItem.titleView = titleLabel
         
-        tableView.registerClass(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
-        tableView.registerClass(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
-        tableView.registerClass(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")
-        tableView.registerClass(SubscriptionsDetailProductTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailProductTableViewCell")
-        tableView.registerClass(SubscriptionsDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailCustomerTableViewCell")
+        tableView.register(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
+        tableView.register(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
+        tableView.register(SubscriptionsDetailRenewalPaymentsTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell")
+        tableView.register(SubscriptionsDetailProductTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailProductTableViewCell")
+        tableView.register(SubscriptionsDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailCustomerTableViewCell")
         
-        cells = [.BillingHeading, .Billing, .ProductHeading, .Product, .CustomerHeading, .Customer]
+        cells = [.billingHeading, .billing, .productHeading, .product, .customerHeading, .customer]
         
         if let renewalPayments = subscription.renewalPayments {
             if renewalPayments.count > 0 {
-                cells.append(.RenewalPaymentsHeading)
+                cells.append(.renewalPaymentsHeading)
                 for _ in 1...renewalPayments.count {
                     cells.append(.RenewalPayments)
                 }
@@ -134,16 +134,16 @@ class SubscriptionsDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cells[indexPath.row] == CellType.Product {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if cells[indexPath.row] == CellType.product {
             guard let product = self.productObject else {
                 return
             }
@@ -151,7 +151,7 @@ class SubscriptionsDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
         }
         
-        if cells[indexPath.row] == CellType.RenewalPayments {
+        if cells[indexPath.row] == CellType.renewalPayments {
             guard let payments = subscription.renewalPayments else {
                 return
             }
@@ -159,42 +159,42 @@ class SubscriptionsDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(SalesUncachedViewController(id: payments[indexPath.row - 7]["id"].int64Value), animated: true)
         }
         
-        if cells[indexPath.row] == CellType.Customer {
+        if cells[indexPath.row] == CellType.customer {
             navigationController?.pushViewController(CustomerOfflineViewController(email: subscription.customer["email"]!.stringValue), animated: true)
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
-            case .BillingHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+            case .billingHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailHeadingTableViewCell", for: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Billing", comment: ""))
-            case .Billing:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailBillingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailBillingTableViewCell
+            case .billing:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailBillingTableViewCell", for: indexPath) as! SubscriptionsDetailBillingTableViewCell
                 (cell as! SubscriptionsDetailBillingTableViewCell).configure(subscription)
-            case .ProductHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+            case .productHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailHeadingTableViewCell", for: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Product", comment: ""))
-            case .Product:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailProductTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailProductTableViewCell
+            case .product:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailProductTableViewCell", for: indexPath) as! SubscriptionsDetailProductTableViewCell
                 (cell as! SubscriptionsDetailProductTableViewCell).configure(product)
-            case .CustomerHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+            case .customerHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailHeadingTableViewCell", for: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Customer", comment: ""))
-            case .Customer:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailCustomerTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailCustomerTableViewCell
+            case .customer:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailCustomerTableViewCell", for: indexPath) as! SubscriptionsDetailCustomerTableViewCell
                 (cell as! SubscriptionsDetailCustomerTableViewCell).configure(subscription.customer)
-            case .RenewalPaymentsHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailHeadingTableViewCell
+            case .renewalPaymentsHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailHeadingTableViewCell", for: indexPath) as! SubscriptionsDetailHeadingTableViewCell
                 (cell as! SubscriptionsDetailHeadingTableViewCell).configure(NSLocalizedString("Renewal Payments", comment: ""))
-            case .RenewalPayments:
-                cell = tableView.dequeueReusableCellWithIdentifier("SubscriptionsDetailRenewalPaymentsTableViewCell", forIndexPath: indexPath) as! SubscriptionsDetailRenewalPaymentsTableViewCell
+            case .renewalPayments:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionsDetailRenewalPaymentsTableViewCell", for: indexPath) as! SubscriptionsDetailRenewalPaymentsTableViewCell
                 (cell as! SubscriptionsDetailRenewalPaymentsTableViewCell).configure(subscription.renewalPayments![indexPath.row-7])
         }
         

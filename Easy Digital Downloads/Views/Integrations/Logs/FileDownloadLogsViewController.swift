@@ -11,11 +11,11 @@ import CoreData
 import SwiftyJSON
 import Haneke
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -29,7 +29,7 @@ public struct Log {
     var paymentId: Int64!
     var file: String!
     var ip: String!
-    var date: NSDate!
+    var date: Date!
     
 }
 
@@ -61,7 +61,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     var lastDownloadedPage = 1
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -77,14 +77,14 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         titleLabel.setTitle(NSLocalizedString("File Download Logs", comment: "File Download Logs title"))
         navigationItem.titleView = titleLabel
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
@@ -93,7 +93,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForPreviewingWithDelegate(self, sourceView: view)
+        registerForPreviewing(with: self, sourceView: view)
         
         sharedCache.fetch(key: Site.activeSite().uid! + "-FileDownloadLogs").onSuccess({ result in
             let json = JSON.convertFromData(result)! as JSON
@@ -118,7 +118,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     
     // MARK: Network Operations
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         if (operation) {
             return
         }
@@ -156,7 +156,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         }
     }
     
-    private func requestNextPage(page: Int) {
+    fileprivate func requestNextPage(_ page: Int) {
         if (operation) {
             return
         }
@@ -192,13 +192,13 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         }
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
     }
     
     // MARK: Scroll View Delegate
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
@@ -210,18 +210,18 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filteredLogObjects.count ?? 0
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: FileDownloadLogsTableViewCell? = tableView.dequeueReusableCellWithIdentifier("FileDownloadLogCell") as! FileDownloadLogsTableViewCell?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: FileDownloadLogsTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogCell") as! FileDownloadLogsTableViewCell?
         
         if cell == nil {
             cell = FileDownloadLogsTableViewCell()
@@ -234,24 +234,24 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let logData = filteredLogObjects[indexPath.row]
         navigationController?.pushViewController(FileDownloadLogsDetailViewController(log: logData), animated: true)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: 3D Touch
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = tableView.indexPathForRowAtPoint(location) {
-            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
             let logData = filteredLogObjects[indexPath.row]
             return FileDownloadLogsDetailViewController(log: logData)
         }
         return nil
     }
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 
@@ -260,11 +260,11 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
 extension FileDownloadLogsViewController: InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         

@@ -9,11 +9,11 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE dd MMM yyyy HH:mm:ss"
     return formatter
 }()
@@ -22,12 +22,12 @@ class ReviewsDetailMetaTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -38,28 +38,28 @@ class ReviewsDetailMetaTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let authorHeading: UILabel = UILabel(frame: CGRectZero)
-    private let authorLabel: UILabel = UILabel(frame: CGRectZero)
-    private let ratingHeading: UILabel = UILabel(frame: CGRectZero)
-    private let ratingLabel: UILabel = UILabel(frame: CGRectZero)
-    private let dateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let dateLabel: UILabel = UILabel(frame: CGRectZero)
-    private let typeHeading: UILabel = UILabel(frame: CGRectZero)
-    private let typeLabel: UILabel = UILabel(frame: CGRectZero)
+    fileprivate let authorHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let authorLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let ratingHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let ratingLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let typeHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let typeLabel: UILabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
+        selectionStyle = .none
         
         // Styling for headings
-        authorHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        authorHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         authorHeading.textColor = .EDDBlueColor()
-        ratingHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        ratingHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         ratingHeading.textColor = .EDDBlueColor()
-        dateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        dateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         dateHeading.textColor = .EDDBlueColor()
-        typeHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        typeHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         typeHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
@@ -70,13 +70,13 @@ class ReviewsDetailMetaTableViewCell: UITableViewCell {
         
         // Styling for labels
         authorLabel.textColor = .EDDBlackColor()
-        authorLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        authorLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         ratingLabel.textColor = .EDDBlackColor()
-        ratingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        ratingLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         dateLabel.textColor = .EDDBlackColor()
-        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         typeLabel.textColor = .EDDBlackColor()
-        typeLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        typeLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,36 +96,36 @@ class ReviewsDetailMetaTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(authorHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(authorLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(authorLabel.bottomAnchor.constraintEqualToAnchor(ratingHeading.topAnchor, constant: -20))
-        constraints.append(ratingHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(ratingLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(ratingLabel.bottomAnchor.constraintEqualToAnchor(dateHeading.topAnchor, constant: -20))
-        constraints.append(dateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.bottomAnchor.constraintEqualToAnchor(typeHeading.topAnchor, constant: -20))
-        constraints.append(typeHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(typeLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(authorHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(authorLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(authorLabel.bottomAnchor.constraint(equalTo: ratingHeading.topAnchor, constant: -20))
+        constraints.append(ratingHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(ratingLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(ratingLabel.bottomAnchor.constraint(equalTo: dateHeading.topAnchor, constant: -20))
+        constraints.append(dateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.bottomAnchor.constraint(equalTo: typeHeading.topAnchor, constant: -20))
+        constraints.append(typeHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(typeLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(review: Review) {
+    func configure(_ review: Review) {
         var stars = ""
         
         if review.rating == 1 {
@@ -138,9 +138,9 @@ class ReviewsDetailMetaTableViewCell: UITableViewCell {
         
         ratingLabel.text = stars
         authorLabel.text = review.author
-        typeLabel.text = review.type.capitalizedString
+        typeLabel.text = review.type.capitalized
         
-        dateLabel.text = sharedDateFormatter.stringFromDate(review.date)
+        dateLabel.text = sharedDateFormatter.string(from: review.date as Date)
         
         layout()
     }

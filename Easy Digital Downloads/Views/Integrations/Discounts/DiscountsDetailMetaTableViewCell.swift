@@ -9,11 +9,11 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE d MMM yyyy HH:mm:ss"
     return formatter
 }()
@@ -22,12 +22,12 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -40,50 +40,50 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
     
     var discount: Discounts!
     
-    private let nameHeading: UILabel = UILabel(frame: CGRectZero)
-    private let nameLabel: UILabel = UILabel(frame: CGRectZero)
-    private let codeHeading: UILabel = UILabel(frame: CGRectZero)
-    private let codeLabel: UILabel = UILabel(frame: CGRectZero)
-    private let amountHeading: UILabel = UILabel(frame: CGRectZero)
-    private let amountLabel: UILabel = UILabel(frame: CGRectZero)
-    private let minPriceHeading: UILabel = UILabel(frame: CGRectZero)
-    private let minPriceLabel: UILabel = UILabel(frame: CGRectZero)
-    private let startDateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let startDateLabel: UILabel = UILabel(frame: CGRectZero)
-    private let expDateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let expDateLabel: UILabel = UILabel(frame: CGRectZero)
-    private let statusHeading: UILabel = UILabel(frame: CGRectZero)
-    private let statusLabel: UILabel = UILabel(frame: CGRectZero)
-    private let requirementsConditionHeading: UILabel = UILabel(frame: CGRectZero)
-    private let requirementsConditionLabel: UILabel = UILabel(frame: CGRectZero)
-    private let globalDiscountHeading: UILabel = UILabel(frame: CGRectZero)
-    private let globalDiscountLabel: UILabel = UILabel(frame: CGRectZero)
-    private let singleUseHeading: UILabel = UILabel(frame: CGRectZero)
-    private let singleUseLabel: UILabel = UILabel(frame: CGRectZero)
+    fileprivate let nameHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let nameLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let codeHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let codeLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let amountHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let amountLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let minPriceHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let minPriceLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let startDateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let startDateLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let expDateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let expDateLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let statusHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let statusLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let requirementsConditionHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let requirementsConditionLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let globalDiscountHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let globalDiscountLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let singleUseHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let singleUseLabel: UILabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         // Styling for headings
-        nameHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        nameHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         nameHeading.textColor = .EDDBlueColor()
-        codeHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        codeHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         codeHeading.textColor = .EDDBlueColor()
-        amountHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        amountHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         amountHeading.textColor = .EDDBlueColor()
-        minPriceHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        minPriceHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         minPriceHeading.textColor = .EDDBlueColor()
-        startDateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        startDateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         startDateHeading.textColor = .EDDBlueColor()
-        expDateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        expDateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         expDateHeading.textColor = .EDDBlueColor()
-        statusHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        statusHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         statusHeading.textColor = .EDDBlueColor()
-        requirementsConditionHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        requirementsConditionHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         requirementsConditionHeading.textColor = .EDDBlueColor()
-        globalDiscountHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        globalDiscountHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         globalDiscountHeading.textColor = .EDDBlueColor()
-        singleUseHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        singleUseHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         singleUseHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
@@ -99,35 +99,35 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         singleUseHeading.text = NSLocalizedString("Single Use?", comment: "")
         
         // Styling for labels
-        nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         nameLabel.textColor = .EDDBlackColor()
         codeLabel.font = UIFont(name: "Menlo-Regular", size: 13)
         codeLabel.textColor = .EDDBlackColor()
-        amountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        amountLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         amountLabel.textColor = .EDDBlackColor()
-        minPriceLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        minPriceLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         minPriceLabel.textColor = .EDDBlackColor()
-        startDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        startDateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         startDateLabel.textColor = .EDDBlackColor()
-        expDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        expDateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         expDateLabel.textColor = .EDDBlackColor()
-        statusLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        statusLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         statusLabel.textColor = .EDDBlackColor()
-        requirementsConditionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        requirementsConditionLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         requirementsConditionLabel.textColor = .EDDBlackColor()
-        globalDiscountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        globalDiscountLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         globalDiscountLabel.textColor = .EDDBlackColor()
-        singleUseLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        singleUseLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         singleUseLabel.textColor = .EDDBlackColor()
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configure(discount: Discounts) {
+    func configure(_ discount: Discounts) {
         self.discount = discount
         
         nameLabel.text = discount.name
@@ -146,19 +146,19 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         }
         
         if let startDate = discount.startDate {
-            startDateLabel.text = sharedDateFormatter.stringFromDate(startDate)
+            startDateLabel.text = sharedDateFormatter.string(from: startDate as Date)
         } else {
             startDateLabel.text = NSLocalizedString("No start date", comment: "")
         }
         
         if let expiryDate = discount.expiryDate {
-            expDateLabel.text = sharedDateFormatter.stringFromDate(expiryDate)
+            expDateLabel.text = sharedDateFormatter.string(from: expiryDate as Date)
         } else {
             expDateLabel.text = NSLocalizedString("No expiration", comment: "")
         }
         
-        statusLabel.text = discount.status.capitalizedString
-        requirementsConditionLabel.text = discount.requirementCondition.capitalizedString
+        statusLabel.text = discount.status.capitalized
+        requirementsConditionLabel.text = discount.requirementCondition.capitalized
         
         if !discount.globalDiscount {
             globalDiscountLabel.text = NSLocalizedString("No", comment: "")
@@ -203,55 +203,55 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(nameHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(nameLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(nameLabel.bottomAnchor.constraintEqualToAnchor(codeHeading.topAnchor, constant: -20))
-        constraints.append(codeHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(codeLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(codeLabel.bottomAnchor.constraintEqualToAnchor(amountHeading.topAnchor, constant: -20))
-        constraints.append(amountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(amountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(amountLabel.bottomAnchor.constraintEqualToAnchor(minPriceHeading.topAnchor, constant: -20))
-        constraints.append(minPriceHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(minPriceLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(minPriceLabel.bottomAnchor.constraintEqualToAnchor(startDateHeading.topAnchor, constant: -20))
-        constraints.append(startDateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(startDateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(startDateLabel.bottomAnchor.constraintEqualToAnchor(expDateHeading.topAnchor, constant: -20))
-        constraints.append(expDateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(expDateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(expDateLabel.bottomAnchor.constraintEqualToAnchor(statusHeading.topAnchor, constant: -20))
-        constraints.append(statusHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(statusLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(nameHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(nameLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(nameLabel.bottomAnchor.constraint(equalTo: codeHeading.topAnchor, constant: -20))
+        constraints.append(codeHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(codeLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(codeLabel.bottomAnchor.constraint(equalTo: amountHeading.topAnchor, constant: -20))
+        constraints.append(amountHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(amountLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(amountLabel.bottomAnchor.constraint(equalTo: minPriceHeading.topAnchor, constant: -20))
+        constraints.append(minPriceHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(minPriceLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(minPriceLabel.bottomAnchor.constraint(equalTo: startDateHeading.topAnchor, constant: -20))
+        constraints.append(startDateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(startDateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(startDateLabel.bottomAnchor.constraint(equalTo: expDateHeading.topAnchor, constant: -20))
+        constraints.append(expDateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(expDateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(expDateLabel.bottomAnchor.constraint(equalTo: statusHeading.topAnchor, constant: -20))
+        constraints.append(statusHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(statusLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
         if self.discount.requirementCondition.characters.count > 0 {
-            constraints.append(statusLabel.bottomAnchor.constraintEqualToAnchor(requirementsConditionHeading.topAnchor, constant: -20))
-            constraints.append(requirementsConditionHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(requirementsConditionLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(requirementsConditionLabel.bottomAnchor.constraintEqualToAnchor(globalDiscountHeading.topAnchor, constant: -20))
+            constraints.append(statusLabel.bottomAnchor.constraint(equalTo: requirementsConditionHeading.topAnchor, constant: -20))
+            constraints.append(requirementsConditionHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(requirementsConditionLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(requirementsConditionLabel.bottomAnchor.constraint(equalTo: globalDiscountHeading.topAnchor, constant: -20))
         } else {
-            constraints.append(statusLabel.bottomAnchor.constraintEqualToAnchor(globalDiscountHeading.topAnchor, constant: -20))
+            constraints.append(statusLabel.bottomAnchor.constraint(equalTo: globalDiscountHeading.topAnchor, constant: -20))
         }
-        constraints.append(globalDiscountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(globalDiscountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(globalDiscountLabel.bottomAnchor.constraintEqualToAnchor(singleUseHeading.topAnchor, constant: -20))
-        constraints.append(singleUseHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(singleUseLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(globalDiscountHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(globalDiscountLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(globalDiscountLabel.bottomAnchor.constraint(equalTo: singleUseHeading.topAnchor, constant: -20))
+        constraints.append(singleUseHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(singleUseLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
 }

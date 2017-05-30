@@ -9,11 +9,11 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE d MMM yyyy HH:mm:ss"
     return formatter
 }()
@@ -22,12 +22,12 @@ class CommissionsDetailMetaTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -40,35 +40,35 @@ class CommissionsDetailMetaTableViewCell: UITableViewCell {
     
     var commission: Commissions?
     
-    private let itemHeading: UILabel = UILabel(frame: CGRectZero)
-    private let itemLabel: UILabel = UILabel(frame: CGRectZero)
-    private let dateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let dateLabel: UILabel = UILabel(frame: CGRectZero)
-    private let amountHeading: UILabel = UILabel(frame: CGRectZero)
-    private let amountLabel: UILabel = UILabel(frame: CGRectZero)
-    private let rateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let rateLabel: UILabel = UILabel(frame: CGRectZero)
+    fileprivate let itemHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let itemLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let amountHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let amountLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let rateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let rateLabel: UILabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
+        selectionStyle = .none
         
-        itemHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        itemHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         itemHeading.textColor = .EDDBlueColor()
-        itemLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        itemLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         itemLabel.textColor = .EDDBlackColor()
-        dateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        dateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         dateHeading.textColor = .EDDBlueColor()
-        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         dateLabel.textColor = .EDDBlackColor()
-        amountHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        amountHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         amountHeading.textColor = .EDDBlueColor()
-        amountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        amountLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         amountLabel.textColor = .EDDBlackColor()
-        rateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        rateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         rateHeading.textColor = .EDDBlueColor()
-        rateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        rateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         rateLabel.textColor = .EDDBlackColor()
         
         itemHeading.text = NSLocalizedString("Item", comment: "")
@@ -81,11 +81,11 @@ class CommissionsDetailMetaTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(commission: Commissions) {
+    func configure(_ commission: Commissions) {
         self.commission = commission
         
         itemLabel.text = commission.item
-        dateLabel.text = sharedDateFormatter.stringFromDate(commission.date)
+        dateLabel.text = sharedDateFormatter.string(from: commission.date as Date)
         amountLabel.text = Site.currencyFormat(commission.amount)
         rateLabel.text = "\(commission.rate)%"
         
@@ -105,33 +105,33 @@ class CommissionsDetailMetaTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(itemHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(itemLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(itemLabel.bottomAnchor.constraintEqualToAnchor(dateHeading.topAnchor, constant: -20))
-        constraints.append(dateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.bottomAnchor.constraintEqualToAnchor(amountHeading.topAnchor, constant: -20))
-        constraints.append(amountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(amountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(amountLabel.bottomAnchor.constraintEqualToAnchor(rateHeading.topAnchor, constant: -20))
-        constraints.append(rateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(rateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(itemHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(itemLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(itemLabel.bottomAnchor.constraint(equalTo: dateHeading.topAnchor, constant: -20))
+        constraints.append(dateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.bottomAnchor.constraint(equalTo: amountHeading.topAnchor, constant: -20))
+        constraints.append(amountHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(amountLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(amountLabel.bottomAnchor.constraint(equalTo: rateHeading.topAnchor, constant: -20))
+        constraints.append(rateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(rateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
 
 }

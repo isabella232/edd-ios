@@ -8,12 +8,36 @@
 
 import UIKit
 import SwiftyJSON
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -30,15 +54,15 @@ class SearchViewController: SiteTableViewController {
     var noResultsView = UIView()
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
 
         self.site = site
 
         title = NSLocalizedString("Search", comment: "Product Search View Controller title")
-        tableView.scrollEnabled = true
+        tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
+        tableView.isUserInteractionEnabled = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = estimatedHeight
@@ -55,20 +79,20 @@ class SearchViewController: SiteTableViewController {
             frame.origin.y = 0;
             
             let view = UIView(frame: frame)
-            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             view.backgroundColor = .EDDGreyColor()
             
             return view
         }()
 
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         activityIndicator.center = view.center
         loadingView.addSubview(activityIndicator)
 
         activityIndicator.startAnimating()
 
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewDidLoad() {
@@ -78,9 +102,9 @@ class SearchViewController: SiteTableViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.barTintColor = .EDDBlackColor()
         searchController.searchBar.backgroundColor = .EDDBlackColor()
-        searchController.searchBar.searchBarStyle = .Prominent
-        searchController.searchBar.tintColor = .whiteColor()
-        searchController.searchBar.translucent = false
+        searchController.searchBar.searchBarStyle = .prominent
+        searchController.searchBar.tintColor = .white
+        searchController.searchBar.isTranslucent = false
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = NSLocalizedString("Search Products", comment: "")
         searchController.delegate = self
@@ -91,26 +115,26 @@ class SearchViewController: SiteTableViewController {
         
         navigationController?.navigationBar.clipsToBounds = true
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
-        tableView.registerClass(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
     
         for view in searchController.searchBar.subviews {
             for field in view.subviews {
-                if field.isKindOfClass(UITextField.self) {
+                if field.isKind(of: UITextField.self) {
                     let textField: UITextField = field as! UITextField
-                    textField.backgroundColor = .blackColor()
-                    textField.textColor = .whiteColor()
+                    textField.backgroundColor = .black
+                    textField.textColor = .white
                 }
             }
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        searchController.active = true
-        dispatch_async(dispatch_get_main_queue()) { 
+        searchController.isActive = true
+        DispatchQueue.main.async { 
             self.searchController.searchBar.becomeFirstResponder()
         }
     }
@@ -119,14 +143,14 @@ class SearchViewController: SiteTableViewController {
         super.init(coder: aDecoder)
     }
     
-    private func showNoResultsView() {
+    fileprivate func showNoResultsView() {
         noResultsView = {
             var frame: CGRect = self.view.frame;
             frame.origin.x = 0;
             frame.origin.y = 0;
             
             let view = UIView(frame: frame)
-            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             view.backgroundColor = .EDDGreyColor()
             
             return view
@@ -136,27 +160,27 @@ class SearchViewController: SiteTableViewController {
         noResultsLabel.text = NSLocalizedString("No Products Found.", comment: "")
         noResultsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        noResultsLabel.textAlignment = .Center
+        noResultsLabel.textAlignment = .center
         noResultsLabel.sizeToFit()
         
         noResultsView.addSubview(noResultsLabel)
         view.addSubview(noResultsView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(noResultsLabel.widthAnchor.constraintEqualToAnchor(view.widthAnchor))
-        constraints.append(noResultsLabel.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor))
+        constraints.append(noResultsLabel.widthAnchor.constraint(equalTo: view.widthAnchor))
+        constraints.append(noResultsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive {
             return filteredTableData.count
         } else {
             return 0
@@ -165,17 +189,17 @@ class SearchViewController: SiteTableViewController {
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.filteredTableData[indexPath.row]
         
-        var stats: NSData?
+        var stats: Data?
         if Site.hasPermissionToViewReports() {
             stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
         } else {
             stats = nil
         }
         
-        var files: NSData?
+        var files: Data?
         var notes: String?
         if Site.hasPermissionToViewSensitiveData() {
             if item["files"].arrayObject != nil {
@@ -201,11 +225,11 @@ class SearchViewController: SiteTableViewController {
         
         navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as! SearchTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
         
         cell.configureForObject(filteredTableData[indexPath.row])
         
@@ -218,7 +242,7 @@ extension SearchViewController: UISearchControllerDelegate {
     
     // MARK: UISearchControllerDelegate
     
-    func didPresentSearchController(searchController: UISearchController) {
+    func didPresentSearchController(_ searchController: UISearchController) {
         searchController.searchBar.becomeFirstResponder()
     }
     
@@ -228,14 +252,14 @@ extension SearchViewController: UISearchBarDelegate {
     
     // MARK: UISearchBar Delegate
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.addSubview(loadingView)
         
         self.filteredTableData.removeAll(keepCapacity: false)
         
         let searchTerms = searchBar.text
         if searchTerms?.characters.count > 0 {
-            let encodedSearchTerms = searchTerms!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+            let encodedSearchTerms = searchTerms!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
             EDDAPIWrapper.sharedInstance.requestProducts(["s" : encodedSearchTerms!], success: { (json) in
                 if let items = json["products"].array {
                     dispatch_async(dispatch_get_main_queue(), {

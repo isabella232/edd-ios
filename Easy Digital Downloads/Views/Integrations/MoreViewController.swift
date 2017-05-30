@@ -11,45 +11,45 @@ import CoreData
 
 class MoreViewController: SiteTableViewController, ManagedObjectContextSettable {
     
-    private enum SectionType {
-        case General
-        case Commissions
-        case Misc
+    fileprivate enum SectionType {
+        case general
+        case commissions
+        case misc
     }
     
-    private enum Item {
-        case SiteInformation
-        case ManageSites
-        case ProductSearch
-        case Commissions
-        case StoreCommissions
-        case Discounts
-        case FileDownloadLogs
-        case Reviews
-        case Subscriptions
+    fileprivate enum Item {
+        case siteInformation
+        case manageSites
+        case productSearch
+        case commissions
+        case storeCommissions
+        case discounts
+        case fileDownloadLogs
+        case reviews
+        case subscriptions
     }
     
-    private struct Section {
+    fileprivate struct Section {
         var type: SectionType
         var items: [Item]
     }
     
-    private var sections = [Section]()
+    fileprivate var sections = [Section]()
 
     var managedObjectContext: NSManagedObjectContext!
     
     var site: Site?
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         
         title = NSLocalizedString("More", comment: "More title")
-        tableView.scrollEnabled = true
+        tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
+        tableView.isUserInteractionEnabled = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = estimatedHeight
@@ -61,19 +61,19 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         navigationItem.titleView = titleLabel
         
         sections = [
-            Section(type: .General, items: [.SiteInformation, .ManageSites, .ProductSearch]),
+            Section(type: .general, items: [.siteInformation, .manageSites, .productSearch]),
         ]
         
         if Site.activeSite().hasCommissions == true {
-            sections.append(Section(type: .Commissions, items: [.Commissions, .StoreCommissions]))
+            sections.append(Section(type: .commissions, items: [.commissions, .storeCommissions]))
         }
         
         if Site.activeSite().hasReviews == true && Site.activeSite().hasRecurring == true {
-            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts, .Reviews]))
+            sections.append(Section(type: .misc, items: [.subscriptions, .fileDownloadLogs, .discounts, .reviews]))
         } else if (Site.activeSite().hasReviews == true) {
-            sections.append(Section(type: .Misc, items: [.FileDownloadLogs, .Discounts, .Reviews]))
+            sections.append(Section(type: .misc, items: [.fileDownloadLogs, .discounts, .reviews]))
         } else if (Site.activeSite().hasRecurring == true) {
-            sections.append(Section(type: .Misc, items: [.Subscriptions, .FileDownloadLogs, .Discounts]))
+            sections.append(Section(type: .misc, items: [.subscriptions, .fileDownloadLogs, .discounts]))
         }
     }
     
@@ -82,7 +82,7 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
         
         super.leftBarButtonItem = true
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -91,100 +91,100 @@ class MoreViewController: SiteTableViewController, ManagedObjectContextSettable 
     
     // MARK: Table View Delegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections[section].type {
-            case .General:
+            case .general:
                 return NSLocalizedString("General", comment: "")
-            case .Commissions:
+            case .commissions:
                 return NSLocalizedString("Commissions", comment: "")
-            case .Misc:
+            case .misc:
                 return NSLocalizedString("Misc", comment: "")
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section].items[indexPath.row] {
-            case .SiteInformation:
+            case .siteInformation:
                 self.navigationController?.pushViewController(SiteInformationViewController(site: site!), animated: true)
-            case .ManageSites:
+            case .manageSites:
                 self.navigationController?.pushViewController(ManageSitesViewController(), animated: true)
-            case .ProductSearch:
+            case .productSearch:
                 self.navigationController?.pushViewController(SearchViewController(site: site!), animated: true)
-            case .FileDownloadLogs:
+            case .fileDownloadLogs:
                 self.navigationController?.pushViewController(FileDownloadLogsViewController(site: self.site!), animated: true)
-            case .Commissions:
+            case .commissions:
                 self.navigationController?.pushViewController(CommissionsViewController(site: site!), animated: true)
-            case .StoreCommissions:
+            case .storeCommissions:
                 self.navigationController?.pushViewController(StoreCommissionsViewController(site: site!), animated: true)
-            case .Discounts:
+            case .discounts:
                 self.navigationController?.pushViewController(DiscountsViewController(site: site!), animated: true)
-            case .Reviews:
+            case .reviews:
                 self.navigationController?.pushViewController(ReviewsViewController(site: site!), animated: true)
-            case .Subscriptions:
+            case .subscriptions:
                 self.navigationController?.pushViewController(SubscriptionsViewController(site: site!), animated: true)
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
 
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view: UIView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 40))
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view: UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 40))
         view.backgroundColor = .EDDGreyColor()
-        view.userInteractionEnabled = false
+        view.isUserInteractionEnabled = false
         view.tag = section
         
-        let label = UILabel(frame: CGRectMake(15, 25, tableView.bounds.size.width - 10, 20))
-        label.text = self.tableView(tableView, titleForHeaderInSection: section)?.uppercaseString
+        let label = UILabel(frame: CGRect(x: 15, y: 25, width: tableView.bounds.size.width - 10, height: 20))
+        label.text = self.tableView(tableView, titleForHeaderInSection: section)?.uppercased()
         label.textColor = .EDDBlackColor()
-        label.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-        label.textAlignment = .Left
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.textAlignment = .left
         
         view.addSubview(label)
         
         return view
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
     // MARK: Table View Data Source
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("MoreCell")
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "MoreCell")
         
         if (cell == nil) {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "MoreCell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "MoreCell")
         }
         
-        cell?.accessoryType = .DisclosureIndicator
+        cell?.accessoryType = .disclosureIndicator
         
         switch sections[indexPath.section].items[indexPath.row] {
-            case .SiteInformation:
+            case .siteInformation:
                 cell?.textLabel?.text = NSLocalizedString("Site Information", comment: "")
-            case .ManageSites:
+            case .manageSites:
                 cell?.textLabel?.text = NSLocalizedString("Manage Sites", comment: "")
-            case .ProductSearch:
+            case .productSearch:
                 cell?.textLabel?.text = NSLocalizedString("Product Search", comment: "")
-            case .FileDownloadLogs:
+            case .fileDownloadLogs:
                 cell?.textLabel?.text = NSLocalizedString("File Download Logs", comment: "")
-            case .Commissions:
+            case .commissions:
                 cell?.textLabel?.text = NSLocalizedString("Commissions", comment: "")
-            case .StoreCommissions:
+            case .storeCommissions:
                 cell?.textLabel?.text = NSLocalizedString("Store Commissions", comment: "")
-            case .Reviews:
+            case .reviews:
                 cell?.textLabel?.text = NSLocalizedString("Reviews", comment: "")
-            case .Subscriptions:
+            case .subscriptions:
                 cell?.textLabel?.text = NSLocalizedString("Subscriptions", comment: "")
-            case .Discounts:
+            case .discounts:
                 cell?.textLabel?.text = NSLocalizedString("Discounts", comment: "")
         }
         

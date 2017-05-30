@@ -14,33 +14,33 @@ class SiteInformationTableViewCell: UITableViewCell {
     
     lazy var containerStackView: UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
 
-    let label = UILabel(frame: CGRectZero)
-    let textField = UITextField(frame: CGRectZero)
+    let label = UILabel(frame: CGRect.zero)
+    let textField = UITextField(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        backgroundColor = .whiteColor()
-        contentView.backgroundColor = .whiteColor()
+        backgroundColor = .white
+        contentView.backgroundColor = .white
         
-        label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        label.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         label.textColor = .EDDBlueColor()
         
-        textField.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        textField.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         textField.textColor = .EDDBlackColor()
     }
     
@@ -55,15 +55,15 @@ class SiteInformationTableViewCell: UITableViewCell {
         contentView.addSubview(containerStackView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        constraints.append(containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15))
+        constraints.append(containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15))
+        constraints.append(containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15))
+        constraints.append(containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(label: String, text: String) {
+    func configure(_ label: String, text: String) {
         self.label.text = label
         textField.text = text
     }

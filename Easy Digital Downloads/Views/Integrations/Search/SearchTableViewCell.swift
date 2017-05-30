@@ -13,51 +13,51 @@ import SwiftyJSON
 
 class SearchTableViewCell: UITableViewCell {
 
-    private var hasSetupConstraints = false
+    fileprivate var hasSetupConstraints = false
     
     lazy var containerStackView: UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
-    let titleLabel: UILabel = UILabel(frame: CGRectZero)
-    let pricingLabel: UILabel = UILabel(frame: CGRectZero)
+    let titleLabel: UILabel = UILabel(frame: CGRect.zero)
+    let pricingLabel: UILabel = UILabel(frame: CGRect.zero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
-    private var thumbnailImageView: UIImageView = UIImageView(frame: CGRectZero)
+    fileprivate var thumbnailImageView: UIImageView = UIImageView(frame: CGRect.zero)
     var layoutConstraints = [NSLayoutConstraint]()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         thumbnailImageView = {
-            let imageView = UIImageView(frame: CGRectZero)
+            let imageView = UIImageView(frame: CGRect.zero)
             
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = true
             
             return imageView
         }()
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        titleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         titleLabel.textColor = .EDDBlueColor()
         
         pricingLabel.textColor = .EDDBlackColor()
-        pricingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        pricingLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         layout()
     }
@@ -78,7 +78,7 @@ class SearchTableViewCell: UITableViewCell {
     
     // MARK: Private
     
-    private func layout() {
+    fileprivate func layout() {
         containerStackView.addArrangedSubview(titleLabel)
         containerStackView.addArrangedSubview(pricingLabel)
         
@@ -88,11 +88,11 @@ class SearchTableViewCell: UITableViewCell {
         disclosureImageView.sizeToFit()
         contentView.addSubview(disclosureImageView)
         
-        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
-        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: CGFloat(1), constant: -15))
+        layoutConstraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: CGFloat(1), constant: CGFloat(0)))
     }
     
-    func configureForObject(object: JSON) {
+    func configureForObject(_ object: JSON) {
         titleLabel.text = object["info"]["title"].stringValue
         
         let pricing = object["pricing"].dictionaryValue
@@ -104,11 +104,11 @@ class SearchTableViewCell: UITableViewCell {
                 sortedArray.append(price!)
             }
             
-            sortedArray.sortInPlace {
+            sortedArray.sort {
                 return $0 < $1
             }
             
-            pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: sortedArray[0]))) - \(Site.currencyFormat(NSNumber(double: sortedArray[sortedArray.count - 1])))"
+            pricingLabel.text = "\(Site.currencyFormat(NSNumber(value: sortedArray[0] as Double))) - \(Site.currencyFormat(NSNumber(value: sortedArray[sortedArray.count - 1] as Double)))"
         } else {
             let amount = pricing["amount"]!.stringValue
             let doubleObject = Double(amount)
@@ -119,28 +119,28 @@ class SearchTableViewCell: UITableViewCell {
             if thumbnail.characters.count > 0 {
                 contentView.addSubview(thumbnailImageView)
                 
-                layoutConstraints.append(thumbnailImageView.widthAnchor.constraintEqualToConstant(40))
-                layoutConstraints.append(thumbnailImageView.heightAnchor.constraintEqualToConstant(40))
-                layoutConstraints.append(thumbnailImageView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-                layoutConstraints.append(thumbnailImageView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-                layoutConstraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-                layoutConstraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-                layoutConstraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 65))
-                layoutConstraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+                layoutConstraints.append(thumbnailImageView.widthAnchor.constraint(equalToConstant: 40))
+                layoutConstraints.append(thumbnailImageView.heightAnchor.constraint(equalToConstant: 40))
+                layoutConstraints.append(thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15))
+                layoutConstraints.append(thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15))
+                layoutConstraints.append(containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15))
+                layoutConstraints.append(containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15))
+                layoutConstraints.append(containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 65))
+                layoutConstraints.append(containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15))
                 
-                let url = NSURL(string: thumbnail)
-                thumbnailImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+                let url = URL(string: thumbnail)
+                thumbnailImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSize(width: 60, height: 60), radius: 30), progress: nil, progressQueue: DispatchQueue.main, imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
             }
         } else {
             thumbnailImageView.removeFromSuperview()
             
-            layoutConstraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-            layoutConstraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-            layoutConstraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-            layoutConstraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+            layoutConstraints.append(containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15))
+            layoutConstraints.append(containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15))
+            layoutConstraints.append(containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15))
+            layoutConstraints.append(containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15))
         }
         
-        NSLayoutConstraint.activateConstraints(layoutConstraints)
+        NSLayoutConstraint.activate(layoutConstraints)
     }
 
 

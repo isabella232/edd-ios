@@ -12,55 +12,55 @@ class SubscriptionsDetailHeadingTableViewCell: UITableViewCell {
 
     lazy var containerStackView  : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
-    private let headingLabel = UILabel(frame: CGRectZero)
+    fileprivate let headingLabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
+        selectionStyle = .none
         
         backgroundColor = .EDDGreyColor()
         
         headingLabel.textColor = .EDDBlackColor()
-        headingLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-        headingLabel.textAlignment = .Left
+        headingLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+        headingLabel.textAlignment = .left
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    private func layout() {
+    fileprivate func layout() {
         containerStackView .addArrangedSubview(headingLabel)
         
         containerStackView .translatesAutoresizingMaskIntoConstraints = false
-        containerStackView .layoutMarginsRelativeArrangement = true
-        containerStackView .alignment = .Top
+        containerStackView .isLayoutMarginsRelativeArrangement = true
+        containerStackView .alignment = .top
         
         contentView.addSubview(containerStackView )
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(headingLabel.widthAnchor.constraintEqualToAnchor(containerStackView .widthAnchor, multiplier: 1.0))
-        constraints.append(headingLabel.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 15))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -15))
-        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
+        constraints.append(headingLabel.widthAnchor.constraint(equalTo: containerStackView .widthAnchor, multiplier: 1.0))
+        constraints.append(headingLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15))
+        constraints.append(containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15))
+        constraints.append(containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15))
+        constraints.append(containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(heading: String) {
-        headingLabel.text = heading.uppercaseString
+    func configure(_ heading: String) {
+        headingLabel.text = heading.uppercased()
         
         layout()
     }

@@ -10,11 +10,11 @@ import UIKit
 import SwiftyJSON
 import Haneke
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -28,7 +28,7 @@ public struct Review {
     var author: String!
     var email: String!
     var IP: String!
-    var date: NSDate!
+    var date: Date!
     var content: String!
     var status: String!
     var userId: Int64!
@@ -57,9 +57,9 @@ class ReviewsViewController: SiteTableViewController {
         }
     }
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integerForKey("\(Site.activeSite().uid)-ReviewsPage") ?? 1
+    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(Site.activeSite().uid)-ReviewsPage") ?? 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +91,7 @@ class ReviewsViewController: SiteTableViewController {
     }
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         
@@ -111,13 +111,13 @@ class ReviewsViewController: SiteTableViewController {
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         EDDAPIWrapper.sharedInstance.requestReviews([ : ], success: { (result) in
             self.sharedCache.set(value: result.asData(), key: Site.activeSite().uid! + "-Reviews")
             
@@ -141,38 +141,38 @@ class ReviewsViewController: SiteTableViewController {
         }
     }
     
-    private func requestNextPage() {
+    fileprivate func requestNextPage() {
         
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-ReviewsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-ReviewsPage")
         sharedDefaults.synchronize()
     }
     
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.reviewObjects.count ?? 0
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let review = reviewObjects[indexPath.row]
         
         navigationController?.pushViewController(ReviewsDetailViewController(review: review), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: ReviewsTableViewCell? = tableView.dequeueReusableCellWithIdentifier("ReviewsTableViewCell") as! ReviewsTableViewCell?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: ReviewsTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "ReviewsTableViewCell") as! ReviewsTableViewCell?
         
         if cell == nil {
             cell = ReviewsTableViewCell()
@@ -188,11 +188,11 @@ class ReviewsViewController: SiteTableViewController {
 extension ReviewsViewController : InfiniteScrollingTableView {
 
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         

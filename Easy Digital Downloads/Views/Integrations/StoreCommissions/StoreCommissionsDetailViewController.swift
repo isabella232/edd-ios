@@ -11,29 +11,29 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class StoreCommissionsDetailViewController: SiteTableViewController {
 
-    private enum CellType {
-        case MetaHeading
-        case Meta
+    fileprivate enum CellType {
+        case metaHeading
+        case meta
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var commission: StoreCommissions?
     
     init(storeCommission: StoreCommissions) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.commission = storeCommission
@@ -42,16 +42,16 @@ class StoreCommissionsDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Store Commission", comment: ""))
         navigationItem.titleView = titleLabel
         
-        cells = [.MetaHeading, .Meta]
+        cells = [.metaHeading, .meta]
         
-        tableView.registerClass(StoreCommissionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "StoreCommissionsDetailHeadingTableViewCell")
-        tableView.registerClass(StoreCommissionsDetailMetaTableViewCell.self, forCellReuseIdentifier: "StoreCommissionsDetailMetaTableViewCell")
+        tableView.register(StoreCommissionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "StoreCommissionsDetailHeadingTableViewCell")
+        tableView.register(StoreCommissionsDetailMetaTableViewCell.self, forCellReuseIdentifier: "StoreCommissionsDetailMetaTableViewCell")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,29 +60,29 @@ class StoreCommissionsDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
-            case .MetaHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("StoreCommissionsDetailHeadingTableViewCell", forIndexPath: indexPath) as! StoreCommissionsDetailHeadingTableViewCell
+            case .metaHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "StoreCommissionsDetailHeadingTableViewCell", for: indexPath) as! StoreCommissionsDetailHeadingTableViewCell
                 (cell as! StoreCommissionsDetailHeadingTableViewCell).configure("Meta")
-            case .Meta:
-                cell = tableView.dequeueReusableCellWithIdentifier("StoreCommissionsDetailMetaTableViewCell", forIndexPath: indexPath) as! StoreCommissionsDetailMetaTableViewCell
+            case .meta:
+                cell = tableView.dequeueReusableCell(withIdentifier: "StoreCommissionsDetailMetaTableViewCell", for: indexPath) as! StoreCommissionsDetailMetaTableViewCell
                 (cell as! StoreCommissionsDetailMetaTableViewCell).configure(commission!)
         }
         

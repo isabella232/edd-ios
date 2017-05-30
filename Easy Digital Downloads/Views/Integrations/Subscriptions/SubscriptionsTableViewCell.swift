@@ -9,27 +9,27 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE dd MMM yyyy HH:mm"
     return formatter
 }()
 
 class SubscriptionsTableViewCell: UITableViewCell {
 
-    private var hasSetupConstraints = false
+    fileprivate var hasSetupConstraints = false
     
     lazy var stackView: UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -40,32 +40,32 @@ class SubscriptionsTableViewCell: UITableViewCell {
         return view
     }()
     
-    let nameLabel: UILabel = UILabel(frame: CGRectZero)
-    let dateLabel: UILabel = UILabel(frame: CGRectZero)
+    let nameLabel: UILabel = UILabel(frame: CGRect.zero)
+    let dateLabel: UILabel = UILabel(frame: CGRect.zero)
     let disclosureImageView: UIImageView = UIImageView(image: UIImage(named: "DisclosureIndicator"))
-    let statusLabel = CommissionsStatusLabel(frame: CGRectZero)
+    let statusLabel = CommissionsStatusLabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
-        nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         nameLabel.textColor = .EDDBlueColor()
-        nameLabel.lineBreakMode = .ByWordWrapping
+        nameLabel.lineBreakMode = .byWordWrapping
         nameLabel.numberOfLines = 0
         
         dateLabel.textColor = .EDDBlackColor()
-        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        statusLabel.font = UIFont.systemFontOfSize(13, weight: UIFontWeightMedium)
-        statusLabel.textColor = .whiteColor()
+        statusLabel.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightMedium)
+        statusLabel.textColor = .white
         statusLabel.layer.cornerRadius = 2
         statusLabel.layer.borderWidth = 1
         statusLabel.layer.masksToBounds = true
@@ -79,15 +79,15 @@ class SubscriptionsTableViewCell: UITableViewCell {
     
     // MARK: Private
     
-    private func layout() {
+    fileprivate func layout() {
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(dateLabel)
         
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
@@ -100,23 +100,23 @@ class SubscriptionsTableViewCell: UITableViewCell {
         contentView.addSubview(statusLabel)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -15))
-        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
-        constraints.append(NSLayoutConstraint(item: statusLabel, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: -45))
-        constraints.append(NSLayoutConstraint(item: statusLabel, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: CGFloat(1), constant: -15))
+        constraints.append(NSLayoutConstraint(item: disclosureImageView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        constraints.append(NSLayoutConstraint(item: statusLabel, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: CGFloat(1), constant: -45))
+        constraints.append(NSLayoutConstraint(item: statusLabel, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(subscription: Subscriptions) {
+    func configure(_ subscription: Subscriptions) {
         let customer = subscription.customer
         
         var name = customer["name"]!.stringValue
@@ -126,24 +126,24 @@ class SubscriptionsTableViewCell: UITableViewCell {
         }
         
         if subscription.status == "cancelled" || subscription.status == "expired" || subscription.status == "failing" {
-            statusLabel.layer.backgroundColor = UIColor.errorColor().CGColor
-            statusLabel.layer.borderColor = UIColor.errorColor().CGColor
+            statusLabel.layer.backgroundColor = UIColor.errorColor().cgColor
+            statusLabel.layer.borderColor = UIColor.errorColor().cgColor
         }
         
         if subscription.status == "pending" {
-            statusLabel.layer.backgroundColor = UIColor.orangeColor().CGColor
-            statusLabel.layer.borderColor = UIColor.orangeColor().CGColor
+            statusLabel.layer.backgroundColor = UIColor.orange.cgColor
+            statusLabel.layer.borderColor = UIColor.orange.cgColor
         }
         
         if subscription.status == "active" || subscription.status == "completed" {
-            statusLabel.layer.backgroundColor = UIColor.validColor().CGColor
-            statusLabel.layer.borderColor = UIColor.validColor().CGColor
+            statusLabel.layer.backgroundColor = UIColor.validColor().cgColor
+            statusLabel.layer.borderColor = UIColor.validColor().cgColor
         }
         
-        statusLabel.text = subscription.status.uppercaseString
+        statusLabel.text = subscription.status.uppercased()
         
         nameLabel.text = name
-        dateLabel.text = sharedDateFormatter.stringFromDate(subscription.created)
+        dateLabel.text = sharedDateFormatter.string(from: subscription.created as Date)
         
         nameLabel.sizeToFit()
         dateLabel.sizeToFit()

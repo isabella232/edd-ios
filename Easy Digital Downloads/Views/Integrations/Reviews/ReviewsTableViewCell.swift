@@ -8,11 +8,11 @@
 
 import UIKit
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE dd MMM yyyy HH:mm"
     return formatter
 }()
@@ -23,12 +23,12 @@ class ReviewsTableViewCell: UITableViewCell {
     
     lazy var stackView: UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -39,27 +39,27 @@ class ReviewsTableViewCell: UITableViewCell {
         return view
     }()
 
-    let titleLabel = UILabel(frame: CGRectZero)
-    let dateLabel = UILabel(frame: CGRectZero)
+    let titleLabel = UILabel(frame: CGRect.zero)
+    let dateLabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        titleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         titleLabel.textColor = .EDDBlueColor()
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         
         dateLabel.textColor = .EDDBlackColor()
-        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -73,27 +73,27 @@ class ReviewsTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 0.7))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(titleLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.7))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(data: Review) {
-        dateLabel.text = sharedDateFormatter.stringFromDate(data.date)
+    func configure(_ data: Review) {
+        dateLabel.text = sharedDateFormatter.string(from: data.date as Date)
         
         var stars = ""
         
