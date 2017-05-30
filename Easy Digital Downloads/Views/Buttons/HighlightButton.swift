@@ -10,11 +10,11 @@ import UIKit
 
 class HighlightButton: UIButton {
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
-            UIView.animateWithDuration(0.2) { 
-                self.imageView?.alpha = self.highlighted ? 0.3 : 1
-            }
+            UIView.animate(withDuration: 0.2, animations: { 
+                self.imageView?.alpha = self.isHighlighted ? 0.3 : 1
+            }) 
         }
     }
 
