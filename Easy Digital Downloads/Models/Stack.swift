@@ -8,20 +8,20 @@
 
 import CoreData
 
-private let StoreURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.easydigitaldownloads.EDDSalesTracker")!.URLByAppendingPathComponent("EDD.momd")
+private let StoreURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.easydigitaldownloads.EDDSalesTracker")!.appendingPathComponent("EDD.momd")
 
 public func createEDDMainContext() -> NSManagedObjectContext {
-    let bundles = [NSBundle(forClass: Site.self)]
+    let bundles = [Bundle(for: Site.self)]
     
-    guard let model = NSManagedObjectModel.mergedModelFromBundles(bundles) else {
+    guard let model = NSManagedObjectModel.mergedModel(from: bundles) else {
         fatalError("Module not found")
     }
     
     let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
     
-    try! psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: StoreURL, options: nil)
+    try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: StoreURL, options: nil)
 
-    let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+    let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     context.persistentStoreCoordinator = psc
     
     return context

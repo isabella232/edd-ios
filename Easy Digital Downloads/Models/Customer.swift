@@ -12,37 +12,37 @@ import CoreData
 public final class Customer: ManagedObject {
 
     // Attributes
-    @NSManaged private var createdAt: NSDate
-    @NSManaged public private(set) var displayName: String
-    @NSManaged public private(set) var email: String
-    @NSManaged public private(set) var firstName: String
-    @NSManaged public private(set) var lastName: String
-    @NSManaged public private(set) var totalDownloads: Int64
-    @NSManaged public private(set) var totalPurchases: Int64
-    @NSManaged public private(set) var totalSpent: Double
-    @NSManaged public private(set) var uid: Int64
-    @NSManaged public private(set) var username: String
-    @NSManaged public private(set) var dateCreated: NSDate
+    @NSManaged fileprivate var createdAt: Date
+    @NSManaged public fileprivate(set) var displayName: String
+    @NSManaged public fileprivate(set) var email: String
+    @NSManaged public fileprivate(set) var firstName: String
+    @NSManaged public fileprivate(set) var lastName: String
+    @NSManaged public fileprivate(set) var totalDownloads: Int64
+    @NSManaged public fileprivate(set) var totalPurchases: Int64
+    @NSManaged public fileprivate(set) var totalSpent: Double
+    @NSManaged public fileprivate(set) var uid: Int64
+    @NSManaged public fileprivate(set) var username: String
+    @NSManaged public fileprivate(set) var dateCreated: Date
     
     // Relationships
-    @NSManaged private(set) var subscriptions: Set<Subscription>
-    @NSManaged private(set) var sales: Set<Sale>
-    @NSManaged public private(set) var site: Site
+    @NSManaged fileprivate(set) var subscriptions: Set<Subscription>
+    @NSManaged fileprivate(set) var sales: Set<Sale>
+    @NSManaged public fileprivate(set) var site: Site
         
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = NSDate()
+        createdAt = Date()
     }
     
-    public static func predicateForId(customerId: Int64) -> NSPredicate {
+    public static func predicateForId(_ customerId: Int64) -> NSPredicate {
         return NSPredicate(format: "%K == %lld", Customer.Keys.ID.rawValue, customerId)
     }
     
-    public static func predicateForUsername(username: String) -> NSPredicate {
+    public static func predicateForUsername(_ username: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", Customer.Keys.Username.rawValue, username)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: NSDate) -> Customer {
+    public static func insertIntoContext(_ moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: Date) -> Customer {
         let customer: Customer = moc.insertObject()
         customer.displayName = displayName
         customer.email = email
@@ -59,9 +59,9 @@ public final class Customer: ManagedObject {
         return customer
     }
     
-    public static func objectForData(moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: NSDate) -> Customer {
-        let entity = NSEntityDescription.entityForName("Customer", inManagedObjectContext: moc)
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Customer
+    public static func objectForData(_ moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: Date) -> Customer {
+        let entity = NSEntityDescription.entity(forEntityName: "Customer", in: moc)
+        let object = NSManagedObject(entity: entity!, insertInto: nil) as! Customer
 
         object.displayName = displayName
         object.email = email
@@ -77,8 +77,8 @@ public final class Customer: ManagedObject {
         return object
     }
     
-    public static func customerForId(customerId: Int64) -> Customer? {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    public static func customerForId(_ customerId: Int64) -> Customer? {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let customer = Customer.fetchInContext(managedObjectContext) { (request) in
@@ -109,8 +109,8 @@ extension Customer: ManagedObjectType {
         return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
     }
     
-    public static func defaultFetchRequest() -> NSFetchRequest {
-        let request = NSFetchRequest(entityName: self.entityName)
+    public static func defaultFetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.fetchLimit = 20
         request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false

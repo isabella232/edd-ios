@@ -18,9 +18,9 @@ class FileDownloadLog: NSObject, NSCoding {
     var paymentID: Int
     var file: String
     var ip: String
-    var date: NSDate
+    var date: Date
     
-    init(ID: Int, userID: Int, productID: Int, productName: String, customerID: Int, paymentID: Int, file: String, ip: String, date: NSDate) {
+    init(ID: Int, userID: Int, productID: Int, productName: String, customerID: Int, paymentID: Int, file: String, ip: String, date: Date) {
         self.ID = ID
         self.userID = userID
         self.productID = productID
@@ -33,30 +33,30 @@ class FileDownloadLog: NSObject, NSCoding {
     }
     
     required convenience init(coder decoder: NSCoder) {
-        let ID = decoder.decodeIntegerForKey("ID")
-        let userID = decoder.decodeIntegerForKey("userID")
-        let productID = decoder.decodeIntegerForKey("productID")
-        let productName = decoder.decodeObjectForKey("productName") as! String
-        let customerID = decoder.decodeIntegerForKey("customerID")
-        let paymentID = decoder.decodeIntegerForKey("paymentID")
-        let file = decoder.decodeObjectForKey("file") as! String
-        let ip = decoder.decodeObjectForKey("ip") as! String
-        let date = decoder.decodeObjectForKey("date") as! NSDate
+        let ID = decoder.decodeInteger(forKey: "ID")
+        let userID = decoder.decodeInteger(forKey: "userID")
+        let productID = decoder.decodeInteger(forKey: "productID")
+        let productName = decoder.decodeObject(forKey: "productName") as! String
+        let customerID = decoder.decodeInteger(forKey: "customerID")
+        let paymentID = decoder.decodeInteger(forKey: "paymentID")
+        let file = decoder.decodeObject(forKey: "file") as! String
+        let ip = decoder.decodeObject(forKey: "ip") as! String
+        let date = decoder.decodeObject(forKey: "date") as! Date
         
         self.init(ID: ID, userID: userID, productID: productID, productName: productName, customerID: customerID, paymentID: paymentID, file: file, ip: ip, date: date)
         
     }
     
-    func encodeWithCoder(coder: NSCoder) {
-        coder.encodeInt(Int32(self.ID), forKey: "ID")
-        coder.encodeInt(Int32(self.userID), forKey: "userID")
-        coder.encodeInt(Int32(self.productID), forKey: "productID")
-        coder.encodeObject(self.productName, forKey: "productName")
-        coder.encodeInt(Int32(self.customerID), forKey: "customerID")
-        coder.encodeInt(Int32(self.paymentID), forKey: "paymentID")
-        coder.encodeObject(self.file, forKey: "file")
-        coder.encodeObject(self.ip, forKey: "IP")
-        coder.encodeObject(self.date, forKey: "date")
+    func encode(with coder: NSCoder) {
+        coder.encodeCInt(Int32(self.ID), forKey: "ID")
+        coder.encodeCInt(Int32(self.userID), forKey: "userID")
+        coder.encodeCInt(Int32(self.productID), forKey: "productID")
+        coder.encode(self.productName, forKey: "productName")
+        coder.encodeCInt(Int32(self.customerID), forKey: "customerID")
+        coder.encodeCInt(Int32(self.paymentID), forKey: "paymentID")
+        coder.encode(self.file, forKey: "file")
+        coder.encode(self.ip, forKey: "IP")
+        coder.encode(self.date, forKey: "date")
     }
 
 }

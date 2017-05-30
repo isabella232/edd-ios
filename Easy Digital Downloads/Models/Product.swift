@@ -12,37 +12,37 @@ import CoreData
 public final class Product: ManagedObject {
 
     // Attributes
-    @NSManaged public private(set) var content: String
-    @NSManaged private var createdAt: NSDate
-    @NSManaged public private(set) var createdDate: NSDate
-    @NSManaged public private(set) var files: NSData?
-    @NSManaged public private(set) var hasVariablePricing: NSNumber
-    @NSManaged public private(set) var link: String
-    @NSManaged public private(set) var licensing: [String: AnyObject]?
-    @NSManaged public private(set) var modifiedDate: NSDate
-    @NSManaged public private(set) var notes: String?
-    @NSManaged public private(set) var pid: Int64
-    @NSManaged public private(set) var pricing: NSData
-    @NSManaged public private(set) var stats: NSData?
-    @NSManaged public private(set) var status: String
-    @NSManaged public private(set) var thumbnail: String?
-    @NSManaged public private(set) var title: String
+    @NSManaged public fileprivate(set) var content: String
+    @NSManaged fileprivate var createdAt: Date
+    @NSManaged public fileprivate(set) var createdDate: Date
+    @NSManaged public fileprivate(set) var files: Data?
+    @NSManaged public fileprivate(set) var hasVariablePricing: NSNumber
+    @NSManaged public fileprivate(set) var link: String
+    @NSManaged public fileprivate(set) var licensing: [String: AnyObject]?
+    @NSManaged public fileprivate(set) var modifiedDate: Date
+    @NSManaged public fileprivate(set) var notes: String?
+    @NSManaged public fileprivate(set) var pid: Int64
+    @NSManaged public fileprivate(set) var pricing: Data
+    @NSManaged public fileprivate(set) var stats: Data?
+    @NSManaged public fileprivate(set) var status: String
+    @NSManaged public fileprivate(set) var thumbnail: String?
+    @NSManaged public fileprivate(set) var title: String
     
     // Relationships
-    @NSManaged private(set) var subscriptions: Set<Subscription>
-    @NSManaged public private(set) var site: Site
-    @NSManaged private(set) var sales: Set<Sale>
+    @NSManaged fileprivate(set) var subscriptions: Set<Subscription>
+    @NSManaged public fileprivate(set) var site: Site
+    @NSManaged fileprivate(set) var sales: Set<Sale>
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = NSDate()
+        createdAt = Date()
     }
     
-    public static func predicateForId(productId: Int64) -> NSPredicate {
+    public static func predicateForId(_ productId: Int64) -> NSPredicate {
         return NSPredicate(format: "%K == %lld", Product.Keys.ID.rawValue, productId)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSData?, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String?, pid: Int64, pricing: NSData, stats: NSData?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
+    public static func insertIntoContext(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
         let product: Product = moc.insertObject()
         product.content = content
         product.createdDate = createdDate
@@ -63,9 +63,9 @@ public final class Product: ManagedObject {
         return product
     }
     
-    public static func objectForData(moc: NSManagedObjectContext, content: String, createdDate: NSDate, files: NSData?, hasVariablePricing: NSNumber, link: String, modifiedDate: NSDate, notes: String?, pid: Int64, pricing: NSData, stats: NSData?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
-        let entity = NSEntityDescription.entityForName("Product", inManagedObjectContext: moc)
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Product
+    public static func objectForData(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
+        let entity = NSEntityDescription.entity(forEntityName: "Product", in: moc)
+        let object = NSManagedObject(entity: entity!, insertInto: nil) as! Product
 
         object.content = content
         object.createdDate = createdDate
@@ -84,8 +84,8 @@ public final class Product: ManagedObject {
         return object
     }
     
-    public static func productForId(productId: Int64) -> Product? {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    public static func productForId(_ productId: Int64) -> Product? {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let product = Product.fetchInContext(managedObjectContext) { (request) in
@@ -100,7 +100,7 @@ public final class Product: ManagedObject {
         }
     }
     
-    public static func fetchRecordForId(productId: Int64, inContext moc: NSManagedObjectContext) -> Product? {
+    public static func fetchRecordForId(_ productId: Int64, inContext moc: NSManagedObjectContext) -> Product? {
         let product = Product.fetchSingleObjectInContext(moc) { request in
             request.predicate = predicateForId(productId)
             request.fetchLimit = 1
@@ -124,8 +124,8 @@ extension Product: ManagedObjectType {
         return NSPredicate(format: "(site.uid == %@) AND (status == %@)", Site.activeSite().uid!, "publish")
     }
     
-    public static func defaultFetchRequest() -> NSFetchRequest {
-        let request = NSFetchRequest(entityName: self.entityName)
+    public static func defaultFetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: Product.Keys.CreatedDate.rawValue, ascending: false)]

@@ -8,4 +8,4 @@
 
 import CoreData
 
-public class ManagedObject: NSManagedObject { }
+open class ManagedObject: NSManagedObject { }

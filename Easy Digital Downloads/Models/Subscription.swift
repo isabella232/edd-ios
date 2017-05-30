@@ -12,37 +12,37 @@ import CoreData
 public final class Subscription: ManagedObject {
 
     // Attributes
-    @NSManaged private var createdAt: NSDate
-    @NSManaged public private(set) var billTimes: Int64
-    @NSManaged public private(set) var customer: [String: AnyObject]
-    @NSManaged public private(set) var created: NSDate
-    @NSManaged public private(set) var expiration: NSDate
-    @NSManaged public private(set) var gateway: String
-    @NSManaged public private(set) var initialAmount: Double
-    @NSManaged public private(set) var notes: [AnyObject]?
-    @NSManaged public private(set) var parentPaymentID: Int64
-    @NSManaged public private(set) var period: String
-    @NSManaged public private(set) var productID: Int64
-    @NSManaged public private(set) var profileID: String
-    @NSManaged public private(set) var recurringAmount: Double
-    @NSManaged public private(set) var sid: Int64
-    @NSManaged public private(set) var status: String
-    @NSManaged public private(set) var transactionId: String?
-    @NSManaged public private(set) var payments: [AnyObject]?
+    @NSManaged fileprivate var createdAt: Date
+    @NSManaged public fileprivate(set) var billTimes: Int64
+    @NSManaged public fileprivate(set) var customer: [String: AnyObject]
+    @NSManaged public fileprivate(set) var created: Date
+    @NSManaged public fileprivate(set) var expiration: Date
+    @NSManaged public fileprivate(set) var gateway: String
+    @NSManaged public fileprivate(set) var initialAmount: Double
+    @NSManaged public fileprivate(set) var notes: [AnyObject]?
+    @NSManaged public fileprivate(set) var parentPaymentID: Int64
+    @NSManaged public fileprivate(set) var period: String
+    @NSManaged public fileprivate(set) var productID: Int64
+    @NSManaged public fileprivate(set) var profileID: String
+    @NSManaged public fileprivate(set) var recurringAmount: Double
+    @NSManaged public fileprivate(set) var sid: Int64
+    @NSManaged public fileprivate(set) var status: String
+    @NSManaged public fileprivate(set) var transactionId: String?
+    @NSManaged public fileprivate(set) var payments: [AnyObject]?
     
     // Relationships
-    @NSManaged public private(set) var site: Site
+    @NSManaged public fileprivate(set) var site: Site
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = NSDate()
+        createdAt = Date()
     }
     
-    public static func predicateForId(subscriptionId: Int64) -> NSPredicate {
+    public static func predicateForId(_ subscriptionId: Int64) -> NSPredicate {
         return NSPredicate(format: "%K == %lld", Subscription.Keys.ID.rawValue, subscriptionId)
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, billTimes: Int64, created: NSDate, customer: [String: AnyObject], expiration: NSDate, gateway: String, initialAmount: Double, notes: [AnyObject]?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String, transactionId: String?, payments: [AnyObject]?) -> Subscription {
+    public static func insertIntoContext(_ moc: NSManagedObjectContext, billTimes: Int64, created: Date, customer: [String: AnyObject], expiration: Date, gateway: String, initialAmount: Double, notes: [AnyObject]?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String, transactionId: String?, payments: [AnyObject]?) -> Subscription {
         let subscription: Subscription = moc.insertObject()
         subscription.billTimes = billTimes
         subscription.created = created
@@ -65,8 +65,8 @@ public final class Subscription: ManagedObject {
         return subscription
     }
     
-    public static func subscriptionForId(subscriptionId: Int64) -> Subscription? {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    public static func subscriptionForId(_ subscriptionId: Int64) -> Subscription? {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let subscription = Subscription.fetchInContext(managedObjectContext) { (request) in
@@ -81,7 +81,7 @@ public final class Subscription: ManagedObject {
         }
     }
     
-    public static func fetchRecordForId(subscriptionId: Int64, inContext moc: NSManagedObjectContext) -> Subscription? {
+    public static func fetchRecordForId(_ subscriptionId: Int64, inContext moc: NSManagedObjectContext) -> Subscription? {
         let subscription = Subscription.fetchSingleObjectInContext(moc) { request in
             request.predicate = predicateForId(subscriptionId)
             request.fetchLimit = 1
@@ -105,8 +105,8 @@ extension Subscription: ManagedObjectType {
         return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
     }
     
-    public static func defaultFetchRequest() -> NSFetchRequest {
-        let request = NSFetchRequest(entityName: self.entityName)
+    public static func defaultFetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.fetchLimit = 20
         request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false

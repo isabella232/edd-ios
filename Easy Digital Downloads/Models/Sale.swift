@@ -14,31 +14,31 @@ import SwiftyJSON
 public final class Sale: ManagedObject {
 
     // Attributes
-    @NSManaged private var createdAt: NSDate
-    @NSManaged public private(set) var customer: String
-    @NSManaged public private(set) var date: NSDate
-    @NSManaged public private(set) var discounts: [String: AnyObject]?
-    @NSManaged public private(set) var email: String
-    @NSManaged public private(set) var fees: NSData?
-    @NSManaged public private(set) var gateway: String
-    @NSManaged public private(set) var key: String
-    @NSManaged public private(set) var licenses: NSData?
-    @NSManaged public private(set) var products: NSData
-    @NSManaged public private(set) var sid: Int64
-    @NSManaged public private(set) var subtotal: NSNumber
-    @NSManaged public private(set) var tax: NSNumber
-    @NSManaged public private(set) var total: NSNumber
-    @NSManaged public private(set) var transactionId: String
+    @NSManaged fileprivate var createdAt: Date
+    @NSManaged public fileprivate(set) var customer: String
+    @NSManaged public fileprivate(set) var date: Date
+    @NSManaged public fileprivate(set) var discounts: [String: AnyObject]?
+    @NSManaged public fileprivate(set) var email: String
+    @NSManaged public fileprivate(set) var fees: Data?
+    @NSManaged public fileprivate(set) var gateway: String
+    @NSManaged public fileprivate(set) var key: String
+    @NSManaged public fileprivate(set) var licenses: Data?
+    @NSManaged public fileprivate(set) var products: Data
+    @NSManaged public fileprivate(set) var sid: Int64
+    @NSManaged public fileprivate(set) var subtotal: NSNumber
+    @NSManaged public fileprivate(set) var tax: NSNumber
+    @NSManaged public fileprivate(set) var total: NSNumber
+    @NSManaged public fileprivate(set) var transactionId: String
     
     // Relationships
-    @NSManaged public private(set) var site: Site
+    @NSManaged public fileprivate(set) var site: Site
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = NSDate()
+        createdAt = Date()
     }
     
-    public static func insertIntoContext(moc: NSManagedObjectContext, customer: String, date: NSDate, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
+    public static func insertIntoContext(_ moc: NSManagedObjectContext, customer: String, date: Date, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.customer = customer
         sale.date = date
@@ -46,22 +46,22 @@ public final class Sale: ManagedObject {
         sale.gateway = gateway
         sale.key = key
         sale.sid = sid
-        sale.subtotal = subtotal
-        sale.tax = tax
-        sale.total = total
+        sale.subtotal = NSNumber(subtotal)
+        sale.tax = NSNumber(tax)
+        sale.total = NSNumber(total)
         sale.transactionId = transactionId
         sale.site = Site.fetchRecordForActiveSite(inContext: moc)
-        sale.products = NSKeyedArchiver.archivedDataWithRootObject(products)
+        sale.products = NSKeyedArchiver.archivedData(withRootObject: products)
         sale.discounts = discounts
         
         if licenses != nil {
-            sale.licenses = NSKeyedArchiver.archivedDataWithRootObject(licenses!)
+            sale.licenses = NSKeyedArchiver.archivedData(withRootObject: licenses!)
         } else {
             sale.licenses = nil
         }
         
         if let feesObject = fees {
-            sale.fees = NSKeyedArchiver.archivedDataWithRootObject(feesObject)
+            sale.fees = NSKeyedArchiver.archivedData(withRootObject: feesObject)
         } else {
             sale.fees = nil
         }
@@ -69,9 +69,9 @@ public final class Sale: ManagedObject {
         return sale
     }
     
-    public static func objectForData(moc: NSManagedObjectContext, customer: String, date: NSDate, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
-        let entity = NSEntityDescription.entityForName("Sale", inManagedObjectContext: moc)
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: nil) as! Sale
+    public static func objectForData(_ moc: NSManagedObjectContext, customer: String, date: Date, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
+        let entity = NSEntityDescription.entity(forEntityName: "Sale", in: moc)
+        let object = NSManagedObject(entity: entity!, insertInto: nil) as! Sale
         
         object.customer = customer
         object.date = date
@@ -79,21 +79,21 @@ public final class Sale: ManagedObject {
         object.gateway = gateway
         object.key = key
         object.sid = sid
-        object.subtotal = subtotal
-        object.tax = tax
-        object.total = total
+        object.subtotal = NSNumber(subtotal)
+        object.tax = NSNumber(tax)
+        object.total = NSNumber(total)
         object.transactionId = transactionId
-        object.products = NSKeyedArchiver.archivedDataWithRootObject(products)
+        object.products = NSKeyedArchiver.archivedData(withRootObject: products)
         object.discounts = discounts
         
         if licenses != nil {
-            object.licenses = NSKeyedArchiver.archivedDataWithRootObject(licenses!)
+            object.licenses = NSKeyedArchiver.archivedData(withRootObject: licenses!)
         } else {
             object.licenses = nil
         }
         
         if let feesObject = fees {
-            object.fees = NSKeyedArchiver.archivedDataWithRootObject(feesObject)
+            object.fees = NSKeyedArchiver.archivedData(withRootObject: feesObject)
         } else {
             object.fees = nil
         }
@@ -101,16 +101,16 @@ public final class Sale: ManagedObject {
         return object
     }
     
-    public static func predicateForTransactionId(transactionId: String) -> NSPredicate {
+    public static func predicateForTransactionId(_ transactionId: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", Sale.Keys.TransactionID.rawValue, transactionId)
     }
     
-    public static func predicateForId(id: String) -> NSPredicate {
+    public static func predicateForId(_ id: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", Sale.Keys.ID.rawValue, id)
     }
     
-    public static func saleForTransactionId(transactionId: String) -> Sale? {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    public static func saleForTransactionId(_ transactionId: String) -> Sale? {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let sale = Sale.fetchInContext(managedObjectContext) { (request) in
@@ -125,8 +125,8 @@ public final class Sale: ManagedObject {
         }
     }
     
-    public static func saleForId(Id: String) -> Sale? {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    public static func saleForId(_ Id: String) -> Sale? {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let sale = Sale.fetchInContext(managedObjectContext) { (request) in
@@ -141,8 +141,8 @@ public final class Sale: ManagedObject {
         }
     }
     
-    public static func defaultFetchRequest() -> NSFetchRequest {
-        let request = NSFetchRequest(entityName: "Sale")
+    public static func defaultFetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Sale")
         request.returnsObjectsAsFaults = false
         request.predicate = defaultPredicate
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -150,7 +150,7 @@ public final class Sale: ManagedObject {
     }
     
     public static func fetchMostRecentSale() -> Sale {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         
         let sale = Sale.fetchSingleObjectInContext(managedObjectContext) { request in

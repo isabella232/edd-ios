@@ -12,37 +12,37 @@ import CoreData
 public final class Discount: ManagedObject {
 
     // Attributes
-    @NSManaged private var createdAt: NSDate
-    @NSManaged public private(set) var amount: Double
-    @NSManaged public private(set) var code: String
-    @NSManaged public private(set) var did: Int64
-    @NSManaged public private(set) var expiryDate: NSDate?
-    @NSManaged public private(set) var globalDiscount: NSNumber
-    @NSManaged public private(set) var maxUses: Int64
-    @NSManaged public private(set) var minPrice: Double
-    @NSManaged public private(set) var name: String
-    @NSManaged public private(set) var productRequirements: NSData?
-    @NSManaged public private(set) var requirementConditions: String
-    @NSManaged public private(set) var singleUse: NSNumber
-    @NSManaged public private(set) var startDate: NSDate?
-    @NSManaged public private(set) var status: String
-    @NSManaged public private(set) var type: String
-    @NSManaged public private(set) var uses: Int64
+    @NSManaged fileprivate var createdAt: Date
+    @NSManaged public fileprivate(set) var amount: Double
+    @NSManaged public fileprivate(set) var code: String
+    @NSManaged public fileprivate(set) var did: Int64
+    @NSManaged public fileprivate(set) var expiryDate: Date?
+    @NSManaged public fileprivate(set) var globalDiscount: NSNumber
+    @NSManaged public fileprivate(set) var maxUses: Int64
+    @NSManaged public fileprivate(set) var minPrice: Double
+    @NSManaged public fileprivate(set) var name: String
+    @NSManaged public fileprivate(set) var productRequirements: Data?
+    @NSManaged public fileprivate(set) var requirementConditions: String
+    @NSManaged public fileprivate(set) var singleUse: NSNumber
+    @NSManaged public fileprivate(set) var startDate: Date?
+    @NSManaged public fileprivate(set) var status: String
+    @NSManaged public fileprivate(set) var type: String
+    @NSManaged public fileprivate(set) var uses: Int64
     
     // Relationships
-    @NSManaged public private(set) var site: Site
-    @NSManaged private(set) var sales: Set<Sale>
+    @NSManaged public fileprivate(set) var site: Site
+    @NSManaged fileprivate(set) var sales: Set<Sale>
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = NSDate()
+        createdAt = Date()
     }
     
-    public static func predicateForId(discountId: Int64) -> NSPredicate {
+    public static func predicateForId(_ discountId: Int64) -> NSPredicate {
         return NSPredicate(format: "%K == %lld", Discount.Keys.ID.rawValue, discountId)
     }
 
-    public static func insertIntoContext(moc: NSManagedObjectContext, amount: Double, code: String, did: Int64, expiryDate: NSDate?, globalDiscount: NSNumber, maxUses: Int64, minPrice: Double, name: String, productRequirements: NSData?, requirementConditions: String, singleUse: NSNumber, startDate: NSDate?, status: String, type: String, uses: Int64) -> Discount {
+    public static func insertIntoContext(_ moc: NSManagedObjectContext, amount: Double, code: String, did: Int64, expiryDate: Date?, globalDiscount: NSNumber, maxUses: Int64, minPrice: Double, name: String, productRequirements: Data?, requirementConditions: String, singleUse: NSNumber, startDate: Date?, status: String, type: String, uses: Int64) -> Discount {
         let discount: Discount = moc.insertObject()
         discount.amount = amount
         discount.code = code
@@ -80,8 +80,8 @@ extension Discount: ManagedObjectType {
         return NSPredicate(format: "site.uid == %@", Site.activeSite().uid!)
     }
     
-    public static func defaultFetchRequest() -> NSFetchRequest {
-        let request = NSFetchRequest(entityName: self.entityName)
+    public static func defaultFetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.fetchLimit = 20
         request.predicate = defaultPredicate
         request.returnsObjectsAsFaults = false
