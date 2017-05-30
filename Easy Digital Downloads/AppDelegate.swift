@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import CocoaLumberjack
 import Alamofire
 import AlamofireNetworkActivityIndicator
 import SSKeychain
@@ -66,11 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             session?.delegate = self
             session?.activate()
         }
-        
-        // Setup CocoaLumberjack
-        DDLog.addLogger(DDASLLogger())
-        DDLog.addLogger(DDTTYLogger())
-        DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
         if sharedDefaults.bool(forKey: "DashboardLoaded") {
             sharedDefaults.set(false, forKey: "DashboardLoaded")

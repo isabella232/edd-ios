@@ -144,7 +144,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         formatter.numberStyle = .currency
         formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
-        Alamofire.request(.GET, siteURL, parameters: parameters)
+        Alamofire.request(siteURL, method: .post, parameters: ["key": acct, "token": password], encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -153,30 +153,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     
                     self.sharedCache.set(value: resJSON.asData(), key: defaultSite + "-TodayWidgetCachedData")
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.loadingView.removeFromSuperview()
                         
                         let salesHeadingString = NSAttributedString(string: NSLocalizedString("Today's Sales", comment: "") + "\n", attributes: self.headingAttributes)
-                        self.salesString.appendAttributedString(salesHeadingString)
+                        self.salesString.append(salesHeadingString)
                         
                         let salesStatString = NSAttributedString(string: resJSON["stats"]["sales"]["today"].stringValue, attributes: self.textAttributes)
-                        self.salesString.appendAttributedString(salesStatString)
+                        self.salesString.append(salesStatString)
                         
                         let earningsHeadingString = NSAttributedString(string: NSLocalizedString("Today's Earnings", comment: "") + "\n", attributes: self.headingAttributes)
-                        self.earningsString.appendAttributedString(earningsHeadingString)
+                        self.earningsString.append(earningsHeadingString)
                         
-                        let earningsStatString = NSAttributedString(string: formatter.stringFromNumber(resJSON["stats"]["earnings"]["today"].doubleValue)!, attributes: self.textAttributes)
-                        self.earningsString.appendAttributedString(earningsStatString)
+                        let earningsStatString = NSAttributedString(string: formatter.string(from: NSNumber(value: resJSON["stats"]["earnings"]["today"].doubleValue))!, attributes: self.textAttributes)
+                        self.earningsString.append(earningsStatString)
                         
                         self.salesLabel.attributedText = self.salesString
                         self.earningsLabel.attributedText = self.earningsString
                         
-                        completionHandler(.NewData)
+                        completionHandler(.newData)
                     })
                 }
                 
                 if response.result.isFailure {
-                    completionHandler(.Failed)
+                    completionHandler(.failed)
                 }
         }
     }
@@ -203,7 +203,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         formatter.numberStyle = .currency
         formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
-        Alamofire.request(.GET, siteURL, parameters: parameters)
+        Alamofire.request(siteURL, method: .post, parameters: ["key": acct, "token": password], encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -212,7 +212,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     
                     self.sharedCache.set(value: resJSON.asData(), key: defaultSite + "-TodayWidgetCachedData")
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.loadingView.removeFromSuperview()
                         
                         let salesHeadingString = NSAttributedString(string: NSLocalizedString("Today's Sales", comment: "") + "\n", attributes: self.headingAttributes)
@@ -222,10 +222,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                         self.earningsString = earningsHeadingString.mutableCopy() as! NSMutableAttributedString
                         
                         let salesStatString = NSAttributedString(string: resJSON["stats"]["sales"]["today"].stringValue, attributes: self.textAttributes)
-                        self.salesString.appendAttributedString(salesStatString)
+                        self.salesString.append(salesStatString)
+
+                        let earningsStatString = NSAttributedString(string: formatter.string(from: NSNumber(value: resJSON["stats"]["earnings"]["today"].doubleValue))!, attributes: self.textAttributes)
                         
-                        let earningsStatString = NSAttributedString(string: formatter.stringFromNumber(resJSON["stats"]["earnings"]["today"].doubleValue)!, attributes: self.textAttributes)
-                        self.earningsString.appendAttributedString(earningsStatString)
+                        self.earningsString.append(earningsStatString)
                         
                         self.salesLabel.attributedText = self.salesString
                         self.earningsLabel.attributedText = self.earningsString

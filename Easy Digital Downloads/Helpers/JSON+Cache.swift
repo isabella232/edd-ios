@@ -15,20 +15,20 @@ extension SwiftyJSON.JSON : DataConvertible, DataRepresentable {
     
     public typealias Result = SwiftyJSON.JSON
     
-    public static func convertFromData(_ data:NSData) -> Result? {
-        if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! (Data) as (Data) as AnyObject {
+    public static func convertFromData(_ data:Data) -> Result? {
+        if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! (Data) as (Data) as AnyObject? {
             return SwiftyJSON.JSON(obj)
         }
         return null
     }
     
-    public func asData() -> NSData! {
-        var obj: AnyObject! = self.dictionaryObject
+    public func asData() -> Data! {
+        var obj: AnyObject! = self.dictionaryObject as AnyObject
         if obj == nil {
-            obj = self.arrayObject
+            obj = self.arrayObject as AnyObject
         }
         if obj != nil {
-            return NSKeyedArchiver.archivedDataWithRootObject(obj!)
+            return (NSKeyedArchiver.archivedData(withRootObject: obj!) as NSData) as Data!
         }
         return nil
     }

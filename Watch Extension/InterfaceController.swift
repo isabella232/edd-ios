@@ -92,8 +92,8 @@ class InterfaceController: WKInterfaceController {
         if let sales = UserDefaults.standard.object(forKey: "sales") as? NSDictionary, let earnings = UserDefaults.standard.object(forKey: "earnings") as? NSDictionary {
             self.data.append("\(sales["today"]!)")
             self.data.append("\(sales["current_month"]!)")
-            self.data.append(sharedNumberFormatter.string(from: (earnings["today"]! as AnyObject).doubleValue as! NSNumber)!)
-            self.data.append(sharedNumberFormatter.string(from: (earnings["current_month"]! as AnyObject).doubleValue as! NSNumber)!)
+            self.data.append(sharedNumberFormatter.string(from: (earnings["today"]! as AnyObject).doubleValue! as NSNumber)!)
+            self.data.append(sharedNumberFormatter.string(from: (earnings["current_month"]! as AnyObject).doubleValue! as NSNumber)!)
         } else {
             data.append("Loading...")
             data.append("Loading...")
@@ -103,9 +103,7 @@ class InterfaceController: WKInterfaceController {
         
         let siteURL = site.url + "/edd-api/v2/stats"
         
-        let parameters = ["key": site.key, "token": site.token]
-        
-        Alamofire.request(.GET, siteURL, parameters: parameters)
+        Alamofire.request(siteURL, method: .get, parameters: ["key": site.key, "token": site.token], encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -115,20 +113,20 @@ class InterfaceController: WKInterfaceController {
                     let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
                     let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
                     
-                    self.data.removeAll(keepCapacity: false)
+                    self.data.removeAll(keepingCapacity: false)
                     self.data.append(self.site.name)
                     
                     self.data.append(json["stats"]["sales"]["today"].stringValue)
                     self.data.append(json["stats"]["sales"]["current_month"].stringValue)
-                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["today"].doubleValue)!)
-                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["current_month"].doubleValue)!)
+                    self.data.append(sharedNumberFormatter.string(from: NSNumber(value: json["stats"]["earnings"]["today"].doubleValue))!)
+                    self.data.append(sharedNumberFormatter.string(from: NSNumber(value: json["stats"]["earnings"]["current_month"].doubleValue))!)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(earnings, forKey: "earnings")
-                    NSUserDefaults.standardUserDefaults().setObject(sales, forKey: "sales")
+                    UserDefaults.standard.set(earnings, forKey: "earnings")
+                    UserDefaults.standard.set(sales, forKey: "sales")
                     
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    UserDefaults.standard.synchronize()
                     
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    DispatchQueue.main.async(execute: {
                         self.tableRefresh()
                     })
                 }
@@ -166,9 +164,7 @@ class InterfaceController: WKInterfaceController {
     func onRefreshIconTap() {
         let siteURL = site.url + "/edd-api/v2/stats"
         
-        let parameters = ["key": site.key, "token": site.token]
-        
-        Alamofire.request(.GET, siteURL, parameters: parameters)
+        Alamofire.request(siteURL, method: .get, parameters: ["key": site.key, "token": site.token], encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -178,20 +174,20 @@ class InterfaceController: WKInterfaceController {
                     let earnings = NSDictionary(dictionary: json["stats"]["earnings"].dictionaryObject!)
                     let sales = NSDictionary(dictionary: json["stats"]["sales"].dictionaryObject!)
                     
-                    self.data.removeAll(keepCapacity: false)
+                    self.data.removeAll(keepingCapacity: false)
                     self.data.append(self.site.name)
                     
                     self.data.append(json["stats"]["sales"]["today"].stringValue)
                     self.data.append(json["stats"]["sales"]["current_month"].stringValue)
-                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["today"].doubleValue)!)
-                    self.data.append(sharedNumberFormatter.stringFromNumber(json["stats"]["earnings"]["current_month"].doubleValue)!)
+                    self.data.append(sharedNumberFormatter.string(from: NSNumber(value: json["stats"]["earnings"]["today"].doubleValue))!)
+                    self.data.append(sharedNumberFormatter.string(from: NSNumber(value: json["stats"]["earnings"]["current_month"].doubleValue))!)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(earnings, forKey: "earnings")
-                    NSUserDefaults.standardUserDefaults().setObject(sales, forKey: "sales")
+                    UserDefaults.standard.set(earnings, forKey: "earnings")
+                    UserDefaults.standard.set(sales, forKey: "sales")
                     
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    UserDefaults.standard.synchronize()
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.tableRefresh()
                     })
                 }
