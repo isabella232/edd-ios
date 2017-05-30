@@ -42,29 +42,29 @@ class SiteTableViewController: UITableViewController {
     lazy var activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        activityIndicator.center = CGPointMake(width / 2, 22)
+        activityIndicator.center = CGPoint(x: width / 2, y: 22)
         activityIndicator.color = .EDDBlueColor()
         
         return activityIndicator
     }()
     
     lazy var noInternetConnection: UIView = {
-        let bounds: CGRect = UIScreen.mainScreen().bounds
+        let bounds: CGRect = UIScreen.main.bounds
         let width: CGFloat = bounds.width
         let height: CGFloat = 30.0
         
-        let offlineView = UIView(frame: CGRectMake(0, 0, width, height))
+        let offlineView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         offlineView.backgroundColor = .errorColor()
-        offlineView.transform = CGAffineTransformMakeTranslation(0, -80)
+        offlineView.transform = CGAffineTransform(translationX: 0, y: -80)
         offlineView.tag == 1
         
-        let offlineLabel = UILabel(frame: CGRectMake(0, 0, width, height))
+        let offlineLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
         offlineLabel.text = NSLocalizedString("No network connection", comment: "")
-        offlineLabel.textColor = .whiteColor()
-        offlineLabel.textAlignment = .Center
+        offlineLabel.textColor = .white
+        offlineLabel.textAlignment = .center
         
         offlineView.addSubview(offlineLabel)
 
@@ -75,16 +75,16 @@ class SiteTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         view.backgroundColor = .EDDGreyColor()
     }
     
-    private func setupSwitchSiteIcon() {
+    fileprivate func setupSwitchSiteIcon() {
         let leftNavigationItemImage = UIImage(named: "NavigationBar-SwitchSite")
-        let leftNavigationItemButton = HighlightButton(type: .Custom)
-        leftNavigationItemButton.tintColor = .whiteColor()
-        leftNavigationItemButton.setImage(leftNavigationItemImage, forState: .Normal)
-        leftNavigationItemButton.addTarget(self, action: #selector(SiteTableViewController.editSwitchSiteButtonPressed), forControlEvents: .TouchUpInside)
+        let leftNavigationItemButton = HighlightButton(type: .custom)
+        leftNavigationItemButton.tintColor = .white
+        leftNavigationItemButton.setImage(leftNavigationItemImage, for: UIControlState())
+        leftNavigationItemButton.addTarget(self, action: #selector(SiteTableViewController.editSwitchSiteButtonPressed), for: .touchUpInside)
         leftNavigationItemButton.sizeToFit()
         
         let leftNavigationBarButton = UIBarButtonItem(customView: leftNavigationItemButton)
@@ -95,45 +95,45 @@ class SiteTableViewController: UITableViewController {
     
     func editSwitchSiteButtonPressed() {
         let switchSiteViewController = SwitchSiteViewController()
-        switchSiteViewController.view.backgroundColor = .clearColor()
-        switchSiteViewController.modalPresentationStyle = .OverFullScreen
+        switchSiteViewController.view.backgroundColor = .clear
+        switchSiteViewController.modalPresentationStyle = .overFullScreen
         switchSiteViewController.modalPresentationCapturesStatusBarAppearance = true
-        presentViewController(switchSiteViewController, animated: true, completion: nil)
+        present(switchSiteViewController, animated: true, completion: nil)
     }
     
     func animateTable() {
         tableView.reloadData()
         
         let navigationBar = navigationController?.navigationBar
-        navigationBar?.transform = CGAffineTransformMakeTranslation(0, -80)
+        navigationBar?.transform = CGAffineTransform(translationX: 0, y: -80)
         navigationBar?.layer.opacity = 0.5
         
         let tabBar = tabBarController?.tabBar
-        tabBar?.transform = CGAffineTransformMakeTranslation(0, 80)
+        tabBar?.transform = CGAffineTransform(translationX: 0, y: 80)
         tabBar?.layer.opacity = 0.5
         
         let cells = tableView.visibleCells
         let tableHeight: CGFloat = tableView.bounds.size.height
         
-        UIView.animateWithDuration(0.5) {
-            navigationBar?.transform = CGAffineTransformMakeTranslation(0, 0)
+        UIView.animate(withDuration: 0.5, animations: {
+            navigationBar?.transform = CGAffineTransform(translationX: 0, y: 0)
             navigationBar?.layer.opacity = 1.0
             
-            tabBar?.transform = CGAffineTransformMakeTranslation(0, 0)
+            tabBar?.transform = CGAffineTransform(translationX: 0, y: 0)
             tabBar?.layer.opacity = 1.0
-        }
+        }) 
         
         for i in cells {
             let cell: UITableViewCell = i as UITableViewCell
-            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+            cell.transform = CGAffineTransform(translationX: 0, y: tableHeight)
         }
         
         var index = 0
         
         for a in cells {
             let cell: UITableViewCell = a as UITableViewCell
-            UIView.animateWithDuration(1.5, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                cell.transform = CGAffineTransformMakeTranslation(0, 0)
+            UIView.animate(withDuration: 1.5, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0)
                 }, completion: nil)
             
             index += 1
@@ -143,8 +143,8 @@ class SiteTableViewController: UITableViewController {
     func displayNoNetworkConnectionView() {
         view.addSubview(noInternetConnection)
         
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-            self.noInternetConnection.transform = CGAffineTransformMakeTranslation(0, self.topLayoutAnchor)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            self.noInternetConnection.transform = CGAffineTransform(translationX: 0, y: self.topLayoutAnchor)
             }, completion: nil)
     }
     

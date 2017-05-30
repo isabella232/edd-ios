@@ -10,7 +10,7 @@ import UIKit
 
 class SearchController: UISearchController {
 
-    private var customSearchBar = SearchBar()
+    fileprivate var customSearchBar = SearchBar()
 
     override var searchBar: UISearchBar {
         get {

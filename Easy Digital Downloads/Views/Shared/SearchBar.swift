@@ -10,7 +10,7 @@ import UIKit
 
 class SearchBar: UISearchBar {
 
-    override func setShowsCancelButton(showsCancelButton: Bool, animated: Bool) {
+    override func setShowsCancelButton(_ showsCancelButton: Bool, animated: Bool) {
         
     }
 

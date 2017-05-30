@@ -68,9 +68,9 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         super.viewDidLoad()
         
         self.view.clipsToBounds = true
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
-        self.tabBar.translucent = false
+        self.tabBar.isTranslucent = false
         
         self.delegate = self
     }
@@ -84,17 +84,17 @@ class SiteTabBarController: UITabBarController, UITabBarControllerDelegate, Mana
         
         self.viewControllers = [dashboardNavigationController!, salesNavigationController!, customersNavigationController!, moreViewNavigationController!]
         
-        self.viewControllers?.insert(productsNavigationController!, atIndex: 3);
+        self.viewControllers?.insert(productsNavigationController!, at: 3);
     }
     
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if tabBarController.selectedViewController == viewController {
-            if viewController.isKindOfClass(UINavigationController) {
+            if viewController.isKind(of: UINavigationController.self) {
                 let navController = viewController as! UINavigationController
-                if navController.topViewController == navController.viewControllers.first! && (navController.topViewController?.view.isKindOfClass(UITableView))! {
+                if navController.topViewController == navController.viewControllers.first! && (navController.topViewController?.view.isKind(of: UITableView.self))! {
                     let tableView = navController.topViewController!.view as! UITableView
-                    if tableView.numberOfSections > 0 && tableView.numberOfRowsInSection(0) > 0 {
-                        tableView.scrollToRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+                    if tableView.numberOfSections > 0 && tableView.numberOfRows(inSection: 0) > 0 {
+                        tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
                     }
                 }
             }

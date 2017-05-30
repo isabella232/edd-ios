@@ -13,13 +13,13 @@ class ViewControllerTitleLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .clearColor()
+        backgroundColor = .clear
         numberOfLines = 0
-        textAlignment = .Center
-        lineBreakMode = .ByWordWrapping
+        textAlignment = .center
+        lineBreakMode = .byWordWrapping
     }
     
-    func setTitle(title: String) {
+    func setTitle(_ title: String) {
         guard let siteName = Site.activeSite().name else {
             return
         }
@@ -27,20 +27,20 @@ class ViewControllerTitleLabel: UILabel {
         let titleString = NSMutableAttributedString()
         
         let headingAttributes: [String: AnyObject] = [
-            NSFontAttributeName: UIFont.systemFontOfSize(13, weight: UIFontWeightLight),
+            NSFontAttributeName: UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight),
             NSForegroundColorAttributeName: UIColor.colorWithHex(0xffffff, alpha: 0.8)
         ]
         
         let textAttributes: [String: AnyObject] = [
-            NSFontAttributeName: UIFont.systemFontOfSize(17, weight: UIFontWeightMedium),
-            NSForegroundColorAttributeName: UIColor.whiteColor()
+            NSFontAttributeName: UIFont.systemFont(ofSize: 17, weight: UIFontWeightMedium),
+            NSForegroundColorAttributeName: UIColor.white
         ]
         
         let siteNameAttributedString = NSAttributedString(string: siteName + "\n", attributes: headingAttributes)
-        titleString.appendAttributedString(siteNameAttributedString)
+        titleString.append(siteNameAttributedString)
 
         let titleAttributedString = NSAttributedString(string: title, attributes: textAttributes)
-        titleString.appendAttributedString(titleAttributedString)
+        titleString.append(titleAttributedString)
         
         attributedText = titleString
         
