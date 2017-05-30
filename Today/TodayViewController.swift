@@ -15,24 +15,24 @@ import Haneke
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     typealias JSON = SwiftyJSON.JSON
     
     let sharedCache = Shared.dataCache
     var stats: JSON?
     
-    let vibrancyEffect = UIVibrancyEffect.widgetPrimaryVibrancyEffect()
+    let vibrancyEffect = UIVibrancyEffect.widgetPrimary()
     var visualEffectView: UIVisualEffectView!
     
     lazy var containerStackView: UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Horizontal
-        stack.distribution = .FillEqually
-        stack.alignment = .Fill
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -42,30 +42,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         frame.origin.y = 0;
         
         let view = UIView(frame: frame)
-        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-        view.backgroundColor = .clearColor()
+        view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        view.backgroundColor = .clear
         
         return view
     }()
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
-    let salesLabel: UILabel = UILabel(frame: CGRectZero)
-    let earningsLabel: UILabel = UILabel(frame: CGRectZero)
+    let salesLabel: UILabel = UILabel(frame: CGRect.zero)
+    let earningsLabel: UILabel = UILabel(frame: CGRect.zero)
     
     var salesString = NSMutableAttributedString()
     var earningsString = NSMutableAttributedString()
     let headingAttributes: [String: AnyObject] = [
-        NSFontAttributeName: UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+        NSFontAttributeName: UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)
     ]
     
     let textAttributes: [String: AnyObject] = [
-        NSFontAttributeName: UIFont.systemFontOfSize(32, weight: UIFontWeightLight)
+        NSFontAttributeName: UIFont.systemFont(ofSize: 32, weight: UIFontWeightLight)
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        preferredContentSize = CGSizeMake(0, 200)
+        preferredContentSize = CGSize(width: 0, height: 200)
         
         visualEffectView = UIVisualEffectView(effect: vibrancyEffect)
         visualEffectView.frame = view.bounds
@@ -73,7 +73,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         view.addSubview(visualEffectView)
         
-        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         activityIndicator.center = view.center
         loadingView.addSubview(activityIndicator)
         
@@ -82,25 +82,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TodayViewController.handleTap))
         gestureRecognizer.numberOfTapsRequired = 1
         containerStackView.addGestureRecognizer(gestureRecognizer)
-        containerStackView.userInteractionEnabled = true
+        containerStackView.isUserInteractionEnabled = true
         
-        let activeSiteLabel: UILabel = UILabel(frame: CGRectMake(10, 2 , view.frame.size.width, 30))
-        activeSiteLabel.text = NSLocalizedString("Active Site:", comment: "") + " " + sharedDefaults.stringForKey("activeSiteName")!
-        activeSiteLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightUltraLight)
+        let activeSiteLabel: UILabel = UILabel(frame: CGRect(x: 10, y: 2 , width: view.frame.size.width, height: 30))
+        activeSiteLabel.text = NSLocalizedString("Active Site:", comment: "") + " " + sharedDefaults.string(forKey: "activeSiteName")!
+        activeSiteLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightUltraLight)
         
         salesLabel.numberOfLines = 0
-        salesLabel.lineBreakMode = .ByWordWrapping
+        salesLabel.lineBreakMode = .byWordWrapping
         earningsLabel.numberOfLines = 0
-        earningsLabel.lineBreakMode = .ByWordWrapping
+        earningsLabel.lineBreakMode = .byWordWrapping
         
-        salesLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
-        earningsLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+        salesLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)
+        earningsLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightBold)
         
         let salesHeadingString = NSAttributedString(string: NSLocalizedString("Today's Sales", comment: "") + "\n", attributes: self.headingAttributes)
-        self.salesString.appendAttributedString(salesHeadingString)
+        self.salesString.append(salesHeadingString)
         
         let earningsHeadingString = NSAttributedString(string: NSLocalizedString("Today's Earnings", comment: "") + "\n", attributes: self.headingAttributes)
-        self.earningsString.appendAttributedString(earningsHeadingString)
+        self.earningsString.append(earningsHeadingString)
         
         containerStackView.addArrangedSubview(salesLabel)
         containerStackView.addArrangedSubview(earningsLabel)
@@ -109,40 +109,40 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         visualEffectView.contentView.addSubview(activeSiteLabel)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(containerStackView.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 20))
-        constraints.append(containerStackView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor, constant: -5))
-        constraints.append(containerStackView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 10))
-        constraints.append(containerStackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -10))
+        constraints.append(containerStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20))
+        constraints.append(containerStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5))
+        constraints.append(containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10))
+        constraints.append(containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
         
         visualEffectView.contentView.addSubview(loadingView)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
     }
     
-    func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        guard let defaultSite = sharedDefaults.objectForKey("defaultSite") as? String else {
-            completionHandler(.Failed)
+    func widgetPerformUpdate(_ completionHandler: @escaping ((NCUpdateResult) -> Void)) {
+        guard let defaultSite = sharedDefaults.object(forKey: "defaultSite") as? String else {
+            completionHandler(.failed)
             return
         }
         
-        let auth = SSKeychain.accountsForService(defaultSite)
-        let data = auth[0] as NSDictionary
-        let acct = data.objectForKey("acct") as! String
-        let password = SSKeychain.passwordForService(defaultSite, account: acct)
+        let auth = SSKeychain.accounts(forService: defaultSite)
+        let data = auth?[0] as! NSDictionary
+        let acct = data.object(forKey: "acct") as! String
+        let password = SSKeychain.password(forService: defaultSite, account: acct)
         
-        let siteURL = sharedDefaults.stringForKey("activeSiteURL")! + "/edd-api/v2/stats"
+        let siteURL = sharedDefaults.string(forKey: "activeSiteURL")! + "/edd-api/v2/stats"
         
         let parameters = ["key": acct, "token": password]
 
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
-        formatter.currencyCode = sharedDefaults.stringForKey("activeSiteCurrency")!
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
         Alamofire.request(.GET, siteURL, parameters: parameters)
             .validate(statusCode: 200..<300)
@@ -182,26 +182,26 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func handleTap() {
-        self.extensionContext?.openURL(NSURL(string: "edd://dashboard")!, completionHandler: nil)
+        self.extensionContext?.open(URL(string: "edd://dashboard")!, completionHandler: nil)
     }
     
-    private func networkOperations() {
-        guard let defaultSite = sharedDefaults.objectForKey("defaultSite") as? String else {
+    fileprivate func networkOperations() {
+        guard let defaultSite = sharedDefaults.object(forKey: "defaultSite") as? String else {
             return
         }
         
-        let auth = SSKeychain.accountsForService(defaultSite)
-        let data = auth[0] as NSDictionary
-        let acct = data.objectForKey("acct") as! String
-        let password = SSKeychain.passwordForService(defaultSite, account: acct)
+        let auth = SSKeychain.accounts(forService: defaultSite)
+        let data = auth?[0] as! NSDictionary
+        let acct = data.object(forKey: "acct") as! String
+        let password = SSKeychain.password(forService: defaultSite, account: acct)
         
-        let siteURL = sharedDefaults.stringForKey("activeSiteURL")! + "/edd-api/v2/stats"
+        let siteURL = sharedDefaults.string(forKey: "activeSiteURL")! + "/edd-api/v2/stats"
         
         let parameters = ["key": acct, "token": password]
         
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
-        formatter.currencyCode = sharedDefaults.stringForKey("activeSiteCurrency")!
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
         Alamofire.request(.GET, siteURL, parameters: parameters)
             .validate(statusCode: 200..<300)
