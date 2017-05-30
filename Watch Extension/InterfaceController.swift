@@ -12,9 +12,9 @@ import WatchConnectivity
 import Alamofire
 import SwiftyJSON
 
-private let sharedNumberFormatter: NSNumberFormatter = {
-    let formatter = NSNumberFormatter()
-    formatter.numberStyle = .CurrencyStyle
+private let sharedNumberFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
     return formatter
 }()
 
@@ -39,16 +39,16 @@ class InterfaceController: WKInterfaceController {
     
     var site: Site!
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         
         if WCSession.isSupported() {
-            let session = WCSession.defaultSession()
+            let session = WCSession.default()
             session.delegate = self
-            session.activateSession()
+            session.activate()
         }
         
-        guard let activeSite = NSUserDefaults.standardUserDefaults().objectForKey("activeSite") as? [String: AnyObject] else {
+        guard let activeSite = UserDefaults.standard.object(forKey: "activeSite") as? [String: AnyObject] else {
             openiPhoneApp()
             return
         }
@@ -89,11 +89,11 @@ class InterfaceController: WKInterfaceController {
         
         data.append(site.name)
         
-        if let sales = NSUserDefaults.standardUserDefaults().objectForKey("sales") as? NSDictionary, let earnings = NSUserDefaults.standardUserDefaults().objectForKey("earnings") as? NSDictionary {
+        if let sales = UserDefaults.standard.object(forKey: "sales") as? NSDictionary, let earnings = UserDefaults.standard.object(forKey: "earnings") as? NSDictionary {
             self.data.append("\(sales["today"]!)")
             self.data.append("\(sales["current_month"]!)")
-            self.data.append(sharedNumberFormatter.stringFromNumber(earnings["today"]!.doubleValue)!)
-            self.data.append(sharedNumberFormatter.stringFromNumber(earnings["current_month"]!.doubleValue)!)
+            self.data.append(sharedNumberFormatter.string(from: (earnings["today"]! as AnyObject).doubleValue as! NSNumber)!)
+            self.data.append(sharedNumberFormatter.string(from: (earnings["current_month"]! as AnyObject).doubleValue as! NSNumber)!)
         } else {
             data.append("Loading...")
             data.append("Loading...")
@@ -138,7 +138,7 @@ class InterfaceController: WKInterfaceController {
         
         var i = 0
         for item in items {
-            let row = tableView.rowControllerAtIndex(i) as! DashboardRowObject
+            let row = tableView.rowController(at: i) as! DashboardRowObject
             row.label.setText(item)
             row.statsLabel.setText(data[i])
             i += 1
@@ -148,7 +148,7 @@ class InterfaceController: WKInterfaceController {
     override init() {
         super.init()
         
-        addMenuItemWithItemIcon(.Resume, title: NSLocalizedString("Refresh", comment: ""), action: #selector(InterfaceController.onRefreshIconTap))
+        addMenuItem(with: .resume, title: NSLocalizedString("Refresh", comment: ""), action: #selector(InterfaceController.onRefreshIconTap))
     }
     
     override func willActivate() {
@@ -198,18 +198,18 @@ class InterfaceController: WKInterfaceController {
         }
     }
 
-    private func openiPhoneApp () {
+    fileprivate func openiPhoneApp () {
         tableView.setNumberOfRows(1, withRowType: "DashboardRow")
         
-        let row = tableView.rowControllerAtIndex(0) as! DashboardRowObject
+        let row = tableView.rowController(at: 0) as! DashboardRowObject
         row.label.setText("Error")
         row.statsLabel.setText("Open the iPhone app to begin sync.")
     }
     
-    private func noSiteSetup () {
+    fileprivate func noSiteSetup () {
         tableView.setNumberOfRows(1, withRowType: "DashboardRow")
         
-        let row = tableView.rowControllerAtIndex(0) as! DashboardRowObject
+        let row = tableView.rowController(at: 0) as! DashboardRowObject
         row.label.setText("Error")
         row.statsLabel.setText("No sites have been set up. Please add a site from the iPhone app and try again.")
     }
@@ -220,7 +220,7 @@ class InterfaceController: WKInterfaceController {
         tableView.setNumberOfRows(items.count, withRowType: "DashboardRow")
         
         for item in items {
-            let row = tableView.rowControllerAtIndex(i) as! DashboardRowObject
+            let row = tableView.rowController(at: i) as! DashboardRowObject
             row.label.setText(item)
             row.statsLabel.setText(data[i])
             i += 1
@@ -231,9 +231,9 @@ class InterfaceController: WKInterfaceController {
 
 extension InterfaceController: WCSessionDelegate {
 
-    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-        NSUserDefaults.standardUserDefaults().setObject(userInfo, forKey: "activeSite")
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
+        UserDefaults.standard.set(userInfo, forKey: "activeSite")
+        UserDefaults.standard.synchronize()
         
         var activeSiteName = ""
         var activeSiteURL = ""
@@ -267,7 +267,7 @@ extension InterfaceController: WCSessionDelegate {
         
         self.site = site
         
-        self.data.removeAll(keepCapacity: false)
+        self.data.removeAll(keepingCapacity: false)
         self.data.append(self.site.name)
         self.data.append("Loading...")
         self.data.append("Loading...")
@@ -276,17 +276,17 @@ extension InterfaceController: WCSessionDelegate {
         
         onRefreshIconTap()
         
-        dispatch_async(dispatch_get_main_queue()) { 
+        DispatchQueue.main.async { 
             self.tableRefresh()
         }
     }
     
-    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        NSUserDefaults.standardUserDefaults().setObject(applicationContext, forKey: "activeSite")
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        UserDefaults.standard.set(applicationContext, forKey: "activeSite")
+        UserDefaults.standard.synchronize()
     }
 
-    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         
     }
 
