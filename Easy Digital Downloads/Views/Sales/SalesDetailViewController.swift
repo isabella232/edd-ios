@@ -13,30 +13,30 @@ import AlamofireImage
 import SwiftyJSON
 import Haneke
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class SalesDetailViewController: SiteTableViewController {
 
-    private enum CellType {
-        case Meta
-        case ProductsHeading
-        case Product
-        case CustomerHeading
-        case Customer
-        case LicensesHeading
-        case License
+    fileprivate enum CellType {
+        case meta
+        case productsHeading
+        case product
+        case customerHeading
+        case customer
+        case licensesHeading
+        case license
     }
     
     typealias JSON = SwiftyJSON.JSON
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var sale: Sales!
@@ -45,7 +45,7 @@ class SalesDetailViewController: SiteTableViewController {
     var customer: JSON?
     
     init(sale: Sales) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.sale = sale
@@ -54,7 +54,7 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
         title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.ID)"
         
@@ -62,13 +62,13 @@ class SalesDetailViewController: SiteTableViewController {
         titleLabel.setTitle(NSLocalizedString("Sale", comment: "") + " #" + "\(sale.ID)")
         navigationItem.titleView = titleLabel
         
-        tableView.registerClass(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
-        tableView.registerClass(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
-        tableView.registerClass(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
-        tableView.registerClass(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
-        tableView.registerClass(SalesDetailLicensesTableViewCell.self, forCellReuseIdentifier: "SalesDetailLicensesTableViewCell")
+        tableView.register(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
+        tableView.register(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
+        tableView.register(SalesDetailProductTableViewCell.self, forCellReuseIdentifier: "SalesDetailProductTableViewCell")
+        tableView.register(SalesDetailCustomerTableViewCell.self, forCellReuseIdentifier: "SalesDetailCustomerTableViewCell")
+        tableView.register(SalesDetailLicensesTableViewCell.self, forCellReuseIdentifier: "SalesDetailLicensesTableViewCell")
         
-        cells = [.Meta, .ProductsHeading]
+        cells = [.meta, .productsHeading]
         
         EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email], success: { json in
             let items = json["customers"].arrayValue
@@ -81,7 +81,7 @@ class SalesDetailViewController: SiteTableViewController {
         }
         
         if sale.products!.count == 1 {
-            cells.append(.Product)
+            cells.append(.product)
         } else {
             for _ in 1...sale.products!.count {
                 cells.append(.Product)
@@ -95,14 +95,14 @@ class SalesDetailViewController: SiteTableViewController {
             }
         }
 
-        cells.append(.CustomerHeading)
-        cells.append(.Customer)
+        cells.append(.customerHeading)
+        cells.append(.customer)
         
         if sale.licenses != nil {
-            cells.append(.LicensesHeading)
+            cells.append(.licensesHeading)
             
             if sale.licenses!.count == 1 {
-                cells.append(.License)
+                cells.append(.license)
             } else {
                 licenses = [JSON]()
                 for _ in 1...sale.licenses!.count {
@@ -111,7 +111,7 @@ class SalesDetailViewController: SiteTableViewController {
             }
         }
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,48 +120,48 @@ class SalesDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch cells[indexPath.row] {
-            case .Meta:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailMetaTableViewCell", forIndexPath: indexPath) as! SalesDetailMetaTableViewCell
+            case .meta:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailMetaTableViewCell", for: indexPath) as! SalesDetailMetaTableViewCell
                 (cell as! SalesDetailMetaTableViewCell).configure(sale!)
-            case .ProductsHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+            case .productsHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailHeadingTableViewCell", for: indexPath) as! SalesDetailHeadingTableViewCell
                 (cell as! SalesDetailHeadingTableViewCell).configure("Products")
-            case .Product:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailProductTableViewCell", forIndexPath: indexPath) as! SalesDetailProductTableViewCell
+            case .product:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailProductTableViewCell", for: indexPath) as! SalesDetailProductTableViewCell
                 (cell as! SalesDetailProductTableViewCell).configure(sale.products[indexPath.row - 2])
-            case .CustomerHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+            case .customerHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailHeadingTableViewCell", for: indexPath) as! SalesDetailHeadingTableViewCell
                 (cell as! SalesDetailHeadingTableViewCell).configure("Customer")
-            case .Customer:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailCustomerTableViewCell", forIndexPath: indexPath) as! SalesDetailCustomerTableViewCell
+            case .customer:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailCustomerTableViewCell", for: indexPath) as! SalesDetailCustomerTableViewCell
                 (cell as! SalesDetailCustomerTableViewCell).configure(customer)
-            case .LicensesHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailHeadingTableViewCell", forIndexPath: indexPath) as! SalesDetailHeadingTableViewCell
+            case .licensesHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailHeadingTableViewCell", for: indexPath) as! SalesDetailHeadingTableViewCell
                 (cell as! SalesDetailHeadingTableViewCell).configure("Licenses")
-            case .License:
-                cell = tableView.dequeueReusableCellWithIdentifier("SalesDetailLicensesTableViewCell", forIndexPath: indexPath) as! SalesDetailLicensesTableViewCell
+            case .license:
+                cell = tableView.dequeueReusableCell(withIdentifier: "SalesDetailLicensesTableViewCell", for: indexPath) as! SalesDetailLicensesTableViewCell
                 (cell as! SalesDetailLicensesTableViewCell).configure(sale.licenses![indexPath.row - 5 - (products?.count)!])
         }
         
         return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cells[indexPath.row] == CellType.Customer {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if cells[indexPath.row] == CellType.customer {
             guard let item = customer else {
                 return
             }
@@ -170,7 +170,7 @@ class SalesDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(CustomerOfflineViewController(email: item["info"]["email"].stringValue), animated: true)
         }
         
-        if cells[indexPath.row] == CellType.Product {
+        if cells[indexPath.row] == CellType.product {
             let product: JSON = sale.products[indexPath.row - 2]
             let id = product["id"].int64Value
             
@@ -182,7 +182,7 @@ class SalesDetailViewController: SiteTableViewController {
         }
         
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }

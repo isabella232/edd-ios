@@ -9,8 +9,8 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyyMMdd"
     return formatter
 }()
@@ -18,17 +18,17 @@ private let sharedDateFormatter: NSDateFormatter = {
 
 class SalesFilterFetchViewController: SiteTableViewController {
 
-    private struct Data {
+    fileprivate struct Data {
         var date: String
         var stat: String
     }
     
-    private var dataSource = [Data]()
+    fileprivate var dataSource = [Data]()
     
     var filter: String!
     
-    var startDate: NSDate?
-    var endDate: NSDate?
+    var startDate: Date?
+    var endDate: Date?
     
     var readableStartDate: String?
     var readableEndDate: String?
@@ -39,8 +39,8 @@ class SalesFilterFetchViewController: SiteTableViewController {
     var operation: Bool = false
     var total: Double?
     
-    init(startDate: NSDate, endDate: NSDate, filter: String) {
-        super.init(style: .Plain)
+    init(startDate: Date, endDate: Date, filter: String) {
+        super.init(style: .plain)
         
         site = Site.activeSite()
         
@@ -50,11 +50,11 @@ class SalesFilterFetchViewController: SiteTableViewController {
         self.endDate = endDate
         
         sharedDateFormatter.dateFormat = "dd/MM/yyyy"
-        self.readableStartDate = sharedDateFormatter.stringFromDate(startDate)
-        self.readableEndDate = sharedDateFormatter.stringFromDate(endDate)
+        self.readableStartDate = sharedDateFormatter.string(from: startDate)
+        self.readableEndDate = sharedDateFormatter.string(from: endDate)
         sharedDateFormatter.dateFormat = "yyyyMMdd"
         
-        title = "Fetching " + filter.capitalizedString + " Data..."
+        title = "Fetching " + filter.capitalized + " Data..."
         
         view.backgroundColor = .EDDGreyColor()
         
@@ -64,14 +64,14 @@ class SalesFilterFetchViewController: SiteTableViewController {
             frame.origin.y = 0;
             
             let view = UIView(frame: frame)
-            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             view.backgroundColor = .EDDGreyColor()
             
             return view
         }()
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         activityIndicator.center = view.center
         loadingView.addSubview(activityIndicator)
         
@@ -84,10 +84,10 @@ class SalesFilterFetchViewController: SiteTableViewController {
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        tableView.registerClass(SalesFilterHeadingTableViewCell.self, forCellReuseIdentifier: "SalesFilterHeadingTableViewCell")
+        tableView.register(SalesFilterHeadingTableViewCell.self, forCellReuseIdentifier: "SalesFilterHeadingTableViewCell")
         
         let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle("Fetching " + filter.capitalizedString + " Data...")
+        titleLabel.setTitle("Fetching " + filter.capitalized + " Data...")
         navigationItem.titleView = titleLabel
     }
     
@@ -150,36 +150,36 @@ class SalesFilterFetchViewController: SiteTableViewController {
     
     // MARK: Table View Delegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.operation ? 0 : (dataSource.count == 0 ? 0 : dataSource.count + 2)
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         
         if indexPath.row == 0 {
-            cell = tableView.dequeueReusableCellWithIdentifier("SalesFilterHeadingTableViewCell", forIndexPath: indexPath) as! SalesFilterHeadingTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "SalesFilterHeadingTableViewCell", for: indexPath) as! SalesFilterHeadingTableViewCell
             (cell as! SalesFilterHeadingTableViewCell).configure("Showing " + filter + " between " + readableStartDate! + " and " + readableEndDate!)
             return cell
         }
         
-        cell = UITableViewCell(style: .Value1, reuseIdentifier: "SalesFilterCell")
-        cell.selectionStyle = .None
+        cell = UITableViewCell(style: .value1, reuseIdentifier: "SalesFilterCell")
+        cell.selectionStyle = .none
         
         if indexPath.row == 1 {
             cell.textLabel?.text = NSLocalizedString("Total " + filter + " this period", comment: "")
             cell.textLabel?.textColor = .EDDBlackColor()
-            cell.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+            cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
             
             if filter == "earnings" {
                 cell.detailTextLabel?.text = Site.currencyFormat(total!)
@@ -188,7 +188,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
             }
 
             cell.detailTextLabel?.textColor = .EDDBlackColor()
-            cell.detailTextLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+            cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
             cell.backgroundColor = .tableViewCellHighlightColor()
             return cell
         }
@@ -197,9 +197,9 @@ class SalesFilterFetchViewController: SiteTableViewController {
         
         let data = self.dataSource[indexPath.row - 2]
         
-        let dateObject = sharedDateFormatter.dateFromString(data.date)
+        let dateObject = sharedDateFormatter.date(from: data.date)
         sharedDateFormatter.dateFormat = "dd/MM/yyyy"
-        cell.textLabel?.text = sharedDateFormatter.stringFromDate(dateObject!)
+        cell.textLabel?.text = sharedDateFormatter.string(from: dateObject!)
         
         cell.detailTextLabel?.text = data.stat
         cell.detailTextLabel?.textColor = .EDDBlueColor()

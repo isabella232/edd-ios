@@ -11,11 +11,11 @@ import CoreData
 import SwiftyJSON
 import Haneke
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -30,7 +30,7 @@ public struct Sales {
     var total: Double!
     var gateway: String!
     var email: String!
-    var date: NSDate!
+    var date: Date!
     var discounts: [String: SwiftyJSON.JSON]?
     var products: [SwiftyJSON.JSON]!
     var licenses: [SwiftyJSON.JSON]?
@@ -61,12 +61,12 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         }
     }
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage = 2
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -78,7 +78,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         tableView.estimatedRowHeight = 85.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        tableView.registerClass(SalesTableViewCell.self, forCellReuseIdentifier: "SalesTableViewCell")
+        tableView.register(SalesTableViewCell.self, forCellReuseIdentifier: "SalesTableViewCell")
         
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Sales", comment: "Sales title"))
@@ -89,7 +89,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
@@ -101,20 +101,20 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         super.leftBarButtonItem = true
         
         let filterNavigationItemImage = UIImage(named: "NavigationBar-Filter")
-        let filterNavigationItemButton = HighlightButton(type: .Custom)
-        filterNavigationItemButton.tintColor = .whiteColor()
-        filterNavigationItemButton.setImage(filterNavigationItemImage, forState: .Normal)
-        filterNavigationItemButton.addTarget(self, action: #selector(SalesViewController.filterButtonPressed), forControlEvents: .TouchUpInside)
+        let filterNavigationItemButton = HighlightButton(type: .custom)
+        filterNavigationItemButton.tintColor = .white
+        filterNavigationItemButton.setImage(filterNavigationItemImage, for: UIControlState())
+        filterNavigationItemButton.addTarget(self, action: #selector(SalesViewController.filterButtonPressed), for: .touchUpInside)
         filterNavigationItemButton.sizeToFit()
         
         let filterNavigationBarButton = UIBarButtonItem(customView: filterNavigationItemButton)
         filterNavigationBarButton.accessibilityIdentifier = "Filter"
         
         let searchNavigationItemImage = UIImage(named: "NavigationBar-Search")
-        let searchNavigationItemButton = HighlightButton(type: .Custom)
-        searchNavigationItemButton.tintColor = .whiteColor()
-        searchNavigationItemButton.setImage(searchNavigationItemImage, forState: .Normal)
-        searchNavigationItemButton.addTarget(self, action: #selector(SalesViewController.searchButtonPressed), forControlEvents: .TouchUpInside)
+        let searchNavigationItemButton = HighlightButton(type: .custom)
+        searchNavigationItemButton.tintColor = .white
+        searchNavigationItemButton.setImage(searchNavigationItemImage, for: UIControlState())
+        searchNavigationItemButton.addTarget(self, action: #selector(SalesViewController.searchButtonPressed), for: .touchUpInside)
         searchNavigationItemButton.sizeToFit()
         
         let searchNavigationBarButton = UIBarButtonItem(customView: searchNavigationItemButton)
@@ -122,7 +122,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         
         navigationItem.rightBarButtonItems = [searchNavigationBarButton, filterNavigationBarButton]
         
-        registerForPreviewingWithDelegate(self, sourceView: view)
+        registerForPreviewing(with: self, sourceView: view)
         
         sharedCache.fetch(key: Site.activeSite().uid! + "-Sales").onSuccess({ result in
             let json = JSON.convertFromData(result)! as JSON
@@ -149,7 +149,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         super.didReceiveMemoryWarning()
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         operation = true
         
         EDDAPIWrapper.sharedInstance.requestSales([ : ], success: { json in
@@ -183,7 +183,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         }
     }
     
-    private func requestNextPage() {
+    fileprivate func requestNextPage() {
         if (operation) {
             return
         }
@@ -221,15 +221,15 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         }
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SalesPage")
         sharedDefaults.synchronize()
     }
     
     // MARK: Scroll View Delegate
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
@@ -240,18 +240,18 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filteredSaleObjects.count ?? 0
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: SalesTableViewCell? = tableView.dequeueReusableCellWithIdentifier("SalesTableViewCell") as! SalesTableViewCell?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: SalesTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SalesTableViewCell") as! SalesTableViewCell?
         
         if cell == nil {
             cell = SalesTableViewCell()
@@ -262,32 +262,32 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
         return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         navigationController?.pushViewController(SalesDetailViewController(sale: filteredSaleObjects[indexPath.row]), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: 3D Touch
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = tableView.indexPathForRowAtPoint(location) {
-            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
             return SalesDetailViewController(sale: filteredSaleObjects[indexPath.row])
         }
         return nil
     }
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
     func filterButtonPressed() {
         let salesFilterNavigationController: UINavigationController = UINavigationController(rootViewController: SalesFilterTableViewController())
-        salesFilterNavigationController.modalPresentationStyle = .FullScreen
+        salesFilterNavigationController.modalPresentationStyle = .fullScreen
         salesFilterNavigationController.modalPresentationCapturesStatusBarAppearance = true
-        presentViewController(salesFilterNavigationController, animated: true, completion: nil)
+        present(salesFilterNavigationController, animated: true, completion: nil)
     }
     
     func searchButtonPressed() {
@@ -299,11 +299,11 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
 extension SalesViewController : InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         

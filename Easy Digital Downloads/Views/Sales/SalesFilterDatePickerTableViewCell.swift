@@ -9,7 +9,7 @@
 import UIKit
 
 protocol UpdateDateCellDelegate {
-    func sendDate(date: NSDate, tag: Int)
+    func sendDate(_ date: Date, tag: Int)
 }
 
 class SalesFilterDatePickerTableViewCell: UITableViewCell, UIPickerViewDelegate {
@@ -22,19 +22,19 @@ class SalesFilterDatePickerTableViewCell: UITableViewCell, UIPickerViewDelegate 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        datePicker = UIDatePicker(frame: CGRectZero)
+        datePicker = UIDatePicker(frame: CGRect.zero)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.backgroundColor = .clearColor()
-        datePicker.datePickerMode = .Date
-        datePicker.addTarget(self, action: #selector(SalesFilterDatePickerTableViewCell.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
-        datePicker.maximumDate = NSDate()
+        datePicker.backgroundColor = .clear
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(SalesFilterDatePickerTableViewCell.onDidChangeDate(_:)), for: .valueChanged)
+        datePicker.maximumDate = Date()
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
         layout()
     }
@@ -48,17 +48,17 @@ class SalesFilterDatePickerTableViewCell: UITableViewCell, UIPickerViewDelegate 
         
         var constraints = [NSLayoutConstraint]()
 
-        constraints.append(datePicker.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(datePicker.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(NSLayoutConstraint(item: datePicker, attribute: .Leading, relatedBy: .Equal, toItem: contentView, attribute: .Leading, multiplier: CGFloat(1), constant: 0))
-        constraints.append(NSLayoutConstraint(item: datePicker, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: CGFloat(1), constant: 0))
-        constraints.append(NSLayoutConstraint(item: datePicker, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: CGFloat(1), constant: CGFloat(0)))
+        constraints.append(datePicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(datePicker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(NSLayoutConstraint(item: datePicker, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: CGFloat(1), constant: 0))
+        constraints.append(NSLayoutConstraint(item: datePicker, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: CGFloat(1), constant: 0))
+        constraints.append(NSLayoutConstraint(item: datePicker, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: CGFloat(1), constant: CGFloat(0)))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    internal func onDidChangeDate(sender: UIDatePicker) {
-        dispatch_async(dispatch_get_main_queue(), {
+    internal func onDidChangeDate(_ sender: UIDatePicker) {
+        DispatchQueue.main.async(execute: {
             self.delegate?.sendDate(sender.date, tag: self.tag)
         })
     }

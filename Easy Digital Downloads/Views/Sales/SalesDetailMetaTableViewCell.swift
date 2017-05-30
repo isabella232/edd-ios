@@ -9,11 +9,11 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "EEE d MMM yyyy HH:mm:ss"
     return formatter
 }()
@@ -22,12 +22,12 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -40,46 +40,46 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
     
     var sale: Sales!
     
-    private var hasDiscounts = false
-    private var hasFees = false
+    fileprivate var hasDiscounts = false
+    fileprivate var hasFees = false
     
-    private let titleLabel: UILabel = UILabel(frame: CGRectZero)
-    private let transactionIdHeading: UILabel = UILabel(frame: CGRectZero)
-    private let transactionIdLabel: UILabel = UILabel(frame: CGRectZero)
-    private let keyHeading: UILabel = UILabel(frame: CGRectZero)
-    private let keyLabel: UILabel = UILabel(frame: CGRectZero)
-    private let dateHeading: UILabel = UILabel(frame: CGRectZero)
-    private let dateLabel: UILabel = UILabel(frame: CGRectZero)
-    private let gatewayHeading: UILabel = UILabel(frame: CGRectZero)
-    private let gatewayLabel: UILabel = UILabel(frame: CGRectZero)
-    private let discountHeading: UILabel = UILabel(frame: CGRectZero)
-    private let discountLabel: UILabel = UILabel(frame: CGRectZero)
-    private let feesHeading: UILabel = UILabel(frame: CGRectZero)
-    private let feesLabel: UILabel = UILabel(frame: CGRectZero)
-    private let taxHeading: UILabel = UILabel(frame: CGRectZero)
-    private let taxLabel: UILabel = UILabel(frame: CGRectZero)
+    fileprivate let titleLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let transactionIdHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let transactionIdLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let keyHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let keyLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let dateLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let gatewayHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let gatewayLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let discountHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let discountLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let feesHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let feesLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let taxHeading: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let taxLabel: UILabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         titleLabel.textColor = .EDDBlackColor()
-        titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
-        titleLabel.textAlignment = .Left
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
+        titleLabel.textAlignment = .left
         
         // Styling for headings
-        transactionIdHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        transactionIdHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         transactionIdHeading.textColor = .EDDBlueColor()
-        keyHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        keyHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         keyHeading.textColor = .EDDBlueColor()
-        dateHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        dateHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         dateHeading.textColor = .EDDBlueColor()
-        gatewayHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        gatewayHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         gatewayHeading.textColor = .EDDBlueColor()
-        discountHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        discountHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         discountHeading.textColor = .EDDBlueColor()
-        feesHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        feesHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         feesHeading.textColor = .EDDBlueColor()
-        taxHeading.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        taxHeading.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         taxHeading.textColor = .EDDBlueColor()
         
         // Text for Headings
@@ -93,36 +93,36 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         
         // Styling for labels
         transactionIdLabel.textColor = .EDDBlackColor()
-        transactionIdLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        transactionIdLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         keyLabel.textColor = .EDDBlackColor()
-        keyLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        keyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         dateLabel.textColor = .EDDBlackColor()
-        dateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         gatewayLabel.textColor = .EDDBlackColor()
-        gatewayLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        gatewayLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         discountLabel.textColor = .EDDBlackColor()
-        discountLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        discountLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         feesLabel.textColor = .EDDBlackColor()
-        feesLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        feesLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         taxLabel.textColor = .EDDBlackColor()
-        taxLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        taxLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configure(sale: Sales) {
+    func configure(_ sale: Sales) {
         self.sale = sale
         
         let chargedText: String = NSLocalizedString("payment", comment: "")
         titleLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
         transactionIdLabel.text = sale.transactionId
         keyLabel.text = sale.key
-        dateLabel.text = sharedDateFormatter.stringFromDate(sale.date)
-        let firstCharacter = String(sale.gateway.characters.prefix(1)).uppercaseString
+        dateLabel.text = sharedDateFormatter.string(from: sale.date as Date)
+        let firstCharacter = String(sale.gateway.characters.prefix(1)).uppercased()
         let gatewayCharacters = String(sale.gateway.characters.dropFirst())
         gatewayLabel.text = firstCharacter + gatewayCharacters
         
@@ -139,7 +139,7 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
                 discountCodeString += key + " "
             }
             discountCodeString = String(discountCodeString.characters.dropLast())
-            discountCodeString = discountCodeString.stringByReplacingOccurrencesOfString(" ", withString: ", ")
+            discountCodeString = discountCodeString.replacingOccurrences(of: " ", with: ", ")
             discountLabel.text = discountCodeString
         }
         
@@ -192,64 +192,64 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(titleLabel.bottomAnchor.constraintEqualToAnchor(transactionIdHeading.topAnchor, constant: -20))
-        constraints.append(transactionIdHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(transactionIdLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(transactionIdLabel.bottomAnchor.constraintEqualToAnchor(keyHeading.topAnchor, constant: -20))
-        constraints.append(keyHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(keyLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(keyLabel.bottomAnchor.constraintEqualToAnchor(dateHeading.topAnchor, constant: -20))
-        constraints.append(dateHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(dateLabel.bottomAnchor.constraintEqualToAnchor(gatewayHeading.topAnchor, constant: -20))
-        constraints.append(gatewayHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(gatewayLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(titleLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(titleLabel.bottomAnchor.constraint(equalTo: transactionIdHeading.topAnchor, constant: -20))
+        constraints.append(transactionIdHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(transactionIdLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(transactionIdLabel.bottomAnchor.constraint(equalTo: keyHeading.topAnchor, constant: -20))
+        constraints.append(keyHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(keyLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(keyLabel.bottomAnchor.constraint(equalTo: dateHeading.topAnchor, constant: -20))
+        constraints.append(dateHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(dateLabel.bottomAnchor.constraint(equalTo: gatewayHeading.topAnchor, constant: -20))
+        constraints.append(gatewayHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(gatewayLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
         if hasDiscounts == true {
-            constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(discountHeading.topAnchor, constant: -20))
-            constraints.append(discountHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(discountLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(gatewayLabel.bottomAnchor.constraint(equalTo: discountHeading.topAnchor, constant: -20))
+            constraints.append(discountHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(discountLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
         }
         if hasFees == true && hasDiscounts == true {
-            constraints.append(discountLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
-            constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(discountLabel.bottomAnchor.constraint(equalTo: feesHeading.topAnchor, constant: -20))
+            constraints.append(feesHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(feesLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
             if let _ = sale.tax {
-                constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+                constraints.append(feesLabel.bottomAnchor.constraint(equalTo: taxHeading.topAnchor, constant: -20))
             }
         } else if hasFees == true && hasDiscounts == false {
-            constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(feesHeading.topAnchor, constant: -20))
-            constraints.append(feesHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(feesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(gatewayLabel.bottomAnchor.constraint(equalTo: feesHeading.topAnchor, constant: -20))
+            constraints.append(feesHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(feesLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
             if let _ = sale.tax {
-                constraints.append(feesLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+                constraints.append(feesLabel.bottomAnchor.constraint(equalTo: taxHeading.topAnchor, constant: -20))
             }
         } else if hasFees == false && hasDiscounts == false {
             if let _ = sale.tax {
-                constraints.append(gatewayLabel.bottomAnchor.constraintEqualToAnchor(taxHeading.topAnchor, constant: -20))
+                constraints.append(gatewayLabel.bottomAnchor.constraint(equalTo: taxHeading.topAnchor, constant: -20))
             }
         }
         
         if let _ = sale.tax {
-            constraints.append(taxHeading.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-            constraints.append(taxLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(taxHeading.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+            constraints.append(taxLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
         }
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
 
 }

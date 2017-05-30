@@ -13,12 +13,12 @@ class SalesDetailLicensesTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -29,24 +29,24 @@ class SalesDetailLicensesTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let nameLabel: UILabel = UILabel(frame: CGRectZero)
-    private let statusLabel: UILabel = UILabel(frame: CGRectZero)
-    private let keyLabel: UILabel = UILabel(frame: CGRectZero)
+    fileprivate let nameLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let statusLabel: UILabel = UILabel(frame: CGRect.zero)
+    fileprivate let keyLabel: UILabel = UILabel(frame: CGRect.zero)
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         nameLabel.textColor = .EDDBlueColor()
-        nameLabel.lineBreakMode = .ByWordWrapping
+        nameLabel.lineBreakMode = .byWordWrapping
         nameLabel.numberOfLines = 0
         
-        keyLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        keyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         keyLabel.textColor = .EDDBlackColor()
-        statusLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        statusLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         statusLabel.textColor = .EDDBlackColor()
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,28 +61,28 @@ class SalesDetailLicensesTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
 
         var constraints = [NSLayoutConstraint]()
-        constraints.append(nameLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 0.9))
-        constraints.append(keyLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(statusLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 15))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 15))
+        constraints.append(nameLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.9))
+        constraints.append(keyLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(statusLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 15))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(license: JSON) {
+    func configure(_ license: JSON) {
         let name = license["name"].stringValue
         let status = license["status"].stringValue
         let key = license["key"].stringValue
