@@ -11,21 +11,21 @@ import SwiftyJSON
 import BEMSimpleLineGraph
 
 enum DashboardCell: Int {
-    case Sales = 1
-    case Earnings = 2
-    case Commissions = 3
-    case StoreCommissions = 4
-    case Reviews = 5
-    case None = 6
+    case sales = 1
+    case earnings = 2
+    case commissions = 3
+    case storeCommissions = 4
+    case reviews = 5
+    case none = 6
     
     func label() -> String {
         switch self {
-            case Sales: return "Sales Today"
-            case Earnings: return "Earning Today"
-            case Commissions: return "Commissions"
-            case StoreCommissions: return "Store Commissions"
-            case Reviews: return "Reviews"
-            case None: return "None"
+            case .sales: return "Sales Today"
+            case .earnings: return "Earning Today"
+            case .commissions: return "Commissions"
+            case .storeCommissions: return "Store Commissions"
+            case .reviews: return "Reviews"
+            case .none: return "None"
         }
     }
 }
@@ -34,35 +34,35 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     var hasSetupConstraints = false
     var data: NSArray?
     
-    private var type: DashboardCell = .None
+    fileprivate var type: DashboardCell = .none
     
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
     lazy var topStackView : UIStackView! = {
         let stack = UIStackView()
-        stack.alignment = .Center
+        stack.alignment = .center
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .horizontal)
         return stack
     }()
     
     lazy var middleStackView : UIStackView! = {
         let stack = UIStackView()
-        stack.alignment = .Fill
-        stack.distribution = .Fill
+        stack.alignment = .fill
+        stack.distribution = .fill
         stack.spacing = 3.0
-        stack.axis = .Vertical
+        stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -72,20 +72,20 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 2
         view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSizeZero
+        view.layer.shadowOffset = CGSize.zero
         view.layer.shadowRadius = 3
         view.layer.shadowOpacity = 0.4
-        view.layer.shadowColor = UIColor.blackColor().CGColor
+        view.layer.shadowColor = UIColor.black.cgColor
         return view
     }()
     
-    private var _title: String = ""
-    private var _stat: String = ""
-    private var _salesData: Array<Int>?
-    private var _earningsData: Array<Double>?
-    private var _dates: Array<String>?
+    fileprivate var _title: String = ""
+    fileprivate var _stat: String = ""
+    fileprivate var _salesData: Array<Int>?
+    fileprivate var _earningsData: Array<Double>?
+    fileprivate var _dates: Array<String>?
     
-    private let site: Site = Site.activeSite()
+    fileprivate let site: Site = Site.activeSite()
     
     var title:String {
         get {
@@ -107,42 +107,42 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
     }
     
-    let titleLabel = UILabel(frame: CGRectZero)
-    let statLabel = UILabel(frame: CGRectZero)
-    let firstStatLabel = UILabel(frame: CGRectZero)
-    let secondStatLabel = UILabel(frame: CGRectZero)
-    let thirdStatLabel = UILabel(frame: CGRectZero)
+    let titleLabel = UILabel(frame: CGRect.zero)
+    let statLabel = UILabel(frame: CGRect.zero)
+    let firstStatLabel = UILabel(frame: CGRect.zero)
+    let secondStatLabel = UILabel(frame: CGRect.zero)
+    let thirdStatLabel = UILabel(frame: CGRect.zero)
     
-    private var graph: BEMSimpleLineGraphView?
+    fileprivate var graph: BEMSimpleLineGraphView?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        layer.opaque = true
-        opaque = true
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.isOpaque = true
+        isOpaque = true
         
-        backgroundColor = .clearColor()
-        contentView.backgroundColor = .clearColor()
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
 
-        titleLabel.textColor = .whiteColor()
-        titleLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
-        titleLabel.text = data?.objectAtIndex(1) as? String
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)
+        titleLabel.text = data?.object(at: 1) as? String
         
-        statLabel.textColor = .whiteColor()
-        statLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+        statLabel.textColor = .white
+        statLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)
         
-        firstStatLabel.textColor = .whiteColor()
-        firstStatLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        firstStatLabel.textColor = .white
+        firstStatLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         firstStatLabel.text = "Current Month:"
         
-        secondStatLabel.textColor = .whiteColor()
-        secondStatLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        secondStatLabel.textColor = .white
+        secondStatLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         secondStatLabel.text = "Last Month:"
         
-        thirdStatLabel.textColor = .whiteColor()
-        thirdStatLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+        thirdStatLabel.textColor = .white
+        thirdStatLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         thirdStatLabel.text = "Total:"
     }
     
@@ -153,7 +153,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.type = .None
+        self.type = .none
         
         self.graph?.removeFromSuperview()
     }
@@ -162,7 +162,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         topStackView.addArrangedSubview(titleLabel)
         topStackView.addArrangedSubview(statLabel)
         
-        if type != .StoreCommissions {
+        if type != .storeCommissions {
             middleStackView.addArrangedSubview(firstStatLabel)
             middleStackView.addArrangedSubview(secondStatLabel)
             middleStackView.addArrangedSubview(thirdStatLabel)
@@ -180,13 +180,13 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         graph.enableReferenceXAxisLines = false
         graph.enableReferenceYAxisLines = true
         graph.enableReferenceAxisFrame = false
-        graph.animationGraphStyle = .None
-        graph.colorBackgroundXaxis = UIColor.clearColor()
-        graph.colorBackgroundYaxis = UIColor.clearColor()
-        graph.colorTop = UIColor.clearColor()
-        graph.colorBottom = UIColor.clearColor()
-        graph.backgroundColor = UIColor.clearColor()
-        graph.tintColor = UIColor.clearColor()
+        graph.animationGraphStyle = .none
+        graph.colorBackgroundXaxis = UIColor.clear
+        graph.colorBackgroundYaxis = UIColor.clear
+        graph.colorTop = UIColor.clear
+        graph.colorBottom = UIColor.clear
+        graph.backgroundColor = UIColor.clear
+        graph.tintColor = UIColor.clear
         graph.colorYaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
         graph.colorXaxisLabel = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0.5)
         graph.alwaysDisplayDots = true
@@ -195,16 +195,16 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         graph.translatesAutoresizingMaskIntoConstraints = false
         self.graph = graph
         
-        if type == .Commissions || type == .StoreCommissions {
+        if type == .commissions || type == .storeCommissions {
             middleStackView.removeArrangedSubview(graph)
             graph.removeFromSuperview()
         } else {
             middleStackView.addArrangedSubview(graph)
-            graph.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
-            graph.heightAnchor.constraintEqualToConstant(115).active = true
+            graph.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
+            graph.heightAnchor.constraint(equalToConstant: 115).isActive = true
         }
         
-        if type == .StoreCommissions {
+        if type == .storeCommissions {
             middleStackView.removeArrangedSubview(firstStatLabel)
             middleStackView.removeArrangedSubview(secondStatLabel)
             middleStackView.removeArrangedSubview(thirdStatLabel)
@@ -216,29 +216,29 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
 
         containerView.addSubview(stackView)
         
-        topStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
-        middleStackView.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor).active = true
+        topStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
+        middleStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
 
         var constraints = [NSLayoutConstraint]()
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 15))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -15))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10))
 
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure<T>(heading: String, stats: Stats?, data: Array<T>, dates: Array<String>) {
+    func configure<T>(_ heading: String, stats: Stats?, data: Array<T>, dates: Array<String>) {
         title = heading
         
         guard let cellStats = stats else {
@@ -253,7 +253,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             _salesData = data.map({ Item -> Int in
                 return Item as! Int
             })
-            type = .Sales
+            type = .sales
             
             firstStatLabel.text = "Current Month: \(cellStats.sales["current_month"]!)"
             secondStatLabel.text = "Last Month: \(cellStats.sales["last_month"]!)"
@@ -267,7 +267,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             _earningsData = data.map({ Item -> Double in
                 return Item as! Double
             })
-            type = .Earnings
+            type = .earnings
             
             firstStatLabel.text = "Current Month: \(Site.currencyFormat(cellStats.earnings["current_month"] as! NSNumber))"
             secondStatLabel.text = "Last Month: \(Site.currencyFormat(cellStats.earnings["last_month"] as! NSNumber))"
@@ -275,7 +275,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         }
     }
     
-    func configureSmallStaticCell(heading: String, cellStat: String?) {
+    func configureSmallStaticCell(_ heading: String, cellStat: String?) {
         title = heading
         
         guard let cellStat_ = cellStat else {
@@ -286,16 +286,16 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
         
         // Store Commissions
         if heading == "Store Commissions" {
-            type = .StoreCommissions
+            type = .storeCommissions
         }
     }
     
-    func configureStaticCell(heading: String, data: NSDictionary?) {
+    func configureStaticCell(_ heading: String, data: NSDictionary?) {
         title = heading
         
         // Commissions
         if heading == "Commissions" {
-            type = .Commissions
+            type = .commissions
             
             guard let data_ = data else {
                 return
@@ -316,33 +316,33 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
     
     // MARK: BEMSimpleLineGraph
     
-    func numberOfPointsInLineGraph(graph: BEMSimpleLineGraphView) -> Int {
+    func numberOfPoints(inLineGraph graph: BEMSimpleLineGraphView) -> Int {
         switch type {
-            case .Sales:
+            case .sales:
                 return _salesData!.count
-            case .Earnings:
+            case .earnings:
                 return _earningsData!.count
             default:
                 return 0
         }
     }
     
-    func lineGraph(graph: BEMSimpleLineGraphView, valueForPointAtIndex index: Int) -> CGFloat {
+    func lineGraph(_ graph: BEMSimpleLineGraphView, valueForPointAt index: Int) -> CGFloat {
         switch type {
-            case .Sales:
+            case .sales:
                 return CGFloat(_salesData![index])
-            case .Earnings:
+            case .earnings:
                 return CGFloat(_earningsData![index])
             default:
                 return 0
         }
     }
     
-    func numberOfGapsBetweenLabelsOnLineGraph(graph: BEMSimpleLineGraphView) -> Int {
+    func numberOfGapsBetweenLabels(onLineGraph graph: BEMSimpleLineGraphView) -> Int {
         return 2
     }
     
-    func lineGraph(graph: BEMSimpleLineGraphView, labelOnXAxisForIndex index: Int) -> String {
+    func lineGraph(_ graph: BEMSimpleLineGraphView, labelOnXAxisFor index: Int) -> String {
         return _dates![index] as String
     }
     

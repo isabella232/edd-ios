@@ -18,18 +18,18 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     var managedObjectContext: NSManagedObjectContext!
     
-    private enum CellType {
-        case Sales
-        case Earnings
-        case Commissions
-        case StoreCommissions
+    fileprivate enum CellType {
+        case sales
+        case earnings
+        case commissions
+        case storeCommissions
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
 
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
 
     var cachedGraphData: GraphData?
     var stats: Stats?
@@ -41,7 +41,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     var storeCommission: String?
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         
@@ -56,21 +56,21 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         
         navigationItem.titleView = titleLabel
         
-        cells = [.Sales, .Earnings]
+        cells = [.sales, .earnings]
         
-        if ((site.hasCommissions) != false && sharedDefaults.boolForKey(Site.activeSite().uid! + "-DisplayCommissions") == true) {
-            cells.append(.Commissions)
-            cells.append(.StoreCommissions)
+        if ((site.hasCommissions) != false && sharedDefaults.bool(forKey: Site.activeSite().uid! + "-DisplayCommissions") == true) {
+            cells.append(.commissions)
+            cells.append(.storeCommissions)
         }
         
         topLayoutAnchor = -10.0
         
         // Setup WatchKit Session
         if WCSession.isSupported() {
-            let watchSession = WCSession.defaultSession()
+            let watchSession = WCSession.default()
             watchSession.delegate = self
-            watchSession.activateSession()
-            if watchSession.paired && watchSession.watchAppInstalled {
+            watchSession.activate()
+            if watchSession.isPaired && watchSession.isWatchAppInstalled {
                 do {
                     let userInfo = [
                         "activeSiteName": Site.activeSite().name!,
@@ -91,12 +91,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !NSUserDefaults.standardUserDefaults().boolForKey("DashboardLoaded") {
+        if !UserDefaults.standard.bool(forKey: "DashboardLoaded") {
             super.animateTable()
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "DashboardLoaded")
+            UserDefaults.standard.set(true, forKey: "DashboardLoaded")
         }
         
         if Stats.hasStatsForActiveSite() {
@@ -124,15 +124,15 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         view.backgroundColor = .EDDGreyColor()
         tableView.backgroundColor = .EDDGreyColor()
         
-        tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        tableView.registerClass(DashboardTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tableView.register(DashboardTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.bounces = true
-        tableView.separatorStyle = .None
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
         
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl = refreshControl
     }
@@ -141,63 +141,63 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
-    func handleRefresh(refreshControl: UIRefreshControl) {
-        if refreshControl.refreshing {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                dispatch_async(dispatch_get_main_queue(), {
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        if refreshControl.isRefreshing {
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                DispatchQueue.main.async(execute: {
                     self.networkOperations()
                     self.tableView.reloadData()
-                    refreshControl.performSelector(#selector(refreshControl.endRefreshing), withObject: nil, afterDelay: 0.05)
+                    refreshControl.perform(#selector(refreshControl.endRefreshing), with: nil, afterDelay: 0.05)
                 })
             })
         }
     }
     
-    private func setupTableView() {
+    fileprivate func setupTableView() {
     }
     
     // MARK: Table View Delegate
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
     
     // MARK: Table View Data Source
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: DashboardTableViewCell? = tableView.dequeueReusableCellWithIdentifier("dashboardCell") as! DashboardTableViewCell?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: DashboardTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "dashboardCell") as! DashboardTableViewCell?
         
         if cell == nil {
             cell = DashboardTableViewCell()
         }
         
-        cell?.selectionStyle = .None
+        cell?.selectionStyle = .none
         
         switch cells[indexPath.row] {
-            case .Sales:
+            case .sales:
                 cell!.configure("Sales Today", stats: stats, data: salesGraphData, dates: salesGraphDates)
                 break
-            case .Earnings:
+            case .earnings:
                 cell!.configure("Earnings Today", stats: stats, data: earningsGraphData, dates: earningsGraphDates)
                 break
-            case .Commissions:
+            case .commissions:
                 cell!.configureStaticCell("Commissions", data: commissionsStats)
                 break
-            case .StoreCommissions:
+            case .storeCommissions:
                 cell!.configureSmallStaticCell("Store Commissions", cellStat: storeCommission)
                 break
         }
@@ -211,18 +211,18 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     func editDashboardButtonPressed() {
         let editDashboardViewController = EditDashboardLayoutViewController(site: self.site!)
-        editDashboardViewController.view.backgroundColor = .clearColor()
-        editDashboardViewController.modalPresentationStyle = .OverFullScreen
+        editDashboardViewController.view.backgroundColor = .clear
+        editDashboardViewController.modalPresentationStyle = .overFullScreen
         editDashboardViewController.modalPresentationCapturesStatusBarAppearance = true
-        presentViewController(editDashboardViewController, animated: true, completion: nil)
+        present(editDashboardViewController, animated: true, completion: nil)
     }
     
     // MARK: Loading
     
-    private func networkOperations() {
-        let networkOperationGroup = dispatch_group_create()
+    fileprivate func networkOperations() {
+        let networkOperationGroup = DispatchGroup()
         
-        dispatch_group_enter(networkOperationGroup)
+        networkOperationGroup.enter()
         
         var sales: NSDictionary = NSDictionary()
         var earnings: NSDictionary = NSDictionary()
@@ -237,7 +237,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             NSLog(error.localizedDescription)
         }
         
-        dispatch_group_enter(networkOperationGroup)
+        networkOperationGroup.enter()
         
         EDDAPIWrapper.sharedInstance.requestSalesStatsGraphData({ json in
             self.processSalesGraphData(json)
@@ -247,7 +247,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             NSLog(error.localizedDescription)
         }
         
-        dispatch_group_enter(networkOperationGroup)
+        networkOperationGroup.enter()
         
         EDDAPIWrapper.sharedInstance.requestEarningsStatsGraphData({ json in
             self.processEarningsGraphData(json)
@@ -257,8 +257,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             NSLog(error.localizedDescription)
         }
         
-        if (Site.activeSite().hasCommissions == true && sharedDefaults.boolForKey(Site.activeSite().uid! + "-DisplayCommissions") == true) {
-            dispatch_group_enter(networkOperationGroup)
+        if (Site.activeSite().hasCommissions == true && sharedDefaults.bool(forKey: Site.activeSite().uid! + "-DisplayCommissions") == true) {
+            networkOperationGroup.enter()
             
             EDDAPIWrapper.sharedInstance.requestCommissions([:], success: { (json) in
                 self.commissionsStats = NSDictionary(dictionary: json["totals"].dictionaryObject!)
@@ -268,7 +268,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
                 NSLog(error.localizedDescription)
             }
             
-            dispatch_group_enter(networkOperationGroup)
+            networkOperationGroup.enter()
             
             EDDAPIWrapper.sharedInstance.requestStoreCommissions([:], success: { (json) in
                 self.storeCommission = json["total_unpaid"].stringValue
@@ -279,12 +279,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             }
         }
         
-        dispatch_group_notify(networkOperationGroup, dispatch_get_main_queue()) {
+        networkOperationGroup.notify(queue: DispatchQueue.main) {
             if self.site?.hasCommissions != nil {
-                self.stats = Stats(sales: sales, earnings: earnings, commissions: NSDictionary(), storeCommissions: ["storeCommissions": ""], updatedAt: NSDate())
+                self.stats = Stats(sales: sales, earnings: earnings, commissions: NSDictionary(), storeCommissions: ["storeCommissions": ""], updatedAt: Date())
                 Stats.encode(self.stats!)
             } else {
-                self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: NSDate())
+                self.stats = Stats(sales: sales, earnings: earnings, commissions: self.commissionsStats!, storeCommissions: ["storeCommissions": self.storeCommission!], updatedAt: Date())
                 Stats.encode(self.stats!)
             }
             self.cachedGraphData = GraphData(salesGraphDates: self.salesGraphDates, salesGraphData: self.salesGraphData, earningsGraphDates: self.earningsGraphDates, earningsGraphData: self.earningsGraphData)
@@ -301,12 +301,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
     
     // MARK: Stats
     
-    private func processCachedStats() {
+    fileprivate func processCachedStats() {
         self.stats = Stats.decode()
         tableView.reloadData()
     }
     
-    private func processCachedGraphData() {
+    fileprivate func processCachedGraphData() {
         guard let data = GraphData.decode() else {
             return
         }
@@ -317,7 +317,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         self.earningsGraphDates = data.earningsGraphDates
     }
     
-    private func processSalesGraphData(json: JSON) {
+    fileprivate func processSalesGraphData(_ json: JSON) {
         let sales = json["sales"].dictionaryObject
         
         let keys = sales?.keys
@@ -350,7 +350,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         self.salesGraphData = salesGraphData
     }
     
-    private func processEarningsGraphData(json: JSON) {
+    fileprivate func processEarningsGraphData(_ json: JSON) {
         let earnings = json["earnings"].dictionaryObject
         
         let keys = earnings?.keys
@@ -386,15 +386,15 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
 
 extension DashboardViewController: WCSessionDelegate {
 
-    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         
     }
 
-    func sessionDidBecomeInactive(session: WCSession) {
+    func sessionDidBecomeInactive(_ session: WCSession) {
         
     }
 
-    func sessionDidDeactivate(session: WCSession) {
+    func sessionDidDeactivate(_ session: WCSession) {
         
     }
 

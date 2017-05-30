@@ -10,37 +10,37 @@ import UIKit
 
 class EditDashboardLayoutViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private var tableView: UITableView!
-    private var navigationBar: UINavigationBar!
-    private var site: Site!
-    private var dashboardOrder: [Int]!
-    private var dashboardCellLabels = ["Sales", "Earnings", "Commissions", "Store Commissions", "Revews"]
+    fileprivate var tableView: UITableView!
+    fileprivate var navigationBar: UINavigationBar!
+    fileprivate var site: Site!
+    fileprivate var dashboardOrder: [Int]!
+    fileprivate var dashboardCellLabels = ["Sales", "Earnings", "Commissions", "Store Commissions", "Revews"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurEffect = UIBlurEffect(style: .dark)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.frame = view.bounds
         
-        navigationBar = UINavigationBar(frame: CGRectMake(0, 0, view.frame.width, 64))
-        navigationBar.translucent = true
-        navigationBar.barStyle = .BlackTranslucent
+        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 64))
+        navigationBar.isTranslucent = true
+        navigationBar.barStyle = .blackTranslucent
         
-        tableView = UITableView(frame: CGRectMake(0, navigationBar.frame.height, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
-        tableView.scrollEnabled = true
+        tableView = UITableView(frame: CGRect(x: 0, y: navigationBar.frame.height, width: view.frame.width, height: view.frame.height - navigationBar.frame.height) ,style: .plain);
+        tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
-        tableView.backgroundColor = .clearColor()
+        tableView.isUserInteractionEnabled = true
+        tableView.backgroundColor = .clear
         tableView.separatorColor = UIColor.separatorColor()
-        tableView.editing = true
+        tableView.isEditing = true
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
         
         let navigationItem = UINavigationItem(title: NSLocalizedString("Edit Dashboard Layout", comment: ""))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(EditDashboardLayoutViewController.doneButtonPressed))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(EditDashboardLayoutViewController.doneButtonPressed))
         navigationItem.rightBarButtonItem = doneButton
         navigationBar.items = [navigationItem]
         
@@ -53,19 +53,19 @@ class EditDashboardLayoutViewController: UIViewController, UITableViewDelegate, 
         dashboardOrder = Site.getDashboardOrderForActiveSite()
         
         for elem in dashboardOrder {
-            if elem == DashboardCell.Sales.rawValue {
+            if elem == DashboardCell.sales.rawValue {
                 dashboardCellLabels[elem] = NSLocalizedString("Sales", comment: "")
             }
             
-            if elem == DashboardCell.Earnings.rawValue {
+            if elem == DashboardCell.earnings.rawValue {
                 dashboardCellLabels[elem] = NSLocalizedString("Earnings", comment: "")
             }
             
-            if elem == DashboardCell.Commissions.rawValue {
+            if elem == DashboardCell.commissions.rawValue {
                 dashboardCellLabels[elem] = NSLocalizedString("Commissions", comment: "")
             }
             
-            if elem == DashboardCell.StoreCommissions.rawValue {
+            if elem == DashboardCell.storeCommissions.rawValue {
                 dashboardCellLabels[elem] = NSLocalizedString("Store Commissions", comment: "")
             }
         }
@@ -83,64 +83,64 @@ class EditDashboardLayoutViewController: UIViewController, UITableViewDelegate, 
     }
     
     func doneButtonPressed() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
     // MARK: UITableViewDelegate
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dashboardOrder.count
     }
     
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
         let itemToMove = dashboardOrder[fromIndexPath.row]
         let labelToMove = dashboardCellLabels[fromIndexPath.row]
-        dashboardOrder.removeAtIndex(fromIndexPath.row)
-        dashboardCellLabels.removeAtIndex(fromIndexPath.row)
-        dashboardOrder.insert(itemToMove, atIndex: toIndexPath.row)
-        dashboardCellLabels.insert(labelToMove, atIndex: toIndexPath.row)
+        dashboardOrder.remove(at: fromIndexPath.row)
+        dashboardCellLabels.remove(at: fromIndexPath.row)
+        dashboardOrder.insert(itemToMove, at: toIndexPath.row)
+        dashboardCellLabels.insert(labelToMove, at: toIndexPath.row)
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.Delete
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
     
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("DashboardLayoutCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "DashboardLayoutCell")
         
         if (cell == nil) {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "DashboardLayoutCell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "DashboardLayoutCell")
         }
         
-        cell?.backgroundColor = UIColor.clearColor()
-        cell?.textLabel?.textColor = UIColor.whiteColor()
+        cell?.backgroundColor = UIColor.clear
+        cell?.textLabel?.textColor = UIColor.white
         
         cell?.textLabel?.text = dashboardCellLabels[indexPath.row]
         
