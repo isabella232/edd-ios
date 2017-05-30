@@ -18,15 +18,15 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
     var managedObjectContext: NSManagedObjectContext!
     var site: Site!
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     let containerView = UIView()
     let stackView = UIStackView()
     
     let logo = UIImageView(image: UIImage(named: "EDDLogoText-White"))
     let mascot = UIImageView(image: UIImage(named: "EDDMascot"))
-    let helpButton = UIButton(type: .Custom)
-    let closeButton = UIButton(type: .Custom)
+    let helpButton = UIButton(type: .custom)
+    let closeButton = UIButton(type: .custom)
     let siteName = LoginTextField()
     let siteURL = LoginTextField()
     let apiKey = LoginTextField()
@@ -37,7 +37,7 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
     
     var yOffset: CGFloat = 0
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.appearance()
         
@@ -47,43 +47,43 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         
         var index = 0;
         
-        logo.transform = CGAffineTransformMakeTranslation(0, -200)
-        closeButton.transform = CGAffineTransformMakeTranslation(-200, 0)
-        helpButton.transform = CGAffineTransformMakeTranslation(200, 0)
+        logo.transform = CGAffineTransform(translationX: 0, y: -200)
+        closeButton.transform = CGAffineTransform(translationX: -200, y: 0)
+        helpButton.transform = CGAffineTransform(translationX: 200, y: 0)
         addButton.layer.opacity = 0
         
-        UIView.animateWithDuration(1.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-            self.logo.transform = CGAffineTransformMakeTranslation(0, 0);
-            self.closeButton.transform = CGAffineTransformMakeTranslation(0, 0)
-            self.helpButton.transform = CGAffineTransformMakeTranslation(0, 0)
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            self.logo.transform = CGAffineTransform(translationX: 0, y: 0);
+            self.closeButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.helpButton.transform = CGAffineTransform(translationX: 0, y: 0)
             }, completion: nil)
         
         for field in textFields {
             let field: LoginTextField = field as LoginTextField
             field.layer.opacity = 0
-            field.transform = CGAffineTransformMakeTranslation(0, 50)
-            UIView.animateWithDuration(1.5, delay: 0.1 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                field.transform = CGAffineTransformMakeTranslation(0, 0);
+            field.transform = CGAffineTransform(translationX: 0, y: 50)
+            UIView.animate(withDuration: 1.5, delay: 0.1 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                field.transform = CGAffineTransform(translationX: 0, y: 0);
                 field.layer.opacity = 1
                 }, completion: nil)
             index += 1
         }
         
-        UIView.animateWithDuration(1.0, delay: 0.6, options: [], animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.6, options: [], animations: {
             self.addButton.layer.opacity = 1
             }, completion: nil)
         
         // Keyboard observers
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewSiteViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewSiteViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(NewSiteViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(NewSiteViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self.view.window)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: self.view.window)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
     }
     
     override func viewDidLoad() {
@@ -91,24 +91,24 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         
         containerView.bounds = view.bounds
         containerView.frame = view.frame
-        containerView.backgroundColor = .clearColor()
+        containerView.backgroundColor = .clear
         
-        logo.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
-        logo.contentMode = .ScaleAspectFit
-        logo.heightAnchor.constraintEqualToConstant(100).active = true
+        logo.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
+        logo.contentMode = .scaleAspectFit
+        logo.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         helpButton.accessibilityLabel = NSLocalizedString("Help", comment: "Help button")
-        helpButton.addTarget(self, action: #selector(NewSiteViewController.handleHelpButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        helpButton.setImage(UIImage(named: "Help"), forState: .Normal)
+        helpButton.addTarget(self, action: #selector(NewSiteViewController.handleHelpButtonTapped(_:)), for: .touchUpInside)
+        helpButton.setImage(UIImage(named: "Help"), for: UIControlState())
         helpButton.translatesAutoresizingMaskIntoConstraints = false
-        helpButton.contentMode = .ScaleAspectFit
+        helpButton.contentMode = .scaleAspectFit
         helpButton.sizeToFit()
         
         closeButton.accessibilityLabel = NSLocalizedString("Close", comment: "Close button")
-        closeButton.addTarget(self, action: #selector(NewSiteViewController.handleCloseButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        closeButton.setImage(UIImage(named: "Close"), forState: .Normal)
+        closeButton.addTarget(self, action: #selector(NewSiteViewController.handleCloseButtonTapped(_:)), for: .touchUpInside)
+        closeButton.setImage(UIImage(named: "Close"), for: UIControlState())
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.contentMode = .ScaleAspectFit
+        closeButton.contentMode = .scaleAspectFit
         closeButton.sizeToFit()
 
         siteName.tag = 1
@@ -120,46 +120,46 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         siteURL.placeholder = NSLocalizedString("Site URL", comment: "")
         siteURL.delegate = self
         siteURL.accessibilityIdentifier = "Site URL"
-        siteURL.autocapitalizationType = .None
+        siteURL.autocapitalizationType = .none
         siteURL.keyboardType = .URL
         
         apiKey.tag = 3
         apiKey.placeholder = NSLocalizedString("API Key", comment: "")
         apiKey.delegate = self
         apiKey.accessibilityIdentifier = "API Key"
-        apiKey.autocapitalizationType = .None
+        apiKey.autocapitalizationType = .none
         
         token.tag = 4
         token.placeholder = NSLocalizedString("Token", comment: "")
         token.delegate = self
         token.accessibilityIdentifier = "Token"
         
-        addButton.addTarget(self, action: #selector(NewSiteViewController.addButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        addButton.setTitle("Add Site", forState: UIControlState.Normal)
-        addButton.setTitleColor(.whiteColor(), forState: UIControlState.Normal)
-        addButton.setTitleColor(.whiteColor(), forState: UIControlState.Highlighted)
+        addButton.addTarget(self, action: #selector(NewSiteViewController.addButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+        addButton.setTitle("Add Site", for: UIControlState())
+        addButton.setTitleColor(.white, for: UIControlState())
+        addButton.setTitleColor(.white, for: UIControlState.highlighted)
         addButton.backgroundColor = .EDDBlueColor()
         addButton.layer.cornerRadius = 2
         addButton.layer.opacity = 0.3
         addButton.clipsToBounds = true
-        addButton.enabled = false
+        addButton.isEnabled = false
         
-        connectionTest.textColor = .whiteColor()
+        connectionTest.textColor = .white
         connectionTest.text = "Connecting to " + siteName.text! + "..."
-        connectionTest.textAlignment = .Center
-        connectionTest.hidden = true
+        connectionTest.textAlignment = .center
+        connectionTest.isHidden = true
         connectionTest.numberOfLines = 0
-        connectionTest.lineBreakMode = .ByWordWrapping
+        connectionTest.lineBreakMode = .byWordWrapping
         
         let buttonSpacerView = UIView()
-        buttonSpacerView.heightAnchor.constraintEqualToConstant(20).active = true
+        buttonSpacerView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         let labelSpacerView = UIView()
-        labelSpacerView.heightAnchor.constraintEqualToConstant(20).active = true
+        labelSpacerView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        stackView.axis = .Vertical
-        stackView.distribution = .Fill
-        stackView.alignment = .Fill
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
         stackView.spacing = 0
         
         stackView.addArrangedSubview(logo)
@@ -174,39 +174,39 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView.layoutMarginsRelativeArrangement = true
+        stackView.isLayoutMarginsRelativeArrangement = true
         
         mascot.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mascot)
-        view.addConstraints([NSLayoutConstraint(item: mascot, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)])
-        view.addConstraints([NSLayoutConstraint(item: mascot, attribute: .Trailing, relatedBy: .Equal, toItem: view, attribute: .Trailing, multiplier: 1, constant: -16)])
+        view.addConstraints([NSLayoutConstraint(item: mascot, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)])
+        view.addConstraints([NSLayoutConstraint(item: mascot, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -16)])
         
         containerView.addSubview(stackView)
         view.addSubview(containerView)
         
         view.addSubview(helpButton)
         view.addSubview(closeButton)
-        helpButton.widthAnchor.constraintEqualToConstant(20).active = true
-        helpButton.heightAnchor.constraintEqualToConstant(20).active = true
-        closeButton.widthAnchor.constraintEqualToConstant(20).active = true
-        closeButton.heightAnchor.constraintEqualToConstant(20).active = true
+        helpButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        helpButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         let margins = view.layoutMarginsGuide
-        helpButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
-        helpButton.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
-        closeButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 8).active = true
-        closeButton.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor).active = true
+        helpButton.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8).isActive = true
+        helpButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        closeButton.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8).isActive = true
+        closeButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
 
         
-        stackView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        stackView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
-        stackView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor, constant: 25).active = true
-        stackView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -25).active = true
+        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
         
         yOffset = self.containerView.center.y
     }
     
-    func fillInFields(components: [NSURLQueryItem]) {
+    func fillInFields(_ components: [URLQueryItem]) {
         for item in components {
             if item.name == "siteurl" {
                 siteURL.text = item.value
@@ -231,13 +231,13 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         view.backgroundColor = UIColor.EDDBlackColor()
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: UITextFieldDelegate
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.tag == 5 || textField.tag == 6 {
             return false
         }
@@ -245,15 +245,15 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         validateInputs()
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         let textField = textField as! LoginTextField
         
         guard ( textField.tag == 2 && canOpenURL(textField.text) ) ||
-            ( textField.tag != 2 && textField.hasText() ) else {
+            ( textField.tag != 2 && textField.hasText ) else {
                 textField.validated(false)
                 return
         }
@@ -263,14 +263,14 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         validateInputs()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
         guard let nextResponder: UIResponder = (textField.superview?.viewWithTag(nextTag)) else {
             textField.resignFirstResponder()
             return true
         }
         
-        if nextResponder.canBecomeFirstResponder() && nextTag < 5 {
+        if nextResponder.canBecomeFirstResponder && nextTag < 5 {
             nextResponder.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
@@ -280,38 +280,38 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
     }
     
     func validateInputs() {
-        if siteName.hasText() && siteURL.hasText() && canOpenURL(siteURL.text) && apiKey.hasText() && token.hasText() {
-            UIView.animateWithDuration(0.5, animations: {
+        if siteName.hasText && siteURL.hasText && canOpenURL(siteURL.text) && apiKey.hasText && token.hasText {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.addButton.layer.opacity = 1
-                self.addButton.enabled = true
+                self.addButton.isEnabled = true
             })
         } else {
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.addButton.layer.opacity = 0.3
-                self.addButton.enabled = false
+                self.addButton.isEnabled = false
             })
         }
     }
     
     // MARK: Button Handlers
     
-    func handleHelpButtonTapped(sender: UIButton) {
-        let svc = SFSafariViewController(URL: NSURL(string: "http://docs.easydigitaldownloads.com/article/1469-site-setup")!)
+    func handleHelpButtonTapped(_ sender: UIButton) {
+        let svc = SFSafariViewController(url: URL(string: "http://docs.easydigitaldownloads.com/article/1469-site-setup")!)
         if #available(iOS 10.0, *) {
             svc.preferredBarTintColor = .EDDBlackColor()
-            svc.preferredControlTintColor = .whiteColor()
+            svc.preferredControlTintColor = .white
         } else {
             svc.view.tintColor = .EDDBlueColor()
         }
-        svc.modalPresentationStyle = .OverCurrentContext
-        presentViewController(svc, animated: true, completion: nil)
+        svc.modalPresentationStyle = .overCurrentContext
+        present(svc, animated: true, completion: nil)
     }
     
-    func handleCloseButtonTapped(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func handleCloseButtonTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
-    func addButtonPressed(sender: UIButton!) {
+    func addButtonPressed(_ sender: UIButton!) {
         let button = sender as! LoginSubmitButton
         button.showActivityIndicator(true)
         
@@ -320,19 +320,19 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
         let textFields = [siteName, siteURL, apiKey, token]
         
         for textField in textFields {
-            textField.enabled = false
+            textField.isEnabled = false
         }
         
-        self.addButton.enabled = false
+        self.addButton.isEnabled = false
         
-        UIView.animateWithDuration(0.5) {
+        UIView.animate(withDuration: 0.5, animations: {
             self.siteName.layer.opacity = 0.3
             self.siteURL.layer.opacity = 0.3
             self.apiKey.layer.opacity = 0.3
             self.token.layer.opacity = 0.3
             
-            self.connectionTest.hidden = false
-        }
+            self.connectionTest.isHidden = false
+        }) 
         
         Alamofire.request(.GET, siteURL.text! + "/edd-api/info", parameters: ["key": apiKey.text!, "token": token.text!])
             .validate(statusCode: 200..<300)
@@ -442,34 +442,34 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
     
     // MARK: Validation
     
-    func canOpenURL(string: String?) -> Bool {
+    func canOpenURL(_ string: String?) -> Bool {
         // Initial (basic) validation
         guard let urlString = string?.stringByRemovingPercentEncoding! else {
             return false
         }
         
-        guard let url = NSURL(string: urlString) else {
+        guard let url = URL(string: urlString) else {
             return false
         }
         
-        if !UIApplication.sharedApplication().canOpenURL(url) {
+        if !UIApplication.shared.canOpenURL(url) {
             return false
         }
         
         // Regex validation
         let regEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
-        return NSPredicate(format: "SELF MATCHES %@", regEx).evaluateWithObject(urlString)
+        return NSPredicate(format: "SELF MATCHES %@", regEx).evaluate(with: urlString)
     }
     
     // MARK: Keyboard Handlers
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         if view.frame.origin.y == 0  {
             stackView.center.y = yOffset - 100
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(_ notification: Notification) {
         stackView.center.y = yOffset
     }
 

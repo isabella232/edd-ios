@@ -10,11 +10,11 @@ import UIKit
 
 class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    private var tableView: UITableView!
-    private var navigationBar: UINavigationBar!
-    private var sites: [Site]?
+    fileprivate var tableView: UITableView!
+    fileprivate var navigationBar: UINavigationBar!
+    fileprivate var sites: [Site]?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         sites = Site.fetchAll(inContext: AppDelegate.sharedInstance.managedObjectContext)
@@ -23,28 +23,28 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurEffect = UIBlurEffect(style: .dark)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.frame = view.bounds
         
-        navigationBar = UINavigationBar(frame: CGRectMake(0, 0, view.frame.width, 64))
-        navigationBar.translucent = true
-        navigationBar.barStyle = .BlackTranslucent
+        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 64))
+        navigationBar.isTranslucent = true
+        navigationBar.barStyle = .blackTranslucent
         
-        tableView = UITableView(frame: CGRectMake(0, navigationBar.frame.height, view.frame.width, view.frame.height - navigationBar.frame.height) ,style: .Plain);
-        tableView.scrollEnabled = true
+        tableView = UITableView(frame: CGRect(x: 0, y: navigationBar.frame.height, width: view.frame.width, height: view.frame.height - navigationBar.frame.height) ,style: .plain);
+        tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
-        tableView.backgroundColor = .clearColor()
+        tableView.isUserInteractionEnabled = true
+        tableView.backgroundColor = .clear
         tableView.separatorColor = UIColor.separatorColor()
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
         
         let navigationItem = UINavigationItem(title: NSLocalizedString("Switch Site", comment: ""))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(SwitchSiteViewController.doneButtonPressed))
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(SwitchSiteViewController.addButtonPressed))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SwitchSiteViewController.doneButtonPressed))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(SwitchSiteViewController.addButtonPressed))
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = addButton
         navigationBar.items = [navigationItem]
@@ -57,59 +57,59 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func doneButtonPressed() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func addButtonPressed() {
         let newSiteViewController = NewSiteViewController()
         newSiteViewController.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
-        newSiteViewController.view.backgroundColor = .clearColor()
-        newSiteViewController.modalPresentationStyle = .OverFullScreen
+        newSiteViewController.view.backgroundColor = .clear
+        newSiteViewController.modalPresentationStyle = .overFullScreen
         newSiteViewController.modalPresentationCapturesStatusBarAppearance = true
-        presentViewController(newSiteViewController, animated: true, completion: nil)
+        present(newSiteViewController, animated: true, completion: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
     // MARK: Table View Delegate
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sites?.count ?? 0
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let site = sites![indexPath.row] as Site
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
 
         AppDelegate.sharedInstance.switchActiveSite(site.uid!)
 
-        UIView.transitionWithView(self.view.window!, duration: 0.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: {
+        UIView.transition(with: self.view.window!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft, animations: {
             self.view.window?.rootViewController = SiteTabBarController(site: site)
             }, completion: nil)
     }
     
     // MARK: Table View Data Source
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("SwitchSiteCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "SwitchSiteCell")
         
         if (cell == nil) {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "SwitchSiteCell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "SwitchSiteCell")
         }
         
-        cell?.backgroundColor = UIColor.clearColor()
-        cell?.textLabel?.textColor = UIColor.whiteColor()
+        cell?.backgroundColor = UIColor.clear
+        cell?.textLabel?.textColor = UIColor.white
         
         let site = sites![indexPath.row] as Site
         
