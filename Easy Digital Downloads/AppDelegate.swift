@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didSet {
             if let session = session {
                 session.delegate = self
-                session.activateSession()
+                session.activate()
             }
         }
     }
@@ -33,38 +33,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let managedObjectContext = createEDDMainContext()
     
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
 
-    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Handle 3D Touch
-        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
             launchedShortcutItem = shortcutItem
             handleShortcut(shortcutItem)
             return false
         }
         
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.backgroundColor = UIColor.whiteColor()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.backgroundColor = UIColor.white
         
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         NSLog("File Directory: \(documentsPath)")
         
-        let cache = NSURLCache.init(memoryCapacity: 8*1024*1024, diskCapacity: 20*1024*1024, diskPath: nil)
-        NSURLCache.setSharedURLCache(cache)
+        let cache = URLCache.init(memoryCapacity: 8*1024*1024, diskCapacity: 20*1024*1024, diskPath: nil)
+        URLCache.setSharedURLCache(cache)
         
         configureGlobalAppearance()
         
         return true
     }
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Background Fetch
-        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 
         if WCSession.isSupported() {
-            session = WCSession.defaultSession()
+            session = WCSession.default()
             session?.delegate = self
-            session?.activateSession()
+            session?.activate()
         }
         
         // Setup CocoaLumberjack
@@ -72,8 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DDLog.addLogger(DDTTYLogger())
         DDLogInfo("didFinishLaunchingWithOptions state: \(application.applicationState)")
         
-        if sharedDefaults.boolForKey("DashboardLoaded") {
-            sharedDefaults.setBool(false, forKey: "DashboardLoaded")
+        if sharedDefaults.bool(forKey: "DashboardLoaded") {
+            sharedDefaults.set(false, forKey: "DashboardLoaded")
         }
         
 //        let domainName = NSBundle.mainBundle().bundleIdentifier!
@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if url.scheme == "edd" {
             if url.URLString == "edd://dashboard" {
                 EDDAPIWrapper.sharedInstance
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return true
             }
             
-            let components = (NSURLComponents(URL: url, resolvingAgainstBaseURL: false)?.queryItems)! as [NSURLQueryItem]
+            let components = (URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems)! as [URLQueryItem]
             
             let login = LoginViewController()
             self.window?.rootViewController = login
@@ -124,21 +124,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         managedObjectContext.refreshAllObjects()
         managedObjectContext.performSaveOrRollback()
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         guard let shortcut = launchedShortcutItem else { return }
         
         handleShortcut(shortcut)
@@ -146,18 +146,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         launchedShortcutItem = nil
     }
     
-    func applicationDidReceiveMemoryWarning(application: UIApplication) {
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        URLCache.shared.removeAllCachedResponses()
         managedObjectContext.refreshAllObjects()
     }
 
-    func applicationWillTerminate(application: UIApplication) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    func applicationWillTerminate(_ application: UIApplication) {
+        NotificationCenter.default.removeObserver(self)
         managedObjectContext.performSaveOrRollback()
     }
     
     func noSitesSetup() -> Bool {
-        guard let _ = sharedDefaults.objectForKey("defaultSite") as? String,
+        guard let _ = sharedDefaults.object(forKey: "defaultSite") as? String,
               let _ = Site.hasActiveSite() else {
             return true
         }
@@ -165,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-    func switchActiveSite(siteID: String) {
+    func switchActiveSite(_ siteID: String) {
         sharedDefaults.setValue(siteID, forKey: "defaultSite")
         sharedDefaults.setValue(siteID, forKey: "activeSite")
         sharedDefaults.synchronize()
@@ -177,10 +177,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if WCSession.isSupported() {
             print("Sending data to Watch...")
-            let watchSession = WCSession.defaultSession()
+            let watchSession = WCSession.default()
             watchSession.delegate = self
-            watchSession.activateSession()
-            if watchSession.paired && watchSession.watchAppInstalled {
+            watchSession.activate()
+            if watchSession.isPaired && watchSession.isWatchAppInstalled {
                 do {
                     let userInfo = [
                         "activeSiteName": Site.activeSite().name!,
@@ -203,13 +203,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: Private
     
-    private func configureGlobalAppearance() {
+    fileprivate func configureGlobalAppearance() {
         let navigationBar = UINavigationBar.appearance()
-        navigationBar.translucent = false
-        navigationBar.barStyle = .BlackTranslucent
-        navigationBar.tintColor = .whiteColor()
+        navigationBar.isTranslucent = false
+        navigationBar.barStyle = .blackTranslucent
+        navigationBar.tintColor = .white
         navigationBar.barTintColor = .EDDBlackColor()
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         let tabBar = UITabBar.appearance()
         tabBar.tintColor = .EDDBlueColor()
@@ -224,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: 3D Touch
     
-    private func setupShortcutItems() {        
+    fileprivate func setupShortcutItems() {        
         let dashboardShortcutIcon = UIApplicationShortcutIcon(templateImageName: "ShortcutIcon-Dashboard")
         let salesShortcutIcon = UIApplicationShortcutIcon(templateImageName: "ShortcutIcon-Sales")
         let customersShortcutIcon = UIApplicationShortcutIcon(templateImageName: "ShortcutIcon-Customers")
@@ -235,14 +235,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let customers = UIApplicationShortcutItem(type: "edd.customers", localizedTitle: "Customers", localizedSubtitle: "", icon: customersShortcutIcon, userInfo:nil)
         let reports = UIApplicationShortcutItem(type: "edd.prodcuts", localizedTitle: "Products", localizedSubtitle: "", icon: reportsShortcutIcon, userInfo:nil)
         
-        UIApplication.sharedApplication().shortcutItems = [dashboard, sales, customers, reports]
+        UIApplication.shared.shortcutItems = [dashboard, sales, customers, reports]
     }
     
-    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         completionHandler(handleShortcut(shortcutItem))
     }
     
-    private func handleShortcut(shortcutItem: UIApplicationShortcutItem) -> Bool {
+    fileprivate func handleShortcut(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
         guard let shortCutType = shortcutItem.type as String? else {
             return false
         }
@@ -279,19 +279,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: WCSessionDelegate {
     
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print(message)
     }
     
-    func sessionDidDeactivate(session: WCSession) {
-        session.activateSession()
+    func sessionDidDeactivate(_ session: WCSession) {
+        session.activate()
     }
     
-    func sessionDidBecomeInactive(session: WCSession) {
+    func sessionDidBecomeInactive(_ session: WCSession) {
         
     }
     
-    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         
     }
     
