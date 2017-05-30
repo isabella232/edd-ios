@@ -11,11 +11,11 @@ import Alamofire
 import CoreData
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -24,16 +24,16 @@ class CustomersDetailViewController: SiteTableViewController {
 
     var managedObjectContext: NSManagedObjectContext!
     
-    private enum CellType {
-        case Profile
-        case Stats
-        case SalesHeading
-        case Sales
-        case SubscriptionsHeading
-        case Subscriptions
+    fileprivate enum CellType {
+        case profile
+        case stats
+        case salesHeading
+        case sales
+        case subscriptionsHeading
+        case subscriptions
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var customer: Customer?
@@ -41,7 +41,7 @@ class CustomersDetailViewController: SiteTableViewController {
     var recentSubscriptions: [JSON]?
     
     init(customer: Customer) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         self.customer = customer
@@ -57,7 +57,7 @@ class CustomersDetailViewController: SiteTableViewController {
         
         networkOperations()
         
-        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        let uiBusy = UIActivityIndicatorView(activityIndicatorStyle: .white)
         uiBusy.hidesWhenStopped = true
         uiBusy.startAnimating()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: uiBusy)
@@ -66,22 +66,22 @@ class CustomersDetailViewController: SiteTableViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 120.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         
-        tableView.registerClass(CustomerProfileTableViewCell.self, forCellReuseIdentifier: "CustomerProfileTableViewCell")
-        tableView.registerClass(CustomerStatsTableViewCell.self, forCellReuseIdentifier: "CustomerStatsTableViewCell")
-        tableView.registerClass(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
-        tableView.registerClass(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
-        tableView.registerClass(CustomerDetailSubscriptionTableViewCell.self, forCellReuseIdentifier: "CustomerSubscriptionTableViewCell")
+        tableView.register(CustomerProfileTableViewCell.self, forCellReuseIdentifier: "CustomerProfileTableViewCell")
+        tableView.register(CustomerStatsTableViewCell.self, forCellReuseIdentifier: "CustomerStatsTableViewCell")
+        tableView.register(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
+        tableView.register(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
+        tableView.register(CustomerDetailSubscriptionTableViewCell.self, forCellReuseIdentifier: "CustomerSubscriptionTableViewCell")
         
-        cells = [.Profile, .Stats]
+        cells = [.profile, .stats]
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         Manager.sharedInstance.session.getAllTasksWithCompletionHandler { (tasks) in
             tasks.forEach({ $0.cancel() })
         }
@@ -156,20 +156,20 @@ class CustomersDetailViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cells[indexPath.row] == CellType.Sales {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if cells[indexPath.row] == CellType.sales {
             var offset = 0
-            if cells[2] == CellType.SubscriptionsHeading {
+            if cells[2] == CellType.subscriptionsHeading {
                 offset = indexPath.row - (recentSubscriptions?.count)! - 4
                 
             } else {
@@ -183,9 +183,9 @@ class CustomersDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
         }
         
-        if cells[indexPath.row] == CellType.Subscriptions {
+        if cells[indexPath.row] == CellType.subscriptions {
             var offset = 0
-            if cells[2] == CellType.SalesHeading {
+            if cells[2] == CellType.salesHeading {
                 offset = indexPath.row - (recentSales?.count)! - 4
                 
             } else {
@@ -199,39 +199,39 @@ class CustomersDetailViewController: SiteTableViewController {
             navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: subscription), animated: true)
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch(cells[indexPath.row]) {
-            case .Profile:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerProfileTableViewCell", forIndexPath: indexPath) as! CustomerProfileTableViewCell
+            case .profile:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerProfileTableViewCell", for: indexPath) as! CustomerProfileTableViewCell
                 (cell as! CustomerProfileTableViewCell).configure(customer!)
-            case .Stats:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
+            case .stats:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerStatsTableViewCell", for: indexPath) as! CustomerStatsTableViewCell
                 (cell as! CustomerStatsTableViewCell).configure(customer!)
-            case .SalesHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+            case .salesHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerHeadingTableViewCell", for: indexPath) as! CustomerDetailHeadingTableViewCell
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Sales")
-            case .Sales:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerRecentSaleTableViewCell", forIndexPath: indexPath) as! CustomerRecentSaleTableViewCell
+            case .sales:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerRecentSaleTableViewCell", for: indexPath) as! CustomerRecentSaleTableViewCell
                 var offset = 0
-                if cells[2] == CellType.SubscriptionsHeading {
+                if cells[2] == CellType.subscriptionsHeading {
                     offset = indexPath.row - (recentSubscriptions?.count)! - 4
                     
                 } else {
                     offset = indexPath.row - 3
                 }
                 (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![offset])
-            case .SubscriptionsHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+            case .subscriptionsHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerHeadingTableViewCell", for: indexPath) as! CustomerDetailHeadingTableViewCell
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
-            case .Subscriptions:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerSubscriptionTableViewCell", forIndexPath: indexPath) as! CustomerDetailSubscriptionTableViewCell
+            case .subscriptions:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerSubscriptionTableViewCell", for: indexPath) as! CustomerDetailSubscriptionTableViewCell
                 var offset = 0
-                if cells[2] == CellType.SalesHeading {
+                if cells[2] == CellType.salesHeading {
                     offset = indexPath.row - (recentSales?.count)! - 4
                     
                 } else {

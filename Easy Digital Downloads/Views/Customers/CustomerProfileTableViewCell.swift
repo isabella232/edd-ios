@@ -10,11 +10,11 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "d MMM yyyy"
     return formatter
 }()
@@ -23,12 +23,12 @@ class CustomerProfileTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -39,36 +39,36 @@ class CustomerProfileTableViewCell: UITableViewCell {
         return view
     }()
     
-    private var profileImageView: UIImageView = UIImageView(frame: CGRectZero)
-    private let nameLabel = UILabel(frame: CGRectZero)
-    private let emailLabel = UILabel(frame: CGRectZero)
-    private var gravatar: Gravatar?
-    private var customer: Customer?
+    fileprivate var profileImageView: UIImageView = UIImageView(frame: CGRect.zero)
+    fileprivate let nameLabel = UILabel(frame: CGRect.zero)
+    fileprivate let emailLabel = UILabel(frame: CGRect.zero)
+    fileprivate var gravatar: Gravatar?
+    fileprivate var customer: Customer?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         profileImageView = {
-            let imageView = UIImageView(frame: CGRectZero)
+            let imageView = UIImageView(frame: CGRect.zero)
             
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = true
             
             return imageView
         }()
         
         nameLabel.textColor = .EDDBlackColor()
-        nameLabel.font = UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
-        nameLabel.textAlignment = .Center
+        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        nameLabel.textAlignment = .center
         
         emailLabel.textColor = .EDDBlackColor()
-        emailLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
-        emailLabel.textAlignment = .Center
-        emailLabel.lineBreakMode = .ByWordWrapping
+        emailLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+        emailLabel.textAlignment = .center
+        emailLabel.lineBreakMode = .byWordWrapping
         emailLabel.numberOfLines = 0
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,7 +83,7 @@ class CustomerProfileTableViewCell: UITableViewCell {
         profileImageView.image = nil
     }
     
-    private func setupImageView() {
+    fileprivate func setupImageView() {
         guard let customer_ = customer else {
             return
         }
@@ -93,14 +93,14 @@ class CustomerProfileTableViewCell: UITableViewCell {
         
         print(url);
         
-        profileImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSizeMake(60, 60), radius: 30), progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+        profileImageView.af_setImageWithURL(url!, placeholderImage: nil, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSize(width: 60, height: 60), radius: 30), progress: nil, progressQueue: DispatchQueue.main, imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
     }
     
-    func configure(customer: Customer) {
+    func configure(_ customer: Customer) {
         self.customer = customer
         
         nameLabel.text = customer.displayName
-        emailLabel.text = customer.email.lowercaseString + "\n" + "Customer since " + sharedDateFormatter.stringFromDate(customer.dateCreated)
+        emailLabel.text = customer.email.lowercased() + "\n" + "Customer since " + sharedDateFormatter.string(from: customer.dateCreated as Date)
         
         setupImageView()
         layout()
@@ -114,27 +114,27 @@ class CustomerProfileTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(nameLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(emailLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(profileImageView.widthAnchor.constraintEqualToConstant(60))
-        constraints.append(profileImageView.heightAnchor.constraintEqualToConstant(60))
-        constraints.append(profileImageView.centerXAnchor.constraintEqualToAnchor(contentView.centerXAnchor))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 0))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: 0))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 0))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: 0))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 15))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -15))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 0))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: 0))
+        constraints.append(nameLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(emailLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(profileImageView.widthAnchor.constraint(equalToConstant: 60))
+        constraints.append(profileImageView.heightAnchor.constraint(equalToConstant: 60))
+        constraints.append(profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
 }

@@ -9,29 +9,29 @@
 import UIKit
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
 
 class CustomersSearchViewController: SiteTableViewController {
 
-    private enum CellType {
-        case Profile
-        case Stats
-        case SalesHeading
-        case Sales
-        case SubscriptionsHeading
-        case Subscriptions
+    fileprivate enum CellType {
+        case profile
+        case stats
+        case salesHeading
+        case sales
+        case subscriptionsHeading
+        case subscriptions
     }
     
     typealias JSON = SwiftyJSON.JSON
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var customer: Customer?
@@ -46,15 +46,15 @@ class CustomersSearchViewController: SiteTableViewController {
     var noResultsView = UIView()
     
     init() {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = Site.activeSite()
         
         title = NSLocalizedString("Search", comment: "Sales Search View Controller title")
-        tableView.scrollEnabled = true
+        tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
-        tableView.userInteractionEnabled = true
+        tableView.isUserInteractionEnabled = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = estimatedHeight
@@ -65,13 +65,13 @@ class CustomersSearchViewController: SiteTableViewController {
         titleLabel.setTitle(NSLocalizedString("Search", comment: "Sales Search View Controller title"))
         navigationItem.titleView = titleLabel
         
-        tableView.registerClass(CustomerProfileTableViewCell.self, forCellReuseIdentifier: "CustomerProfileTableViewCell")
-        tableView.registerClass(CustomerStatsTableViewCell.self, forCellReuseIdentifier: "CustomerStatsTableViewCell")
-        tableView.registerClass(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
-        tableView.registerClass(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
-        tableView.registerClass(CustomerDetailSubscriptionTableViewCell.self, forCellReuseIdentifier: "CustomerSubscriptionTableViewCell")
+        tableView.register(CustomerProfileTableViewCell.self, forCellReuseIdentifier: "CustomerProfileTableViewCell")
+        tableView.register(CustomerStatsTableViewCell.self, forCellReuseIdentifier: "CustomerStatsTableViewCell")
+        tableView.register(CustomerDetailHeadingTableViewCell.self, forCellReuseIdentifier: "CustomerHeadingTableViewCell")
+        tableView.register(CustomerRecentSaleTableViewCell.self, forCellReuseIdentifier: "CustomerRecentSaleTableViewCell")
+        tableView.register(CustomerDetailSubscriptionTableViewCell.self, forCellReuseIdentifier: "CustomerSubscriptionTableViewCell")
         
-        cells = [.Profile, .Stats]
+        cells = [.profile, .stats]
         
         loadingView = {
             var frame: CGRect = self.view.frame;
@@ -79,20 +79,20 @@ class CustomersSearchViewController: SiteTableViewController {
             frame.origin.y = 0;
             
             let view = UIView(frame: frame)
-            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             view.backgroundColor = .EDDGreyColor()
             
             return view
         }()
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         activityIndicator.center = view.center
         loadingView.addSubview(activityIndicator)
         
         activityIndicator.startAnimating()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewDidLoad() {
@@ -102,12 +102,12 @@ class CustomersSearchViewController: SiteTableViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.barTintColor = .EDDBlackColor()
         searchController.searchBar.backgroundColor = .EDDBlackColor()
-        searchController.searchBar.searchBarStyle = .Prominent
-        searchController.searchBar.tintColor = .whiteColor()
-        searchController.searchBar.translucent = false
+        searchController.searchBar.searchBarStyle = .prominent
+        searchController.searchBar.tintColor = .white
+        searchController.searchBar.isTranslucent = false
         searchController.searchBar.delegate = self
-        searchController.searchBar.autocapitalizationType = .None
-        searchController.searchBar.autocorrectionType = .No
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.autocorrectionType = .no
         searchController.searchBar.placeholder = NSLocalizedString("Enter Customer ID/Email Address", comment: "")
         searchController.delegate = self
         definesPresentationContext = true
@@ -117,26 +117,26 @@ class CustomersSearchViewController: SiteTableViewController {
         
         navigationController?.navigationBar.clipsToBounds = true
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
-        tableView.registerClass(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: "SearchCell")
         
         for view in searchController.searchBar.subviews {
             for field in view.subviews {
-                if field.isKindOfClass(UITextField.self) {
+                if field.isKind(of: UITextField.self) {
                     let textField: UITextField = field as! UITextField
-                    textField.backgroundColor = .blackColor()
-                    textField.textColor = .whiteColor()
+                    textField.backgroundColor = .black
+                    textField.textColor = .white
                 }
             }
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        searchController.active = true
-        dispatch_async(dispatch_get_main_queue()) {
+        searchController.isActive = true
+        DispatchQueue.main.async {
             self.searchController.searchBar.becomeFirstResponder()
         }
     }
@@ -145,14 +145,14 @@ class CustomersSearchViewController: SiteTableViewController {
         super.init(coder: aDecoder)
     }
     
-    private func showNoResultsView() {
+    fileprivate func showNoResultsView() {
         noResultsView = {
             var frame: CGRect = self.view.frame;
             frame.origin.x = 0;
             frame.origin.y = 0;
             
             let view = UIView(frame: frame)
-            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             view.backgroundColor = .EDDGreyColor()
             
             return view
@@ -162,27 +162,27 @@ class CustomersSearchViewController: SiteTableViewController {
         noResultsLabel.text = NSLocalizedString("Customer Not Found.", comment: "")
         noResultsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        noResultsLabel.textAlignment = .Center
+        noResultsLabel.textAlignment = .center
         noResultsLabel.sizeToFit()
         
         noResultsView.addSubview(noResultsLabel)
         view.addSubview(noResultsView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(noResultsLabel.widthAnchor.constraintEqualToAnchor(view.widthAnchor))
-        constraints.append(noResultsLabel.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor))
+        constraints.append(noResultsLabel.widthAnchor.constraint(equalTo: view.widthAnchor))
+        constraints.append(noResultsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive {
             return cells.count
         } else {
             return 0
@@ -191,10 +191,10 @@ class CustomersSearchViewController: SiteTableViewController {
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cells[indexPath.row] == CellType.Sales {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if cells[indexPath.row] == CellType.sales {
             var offset = 0
-            if cells[2] == CellType.SubscriptionsHeading {
+            if cells[2] == CellType.subscriptionsHeading {
                 offset = indexPath.row - (recentSubscriptions?.count)! - 4
                 
             } else {
@@ -208,9 +208,9 @@ class CustomersSearchViewController: SiteTableViewController {
             navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
         }
         
-        if cells[indexPath.row] == CellType.Subscriptions {
+        if cells[indexPath.row] == CellType.subscriptions {
             var offset = 0
-            if cells[2] == CellType.SalesHeading {
+            if cells[2] == CellType.salesHeading {
                 offset = indexPath.row - (recentSales?.count)! - 4
                 
             } else {
@@ -224,39 +224,39 @@ class CustomersSearchViewController: SiteTableViewController {
             navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: subscription), animated: true)
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch(cells[indexPath.row]) {
-            case .Profile:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerProfileTableViewCell", forIndexPath: indexPath) as! CustomerProfileTableViewCell
+            case .profile:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerProfileTableViewCell", for: indexPath) as! CustomerProfileTableViewCell
                 (cell as! CustomerProfileTableViewCell).configure(customer!)
-            case .Stats:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerStatsTableViewCell", forIndexPath: indexPath) as! CustomerStatsTableViewCell
+            case .stats:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerStatsTableViewCell", for: indexPath) as! CustomerStatsTableViewCell
                 (cell as! CustomerStatsTableViewCell).configure(customer!)
-            case .SalesHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+            case .salesHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerHeadingTableViewCell", for: indexPath) as! CustomerDetailHeadingTableViewCell
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Sales")
-            case .Sales:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerRecentSaleTableViewCell", forIndexPath: indexPath) as! CustomerRecentSaleTableViewCell
+            case .sales:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerRecentSaleTableViewCell", for: indexPath) as! CustomerRecentSaleTableViewCell
                 var offset = 0
-                if cells[2] == CellType.SubscriptionsHeading {
+                if cells[2] == CellType.subscriptionsHeading {
                     offset = indexPath.row - (recentSubscriptions?.count)! - 4
                     
                 } else {
                     offset = indexPath.row - 3
                 }
                 (cell as! CustomerRecentSaleTableViewCell).configure(recentSales![offset])
-            case .SubscriptionsHeading:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerHeadingTableViewCell", forIndexPath: indexPath) as! CustomerDetailHeadingTableViewCell
+            case .subscriptionsHeading:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerHeadingTableViewCell", for: indexPath) as! CustomerDetailHeadingTableViewCell
                 (cell as! CustomerDetailHeadingTableViewCell).configure("Recent Subscriptions")
-            case .Subscriptions:
-                cell = tableView.dequeueReusableCellWithIdentifier("CustomerSubscriptionTableViewCell", forIndexPath: indexPath) as! CustomerDetailSubscriptionTableViewCell
+            case .subscriptions:
+                cell = tableView.dequeueReusableCell(withIdentifier: "CustomerSubscriptionTableViewCell", for: indexPath) as! CustomerDetailSubscriptionTableViewCell
                 var offset = 0
-                if cells[2] == CellType.SalesHeading {
+                if cells[2] == CellType.salesHeading {
                     offset = indexPath.row - (recentSales?.count)! - 4
                     
                 } else {
@@ -274,7 +274,7 @@ extension CustomersSearchViewController: UISearchControllerDelegate {
     
     // MARK: UISearchControllerDelegate
     
-    func didPresentSearchController(searchController: UISearchController) {
+    func didPresentSearchController(_ searchController: UISearchController) {
         searchController.searchBar.becomeFirstResponder()
     }
     
@@ -284,7 +284,7 @@ extension CustomersSearchViewController: UISearchBarDelegate {
     
     // MARK: UISearchBar Delegate
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.addSubview(loadingView)
         
         self.filteredTableData.removeAll(keepCapacity: false)

@@ -10,11 +10,11 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -36,12 +36,12 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         }
     }
 
-    let sharedDefaults: NSUserDefaults = NSUserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage =  1
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -58,7 +58,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         customers = [JSON]()
@@ -79,13 +79,13 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         
         super.leftBarButtonItem = true
         
-        registerForPreviewingWithDelegate(self, sourceView: view)
+        registerForPreviewing(with: self, sourceView: view)
         
         let searchNavigationItemImage = UIImage(named: "NavigationBar-Search")
-        let searchNavigationItemButton = HighlightButton(type: .Custom)
-        searchNavigationItemButton.tintColor = .whiteColor()
-        searchNavigationItemButton.setImage(searchNavigationItemImage, forState: .Normal)
-        searchNavigationItemButton.addTarget(self, action: #selector(CustomersViewController.searchButtonPressed), forControlEvents: .TouchUpInside)
+        let searchNavigationItemButton = HighlightButton(type: .custom)
+        searchNavigationItemButton.tintColor = .white
+        searchNavigationItemButton.setImage(searchNavigationItemImage, for: UIControlState())
+        searchNavigationItemButton.addTarget(self, action: #selector(CustomersViewController.searchButtonPressed), for: .touchUpInside)
         searchNavigationItemButton.sizeToFit()
         
         let searchNavigationBarButton = UIBarButtonItem(customView: searchNavigationItemButton)
@@ -107,21 +107,21 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let customer = dataSource.selectedObject else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
         
         navigationController?.pushViewController(CustomersDetailViewController(customer: customer), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     
     // MARK: Private
     
-    private func requestNextPage() {
+    fileprivate func requestNextPage() {
         EDDAPIWrapper.sharedInstance.requestCustomers([ "page": lastDownloadedPage ], success: { (json) in
             if let items = json["customers"].array {
                 if items.count == 20 {
@@ -142,13 +142,13 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         }
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.setInteger(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CustomersPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CustomersPage")
         sharedDefaults.synchronize()
     }
     
-    private func persistCustomers() {
+    fileprivate func persistCustomers() {
         guard let customers_ = customers else {
             return
         }
@@ -169,17 +169,17 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         }
     }
     
-    private typealias Data = FetchedResultsDataProvider<CustomersViewController>
-    private var dataSource: TableViewDataSource<CustomersViewController, Data, CustomersTableViewCell>!
+    fileprivate typealias Data = FetchedResultsDataProvider<CustomersViewController>
+    fileprivate var dataSource: TableViewDataSource<CustomersViewController, Data, CustomersTableViewCell>!
     
-    private func setupTableView() {
+    fileprivate func setupTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
-        tableView.registerClass(CustomersTableViewCell.self, forCellReuseIdentifier: "CustomerCell")
+        tableView.register(CustomersTableViewCell.self, forCellReuseIdentifier: "CustomerCell")
         setupDataSource()
     }
     
-    private func setupDataSource() {
+    fileprivate func setupDataSource() {
         let request = Customer.defaultFetchRequest()
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
@@ -188,9 +188,9 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     
     // MARK: 3D Touch
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = tableView.indexPathForRowAtPoint(location) {
-            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
             guard let customer = dataSource.objectAtIndexPath(indexPath) else {
                 return nil
             }
@@ -199,7 +199,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
         return nil
     }
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
@@ -207,7 +207,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
 
 extension CustomersViewController: DataProviderDelegate {
     
-    func dataProviderDidUpdate(updates: [DataProviderUpdate<Customer>]?) {
+    func dataProviderDidUpdate(_ updates: [DataProviderUpdate<Customer>]?) {
         dataSource.processUpdates(updates)
     }
     
@@ -215,7 +215,7 @@ extension CustomersViewController: DataProviderDelegate {
 
 extension CustomersViewController: DataSourceDelegate {
     
-    func cellIdentifierForObject(object: Customer) -> String {
+    func cellIdentifierForObject(_ object: Customer) -> String {
         return "CustomerCell"
     }
     
@@ -224,11 +224,11 @@ extension CustomersViewController: DataSourceDelegate {
 extension CustomersViewController : InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         

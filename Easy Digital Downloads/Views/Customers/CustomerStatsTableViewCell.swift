@@ -8,9 +8,9 @@
 
 import UIKit
 
-private let sharedNumberFormatter: NSNumberFormatter = {
-    let formatter = NSNumberFormatter()
-    formatter.numberStyle = .CurrencyStyle
+private let sharedNumberFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
     formatter.currencyCode = Site.activeSite().currency!
     return formatter
 }()
@@ -19,12 +19,12 @@ class CustomerStatsTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -34,40 +34,40 @@ class CustomerStatsTableViewCell: UITableViewCell {
         return view
     }()
     
-    private var customer: Customer?
-    private let titleLabel = UILabel(frame: CGRectZero)
-    private let totalDownloadsLabel = UILabel(frame: CGRectZero)
-    private let totalPurchasesLabel = UILabel(frame: CGRectZero)
-    private let totalSpentLabel = UILabel(frame: CGRectZero)
+    fileprivate var customer: Customer?
+    fileprivate let titleLabel = UILabel(frame: CGRect.zero)
+    fileprivate let totalDownloadsLabel = UILabel(frame: CGRect.zero)
+    fileprivate let totalPurchasesLabel = UILabel(frame: CGRect.zero)
+    fileprivate let totalSpentLabel = UILabel(frame: CGRect.zero)
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        selectionStyle = .None
+        selectionStyle = .none
         
         backgroundColor = .tableViewCellHighlightColor()
         
         titleLabel.textColor = .tableViewCellHeadingColor()
-        titleLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-        titleLabel.textAlignment = .Left
+        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
+        titleLabel.textAlignment = .left
         titleLabel.text = NSLocalizedString("Stats", comment: "").localizedUppercaseString
         
         
         totalDownloadsLabel.textColor = .EDDBlackColor()
-        totalDownloadsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        totalDownloadsLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         totalSpentLabel.textColor = .EDDBlackColor()
-        totalSpentLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        totalSpentLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         totalPurchasesLabel.textColor = .EDDBlackColor()
-        totalPurchasesLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        totalPurchasesLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    private func layout() {
+    fileprivate func layout() {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(totalPurchasesLabel)
         stackView.addArrangedSubview(totalSpentLabel)
@@ -76,34 +76,34 @@ class CustomerStatsTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(titleLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(titleLabel.bottomAnchor.constraintEqualToAnchor(totalPurchasesLabel.topAnchor, constant: -10))
-        constraints.append(totalDownloadsLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(totalSpentLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(totalPurchasesLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(titleLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(titleLabel.bottomAnchor.constraint(equalTo: totalPurchasesLabel.topAnchor, constant: -10))
+        constraints.append(totalDownloadsLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(totalSpentLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(totalPurchasesLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
-    func configure(customer: Customer) {
+    func configure(_ customer: Customer) {
         self.customer = customer
         
         totalDownloadsLabel.text = NSLocalizedString("Total Downloads: \(customer.totalDownloads)", comment: "")
-        totalSpentLabel.text = NSLocalizedString("Total Spent: \(sharedNumberFormatter.stringFromNumber(customer.totalSpent)!)", comment: "")
+        totalSpentLabel.text = NSLocalizedString("Total Spent: \(sharedNumberFormatter.string(from: NSNumber(customer.totalSpent))!)", comment: "")
         totalPurchasesLabel.text = NSLocalizedString("Total Purchases: \(customer.totalPurchases)", comment: "")
         
         layout()
