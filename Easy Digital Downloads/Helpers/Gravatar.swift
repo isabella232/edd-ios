@@ -11,11 +11,11 @@ import UIKit
 
 private extension String  {
     var md5_hash: String {
-        let trimmedString = lowercaseString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        let utf8String = trimmedString.cStringUsingEncoding(NSUTF8StringEncoding)!
-        let stringLength = CC_LONG(trimmedString.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+        let trimmedString = lowercased().trimmingCharacters(in: CharacterSet.whitespaces)
+        let utf8String = trimmedString.cString(using: String.Encoding.utf8)!
+        let stringLength = CC_LONG(trimmedString.lengthOfBytes(using: String.Encoding.utf8))
         let digestLength = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.alloc(digestLength)
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLength)
         
         CC_MD5(utf8String, stringLength, result)
         
@@ -25,7 +25,7 @@ private extension String  {
             hash += String(format: "%02x", result[i])
         }
         
-        result.dealloc(digestLength)
+        result.deallocate(capacity: digestLength)
         
         return String(format: hash)
     }
@@ -34,7 +34,7 @@ private extension String  {
 // MARK: - QueryItemConvertible
 
 private protocol QueryItemConvertible {
-    var queryItem: NSURLQueryItem {get}
+    var queryItem: URLQueryItem {get}
 }
 
 // MARK: -
@@ -49,8 +49,8 @@ public struct Gravatar {
         case Retro = "retro"
         case Blank = "blank"
         
-        var queryItem: NSURLQueryItem {
-            return NSURLQueryItem(name: "d", value: rawValue)
+        var queryItem: URLQueryItem {
+            return URLQueryItem(name: "d", value: rawValue)
         }
     }
     
@@ -60,8 +60,8 @@ public struct Gravatar {
         case R = "r"
         case X = "x"
         
-        var queryItem: NSURLQueryItem {
-            return NSURLQueryItem(name: "r", value: rawValue)
+        var queryItem: URLQueryItem {
+            return URLQueryItem(name: "r", value: rawValue)
         }
     }
     
@@ -70,7 +70,7 @@ public struct Gravatar {
     public let defaultImage: DefaultImage
     public let rating: Rating
     
-    private static let baseURL = NSURL(string: "https://www.gravatar.com/avatar/")!
+    fileprivate static let baseURL = Foundation.URL(string: "https://www.gravatar.com/avatar/")!
     
     public init(
         emailAddress: String,
@@ -84,20 +84,20 @@ public struct Gravatar {
         self.rating = rating
     }
     
-    public func URL(size: CGFloat, scale: CGFloat = UIScreen.mainScreen().scale) -> NSURL {
+    public func URL(_ size: CGFloat, scale: CGFloat = UIScreen.main.scale) -> Foundation.URL {
         #if swift(>=2.3)
-            let URL = Gravatar.baseURL.URLByAppendingPathComponent(email.md5_hash)!
+            let URL = Gravatar.baseURL.appendingPathComponent(email.md5_hash)
         #else
             let URL = Gravatar.baseURL.URLByAppendingPathComponent(email.md5_hash)
         #endif
         
-        let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false)!
+        var components = URLComponents(url: URL, resolvingAgainstBaseURL: false)!
         
         var queryItems = [defaultImage.queryItem]
-        queryItems.append(NSURLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
+        queryItems.append(URLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
         
         components.queryItems = queryItems
         
-        return components.URL!
+        return components.url!
     }
 }

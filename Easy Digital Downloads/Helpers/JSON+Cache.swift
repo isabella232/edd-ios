@@ -15,8 +15,8 @@ extension SwiftyJSON.JSON : DataConvertible, DataRepresentable {
     
     public typealias Result = SwiftyJSON.JSON
     
-    public static func convertFromData(data:NSData) -> Result? {
-        if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData(data) {
+    public static func convertFromData(_ data:NSData) -> Result? {
+        if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! (Data) as (Data) as AnyObject {
             return SwiftyJSON.JSON(obj)
         }
         return null

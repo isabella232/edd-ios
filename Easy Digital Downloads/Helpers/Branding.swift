@@ -10,7 +10,7 @@ import UIKit
 
 extension UIColor {
 
-    class func colorWithHex(hex: Int, alpha: CGFloat = 1.0) -> UIColor {
+    class func colorWithHex(_ hex: Int, alpha: CGFloat = 1.0) -> UIColor {
         let r = CGFloat((hex & 0xff0000) >> 16) / 255.0
         let g = CGFloat((hex & 0x00ff00) >>  8) / 255.0
         let b = CGFloat((hex & 0x0000ff) >>  0) / 255.0

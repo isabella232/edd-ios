@@ -12,10 +12,10 @@ import UIKit
 extension String {
 
     init(htmlEncodedString: String) {
-        let encodedData: NSData = htmlEncodedString.dataUsingEncoding(NSUTF8StringEncoding)!
+        let encodedData: Data = htmlEncodedString.data(using: String.Encoding.utf8)!
         let attributedOptions : [String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
+            NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
         ]
         
         var attributedString: NSAttributedString?
