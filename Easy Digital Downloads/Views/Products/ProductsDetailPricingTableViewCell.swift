@@ -12,12 +12,12 @@ class ProductsDetailPricingTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -27,39 +27,39 @@ class ProductsDetailPricingTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let hasVariablePricingLabel = UILabel(frame: CGRectZero)
-    private let pricingOptionsLabel = UILabel(frame: CGRectZero)
+    fileprivate let hasVariablePricingLabel = UILabel(frame: CGRect.zero)
+    fileprivate let pricingOptionsLabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         hasVariablePricingLabel.textColor = .EDDBlackColor()
-        hasVariablePricingLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        hasVariablePricingLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        pricingOptionsLabel.lineBreakMode = .ByWordWrapping
+        pricingOptionsLabel.lineBreakMode = .byWordWrapping
         pricingOptionsLabel.numberOfLines = 0
         pricingOptionsLabel.textColor = .EDDBlackColor()
-        pricingOptionsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        pricingOptionsLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configure(variablePricing: Bool, pricing: NSData) {
-        let pricingDict: [String: AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(pricing) as! [String: AnyObject]
+    func configure(_ variablePricing: Bool, pricing: Data) {
+        let pricingDict: [String: AnyObject] = NSKeyedUnarchiver.unarchiveObject(with: pricing) as! [String: AnyObject]
         
         var pricingText = ""
 
         for (key, value) in pricingDict {
-            pricingText += key.capitalizedString + ": " + Site.currencyFormat((value as! NSString).doubleValue) + "\n"
+            pricingText += key.capitalized + ": " + Site.currencyFormat((value as! NSString).doubleValue) + "\n"
         }
         
-        pricingText = pricingText.substringToIndex(pricingText.endIndex.advancedBy(-2))
+        pricingText = pricingText.substring(to: pricingText.characters.index(pricingText.endIndex, offsetBy: -2))
         
-        hasVariablePricingLabel.text = NSLocalizedString("Variable Pricing: ", comment: "") + variablePricing.description.capitalizedString
+        hasVariablePricingLabel.text = NSLocalizedString("Variable Pricing: ", comment: "") + variablePricing.description.capitalized
         pricingOptionsLabel.text = pricingText
         
         layout()
@@ -72,24 +72,24 @@ class ProductsDetailPricingTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(hasVariablePricingLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(pricingOptionsLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(hasVariablePricingLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(pricingOptionsLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
     
 }

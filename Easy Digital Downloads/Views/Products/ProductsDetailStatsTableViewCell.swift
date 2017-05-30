@@ -12,12 +12,12 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -27,39 +27,39 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let totalLabel = UILabel(frame: CGRectZero)
-    private let totalStatsLabel = UILabel(frame: CGRectZero)
-    private let monthlyAverageLabel = UILabel(frame: CGRectZero)
-    private let monthlyAverageStatsLabel = UILabel(frame: CGRectZero)
+    fileprivate let totalLabel = UILabel(frame: CGRect.zero)
+    fileprivate let totalStatsLabel = UILabel(frame: CGRect.zero)
+    fileprivate let monthlyAverageLabel = UILabel(frame: CGRect.zero)
+    fileprivate let monthlyAverageStatsLabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        totalLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        totalLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         totalLabel.textColor = .EDDBlueColor()
         totalLabel.text = NSLocalizedString("Total", comment: "")
-        monthlyAverageLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        monthlyAverageLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
         monthlyAverageLabel.textColor = .EDDBlueColor()
         monthlyAverageLabel.text = NSLocalizedString("Monthly Average", comment: "")
         
-        totalStatsLabel.lineBreakMode = .ByWordWrapping
+        totalStatsLabel.lineBreakMode = .byWordWrapping
         totalStatsLabel.numberOfLines = 0
         totalStatsLabel.textColor = .EDDBlackColor()
-        totalStatsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-        monthlyAverageStatsLabel.lineBreakMode = .ByWordWrapping
+        totalStatsLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+        monthlyAverageStatsLabel.lineBreakMode = .byWordWrapping
         monthlyAverageStatsLabel.numberOfLines = 0
         monthlyAverageStatsLabel.textColor = .EDDBlackColor()
-        monthlyAverageStatsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        monthlyAverageStatsLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configure(stats: NSData?) {
-        let statsDict: [String: AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(stats!) as! [String: AnyObject]
+    func configure(_ stats: Data?) {
+        let statsDict: [String: AnyObject] = NSKeyedUnarchiver.unarchiveObject(with: stats!) as! [String: AnyObject]
         
         let total = statsDict["total"]!
         let totalSales = total["sales"] as! String
@@ -67,12 +67,12 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
         let monthly = statsDict["monthly_average"]!
         let monthlyEarningsStat = monthly["earnings"]!
         let monthlyAverageSales = monthly["sales"]!
-        let monthlyAverageEarnings = monthlyEarningsStat!.doubleValue
+        let monthlyAverageEarnings = (monthlyEarningsStat! as AnyObject).doubleValue
         
         let totalStatsString = NSLocalizedString("Sales", comment: "") + ": \(totalSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat((total["earnings"] as! NSString).doubleValue)
         totalStatsLabel.text = totalStatsString
         
-        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": \(monthlyAverageSales!.stringValue)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(monthlyAverageEarnings)
+        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": \((monthlyAverageSales! as AnyObject).stringValue)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(monthlyAverageEarnings)
         monthlyAverageStatsLabel.text = monthlyAverageStatsString
         
         totalStatsLabel.sizeToFit()
@@ -90,27 +90,27 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(totalLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(totalStatsLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(totalStatsLabel.bottomAnchor.constraintEqualToAnchor(monthlyAverageLabel.topAnchor, constant: -20))
-        constraints.append(monthlyAverageLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(monthlyAverageStatsLabel.widthAnchor.constraintEqualToAnchor(stackView.widthAnchor, multiplier: 1.0))
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(totalLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(totalStatsLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(totalStatsLabel.bottomAnchor.constraint(equalTo: monthlyAverageLabel.topAnchor, constant: -20))
+        constraints.append(monthlyAverageLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(monthlyAverageStatsLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1.0))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
 
 }

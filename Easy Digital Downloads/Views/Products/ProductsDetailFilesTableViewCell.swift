@@ -12,12 +12,12 @@ class ProductsDetailFilesTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -27,46 +27,46 @@ class ProductsDetailFilesTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let filesLabel = UILabel(frame: CGRectZero)
+    fileprivate let filesLabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        filesLabel.lineBreakMode = .ByWordWrapping
+        filesLabel.lineBreakMode = .byWordWrapping
         filesLabel.numberOfLines = 0
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configure(files: NSData) {
-        let filesArray: [AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(files)! as! [AnyObject]
+    func configure(_ files: Data) {
+        let filesArray: [AnyObject] = NSKeyedUnarchiver.unarchiveObject(with: files)! as! [AnyObject]
         
         let filesString = NSMutableAttributedString()
         var finalString = NSAttributedString()
         
         for file in filesArray {
             let headingAttributes: [String: AnyObject] = [
-                NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline),
+                NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline),
                 NSForegroundColorAttributeName: UIColor.EDDBlueColor()
             ]
             
             let textAttributes: [String: AnyObject] = [
-                NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline),
+                NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline),
                 NSForegroundColorAttributeName: UIColor.EDDBlackColor()
             ]
             
             let fileNameString = NSAttributedString(string: file["name"] as! String + "\n", attributes: headingAttributes)
-            filesString.appendAttributedString(fileNameString)
+            filesString.append(fileNameString)
             
-            let fileDetailsString = NSAttributedString(string: "Condition: " + (file["condition"] as! String).capitalizedString + "\n" + "URL: " + (file["file"] as! String) + "\n\n", attributes: textAttributes)
-            filesString.appendAttributedString(fileDetailsString)
+            let fileDetailsString = NSAttributedString(string: "Condition: " + (file["condition"] as! String).capitalized + "\n" + "URL: " + (file["file"] as! String) + "\n\n", attributes: textAttributes)
+            filesString.append(fileDetailsString)
         }
         
-        finalString = filesString.attributedSubstringFromRange(NSMakeRange(0, filesString.length - 2))
+        finalString = filesString.attributedSubstring(from: NSMakeRange(0, filesString.length - 2))
         
         filesLabel.attributedText = finalString
         
@@ -75,23 +75,23 @@ class ProductsDetailFilesTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
         
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
 
 }

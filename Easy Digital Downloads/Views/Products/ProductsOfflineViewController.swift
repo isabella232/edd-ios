@@ -10,11 +10,11 @@ import UIKit
 import CoreData
 import SwiftyJSON
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -23,22 +23,22 @@ class ProductsOfflineViewController: SiteTableViewController {
     
     var managedObjectContext: NSManagedObjectContext!
 
-    private enum CellType {
-        case InfoHeading
-        case Info
-        case StatsHeading
-        case Stats
-        case PricingHeading
-        case Pricing
-        case NotesHeading
-        case Notes
-        case FilesHeading
-        case Files
-        case LicensingHeading
-        case Licensing
+    fileprivate enum CellType {
+        case infoHeading
+        case info
+        case statsHeading
+        case stats
+        case pricingHeading
+        case pricing
+        case notesHeading
+        case notes
+        case filesHeading
+        case files
+        case licensingHeading
+        case licensing
     }
     
-    private var cells = [CellType]()
+    fileprivate var cells = [CellType]()
     
     var site: Site?
     var product: Product?
@@ -50,7 +50,7 @@ class ProductsOfflineViewController: SiteTableViewController {
     var loadingView = UIView()
     
     init(id: Int64) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         site = Site.activeSite()
         managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -66,14 +66,14 @@ class ProductsOfflineViewController: SiteTableViewController {
             frame.origin.y = 0;
             
             let view = UIView(frame: frame)
-            view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             view.backgroundColor = .EDDGreyColor()
             
             return view
         }()
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activityIndicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         activityIndicator.center = view.center
         loadingView.addSubview(activityIndicator)
         
@@ -90,14 +90,14 @@ class ProductsOfflineViewController: SiteTableViewController {
         titleLabel.setTitle(NSLocalizedString("Fetching Product...", comment: ""))
         navigationItem.titleView = titleLabel
         
-        tableView.registerClass(ProductsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ProductHeadingTableViewCell")
-        tableView.registerClass(ProductsDetailInfoTableViewCell.self, forCellReuseIdentifier: "ProductInfoTableViewCell")
-        tableView.registerClass(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
-        tableView.registerClass(ProductsDetailPricingTableViewCell.self, forCellReuseIdentifier: "ProductPricingTableViewCell")
-        tableView.registerClass(ProductsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "ProductLicensingTableViewCell")
-        tableView.registerClass(ProductsDetailFilesTableViewCell.self, forCellReuseIdentifier: "ProductFilesTableViwCell")
+        tableView.register(ProductsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "ProductHeadingTableViewCell")
+        tableView.register(ProductsDetailInfoTableViewCell.self, forCellReuseIdentifier: "ProductInfoTableViewCell")
+        tableView.register(ProductsDetailStatsTableViewCell.self, forCellReuseIdentifier: "ProductStatsTableViewCell")
+        tableView.register(ProductsDetailPricingTableViewCell.self, forCellReuseIdentifier: "ProductPricingTableViewCell")
+        tableView.register(ProductsDetailLicensingTableViewCell.self, forCellReuseIdentifier: "ProductLicensingTableViewCell")
+        tableView.register(ProductsDetailFilesTableViewCell.self, forCellReuseIdentifier: "ProductFilesTableViwCell")
         
-        cells = [.InfoHeading, .Info, .StatsHeading, .Stats, .PricingHeading, .Pricing]
+        cells = [.infoHeading, .info, .statsHeading, .stats, .pricingHeading, .pricing]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,23 +106,23 @@ class ProductsOfflineViewController: SiteTableViewController {
     
     // MARK: Private
     
-    private func setupHeaderView() {
+    fileprivate func setupHeaderView() {
         guard product != nil else {
             return
         }
         
-        imageView = UIImageView(frame: CGRectMake(0, 0, view.frame.width, 150))
-        imageView!.contentMode = .ScaleAspectFill
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 150))
+        imageView!.contentMode = .scaleAspectFill
         
-        let url = NSURL(string: product!.thumbnail!)
-        imageView!.af_setImageWithURL(url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+        let url = URL(string: product!.thumbnail!)
+        imageView!.af_setImageWithURL(url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
         
         tableView.addSubview(imageView!)
-        tableView.sendSubviewToBack(imageView!)
-        tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, 150))
+        tableView.sendSubview(toBack: imageView!)
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 150))
     }
     
-    private func networkOperations() {
+    fileprivate func networkOperations() {
         self.operation = true
         view.addSubview(loadingView)
 
@@ -210,59 +210,59 @@ class ProductsOfflineViewController: SiteTableViewController {
     
     // MARK: Table View Data Source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.operation ? 0 : cells.count
     }
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
         switch(cells[indexPath.row]) {
-        case .InfoHeading:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+        case .infoHeading:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
             (cell as! ProductsDetailHeadingTableViewCell).configure("Info")
-        case .Info:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductInfoTableViewCell", forIndexPath: indexPath) as! ProductsDetailInfoTableViewCell
+        case .info:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductInfoTableViewCell", for: indexPath) as! ProductsDetailInfoTableViewCell
             (cell as! ProductsDetailInfoTableViewCell).configure(product!)
-        case .StatsHeading:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+        case .statsHeading:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
             (cell as! ProductsDetailHeadingTableViewCell).configure("Stats")
-        case .Stats:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductStatsTableViewCell", forIndexPath: indexPath) as! ProductsDetailStatsTableViewCell
+        case .stats:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatsTableViewCell", for: indexPath) as! ProductsDetailStatsTableViewCell
             (cell as! ProductsDetailStatsTableViewCell).configure(product?.stats)
-        case .PricingHeading:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+        case .pricingHeading:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
             (cell as! ProductsDetailHeadingTableViewCell).configure("Pricing")
-        case .Pricing:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductPricingTableViewCell", forIndexPath: indexPath) as! ProductsDetailPricingTableViewCell
+        case .pricing:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductPricingTableViewCell", for: indexPath) as! ProductsDetailPricingTableViewCell
             (cell as! ProductsDetailPricingTableViewCell).configure((product?.hasVariablePricing.boolValue)!, pricing: product!.pricing)
-        case .LicensingHeading:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+        case .licensingHeading:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
             (cell as! ProductsDetailHeadingTableViewCell).configure("Licensing")
-        case .Licensing:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductLicensingTableViewCell", forIndexPath: indexPath) as! ProductsDetailLicensingTableViewCell
+        case .licensing:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductLicensingTableViewCell", for: indexPath) as! ProductsDetailLicensingTableViewCell
             (cell as! ProductsDetailLicensingTableViewCell).configure(product!.licensing!)
-        case .FilesHeading:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+        case .filesHeading:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
             (cell as! ProductsDetailHeadingTableViewCell).configure("Files")
-        case .Files:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductFilesTableViwCell", forIndexPath: indexPath) as! ProductsDetailFilesTableViewCell
+        case .files:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductFilesTableViwCell", for: indexPath) as! ProductsDetailFilesTableViewCell
             (cell as! ProductsDetailFilesTableViewCell).configure(product!.files!)
-        case .NotesHeading:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductHeadingTableViewCell", forIndexPath: indexPath) as! ProductsDetailHeadingTableViewCell
+        case .notesHeading:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
             (cell as! ProductsDetailHeadingTableViewCell).configure("Notes")
-        case .Notes:
-            cell = tableView.dequeueReusableCellWithIdentifier("ProductLicensingTableViewCell", forIndexPath: indexPath) as! ProductsDetailLicensingTableViewCell
+        case .notes:
+            cell = tableView.dequeueReusableCell(withIdentifier: "ProductLicensingTableViewCell", for: indexPath) as! ProductsDetailLicensingTableViewCell
             (cell as! ProductsDetailLicensingTableViewCell).configure(product!.licensing!)
         }
         
@@ -271,11 +271,11 @@ class ProductsOfflineViewController: SiteTableViewController {
     
     // MARK: Scroll View Delegate
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y: CGFloat = -tableView.contentOffset.y
         if y > 0 {
-            imageView!.frame = CGRectMake(0, tableView.contentOffset.y, tableView.bounds.width + y, 150 + y)
-            imageView!.center = CGPointMake(view.center.x, imageView!.center.y)
+            imageView!.frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.bounds.width + y, height: 150 + y)
+            imageView!.center = CGPoint(x: view.center.x, y: imageView!.center.y)
         }
     }
 

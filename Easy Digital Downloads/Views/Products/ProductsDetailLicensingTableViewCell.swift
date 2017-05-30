@@ -12,12 +12,12 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
 
     lazy var stackView : UIStackView! = {
         let stack = UIStackView()
-        stack.axis = .Vertical
-        stack.distribution = .Fill
-        stack.alignment = .Fill
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
         stack.spacing = 3.0
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Vertical)
+        stack.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: .vertical)
         return stack
     }()
     
@@ -27,32 +27,32 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let licensingDisabledLabel = UILabel(frame: CGRectZero)
-    private let licensingVersionLabel = UILabel(frame: CGRectZero)
-    private let licensingExpiryLabel = UILabel(frame: CGRectZero)
+    fileprivate let licensingDisabledLabel = UILabel(frame: CGRect.zero)
+    fileprivate let licensingVersionLabel = UILabel(frame: CGRect.zero)
+    fileprivate let licensingExpiryLabel = UILabel(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        licensingDisabledLabel.lineBreakMode = .ByWordWrapping
+        licensingDisabledLabel.lineBreakMode = .byWordWrapping
         licensingDisabledLabel.numberOfLines = 0
-        licensingDisabledLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        licensingDisabledLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         licensingDisabledLabel.textColor = .EDDBlackColor()
         
         licensingVersionLabel.textColor = .EDDBlackColor()
-        licensingVersionLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        licensingVersionLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
         licensingExpiryLabel.textColor = .EDDBlackColor()
-        licensingExpiryLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        licensingExpiryLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func configure(licensing: [String: AnyObject]) {
+    func configure(_ licensing: [String: AnyObject]) {
         let enabled = (licensing["enabled"] as! NSNumber).boolValue
         if enabled == false {
             licensingDisabledLabel.text = NSLocalizedString("Software Licensing has not been enabled for this product.", comment: "")
@@ -67,23 +67,23 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
         containerView.addSubview(stackView)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.alignment = .Top
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.alignment = .top
         
         contentView.addSubview(containerView)
         
         var constraints = [NSLayoutConstraint]()
         
-        constraints.append(containerView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10))
-        constraints.append(containerView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10))
-        constraints.append(containerView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 10))
-        constraints.append(containerView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -10))
-        constraints.append(stackView.topAnchor.constraintEqualToAnchor(containerView.topAnchor, constant: 10))
-        constraints.append(stackView.bottomAnchor.constraintEqualToAnchor(containerView.bottomAnchor, constant: -10))
-        constraints.append(stackView.leadingAnchor.constraintEqualToAnchor(containerView.leadingAnchor, constant: 10))
-        constraints.append(stackView.trailingAnchor.constraintEqualToAnchor(containerView.trailingAnchor, constant: -10))
+        constraints.append(containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10))
+        constraints.append(containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10))
+        constraints.append(containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10))
+        constraints.append(containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10))
+        constraints.append(stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10))
+        constraints.append(stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10))
+        constraints.append(stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10))
+        constraints.append(stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10))
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
 
 }

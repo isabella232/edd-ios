@@ -9,12 +9,36 @@
 import UIKit
 import CoreData
 import SwiftyJSON
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-private let sharedDateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-    formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+
+private let sharedDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     return formatter
 }()
@@ -46,10 +70,10 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         super.leftBarButtonItem = true
         
         let searchNavigationItemImage = UIImage(named: "NavigationBar-Search")
-        let searchNavigationItemButton = HighlightButton(type: .Custom)
-        searchNavigationItemButton.tintColor = .whiteColor()
-        searchNavigationItemButton.setImage(searchNavigationItemImage, forState: .Normal)
-        searchNavigationItemButton.addTarget(self, action: #selector(ProductsViewController.searchButtonPressed), forControlEvents: .TouchUpInside)
+        let searchNavigationItemButton = HighlightButton(type: .custom)
+        searchNavigationItemButton.tintColor = .white
+        searchNavigationItemButton.setImage(searchNavigationItemImage, for: UIControlState())
+        searchNavigationItemButton.addTarget(self, action: #selector(ProductsViewController.searchButtonPressed), for: .touchUpInside)
         searchNavigationItemButton.sizeToFit()
         
         let searchNavigationBarButton = UIBarButtonItem(customView: searchNavigationItemButton)
@@ -57,12 +81,12 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         
         navigationItem.rightBarButtonItems = [searchNavigationBarButton]
         
-        registerForPreviewingWithDelegate(self, sourceView: view)
+        registerForPreviewing(with: self, sourceView: view)
         
         setupInfiniteScrollView()
         setupTableView()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,7 +94,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     }
     
     init(site: Site) {
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
         self.site = site
         self.managedObjectContext = AppDelegate.sharedInstance.managedObjectContext
@@ -87,7 +111,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         super.init(coder: aDecoder)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         networkOperations()
@@ -120,13 +144,13 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         }
     }
     
-    private func updateLastDownloadedPage() {
+    fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
     }
     
     // MARK: Scroll View Delegate
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let actualPosition: CGFloat = scrollView.contentOffset.y
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
@@ -137,20 +161,20 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     
     // MARK: Table View Delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let product = dataSource.selectedObject else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
             return
         }
         
         navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Private
     
-    private func requestNextPage() {
+    fileprivate func requestNextPage() {
         if (operation) {
             return
         }
@@ -183,7 +207,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
 
     }
     
-    private func persistProducts() {
+    fileprivate func persistProducts() {
         guard let products_ = products else {
             return
         }
@@ -233,18 +257,18 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         }
     }
     
-    private typealias Data = FetchedResultsDataProvider<ProductsViewController>
-    private var dataSource: TableViewDataSource<ProductsViewController, Data, ProductsTableViewCell>!
+    fileprivate typealias Data = FetchedResultsDataProvider<ProductsViewController>
+    fileprivate var dataSource: TableViewDataSource<ProductsViewController, Data, ProductsTableViewCell>!
     
-    private func setupTableView() {
+    fileprivate func setupTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
-        tableView.registerClass(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductCell")
-        tableView.registerClass(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductThumbnailCell")
+        tableView.register(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductCell")
+        tableView.register(ProductsTableViewCell.self, forCellReuseIdentifier: "ProductThumbnailCell")
         setupDataSource()
     }
     
-    private func setupDataSource() {
+    fileprivate func setupDataSource() {
         let request = Product.defaultFetchRequest()
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         let dataProvider = FetchedResultsDataProvider(fetchedResultsController: frc, delegate: self)
@@ -253,9 +277,9 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
     
     // MARK: 3D Touch
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = tableView.indexPathForRowAtPoint(location) {
-            previewingContext.sourceRect = tableView.rectForRowAtIndexPath(indexPath)
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
             guard let product = dataSource.objectAtIndexPath(indexPath) else {
                 return nil
             }
@@ -264,7 +288,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         return nil
     }
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 
@@ -272,7 +296,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
 
 extension ProductsViewController: DataProviderDelegate {
     
-    func dataProviderDidUpdate(updates: [DataProviderUpdate<Product>]?) {
+    func dataProviderDidUpdate(_ updates: [DataProviderUpdate<Product>]?) {
         dataSource.processUpdates(updates)
     }
     
@@ -280,7 +304,7 @@ extension ProductsViewController: DataProviderDelegate {
 
 extension ProductsViewController: DataSourceDelegate {
     
-    func cellIdentifierForObject(object: Product) -> String {
+    func cellIdentifierForObject(_ object: Product) -> String {
         if object.thumbnail?.characters.count > 5 && object.thumbnail != "false" {
             return "ProductThumbnailCell"
         } else {
@@ -294,11 +318,11 @@ extension ProductsViewController: DataSourceDelegate {
 extension ProductsViewController : InfiniteScrollingTableView {
     
     func setupInfiniteScrollView() {
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         
-        let footerView = UIView(frame: CGRectMake(0, 0, width, 44))
-        footerView.backgroundColor = .clearColor()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        footerView.backgroundColor = .clear
         
         activityIndicatorView.startAnimating()
         
