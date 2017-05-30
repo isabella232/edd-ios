@@ -11,18 +11,24 @@ import Alamofire
 
 class EDDNetworkManager {
     
-    static let sharedInstance: Manager = {
-        let memoryCapacity = 500 * 1024 * 1024; // 500 MB
-        let diskCapacity = 500 * 1024 * 1024; // 500 MB
-        let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
+    static let sharedInstance: SessionManager = {
+        let urlCache: URLCache = {
+            let capacity = 50 * 1024 * 1024 // MBs
+            let urlCache = URLCache(memoryCapacity: capacity, diskCapacity: capacity, diskPath: "shared_cache")
+            
+            return urlCache
+        }()
         
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
-        configuration.HTTPAdditionalHeaders = defaultHeaders
-        configuration.requestCachePolicy = .UseProtocolCachePolicy // this is the default
-        configuration.URLCache = cache
+        let configuration: URLSessionConfiguration = {
+            let configuration = URLSessionConfiguration.default
+            configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+            configuration.requestCachePolicy = .useProtocolCachePolicy // this is the default
+            configuration.urlCache = urlCache
+        }()
+
+        let manager = SessionManager(configuration: configuration)
         
-        return Manager(configuration: configuration)
+        return manager
     }()
 
 }
