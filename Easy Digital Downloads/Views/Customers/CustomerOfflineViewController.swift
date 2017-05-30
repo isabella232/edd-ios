@@ -102,9 +102,9 @@ class CustomerOfflineViewController: SiteTableViewController {
             if let items = json["customers"].array {
                 let item = items[0]
                 
-                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.date(from: item["info"]["date_created"].stringValue)!)
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     let titleLabel = ViewControllerTitleLabel()
                     titleLabel.setTitle(item["info"]["display_name"].stringValue)
                     self.navigationItem.titleView = titleLabel
@@ -123,16 +123,16 @@ class CustomerOfflineViewController: SiteTableViewController {
     }
     
     fileprivate func networkOperations() {
-        EDDAPIWrapper.sharedInstance.requestCustomers(["customer" : email!], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestCustomers(["customer" : email! as AnyObject], success: { (json) in
             // Cache the returned customer
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Customer-" + self.email!)
 
             if let items = json["customers"].array {
                 let item = items[0]
                 
-                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+                self.customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.date(from: item["info"]["date_created"].stringValue)!)
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
                     self.title = item["info"]["display_name"].stringValue
                     
@@ -146,14 +146,14 @@ class CustomerOfflineViewController: SiteTableViewController {
                 print(error)
         }
         
-        EDDAPIWrapper.sharedInstance.requestSales(["email" : email!], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestSales(["email" : email! as AnyObject], success: { (json) in
             if let items = json["sales"].array {
-                self.cells.append(.SalesHeading)
+                self.cells.append(.salesHeading)
                 self.recentSales = items
                 for _ in 1...items.count {
-                    self.cells.append(.Sales)
+                    self.cells.append(.sales)
                 }
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
                 })
             }
@@ -162,14 +162,14 @@ class CustomerOfflineViewController: SiteTableViewController {
         }
         
         if (Site.activeSite().hasRecurring != nil) {
-            EDDAPIWrapper.sharedInstance.requestSubscriptions(["customer" : email!], success: { (json) in
+            EDDAPIWrapper.sharedInstance.requestSubscriptions(["customer" : email! as AnyObject], success: { (json) in
                 if let items = json["subscriptions"].array {
-                    self.cells.append(.SubscriptionsHeading)
+                    self.cells.append(.subscriptionsHeading)
                     self.recentSubscriptions = items
                     for _ in 1...items.count {
-                        self.cells.append(.Subscriptions)
+                        self.cells.append(.subscriptions)
                     }
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.tableView.reloadData()
                     })
                 }
@@ -203,7 +203,7 @@ class CustomerOfflineViewController: SiteTableViewController {
             
             let item = recentSales![offset]
             
-            let sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].stringValue, key: item["key"].stringValue, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
+            let sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].stringValue, key: item["key"].stringValue, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
             
             navigationController?.pushViewController(SalesDetailViewController(sale: sale), animated: true)
         }
@@ -219,7 +219,7 @@ class CustomerOfflineViewController: SiteTableViewController {
             
             let item = recentSubscriptions![offset]
             
-            let subscription = Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array)
+            let subscription = Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.date(from: item["info"]["created"].stringValue), expiration: sharedDateFormatter.date(from: item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array)
             
             navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: subscription), animated: true)
         }

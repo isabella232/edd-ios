@@ -203,12 +203,12 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
                 self.updateLastDownloadedPage()
             } else {
                 self.hasMoreSales = false
-                dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(DispatchQueue.main, {
                     self.activityIndicatorView.stopAnimating()
                 })
             }
             
-            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredSaleObjects = self.saleObjects
             
             dispatch_async(dispatch_get_main_queue(), {

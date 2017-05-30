@@ -122,7 +122,7 @@ class SubscriptionsTableViewCell: UITableViewCell {
         var name = customer?["name"]!.stringValue
         
         if name?.characters.count == 0 {
-            name = customer["email"]!.stringValue
+            name = customer?["email"]!.stringValue
         }
         
         if subscription.status == "cancelled" || subscription.status == "expired" || subscription.status == "failing" {

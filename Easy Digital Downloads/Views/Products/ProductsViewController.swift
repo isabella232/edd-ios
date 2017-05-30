@@ -196,7 +196,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
 
             self.persistProducts()
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             
@@ -219,7 +219,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             
             var stats: NSData?
             if Site.hasPermissionToViewReports() {
-                stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!)
+                stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!) as NSData
             } else {
                 stats = nil
             }
@@ -228,7 +228,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             var notes: String?
             if Site.hasPermissionToViewSensitiveData() {
                 if item["files"].arrayObject != nil {
-                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!)
+                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
                 } else {
                     files = nil
                 }

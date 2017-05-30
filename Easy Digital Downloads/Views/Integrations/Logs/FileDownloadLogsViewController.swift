@@ -105,7 +105,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
                 }
             }
             
-            self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.logObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredLogObjects = self.logObjects
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -143,7 +143,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
                 }
             }
             
-            self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.logObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredLogObjects = self.logObjects
             
             dispatch_async(dispatch_get_main_queue(), { 
@@ -177,7 +177,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
                 self.hasMoreLogs = false
             }
             
-            self.logObjects.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+            self.logObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredLogObjects = self.logObjects
             
             self.updateLastDownloadedPage()

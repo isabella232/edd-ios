@@ -338,7 +338,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             let date = key[dateRange]
             let month = Int(key[monthRange])
             
-            let dateFormatter: DateFormatter = NSDateFormatter()
+            let dateFormatter: DateFormatter = DateFormatter()
             let months = dateFormatter.shortMonthSymbols
             let monthSymbol = months[month!-1]
             
@@ -372,7 +372,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             
             let dateFormatter: DateFormatter = NSDateFormatter()
             let months = dateFormatter.shortMonthSymbols
-            let monthSymbol = months[month!-1]
+            let monthSymbol = months?[month!-1]
             
             let dateString = "\(date) \(monthSymbol)"
             

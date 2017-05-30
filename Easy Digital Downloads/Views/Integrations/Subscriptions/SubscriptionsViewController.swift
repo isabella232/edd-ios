@@ -109,7 +109,7 @@ class SubscriptionsViewController: SiteTableViewController {
                 }
             }
             
-            self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == NSComparisonResult.OrderedDescending })
+            self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == ComparisonResult.orderedDescending })
             self.filteredSubscriptionObjects = self.subscriptionObjects
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -145,7 +145,7 @@ class SubscriptionsViewController: SiteTableViewController {
                 }
             }
             
-            self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == NSComparisonResult.OrderedDescending })
+            self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == ComparisonResult.orderedDescending })
             self.filteredSubscriptionObjects = self.subscriptionObjects
             
             dispatch_async(dispatch_get_main_queue(), { 
@@ -174,7 +174,7 @@ class SubscriptionsViewController: SiteTableViewController {
                     self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
                 }
                 
-                self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == NSComparisonResult.OrderedDescending })
+                self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == ComparisonResult.orderedDescending })
                 self.filteredSubscriptionObjects = self.subscriptionObjects
             }
             

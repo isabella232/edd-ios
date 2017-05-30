@@ -423,7 +423,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
 
     func canOpenURL(_ string: String?) -> Bool {
         // Initial (basic) validation
-        guard let urlString = string?.stringByRemovingPercentEncoding! else {
+        guard let urlString = string?.removingPercentEncoding! else {
             return false
         }
 

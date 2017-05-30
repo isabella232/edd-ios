@@ -48,8 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         NSLog("File Directory: \(documentsPath)")
         
-        let cache = URLCache.init(memoryCapacity: 8*1024*1024, diskCapacity: 20*1024*1024, diskPath: nil)
-        URLCache.setSharedURLCache(cache)
+        let capacity = 500 * 1024 * 1024
+        
+        let cache = URLCache(memoryCapacity: capacity, diskCapacity: capacity, diskPath: "shared_url_cache")
+        URLCache.shared = cache
         
         configureGlobalAppearance()
         
@@ -73,12 +75,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let domainName = NSBundle.mainBundle().bundleIdentifier!
 //        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName)
         
-        NetworkActivityIndicatorManager.sharedManager.isEnabled = true
+        NetworkActivityIndicatorManager.shared.isEnabled = true
         
         if self.noSitesSetup() {
             self.window?.rootViewController = LoginViewController()
         } else {
-            EDDAPIWrapper.sharedInstance
             setupShortcutItems()
             self.window?.rootViewController = SiteTabBarController(site: Site.activeSite())
         }
@@ -95,8 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if url.scheme == "edd" {
-            if url.URLString == "edd://dashboard" {
-                EDDAPIWrapper.sharedInstance
+            if url.absoluteString == "edd://dashboard" {
                 setupShortcutItems()
                 self.window?.rootViewController = SiteTabBarController(site: Site.activeSite())
                 return true
@@ -237,33 +237,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func handleShortcut(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
-        guard let shortCutType = shortcutItem.type as String? else {
-            return false
-        }
-        
-        EDDAPIWrapper.sharedInstance
-        
         guard let _ = self.window?.rootViewController as? SiteTabBarController else {
             return false
         }
         
-        if shortCutType == "edd.dashboard"  {
-            EDDAPIWrapper.sharedInstance
+        if shortcutItem.type == "edd.dashboard"  {
             (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 0
         }
         
-        if shortcutItem == "edd.sales" {
-            EDDAPIWrapper.sharedInstance
+        if shortcutItem.type == "edd.sales" {
             (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 1
         }
         
-        if shortcutItem == "edd.customers" {
-            EDDAPIWrapper.sharedInstance
+        if shortcutItem.type == "edd.customers" {
             (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 2
         }
         
-        if shortcutItem == "edd.products" {
-            EDDAPIWrapper.sharedInstance
+        if shortcutItem.type == "edd.products" {
             (self.window?.rootViewController as! SiteTabBarController).selectedIndex = 3
         }
         
