@@ -18,10 +18,10 @@ public final class EDDAPIWrapper: NSObject {
         return EDDAPIWrapper()
     }()
     
-    private let managedObjectContext: NSManagedObjectContext!
+    fileprivate let managedObjectContext: NSManagedObjectContext!
     var site: Site!
     
-    private enum Endpoints: String {
+    fileprivate enum Endpoints: String {
         case Base = "/edd-api/"
         case Version = "v2/"
         case Stats = "stats"
@@ -40,8 +40,8 @@ public final class EDDAPIWrapper: NSObject {
     
     var requests: [Request] = [Request]()
     
-    private override init() {
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    fileprivate override init() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         site = Site.activeSite()
     }
@@ -54,7 +54,7 @@ public final class EDDAPIWrapper: NSObject {
         requests.forEach { $0.cancel() }
     }
     
-    public func requestStats(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestStats(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Stats.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -63,14 +63,14 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestSalesStatsGraphData(success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestSalesStatsGraphData(_ success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Stats.rawValue
         
-        let sevenDaysAgo = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -6, toDate: NSDate(), options: [])! as NSDate
-        let dateFormatter = NSDateFormatter()
+        let sevenDaysAgo = (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.day, value: -6, to: Date(), options: [])! as Date
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        let startDate = dateFormatter.stringFromDate(sevenDaysAgo)
-        let endDate = dateFormatter.stringFromDate(NSDate())
+        let startDate = dateFormatter.string(from: sevenDaysAgo)
+        let endDate = dateFormatter.string(from: Date())
         
         requestGETURL(baseURL, parameters: ["type" : "sales", "date" : "range", "startdate" : startDate, "enddate" : endDate], success: { (response) -> Void in
             success(response)
@@ -79,14 +79,14 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestEarningsStatsGraphData(success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestEarningsStatsGraphData(_ success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Stats.rawValue
         
-        let sevenDaysAgo = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: -6, toDate: NSDate(), options: [])! as NSDate
-        let dateFormatter = NSDateFormatter()
+        let sevenDaysAgo = (Calendar.current as NSCalendar).date(byAdding: NSCalendar.Unit.day, value: -6, to: Date(), options: [])! as Date
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        let startDate = dateFormatter.stringFromDate(sevenDaysAgo)
-        let endDate = dateFormatter.stringFromDate(NSDate())
+        let startDate = dateFormatter.string(from: sevenDaysAgo)
+        let endDate = dateFormatter.string(from: Date())
         
         requestGETURL(baseURL, parameters: ["type" : "earnings", "date" : "range", "startdate" : startDate, "enddate" : endDate], success: { (response) -> Void in
             success(response)
@@ -95,7 +95,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestSales(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestSales(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Sales.rawValue
         
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
@@ -105,7 +105,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestEarnings(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestEarnings(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Earnings.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -114,7 +114,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestCommissions(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Commissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -123,7 +123,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestStoreCommissions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestStoreCommissions(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.StoreCommissions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -132,7 +132,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestCustomers(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestCustomers(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Customers.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -141,7 +141,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestProducts(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestProducts(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Products.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -150,7 +150,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestReviews(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestReviews(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Reviews.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -159,7 +159,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestFileDownloadLogs(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestFileDownloadLogs(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Logs.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -168,7 +168,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestSubscriptions(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestSubscriptions(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Subscriptions.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -177,7 +177,7 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestDiscounts(parameters: [String : AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
+    public func requestDiscounts(_ parameters: [String : AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
         let baseURL = site.url! + Endpoints.Base.rawValue + Endpoints.Version.rawValue + Endpoints.Discounts.rawValue
         requestGETURL(baseURL, parameters: parameters, success: { (response) -> Void in
             success(response)
@@ -186,8 +186,8 @@ public final class EDDAPIWrapper: NSObject {
         }
     }
     
-    public func requestGETURL(strURL: String, parameters: [String: AnyObject], success:(JSON) -> Void, failure:(NSError) -> Void) {
-        let auth : [String : AnyObject] = ["key": site.key, "token": site.token]
+    public func requestGETURL(_ strURL: String, parameters: [String: AnyObject], success:(JSON) -> Void, failure:@escaping (NSError) -> Void) {
+        let auth : [String : AnyObject] = ["key": site.key as AnyObject, "token": site.token as AnyObject]
         var passedParameters : [String: AnyObject] = auth
 
         passedParameters.update(parameters)

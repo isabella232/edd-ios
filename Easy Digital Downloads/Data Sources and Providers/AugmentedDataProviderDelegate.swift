@@ -10,9 +10,9 @@ import CoreData
 
 protocol AugmentedDataProviderDelegate: DataProviderDelegate {
     func numberOfAdditionalRows() -> Int
-    func presentedIndexPathForFetchedIndexPath(indexPath: NSIndexPath) -> NSIndexPath
-    func fetchedIndexPathForPresentedIndexPath(indexPath: NSIndexPath) -> NSIndexPath
-    func supplementaryObjectAtPresentedIndexPath(indexPath: NSIndexPath) -> Object?
+    func presentedIndexPathForFetchedIndexPath(_ indexPath: IndexPath) -> IndexPath
+    func fetchedIndexPathForPresentedIndexPath(_ indexPath: IndexPath) -> IndexPath
+    func supplementaryObjectAtPresentedIndexPath(_ indexPath: IndexPath) -> Object?
 }
 
 
@@ -21,16 +21,16 @@ class AugmentedFetchedResultsDataProvider<Delegate: AugmentedDataProviderDelegat
     
     typealias Object = Delegate.Object
     
-    init(fetchedResultsController: NSFetchedResultsController, delegate: Delegate) {
+    init(fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>, delegate: Delegate) {
         self.delegate = delegate
         frcDataProvider = FetchedResultsDataProvider(fetchedResultsController: fetchedResultsController, delegate: self)
     }
     
-    func reconfigureFetchRequest(@noescape block: NSFetchRequest -> ()) {
+    func reconfigureFetchRequest(_ block: (NSFetchRequest<NSFetchRequestResult>) -> ()) {
         frcDataProvider.reconfigureFetchRequest(block)
     }
     
-    func objectAtIndexPath(indexPath: NSIndexPath) -> Object {
+    func objectAtIndexPath(_ indexPath: IndexPath) -> Object {
         if let o = delegate.supplementaryObjectAtPresentedIndexPath(indexPath) {
             return o
         }
@@ -38,21 +38,21 @@ class AugmentedFetchedResultsDataProvider<Delegate: AugmentedDataProviderDelegat
         return frcDataProvider.objectAtIndexPath(frcIndexPath)
     }
     
-    func numberOfItemsInSection(section: Int) -> Int {
+    func numberOfItemsInSection(_ section: Int) -> Int {
         return frcDataProvider.numberOfItemsInSection(section) + delegate.numberOfAdditionalRows()
     }
     
     
     // MARK: Private
     
-    private var frcDataProvider: FetchedResultsDataProvider<AugmentedFetchedResultsDataProvider>!
-    private weak var delegate: Delegate!
+    fileprivate var frcDataProvider: FetchedResultsDataProvider<AugmentedFetchedResultsDataProvider>!
+    fileprivate weak var delegate: Delegate!
     
 }
 
 
 extension AugmentedFetchedResultsDataProvider: DataProviderDelegate {
-    func dataProviderDidUpdate(updates: [DataProviderUpdate<Object>]?) {
+    func dataProviderDidUpdate(_ updates: [DataProviderUpdate<Object>]?) {
         let transformedUpdates = updates?.map { $0.updateByTransformingIndexPath(delegate.presentedIndexPathForFetchedIndexPath) }
         delegate.dataProviderDidUpdate(transformedUpdates)
     }
@@ -60,12 +60,12 @@ extension AugmentedFetchedResultsDataProvider: DataProviderDelegate {
 
 
 extension DataProviderUpdate {
-    private func updateByTransformingIndexPath(transformer: NSIndexPath -> NSIndexPath) -> DataProviderUpdate {
+    fileprivate func updateByTransformingIndexPath(_ transformer: (IndexPath) -> IndexPath) -> DataProviderUpdate {
         switch self {
-        case .Delete(let indexPath): return .Delete(transformer(indexPath))
-        case .Update(let indexPath, let o): return .Update(transformer(indexPath), o)
-        case .Move(let indexPath, let newIndexPath): return .Move(transformer(indexPath), transformer(newIndexPath))
-        case .Insert(let indexPath): return .Insert(transformer(indexPath))
+        case .delete(let indexPath): return .delete(transformer(indexPath))
+        case .update(let indexPath, let o): return .update(transformer(indexPath), o)
+        case .move(let indexPath, let newIndexPath): return .move(transformer(indexPath), transformer(newIndexPath))
+        case .insert(let indexPath): return .insert(transformer(indexPath))
         }
     }
 }
@@ -76,15 +76,15 @@ extension AugmentedDataProviderDelegate {
         return 0
     }
     
-    func presentedIndexPathForFetchedIndexPath(indexPath: NSIndexPath) -> NSIndexPath {
-        return NSIndexPath(forRow: indexPath.row + numberOfAdditionalRows(), inSection: indexPath.section)
+    func presentedIndexPathForFetchedIndexPath(_ indexPath: IndexPath) -> IndexPath {
+        return IndexPath(row: indexPath.row + numberOfAdditionalRows(), section: indexPath.section)
     }
     
-    func fetchedIndexPathForPresentedIndexPath(indexPath: NSIndexPath) -> NSIndexPath {
-        return NSIndexPath(forRow: indexPath.row - numberOfAdditionalRows(), inSection: indexPath.section)
+    func fetchedIndexPathForPresentedIndexPath(_ indexPath: IndexPath) -> IndexPath {
+        return IndexPath(row: indexPath.row - numberOfAdditionalRows(), section: indexPath.section)
     }
     
-    func supplementaryObjectAtPresentedIndexPath(indexPath: NSIndexPath) -> Object? {
+    func supplementaryObjectAtPresentedIndexPath(_ indexPath: IndexPath) -> Object? {
         return nil
     }
 }

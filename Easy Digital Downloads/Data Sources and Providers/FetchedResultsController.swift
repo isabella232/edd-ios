@@ -9,6 +9,6 @@
 import UIKit
 import CoreData
 
-class FetchedResultsController: NSFetchedResultsController {
+class FetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
 
 }
