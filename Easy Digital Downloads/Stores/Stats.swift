@@ -15,16 +15,16 @@ struct Stats {
     var earnings: NSDictionary
     var commissions: NSDictionary?
     var storeCommissions: NSDictionary?
-    var updatedAt: NSDate
+    var updatedAt: Date
     
-    static func encode(stats: Stats) {
+    static func encode(_ stats: Stats) {
         let statsClassObject = StatsStorageAgent(stats: stats)
         
         NSKeyedArchiver.archiveRootObject(statsClassObject, toFile: StatsStorageAgent.path())
     }
     
     static func decode() -> Stats? {
-        let statsClassObject = NSKeyedUnarchiver.unarchiveObjectWithFile(StatsStorageAgent.path()) as? StatsStorageAgent
+        let statsClassObject = NSKeyedUnarchiver.unarchiveObject(withFile: StatsStorageAgent.path()) as? StatsStorageAgent
         
         return statsClassObject?.stats
     }
@@ -32,7 +32,7 @@ struct Stats {
     static func hasStatsForActiveSite() -> Bool {
         let path = StatsStorageAgent.path()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+        if FileManager.default.fileExists(atPath: path) {
             return true
         } else {
             return false
@@ -53,40 +53,40 @@ extension Stats {
         }
         
         class func path() -> String {
-            let documentsURL = NSFileManager.defaultManager()
-                .containerURLForSecurityApplicationGroupIdentifier("group.easydigitaldownloads.EDDSalesTracker")
+            let documentsURL = FileManager.default
+                .containerURL(forSecurityApplicationGroupIdentifier: "group.easydigitaldownloads.EDDSalesTracker")
             let activeSite = Site.activeSite()
             let activeSiteUID = activeSite.uid!
             let fileName = String(format: "/Stats-%@", activeSiteUID)
-            let path = documentsURL?.URLByAppendingPathComponent(fileName)?.path
+            let path = documentsURL?.appendingPathComponent(fileName).path
             return path!
         }
         
         required init?(coder aDecoder: NSCoder) {
-            guard let sales = aDecoder.decodeObjectForKey("sales") as? NSDictionary else { stats = nil; super.init(); return nil }
-            guard let earnings = aDecoder.decodeObjectForKey("earnings") as? NSDictionary else { stats = nil; super.init(); return nil }
-            guard let commissions = aDecoder.decodeObjectForKey("commissions") as? NSDictionary else { stats = nil; super.init(); return nil }
-            guard let storeCommissions = aDecoder.decodeObjectForKey("storeCommissions") as? NSDictionary else { stats = nil; super.init(); return nil }
-            guard let updatedAt = aDecoder.decodeObjectForKey("updatedAt") as? NSDate else { stats = nil; super.init(); return nil }
+            guard let sales = aDecoder.decodeObject(forKey: "sales") as? NSDictionary else { stats = nil; super.init(); return nil }
+            guard let earnings = aDecoder.decodeObject(forKey: "earnings") as? NSDictionary else { stats = nil; super.init(); return nil }
+            guard let commissions = aDecoder.decodeObject(forKey: "commissions") as? NSDictionary else { stats = nil; super.init(); return nil }
+            guard let storeCommissions = aDecoder.decodeObject(forKey: "storeCommissions") as? NSDictionary else { stats = nil; super.init(); return nil }
+            guard let updatedAt = aDecoder.decodeObject(forKey: "updatedAt") as? Date else { stats = nil; super.init(); return nil }
             
             stats = Stats(sales: sales, earnings: earnings, commissions: commissions, storeCommissions: storeCommissions, updatedAt: updatedAt)
             
             super.init()
         }
         
-        func encodeWithCoder(aCoder: NSCoder) {
-            aCoder.encodeObject(stats!.sales, forKey: "sales")
-            aCoder.encodeObject(stats!.earnings, forKey: "earnings")
+        func encode(with aCoder: NSCoder) {
+            aCoder.encode(stats!.sales, forKey: "sales")
+            aCoder.encode(stats!.earnings, forKey: "earnings")
             
             if let commissions = stats?.commissions {
-                aCoder.encodeObject(commissions, forKey: "commissions")
+                aCoder.encode(commissions, forKey: "commissions")
             }
             
             if let storeCommissions = stats?.storeCommissions {
-                aCoder.encodeObject(storeCommissions, forKey: "storeCommissions")
+                aCoder.encode(storeCommissions, forKey: "storeCommissions")
             }
 
-            aCoder.encodeObject(stats!.updatedAt, forKey: "updatedAt")
+            aCoder.encode(stats!.updatedAt, forKey: "updatedAt")
         }
         
     }

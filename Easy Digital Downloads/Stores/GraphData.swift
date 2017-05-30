@@ -15,14 +15,14 @@ struct GraphData {
     let earningsGraphDates: Array<String>
     let earningsGraphData: Array<Double>
     
-    static func encode(graphData: GraphData) {
+    static func encode(_ graphData: GraphData) {
         let storageAgent = GraphDataStorageAgent(graphData: graphData)
         
         NSKeyedArchiver.archiveRootObject(storageAgent, toFile: GraphDataStorageAgent.path())
     }
     
     static func decode() -> GraphData? {
-        let graphDataClassObject = NSKeyedUnarchiver.unarchiveObjectWithFile(GraphDataStorageAgent.path()) as? GraphDataStorageAgent
+        let graphDataClassObject = NSKeyedUnarchiver.unarchiveObject(withFile: GraphDataStorageAgent.path()) as? GraphDataStorageAgent
         
         return graphDataClassObject?.graphData
     }
@@ -30,7 +30,7 @@ struct GraphData {
     static func hasGraphDataForActiveSite() -> Bool {
         let path = GraphDataStorageAgent.path()
         
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+        if FileManager.default.fileExists(atPath: path) {
             return true
         } else {
             return false
@@ -51,34 +51,34 @@ extension GraphData {
         }
         
         class func path() -> String {
-            let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
+            let documentsPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
             let activeSite = Site.activeSite()
             let activeSiteUID = activeSite.uid!
             let fileName = String(format: "/GraphData-%@", activeSiteUID)
-            let path = documentsPath?.stringByAppendingString(fileName)
-            return path!
+            let path = (documentsPath)! + fileName
+            return path
         }
         
         required init?(coder aDecoder: NSCoder) {
-            guard let salesGraphDates = aDecoder.decodeObjectForKey("salesGraphDates") as? Array<String> else {
+            guard let salesGraphDates = aDecoder.decodeObject(forKey: "salesGraphDates") as? Array<String> else {
                 graphData = nil
                 super.init()
                 return nil
             }
             
-            guard let salesGraphData = aDecoder.decodeObjectForKey("salesGraphData") as? Array<Int> else {
+            guard let salesGraphData = aDecoder.decodeObject(forKey: "salesGraphData") as? Array<Int> else {
                 graphData = nil
                 super.init()
                 return nil
             }
             
-            guard let earningsGraphDates = aDecoder.decodeObjectForKey("earningsGraphDates") as? Array<String> else {
+            guard let earningsGraphDates = aDecoder.decodeObject(forKey: "earningsGraphDates") as? Array<String> else {
                 graphData = nil
                 super.init()
                 return nil
             }
             
-            guard let earningsGraphData = aDecoder.decodeObjectForKey("earningsGraphData") as? Array<Double> else {
+            guard let earningsGraphData = aDecoder.decodeObject(forKey: "earningsGraphData") as? Array<Double> else {
                 graphData = nil
                 super.init()
                 return nil
@@ -89,11 +89,11 @@ extension GraphData {
             super.init()
         }
         
-        func encodeWithCoder(aCoder: NSCoder) {
-            aCoder.encodeObject(graphData!.salesGraphData, forKey: "salesGraphData")
-            aCoder.encodeObject(graphData!.salesGraphDates, forKey: "salesGraphDates")
-            aCoder.encodeObject(graphData!.earningsGraphData, forKey: "earningsGraphData")
-            aCoder.encodeObject(graphData!.earningsGraphDates, forKey: "earningsGraphDates")
+        func encode(with aCoder: NSCoder) {
+            aCoder.encode(graphData!.salesGraphData, forKey: "salesGraphData")
+            aCoder.encode(graphData!.salesGraphDates, forKey: "salesGraphDates")
+            aCoder.encode(graphData!.earningsGraphData, forKey: "earningsGraphData")
+            aCoder.encode(graphData!.earningsGraphDates, forKey: "earningsGraphDates")
         }
         
     }
