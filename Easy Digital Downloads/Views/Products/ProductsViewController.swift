@@ -134,7 +134,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             
             self.persistProducts()
             
-            dispatch_get_maDispatchQueue.main {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             

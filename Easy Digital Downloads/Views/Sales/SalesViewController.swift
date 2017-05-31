@@ -130,11 +130,27 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
             
             if let items = json["sales"].array {
                 for item in items {
-                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.datemfrom: ["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
+                    self.saleObjects.append(
+                        Sales(
+                            ID: item["ID"].int64Value,
+                            transactionId: item["transaction_id"].string,
+                            key: item["key"].string,
+                            subtotal: item["subtotal"].doubleValue,
+                            tax: item["tax"].double,
+                            fees: item["fees"].array,
+                            total: item["total"].doubleValue,
+                            gateway: item["gateway"].stringValue,
+                            email: item["email"].stringValue,
+                            date: sharedDateFormatter.date(from: item["date"].stringValue),
+                            discounts: item["discounts"].dictionary,
+                            products: item["products"].arrayValue,
+                            licenses: item["licenses"].array
+                        )
+                    )
                 }
             }
             
-            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.OrderedDescending })
+            self.saleObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredSaleObjects = self.saleObjects
             
             DispatchQueue.main.async(execute: {
@@ -159,7 +175,23 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
             
             if let items = json["sales"].array {
                 for item in items {
-                    self.saleObjects.append(Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.datemfrom: ["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array))
+                    self.saleObjects.append(
+                        Sales(
+                            ID: item["ID"].int64Value,
+                            transactionId: item["transaction_id"].string,
+                            key: item["key"].string,
+                            subtotal: item["subtotal"].doubleValue,
+                            tax: item["tax"].double,
+                            fees: item["fees"].array,
+                            total: item["total"].doubleValue,
+                            gateway: item["gateway"].stringValue,
+                            email: item["email"].stringValue,
+                            date: sharedDateFormatter.date(from: item["date"].stringValue),
+                            discounts: item["discounts"].dictionary,
+                            products: item["products"].arrayValue,
+                            licenses: item["licenses"].array
+                        )
+                    )
                 }
                 
                 if items.count < 10 {
@@ -170,7 +202,7 @@ class SalesViewController: SiteTableViewController, UIViewControllerPreviewingDe
                 }
             }
             
-            self.saleObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.OrderedDescending })
+            self.saleObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredSaleObjects = self.saleObjects
 
             DispatchQueue.main.async(execute: {
