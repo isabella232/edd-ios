@@ -101,14 +101,14 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             
             if let items = json["download_logs"].array {
                 for item in items {
-                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
+                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue)))
                 }
             }
             
-            self.logObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
+            self.logObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredLogObjects = self.logObjects
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         })
@@ -128,25 +128,25 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([:], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-FileDownloadLogs")
 
-            self.logObjects.removeAll(keepCapacity: false)
+            self.logObjects.removeAll(keepingCapacity: false)
             
             if let items = json["download_logs"].array {
                 for item in items {
-                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
+                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue)))
                 }
                 
                 if items.count < 10 {
                     self.hasMoreLogs = false
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
             }
             
-            self.logObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
+            self.logObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredLogObjects = self.logObjects
             
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
             
@@ -163,7 +163,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         
         operation = true
 
-        EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([ "page": page ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([ "page": page as AnyObject ], success: { (json) in
             if let items = json["download_logs"].array {
                 if items.count == 10 {
                     self.hasMoreLogs = true
@@ -182,7 +182,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             
             self.updateLastDownloadedPage()
             
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
             

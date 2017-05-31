@@ -93,7 +93,7 @@ class SalesDetailProductTableViewCell: UITableViewCell {
         
         if priceName.characters.count == 0 {
             if let price = object["price"].double {
-                pricingLabel.text = Site.currencyFormat(NSNumber(price))
+                pricingLabel.text = Site.currencyFormat(NSNumber(value: price))
             }
         } else {
             if let price = object["price"].double {

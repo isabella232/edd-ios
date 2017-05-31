@@ -134,7 +134,7 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         codeLabel.text = discount.code
         
         if discount.type == "flat" {
-            amountLabel.text = Site.currencyFormat(discount.amount)
+            amountLabel.text = Site.currencyFormat(discount.amount as! NSNumber)
         } else {
             amountLabel.text = "\(Int(discount.amount))%"
         }
@@ -142,7 +142,7 @@ class DiscountsDetailMetaTableViewCell: UITableViewCell {
         if discount.minPrice == 0 {
             minPriceLabel.text = NSLocalizedString("No minimum amount", comment: "")
         } else {
-            minPriceLabel.text = Site.currencyFormat(discount.minPrice)
+            minPriceLabel.text = Site.currencyFormat(discount.minPrice as! NSNumber)
         }
         
         if let startDate = discount.startDate {

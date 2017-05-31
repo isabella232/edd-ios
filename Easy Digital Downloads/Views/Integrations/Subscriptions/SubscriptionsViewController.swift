@@ -105,14 +105,14 @@ class SubscriptionsViewController: SiteTableViewController {
             
             if let items = json["subscriptions"].array {
                 for item in items {
-                    self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
+                    self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.date(from: item["info"]["created"].stringValue), expiration: sharedDateFormatter.date(from: item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
                 }
             }
             
-            self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == ComparisonResult.orderedDescending })
+            self.subscriptionObjects.sort(by: { $0.created.compare($1.created) == ComparisonResult.orderedDescending })
             self.filteredSubscriptionObjects = self.subscriptionObjects
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         })
@@ -130,25 +130,25 @@ class SubscriptionsViewController: SiteTableViewController {
         EDDAPIWrapper.sharedInstance.requestSubscriptions([ : ], success: { (json) in
             self.sharedCache.set(value: json.asData(), key: Site.activeSite().uid! + "-Subscriptions")
             
-            self.subscriptionObjects.removeAll(keepCapacity: false)
+            self.subscriptionObjects.removeAll(keepingCapacity: false)
             
             if let items = json["subscriptions"].array {
                 for item in items {
-                    self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
+                    self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.date(from: item["info"]["created"].stringValue), expiration: sharedDateFormatter.date(from: item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
                 }
                 
                 if items.count < 10 {
                     self.hasMoreSubscriptions = false
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
             }
             
-            self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == ComparisonResult.orderedDescending })
+            self.subscriptionObjects.sort(by: { $0.created.compare($1.created) == ComparisonResult.orderedDescending })
             self.filteredSubscriptionObjects = self.subscriptionObjects
             
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
             
@@ -163,7 +163,7 @@ class SubscriptionsViewController: SiteTableViewController {
     fileprivate func requestNextPage() {
         operation = true
         
-        EDDAPIWrapper.sharedInstance.requestSubscriptions([ "page": lastDownloadedPage ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestSubscriptions([ "page": lastDownloadedPage as AnyObject ], success: { (json) in
             if let items = json["subscriptions"].array {
                 if items.count == 10 {
                     self.hasMoreSubscriptions = true
@@ -171,14 +171,14 @@ class SubscriptionsViewController: SiteTableViewController {
                     self.hasMoreSubscriptions = false
                 }
                 for item in items {
-                    self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.dateFromString(item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
+                    self.subscriptionObjects.append(Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.date(from: item["info"]["created"].stringValue), expiration: sharedDateFormatter.date(from: item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array))
                 }
                 
-                self.subscriptionObjects.sortInPlace({ $0.created.compare($1.created) == ComparisonResult.orderedDescending })
+                self.subscriptionObjects.sort(by: { $0.created.compare($1.created) == ComparisonResult.orderedDescending })
                 self.filteredSubscriptionObjects = self.subscriptionObjects
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             

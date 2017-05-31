@@ -112,7 +112,7 @@ class SearchTableViewCell: UITableViewCell {
         } else {
             let amount = pricing["amount"]!.stringValue
             let doubleObject = Double(amount)
-            pricingLabel.text = "\(Site.currencyFormat(NSNumber(double: doubleObject!)))"
+            pricingLabel.text = "\(Site.currencyFormat(NSNumber(value: doubleObject!)))"
         }
         
         if let thumbnail = object["info"]["thumbnail"].string {

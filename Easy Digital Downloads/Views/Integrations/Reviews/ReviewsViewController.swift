@@ -59,8 +59,8 @@ class ReviewsViewController: SiteTableViewController {
     
     let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(String(describing: Site.activeSite().uid))-ReviewsPage") ?? 1
-    
+    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(String(describing: Site.activeSite().uid))-ReviewsPage")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -154,7 +154,7 @@ class ReviewsViewController: SiteTableViewController {
     // MARK: Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.reviewObjects.count ?? 0
+        return self.reviewObjects.count 
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -86,7 +86,7 @@ final class SalesTableViewCell: UITableViewCell {
     
     func configure(_ sale: Sales) {
         let chargedText: String = NSLocalizedString("charged", comment: "")
-        amountLabel.text = "\(Site.currencyFormat(sale.total)) \(chargedText)"
+        amountLabel.text = "\(Site.currencyFormat(sale.total as! NSNumber)) \(chargedText)"
         
         let reformattedDate = sharedDateFormatter.string(from: sale.date as Date)
         dateLabel.text = reformattedDate

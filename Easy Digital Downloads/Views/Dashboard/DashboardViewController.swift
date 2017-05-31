@@ -328,11 +328,11 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         var salesGraphData: Array<Int> = []
         for key in sorted! {
             salesGraphData.append((sales![key]! as AnyObject).integerValue)
-            
-            let dateR = key.endIndex.advancedBy(-2) ..< key.endIndex
+
+            let dateR = key.index(key.endIndex, offsetBy: -2)..<key.endIndex
             let dateRange = Range(dateR)
             
-            let monthR = key.startIndex.advancedBy(4) ..< key.startIndex.advancedBy(6)
+            let monthR = key.index(key.startIndex, offsetBy: 4) ..< key.index(key.startIndex, offsetBy: 6)
             let monthRange = Range(monthR)
             
             let date = key[dateRange]
@@ -340,7 +340,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             
             let dateFormatter: DateFormatter = DateFormatter()
             let months = dateFormatter.shortMonthSymbols
-            let monthSymbol = months[month!-1]
+            let monthSymbol = months?[month!-1]
             
             let dateString = "\(date) \(monthSymbol)"
             
@@ -361,20 +361,20 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         var earningsGraphData: Array<Double> = []
         for key in sorted! {
             earningsGraphData.append((earnings![key]! as AnyObject).doubleValue)
-            let dateR = key.endIndex.advancedBy(-2) ..< key.endIndex
+            let dateR = key.index(key.endIndex, offsetBy: -2)..<key.endIndex
             let dateRange = Range(dateR)
             
-            let monthR = key.startIndex.advancedBy(4) ..< key.startIndex.advancedBy(6)
+            let monthR = key.index(key.startIndex, offsetBy: 4) ..< key.index(key.startIndex, offsetBy: 6)
             let monthRange = Range(monthR)
             
             let date = key[dateRange]
             let month = Int(key[monthRange])
             
-            let dateFormatter: DateFormatter = NSDateFormatter()
+            let dateFormatter: DateFormatter = DateFormatter()
             let months = dateFormatter.shortMonthSymbols
             let monthSymbol = months?[month!-1]
             
-            let dateString = "\(date) \(monthSymbol)"
+            let dateString = "\(date) \(String(describing: monthSymbol))"
             
             self.earningsGraphDates.append(dateString)
         }

@@ -70,7 +70,7 @@ class DiscountsDetailViewController: SiteTableViewController {
                 self.cells.append(.productRequirements)
             } else {
                 for _ in 1...requirements.count {
-                    self.cells.append(.ProductRequirements)
+                    self.cells.append(.productRequirements)
                 }
             }
         }
@@ -88,7 +88,7 @@ class DiscountsDetailViewController: SiteTableViewController {
                 if let product = Product.productForId(item.1.int64Value) {
                     self.fetchedProducts.append(product)
                 } else {
-                    EDDAPIWrapper.sharedInstance.requestProducts(["product" : item.1.stringValue], success: { (json) in
+                    EDDAPIWrapper.sharedInstance.requestProducts(["product" : item.1.stringValue as AnyObject], success: { (json) in
                         
                         }, failure: { (error) in
                             print(error)
@@ -106,7 +106,7 @@ class DiscountsDetailViewController: SiteTableViewController {
     fileprivate func networkOperations() {
         if let requirements = discount?.productRequirements {
             for item in requirements {
-                EDDAPIWrapper.sharedInstance.requestProducts(["product" : item.1.stringValue], success: { (json) in
+                EDDAPIWrapper.sharedInstance.requestProducts(["product" : item.1.stringValue as AnyObject], success: { (json) in
                     
                 }, failure: { (error) in
                     print(error)

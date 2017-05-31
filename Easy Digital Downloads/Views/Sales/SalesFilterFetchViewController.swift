@@ -99,19 +99,19 @@ class SalesFilterFetchViewController: SiteTableViewController {
         self.operation = true
         view.addSubview(loadingView)
         
-        EDDAPIWrapper.sharedInstance.requestStats(["type" : self.filter, "date" : "range", "startdate" : sharedDateFormatter.stringFromDate(startDate!), "enddate" : sharedDateFormatter.stringFromDate(endDate!)], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestStats(["type" : self.filter as AnyObject, "date" : "range" as AnyObject, "startdate" : sharedDateFormatter.string(from: startDate!) as AnyObject, "enddate" : sharedDateFormatter.string(from: endDate!) as AnyObject], success: { (json) in
             if let items = json["sales"].dictionary {
                 for item in items {
                     self.dataSource.append(Data(date: item.0, stat: item.1.stringValue))
                 }
                 
-                self.dataSource.sortInPlace{ $0.date < $1.date }
+                self.dataSource.sort{ $0.date < $1.date }
                 
                 self.total = json["totals"].doubleValue
                 
                 self.operation = true
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     let titleLabel = ViewControllerTitleLabel()
                     titleLabel.setTitle(NSLocalizedString("Filtered Sales", comment: ""))
                     self.navigationItem.titleView = titleLabel
@@ -124,16 +124,16 @@ class SalesFilterFetchViewController: SiteTableViewController {
             
             if let items = json["earnings"].dictionary {
                 for item in items {
-                    self.dataSource.append(Data(date: item.0, stat: Site.currencyFormat(item.1.doubleValue)))
+                    self.dataSource.append(Data(date: item.0, stat: Site.currencyFormat(NSNumber(value: item.1.doubleValue))))
                 }
                 
-                self.dataSource.sortInPlace{ $0.date < $1.date }
+                self.dataSource.sort{ $0.date < $1.date }
                 
                 self.total = json["totals"].doubleValue
                 
                 self.operation = true
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     let titleLabel = ViewControllerTitleLabel()
                     titleLabel.setTitle(NSLocalizedString("Filtered Earnings", comment: ""))
                     self.navigationItem.titleView = titleLabel
@@ -182,7 +182,7 @@ class SalesFilterFetchViewController: SiteTableViewController {
             cell.textLabel?.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
             
             if filter == "earnings" {
-                cell.detailTextLabel?.text = Site.currencyFormat(total!)
+                cell.detailTextLabel?.text = Site.currencyFormat(NSNumber(value: total!))
             } else {
                 cell.detailTextLabel?.text = "\(Int(total!))"
             }

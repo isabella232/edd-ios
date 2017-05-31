@@ -115,7 +115,7 @@ class ProductsOfflineViewController: SiteTableViewController {
         imageView!.contentMode = .scaleAspectFill
         
         let url = URL(string: product!.thumbnail!)
-        imageView!.af_setImageWithURL(url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+        imageView!.hnk_setImageFromURL(url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
         
         tableView.addSubview(imageView!)
         tableView.sendSubview(toBack: imageView!)
@@ -126,7 +126,7 @@ class ProductsOfflineViewController: SiteTableViewController {
         self.operation = true
         view.addSubview(loadingView)
 
-        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(productId!)"], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(productId!)" as AnyObject], success: { (json) in
             if let items = json["products"].array {
                 self.fetchedProduct = items
                 
@@ -135,25 +135,25 @@ class ProductsOfflineViewController: SiteTableViewController {
                 let item = items[0]
                 
                 if let _ = item["files"].array {
-                    self.cells.append(.FilesHeading)
-                    self.cells.append(.Files)
+                    self.cells.append(.filesHeading)
+                    self.cells.append(.files)
                 }
                 
                 if let notes = item["notes"].string {
                     if notes.characters.count > 0 {
-                        self.cells.append(.NotesHeading)
-                        self.cells.append(.Notes)
+                        self.cells.append(.notesHeading)
+                        self.cells.append(.notes)
                     }
                 }
                 
                 if let _ = item["licensing"].array {
-                    self.cells.append(.LicensingHeading)
-                    self.cells.append(.Licensing)
+                    self.cells.append(.licensingHeading)
+                    self.cells.append(.licensing)
                 }
                 
                 if let thumbnail = item["info"]["thumbnail"].string {
                     if thumbnail.characters.count > 0 {
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self.setupHeaderView()
                         })
                     }
@@ -161,7 +161,7 @@ class ProductsOfflineViewController: SiteTableViewController {
                 
                 var stats: NSData?
                 if Site.hasPermissionToViewReports() {
-                    stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
+                    stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!) as NSData
                 } else {
                     stats = nil
                 }
@@ -170,7 +170,7 @@ class ProductsOfflineViewController: SiteTableViewController {
                 var notes: String?
                 if Site.hasPermissionToViewSensitiveData() {
                     if item["files"].arrayObject != nil {
-                        files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
                     } else {
                         files = nil
                     }
@@ -182,17 +182,17 @@ class ProductsOfflineViewController: SiteTableViewController {
                 }
                 
                 var hasVariablePricing = false
-                if item["pricing"].dictionary?.count > 1 {
+                if (item["pricing"].dictionary?.count)! > 1 {
                     hasVariablePricing = true
                 }
                 
-                let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+                let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
                 
-                self.product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
+                self.product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files! as Data, hasVariablePricing: hasVariablePricing as NSNumber, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats as! Data, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject as! [String : AnyObject])
                 
                 self.operation = true
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.title = self.product?.title
                     let titleLabel = ViewControllerTitleLabel()
                     titleLabel.setTitle((self.product?.title)!)

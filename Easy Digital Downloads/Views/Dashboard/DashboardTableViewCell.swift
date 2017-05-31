@@ -282,7 +282,7 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             return
         }
         
-        stat = Site.currencyFormat((cellStat_ as NSString).doubleValue)
+        stat = Site.currencyFormat(NSNumber(value: (cellStat_ as NSString).doubleValue))
         
         // Store Commissions
         if heading == "Store Commissions" {
@@ -306,11 +306,11 @@ class DashboardTableViewCell: UITableViewCell, BEMSimpleLineGraphDelegate, BEMSi
             let revoked = (data_["revoked"] as? NSString)?.doubleValue
             
             
-            stat = Site.currencyFormat(unpaid!)
+            stat = Site.currencyFormat(NSNumber(value: unpaid!))
             
-            firstStatLabel.text = NSLocalizedString("Unpaid:", comment: "") +  " " + "\(Site.currencyFormat(unpaid!))"
-            secondStatLabel.text = NSLocalizedString("Paid:", comment: "") + " " + "\(Site.currencyFormat(paid!))"
-            thirdStatLabel.text = NSLocalizedString("Revoked:", comment: "") + " " + "\(Site.currencyFormat(revoked!))"
+            firstStatLabel.text = NSLocalizedString("Unpaid:", comment: "") +  " " + "\(Site.currencyFormat(NSNumber(value: unpaid!)))"
+            secondStatLabel.text = NSLocalizedString("Paid:", comment: "") + " " + "\(Site.currencyFormat(NSNumber(value: paid!)))"
+            thirdStatLabel.text = NSLocalizedString("Revoked:", comment: "") + " " + "\(Site.currencyFormat(NSNumber(value: revoked!)))"
         }
     }
     

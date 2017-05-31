@@ -54,7 +54,7 @@ class ProductsDetailPricingTableViewCell: UITableViewCell {
         var pricingText = ""
 
         for (key, value) in pricingDict {
-            pricingText += key.capitalized + ": " + Site.currencyFormat(NSNumber((value as! NSString).doubleValue)) + "\n"
+            pricingText += key.capitalized + ": " + Site.currencyFormat(NSNumber(value: (value as! NSString).doubleValue)) + "\n"
         }
         
         pricingText = pricingText.substring(to: pricingText.characters.index(pricingText.endIndex, offsetBy: -2))

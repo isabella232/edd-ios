@@ -194,7 +194,7 @@ class SearchViewController: SiteTableViewController {
         
         var stats: Data?
         if Site.hasPermissionToViewReports() {
-            stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
+            stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!)
         } else {
             stats = nil
         }
@@ -203,7 +203,7 @@ class SearchViewController: SiteTableViewController {
         var notes: String?
         if Site.hasPermissionToViewSensitiveData() {
             if item["files"].arrayObject != nil {
-                files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+                files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!)
             } else {
                 files = nil
             }
@@ -219,9 +219,9 @@ class SearchViewController: SiteTableViewController {
             hasVariablePricing = true
         }
         
-        let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+        let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
         
-        let product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
+        let product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing as NSNumber, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject! as [String : AnyObject])
         
         navigationController?.pushViewController(ProductsDetailViewController(product: product), animated: true)
         
@@ -255,27 +255,27 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.addSubview(loadingView)
         
-        self.filteredTableData.removeAll(keepCapacity: false)
+        self.filteredTableData.removeAll(keepingCapacity: false)
         
         let searchTerms = searchBar.text
         if searchTerms?.characters.count > 0 {
             let encodedSearchTerms = searchTerms!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-            EDDAPIWrapper.sharedInstance.requestProducts(["s" : encodedSearchTerms!], success: { (json) in
+            EDDAPIWrapper.sharedInstance.requestProducts(["s" : encodedSearchTerms! as AnyObject], success: { (json) in
                 if let items = json["products"].array {
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.loadingView.removeFromSuperview()
                     })
                     if items.count == 0 {
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self.showNoResultsView()
                         })
                     } else {
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self.noResultsView.removeFromSuperview()
                         })
                         for item in items {
                             self.filteredTableData.append(item)
-                            dispatch_async(dispatch_get_main_queue(), {
+                            DispatchQueue.main.async(execute: {
                                 self.tableView.reloadData()
                             })
                         }

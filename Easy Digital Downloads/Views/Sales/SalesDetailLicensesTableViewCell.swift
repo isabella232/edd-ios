@@ -87,7 +87,7 @@ class SalesDetailLicensesTableViewCell: UITableViewCell {
         let status = license["status"].stringValue
         let key = license["key"].stringValue
         nameLabel.text = name
-        statusLabel.text = status.capitalizedString
+        statusLabel.text = status.capitalized
         keyLabel.text = key
         
         nameLabel.sizeToFit()

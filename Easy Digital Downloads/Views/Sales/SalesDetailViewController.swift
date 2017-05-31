@@ -73,7 +73,7 @@ class SalesDetailViewController: SiteTableViewController {
         EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email as AnyObject], success: { json in
             let items = json["customers"].arrayValue
             self.customer = items[0]
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
             }) { (error) in

@@ -73,13 +73,13 @@ class ReviewsDetailViewController: SiteTableViewController {
                 self.tableView.reloadData()
             })
         } else {
-            EDDAPIWrapper.sharedInstance.requestProducts(["id" : "\(review!.downloadId)"], success: { (json) in
+            EDDAPIWrapper.sharedInstance.requestProducts(["id" : "\(review!.downloadId)" as AnyObject], success: { (json) in
                 if let items = json["products"].array {
                     let item = items[0]
                     
                     var stats: NSData?
                     if Site.hasPermissionToViewReports() {
-                        stats = NSKeyedArchiver.archivedDataWithRootObject(item["stats"].dictionaryObject!)
+                        stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!) as NSData
                     } else {
                         stats = nil
                     }
@@ -88,7 +88,7 @@ class ReviewsDetailViewController: SiteTableViewController {
                     var notes: String?
                     if Site.hasPermissionToViewSensitiveData() {
                         if item["files"].arrayObject != nil {
-                            files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+                            files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
                         } else {
                             files = nil
                         }
@@ -100,15 +100,15 @@ class ReviewsDetailViewController: SiteTableViewController {
                     }
                     
                     var hasVariablePricing = false
-                    if item["pricing"].dictionary?.count > 1 {
+                    if (item["pricing"].dictionary?.count)! > 1 {
                         hasVariablePricing = true
                     }
                     
-                    let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+                    let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
                     
-                    self.product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.dateFromString(item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.dateFromString(item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
+                    self.product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files as! Data, hasVariablePricing: hasVariablePricing as NSNumber, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats as! Data, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject as! [String : AnyObject])
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.tableView.reloadData()
                     })
                 }

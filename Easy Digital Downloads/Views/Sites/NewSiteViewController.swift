@@ -339,10 +339,10 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 switch response.result {
-                case .success(let _):
+                case .success( _):
                     let json = JSON(response.result.value!)
                     
-                    if json["info"] != nil {
+                    if json["info"] != JSON.null {
                         let info = json["info"]
                         let integrations = info["integrations"]
                         let currency = "\(info["site"]["currency"])"

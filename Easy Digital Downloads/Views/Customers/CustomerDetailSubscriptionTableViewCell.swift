@@ -89,11 +89,11 @@ class CustomerDetailSubscriptionTableViewCell: UITableViewCell {
         amountLabel.text = name
         
         let date = data["info"]["created"].stringValue
-        let dateObject = sharedDateFormatter.dateFromString(date)
+        let dateObject = sharedDateFormatter.date(from: date)
         
         sharedDateFormatter.dateFormat = "EEE dd MMM yyyy HH:mm:ss"
         
-        dateLabel.text = sharedDateFormatter.stringFromDate(dateObject!)
+        dateLabel.text = sharedDateFormatter.string(from: dateObject!)
         dateLabel.sizeToFit()
         
         // Reset date format

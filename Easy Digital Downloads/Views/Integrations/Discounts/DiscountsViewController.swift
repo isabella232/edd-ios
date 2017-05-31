@@ -73,7 +73,7 @@ class DiscountsViewController: SiteTableViewController {
                     self.hasMoreDiscounts = true
                 } else {
                     self.hasMoreDiscounts = false
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    DispatchQueue.main.async(execute: { 
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
@@ -85,22 +85,22 @@ class DiscountsViewController: SiteTableViewController {
                     if item["start_date"].stringValue.characters.count == 0 {
                         startDate = nil
                     } else {
-                        startDate = sharedDateFormatter.dateFromString(item["start_date"].stringValue)
+                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue) as! NSDate
                     }
                     
                     if item["exp_date"].stringValue.characters.count == 0 {
                         expDate = nil
                     } else {
-                        expDate = sharedDateFormatter.dateFromString(item["exp_date"].stringValue)
+                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue) as! NSDate
                     }
                     
-                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate, expiryDate: expDate, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate as! Date, expiryDate: expDate as! Date, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
                 }
             }
             
-            self.discountsObjects.sortInPlace({ $0.ID > $1.ID })
+            self.discountsObjects.sort(by: { $0.ID > $1.ID })
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
         })
@@ -145,14 +145,14 @@ class DiscountsViewController: SiteTableViewController {
         EDDAPIWrapper.sharedInstance.requestDiscounts([ : ], success: { (result) in
             self.sharedCache.set(value: result.asData(), key: "Discounts")
             
-            self.discountsObjects.removeAll(keepCapacity: false)
+            self.discountsObjects.removeAll(keepingCapacity: false)
             
             if let items = result["discounts"].array {
                 if items.count == 10 {
                     self.hasMoreDiscounts = true
                 } else {
                     self.hasMoreDiscounts = false
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    DispatchQueue.main.async(execute: { 
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
@@ -165,22 +165,22 @@ class DiscountsViewController: SiteTableViewController {
                     if item["start_date"].stringValue.characters.count == 0 {
                         startDate = nil
                     } else {
-                        startDate = sharedDateFormatter.dateFromString(item["start_date"].stringValue)
+                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue) as! NSDate
                     }
                     
                     if item["exp_date"].stringValue.characters.count == 0 {
                         expDate = nil
                     } else {
-                        expDate = sharedDateFormatter.dateFromString(item["exp_date"].stringValue)
+                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue) as! NSDate
                     }
                     
-                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate, expiryDate: expDate, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate as! Date, expiryDate: expDate as! Date, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
                 }
             }
             
-            self.discountsObjects.sortInPlace({ $0.ID > $1.ID })
+            self.discountsObjects.sort(by: { $0.ID > $1.ID })
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             
@@ -193,13 +193,13 @@ class DiscountsViewController: SiteTableViewController {
     fileprivate func requestNextPage() {
         operation = true
 
-        EDDAPIWrapper.sharedInstance.requestDiscounts(["page" : self.lastDownloadedPage], success: { (result) in
+        EDDAPIWrapper.sharedInstance.requestDiscounts(["page" : self.lastDownloadedPage as AnyObject], success: { (result) in
             if let items = result["discounts"].array {
                 if items.count == 10 {
                     self.hasMoreDiscounts = true
                 } else {
                     self.hasMoreDiscounts = false
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.activityIndicatorView.stopAnimating()
                     })
                 }
@@ -211,24 +211,24 @@ class DiscountsViewController: SiteTableViewController {
                     if item["start_date"].stringValue.characters.count == 0 {
                         startDate = nil
                     } else {
-                        startDate = sharedDateFormatter.dateFromString(item["start_date"].stringValue)
+                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue) as! NSDate
                     }
                     
                     if item["exp_date"].stringValue.characters.count == 0 {
                         expDate = nil
                     } else {
-                        expDate = sharedDateFormatter.dateFromString(item["exp_date"].stringValue)
+                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue) as! NSDate
                     }
                     
-                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate, expiryDate: expDate, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate as! Date, expiryDate: expDate as! Date, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
                 }
                 
                 self.updateLastDownloadedPage()
             }
             
-            self.discountsObjects.sortInPlace({ $0.ID > $1.ID })
+            self.discountsObjects.sort(by: { $0.ID > $1.ID })
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             

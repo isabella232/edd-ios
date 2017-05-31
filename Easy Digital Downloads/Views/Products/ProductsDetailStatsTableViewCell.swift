@@ -69,10 +69,10 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
         let monthlyAverageSales = monthly["sales"]!
         let monthlyAverageEarnings = (monthlyEarningsStat! as AnyObject).doubleValue
         
-        let totalStatsString = NSLocalizedString("Sales", comment: "") + ": \(totalSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat((total["earnings"] as! NSString).doubleValue)
+        let totalStatsString = NSLocalizedString("Sales", comment: "") + ": \(totalSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(NSNumber(value: (total["earnings"] as! NSString).doubleValue))
         totalStatsLabel.text = totalStatsString
         
-        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": \((monthlyAverageSales! as AnyObject).stringValue)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(monthlyAverageEarnings)
+        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": \((monthlyAverageSales! as AnyObject).stringValue)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(monthlyAverageEarnings as! NSNumber)
         monthlyAverageStatsLabel.text = monthlyAverageStatsString
         
         totalStatsLabel.sizeToFit()

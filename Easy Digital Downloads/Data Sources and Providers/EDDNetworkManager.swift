@@ -24,6 +24,8 @@ class EDDNetworkManager {
             configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
             configuration.requestCachePolicy = .useProtocolCachePolicy // this is the default
             configuration.urlCache = urlCache
+
+            return configuration
         }()
 
         let manager = SessionManager(configuration: configuration)

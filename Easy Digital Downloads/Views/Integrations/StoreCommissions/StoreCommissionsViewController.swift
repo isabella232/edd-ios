@@ -52,7 +52,7 @@ class StoreCommissionsViewController: SiteTableViewController {
     
     let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
-    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(Site.activeSite().uid)-StoreCommissionsPage") 
+    var lastDownloadedPage = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!.integer(forKey: "\(String(describing: Site.activeSite().uid))-StoreCommissionsPage")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,7 +153,7 @@ class StoreCommissionsViewController: SiteTableViewController {
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CommissionsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-CommissionsPage")
         sharedDefaults.synchronize()
     }
     
@@ -170,7 +170,7 @@ class StoreCommissionsViewController: SiteTableViewController {
     // MARK: Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredCommissionsObjects.count ?? 0
+        return self.filteredCommissionsObjects.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

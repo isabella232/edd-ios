@@ -122,7 +122,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     // MARK: Private
     
     fileprivate func requestNextPage() {
-        EDDAPIWrapper.sharedInstance.requestCustomers([ "page": lastDownloadedPage ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestCustomers([ "page": lastDownloadedPage as AnyObject ], success: { (json) in
             if let items = json["customers"].array {
                 if items.count == 20 {
                     self.hasMoreCustomers = true
@@ -158,7 +158,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
                 continue
             }
             
-            Customer.insertIntoContext(managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+            Customer.insertIntoContext(managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.date(from: item["info"]["date_created"].stringValue)!)
         }
         
         do {

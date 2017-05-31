@@ -106,20 +106,20 @@ class SalesUncachedViewController: SiteTableViewController {
         self.operation = true
         view.addSubview(loadingView)
         
-        EDDAPIWrapper.sharedInstance.requestSales(["id" : "\(id)"], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestSales(["id" : "\(id)" as AnyObject], success: { (json) in
             if let items = json["sales"].array {
                 let item = items[0]
                 
-                self.sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
+                self.sale = Sales(ID: item["ID"].int64Value, transactionId: item["transaction_id"].string, key: item["key"].string, subtotal: item["subtotal"].doubleValue, tax: item["tax"].double, fees: item["fees"].array, total: item["total"].doubleValue, gateway: item["gateway"].stringValue, email: item["email"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue), discounts: item["discounts"].dictionary, products: item["products"].arrayValue, licenses: item["licenses"].array)
                 
                 self.operation = true
                 
-                self.cells = [.Meta, .ProductsHeading]
+                self.cells = [.meta, .productsHeading]
                 
-                EDDAPIWrapper.sharedInstance.requestCustomers(["customer": self.sale.email], success: { json in
+                EDDAPIWrapper.sharedInstance.requestCustomers(["customer": self.sale.email as AnyObject], success: { json in
                     let items = json["customers"].arrayValue
                     self.customer = items[0]
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.tableView.reloadData()
                     })
                 }) { (error) in
@@ -127,10 +127,10 @@ class SalesUncachedViewController: SiteTableViewController {
                 }
                 
                 if self.sale.products!.count == 1 {
-                    self.cells.append(.Product)
+                    self.cells.append(.product)
                 } else {
                     for _ in 1...self.sale.products!.count {
-                        self.cells.append(.Product)
+                        self.cells.append(.product)
                     }
                 }
                 
@@ -141,23 +141,23 @@ class SalesUncachedViewController: SiteTableViewController {
                     }
                 }
                 
-                self.cells.append(.CustomerHeading)
-                self.cells.append(.Customer)
+                self.cells.append(.customerHeading)
+                self.cells.append(.customer)
                 
                 if self.sale.licenses != nil {
-                    self.cells.append(.LicensesHeading)
+                    self.cells.append(.licensesHeading)
                     
                     if self.sale.licenses!.count == 1 {
-                        self.cells.append(.License)
+                        self.cells.append(.license)
                     } else {
                         self.licenses = [JSON]()
                         for _ in 1...self.sale.licenses!.count {
-                            self.cells.append(.License)
+                            self.cells.append(.license)
                         }
                     }
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     let titleLabel = ViewControllerTitleLabel()
                     titleLabel.setTitle("Sale #\(self.sale.ID)")
                     self.navigationItem.titleView = titleLabel
@@ -220,7 +220,7 @@ class SalesUncachedViewController: SiteTableViewController {
             guard let item = customer else {
                 return
             }
-            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.date(from: item["info"]["date_created"].stringValue)!)
             navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
         }
         

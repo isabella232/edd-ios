@@ -118,7 +118,7 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
         self.sale = sale
         
         let chargedText: String = NSLocalizedString("payment", comment: "")
-        titleLabel.text = "\(Site.currencyFormat(sale.total as! NSNumber)) \(chargedText)"
+        titleLabel.text = "\(Site.currencyFormat(sale.total! as NSNumber)) \(chargedText)"
         transactionIdLabel.text = sale.transactionId
         keyLabel.text = sale.key
         dateLabel.text = sharedDateFormatter.string(from: sale.date as Date)
@@ -151,14 +151,14 @@ class SalesDetailMetaTableViewCell: UITableViewCell {
             for fee in fees {
                 let label = fee["label"].stringValue
                 let amount = fee["amount"].doubleValue
-                feesString = label + ": " + Site.currencyFormat(NSNumber(amount)) + "\n"
+                feesString = label + ": " + Site.currencyFormat(NSNumber(value: amount)) + "\n"
             }
 
             feesLabel.text = feesString
         }
         
         if let tax = sale.tax {
-            taxLabel.text = Site.currencyFormat(NSNumber(tax))
+            taxLabel.text = Site.currencyFormat(NSNumber(value: tax))
         }
         
         layout()

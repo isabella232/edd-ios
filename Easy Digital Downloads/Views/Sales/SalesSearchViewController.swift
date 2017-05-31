@@ -220,7 +220,7 @@ class SalesSearchViewController: SiteTableViewController {
             guard let item = customer else {
                 return
             }
-            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+            let customerObject = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.date(from: item["info"]["date_created"].stringValue)!)
             navigationController?.pushViewController(CustomersDetailViewController(customer: customerObject), animated: true)
         }
         
@@ -288,20 +288,20 @@ extension SalesSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.addSubview(loadingView)
         
-        self.filteredTableData.removeAll(keepCapacity: false)
+        self.filteredTableData.removeAll(keepingCapacity: false)
         
         let searchTerms = searchBar.text
         if searchTerms?.characters.count > 0 {
             let encodedSearchTerms = searchTerms!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-            EDDAPIWrapper.sharedInstance.requestSales(["id" : encodedSearchTerms!], success: { (json) in
+            EDDAPIWrapper.sharedInstance.requestSales(["id" : encodedSearchTerms! as AnyObject], success: { (json) in
                 if let items = json["sales"].array {
                     let item = items[0]
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.loadingView.removeFromSuperview()
                     })
                     if item["ID"].stringValue.characters.count == 0 {
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self.showNoResultsView()
                         })
                     } else {
@@ -310,10 +310,10 @@ extension SalesSearchViewController: UISearchBarDelegate {
                         self.sale = sale
                         
                         if sale.products!.count == 1 {
-                            self.cells.append(.Product)
+                            self.cells.append(.product)
                         } else {
                             for _ in 1...sale.products!.count {
-                                self.cells.append(.Product)
+                                self.cells.append(.product)
                             }
                         }
                         
@@ -324,31 +324,31 @@ extension SalesSearchViewController: UISearchBarDelegate {
                             }
                         }
                         
-                        self.cells.append(.CustomerHeading)
-                        self.cells.append(.Customer)
+                        self.cells.append(.customerHeading)
+                        self.cells.append(.customer)
                         
                         if sale.licenses != nil {
-                            self.cells.append(.LicensesHeading)
+                            self.cells.append(.licensesHeading)
                             
                             if sale.licenses!.count == 1 {
-                                self.cells.append(.License)
+                                self.cells.append(.license)
                             } else {
                                 self.licenses = [JSON]()
                                 for _ in 1...sale.licenses!.count {
-                                    self.cells.append(.License)
+                                    self.cells.append(.license)
                                 }
                             }
                         }
                         
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self.noResultsView.removeFromSuperview()
                             self.tableView.reloadData()
                         })
                         
-                        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email], success: { json in
+                        EDDAPIWrapper.sharedInstance.requestCustomers(["customer": sale.email as AnyObject], success: { json in
                             let items = json["customers"].arrayValue
                             self.customer = items[0]
-                            dispatch_async(dispatch_get_main_queue(), {
+                            DispatchQueue.main.async(execute: {
                                 self.tableView.reloadData()
                             })
                         }) { (error) in

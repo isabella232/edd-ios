@@ -50,7 +50,7 @@ class CustomerStatsTableViewCell: UITableViewCell {
         titleLabel.textColor = .tableViewCellHeadingColor()
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightLight)
         titleLabel.textAlignment = .left
-        titleLabel.text = NSLocalizedString("Stats", comment: "").localizedUppercaseString
+        titleLabel.text = NSLocalizedString("Stats", comment: "").localizedUppercase
         
         
         totalDownloadsLabel.textColor = .EDDBlackColor()

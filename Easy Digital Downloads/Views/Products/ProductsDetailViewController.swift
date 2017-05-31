@@ -145,7 +145,7 @@ class ProductsDetailViewController: SiteTableViewController {
             request.fetchLimit = 1
         }
         
-        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(product!.pid)"], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestProducts(["product": "\(product!.pid)" as AnyObject], success: { (json) in
             if let items = json["products"].array {
                 self.fetchedProduct = items[0]
                 
@@ -153,7 +153,7 @@ class ProductsDetailViewController: SiteTableViewController {
                 
                 var stats: NSData?
                 if Site.hasPermissionToViewReports() {
-                    stats = NSKeyedArchiver.archivedDataWithRootObject(self.fetchedProduct!["stats"].dictionaryObject!)
+                    stats = NSKeyedArchiver.archivedData(withRootObject: self.fetchedProduct!["stats"].dictionaryObject!)
                 } else {
                     stats = nil
                 }
@@ -162,7 +162,7 @@ class ProductsDetailViewController: SiteTableViewController {
                 var notes: String?
                 if Site.hasPermissionToViewSensitiveData() {
                     if item["files"].arrayObject != nil {
-                        files = NSKeyedArchiver.archivedDataWithRootObject(item["files"].arrayObject!)
+                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
                     } else {
                         files = nil
                     }
@@ -178,7 +178,7 @@ class ProductsDetailViewController: SiteTableViewController {
                     hasVariablePricing = true
                 }
                 
-                let pricing = NSKeyedArchiver.archivedDataWithRootObject(item["pricing"].dictionaryObject!)
+                let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
                 
                 if productRecord != nil {
                     productRecord!.setValue(stats, forKey: "stats")
@@ -189,7 +189,7 @@ class ProductsDetailViewController: SiteTableViewController {
                     productRecord!.setValue(hasVariablePricing, forKey: "hasVariablePricing")
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     do {
                         try AppDelegate.sharedInstance.managedObjectContext.save()
                         self.tableView.reloadData()
