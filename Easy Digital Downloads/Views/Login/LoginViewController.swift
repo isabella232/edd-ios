@@ -320,7 +320,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 switch response.result {
-                    case .success(let json):
+                    case .success(_):
+                        let json = JSON(response.result.value!)
+                        
                         if json["info"] != JSON.null {
                             let info = json["info"]
                             let integrations = info["integrations"]

@@ -59,7 +59,7 @@ class SiteTableViewController: UITableViewController {
         let offlineView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         offlineView.backgroundColor = .errorColor()
         offlineView.transform = CGAffineTransform(translationX: 0, y: -80)
-        offlineView.tag == 1
+        offlineView.tag = 1
         
         let offlineLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
         offlineLabel.text = NSLocalizedString("No network connection", comment: "")

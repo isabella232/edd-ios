@@ -138,13 +138,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let siteURL = sharedDefaults.string(forKey: "activeSiteURL")! + "/edd-api/v2/stats"
         
-        let parameters = ["key": acct, "token": password]
+        let parameters : Parameters = ["key": acct, "token": password!]
 
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
-        Alamofire.request(siteURL, method: .post, parameters: ["key": acct, "token": password], encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(siteURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -197,13 +197,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let siteURL = sharedDefaults.string(forKey: "activeSiteURL")! + "/edd-api/v2/stats"
         
-        let parameters = ["key": acct, "token": password]
+        let parameters : Parameters = ["key": acct, "token": password!]
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
-        Alamofire.request(siteURL, method: .post, parameters: ["key": acct, "token": password], encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(siteURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in

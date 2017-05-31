@@ -31,11 +31,11 @@ public final class Commission: ManagedObject {
     
     public static func insertIntoContext(_ moc: NSManagedObjectContext, amount: Double, currency: String, date: Date, item: String, rate: Double, renewal: Int64, status: String) -> Commission {
         let commission: Commission = moc.insertObject()
-        commission.amount = NSNumber(amount)
+        commission.amount = NSNumber(value: amount)
         commission.currency = currency
         commission.date = date
         commission.item = item
-        commission.rate = NSNumber(rate)
+        commission.rate = NSNumber(value: rate)
         commission.renewal = renewal
         commission.site = Site.fetchRecordForActiveSite(inContext: moc)
         commission.status = status

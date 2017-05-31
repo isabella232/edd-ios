@@ -1680,6 +1680,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = H7B3257R6N;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;
@@ -1700,6 +1701,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Easy Digital Downloads/Easy Digital Downloads.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = H7B3257R6N;
 				INFOPLIST_FILE = "Easy Digital Downloads/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.easydigitaldownloads.EDDSalesTracker;

@@ -124,7 +124,7 @@ public final class Site: ManagedObject {
         }
 
         let auth = SSKeychain.accounts(forService: site!.uid)
-        let data = auth?[0] as! NSDictionary
+        let data = auth?[0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
         let password = SSKeychain.password(forService: site!.uid, account: acct)
         
@@ -240,11 +240,9 @@ public final class Site: ManagedObject {
             return false
         }
         
-        guard let permissions = NSKeyedUnarchiver.unarchiveObject(with: data) else {
-            return false
-        }
+        let permissions = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: AnyObject]
         
-        if permissions["view_shop_reports"] !== nil {
+        if permissions?["view_shop_reports"] !== nil {
             return true
         } else {
             return false
@@ -256,11 +254,9 @@ public final class Site: ManagedObject {
             return false
         }
         
-        guard let permissions = NSKeyedUnarchiver.unarchiveObject(with: data) else {
-            return false
-        }
+        let permissions = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: AnyObject]
         
-        if permissions["view_shop_sensitive_data"] !== nil {
+        if permissions?["view_shop_sensitive_data"] !== nil {
             return true
         } else {
             return false
@@ -272,11 +268,9 @@ public final class Site: ManagedObject {
             return false
         }
         
-        guard let permissions = NSKeyedUnarchiver.unarchiveObject(with: data) else {
-            return false
-        }
+        let permissions = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: AnyObject]
         
-        if permissions["manage_shop_discounts"] !== nil {
+        if permissions?["manage_shop_discounts"] !== nil {
             return true
         } else {
             return false

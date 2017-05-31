@@ -107,7 +107,7 @@ extension Discount: KeyCodable {
         case SingleUse = "singleUse"
         case StartDate = "startDate"
         case Status = "status"
-        case Type = "type"
+        case `Type` = "type"
         case Uses = "uses"
     }
     

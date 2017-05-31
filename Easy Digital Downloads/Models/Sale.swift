@@ -46,9 +46,9 @@ public final class Sale: ManagedObject {
         sale.gateway = gateway
         sale.key = key
         sale.sid = sid
-        sale.subtotal = NSNumber(subtotal)
-        sale.tax = NSNumber(tax)
-        sale.total = NSNumber(total)
+        sale.subtotal = NSNumber(value: subtotal)
+        sale.tax = NSNumber(value: tax)
+        sale.total = NSNumber(value: total)
         sale.transactionId = transactionId
         sale.site = Site.fetchRecordForActiveSite(inContext: moc)
         sale.products = NSKeyedArchiver.archivedData(withRootObject: products)
@@ -79,9 +79,9 @@ public final class Sale: ManagedObject {
         object.gateway = gateway
         object.key = key
         object.sid = sid
-        object.subtotal = NSNumber(subtotal)
-        object.tax = NSNumber(tax)
-        object.total = NSNumber(total)
+        object.subtotal = NSNumber(value: subtotal)
+        object.tax = NSNumber(value: tax)
+        object.total = NSNumber(value: total)
         object.transactionId = transactionId
         object.products = NSKeyedArchiver.archivedData(withRootObject: products)
         object.discounts = discounts

@@ -12,7 +12,7 @@ import SwiftyJSON
 extension JSON {
     public var isNull: Bool {
         get {
-            return self.type == .Null;
+            return self.type == .null;
         }
     }
 }
