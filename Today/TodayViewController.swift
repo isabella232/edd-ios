@@ -132,7 +132,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         
         let auth = SSKeychain.accounts(forService: defaultSite)
-        let data = auth?[0] as! NSDictionary
+        let data = (auth?[0] as! [String : AnyObject]) as! NSDictionary
         let acct = data.object(forKey: "acct") as! String
         let password = SSKeychain.password(forService: defaultSite, account: acct)
         

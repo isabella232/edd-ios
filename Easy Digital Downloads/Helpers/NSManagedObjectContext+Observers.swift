@@ -49,22 +49,6 @@ public struct ContextDidSaveNotification {
     
 }
 
-
-extension ContextDidSaveNotification: CustomDebugStringConvertible {
-
-    public var debugDescription: String {
-        var components = [notification.name]
-        components.append(Notification.Name(rawValue: managedObjectContext.description))
-        for (name, set) in [("inserted", insertedObjects), ("updated", updatedObjects), ("deleted", deletedObjects)] {
-            let all = set.map { $0.objectID.description }.joined(separator: ", ")
-            components.append(Notification.Name(rawValue: "\(name): {\(all)}"))
-        }
-        return components.joined(separator: " ")
-    }
-
-}
-
-
 public struct ContextWillSaveNotification {
     
     public init(note: Notification) {

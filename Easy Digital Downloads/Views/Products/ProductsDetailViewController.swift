@@ -151,18 +151,19 @@ class ProductsDetailViewController: SiteTableViewController {
                 
                 let item = items[0]
                 
-                var stats: NSData?
+                var stats: Data?
                 if Site.hasPermissionToViewReports() {
-                    stats = NSKeyedArchiver.archivedData(withRootObject: self.fetchedProduct!["stats"].dictionaryObject!)
+                    let product = self.fetchedProduct
+                    stats = NSKeyedArchiver.archivedData(withRootObject: product!["stats"].asData())
                 } else {
                     stats = nil
                 }
                 
-                var files: NSData?
+                var files: Data?
                 var notes: String?
                 if Site.hasPermissionToViewSensitiveData() {
                     if item["files"].arrayObject != nil {
-                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
+                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].asData())
                     } else {
                         files = nil
                     }

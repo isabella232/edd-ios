@@ -217,18 +217,18 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
                 continue
             }
             
-            var stats: NSData?
+            var stats: Data?
             if Site.hasPermissionToViewReports() {
-                stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!) as NSData
+                stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].asData())
             } else {
                 stats = nil
             }
             
-            var files: NSData?
+            var files: Data?
             var notes: String?
             if Site.hasPermissionToViewSensitiveData() {
                 if item["files"].arrayObject != nil {
-                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
+                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].asData())
                 } else {
                     files = nil
                 }
@@ -246,7 +246,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             
             let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
             
-            Product.insertIntoContext(managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files as! Data, hasVariablePricing: hasVariablePricing, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject)
+            Product.insertIntoContext(managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing as NSNumber, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].stringValue, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionaryObject! as [String : AnyObject])
         }
         
         do {
@@ -257,8 +257,8 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
         }
     }
     
-    fileprivate typealias Data = FetchedResultsDataProvider<ProductsViewController>
-    fileprivate var dataSource: TableViewDataSource<ProductsViewController, Data, ProductsTableViewCell>!
+    fileprivate typealias DataProvider = FetchedResultsDataProvider<ProductsViewController>
+    fileprivate var dataSource: TableViewDataSource<ProductsViewController, DataProvider, ProductsTableViewCell>!
     
     fileprivate func setupTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
