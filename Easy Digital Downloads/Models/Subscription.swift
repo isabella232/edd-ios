@@ -42,6 +42,7 @@ public final class Subscription: ManagedObject {
         return NSPredicate(format: "%K == %lld", Subscription.Keys.ID.rawValue, subscriptionId)
     }
     
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, billTimes: Int64, created: Date, customer: [String: AnyObject], expiration: Date, gateway: String, initialAmount: Double, notes: [AnyObject]?, parentPaymentID: Int64, period: String, productID: Int64, profileID: String, recurringAmount: Double, sid: Int64, status: String, transactionId: String?, payments: [AnyObject]?) -> Subscription {
         let subscription: Subscription = moc.insertObject()
         subscription.billTimes = billTimes

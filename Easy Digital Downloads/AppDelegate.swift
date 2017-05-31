@@ -236,6 +236,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         completionHandler(handleShortcut(shortcutItem))
     }
     
+    @discardableResult
     fileprivate func handleShortcut(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
         guard let _ = self.window?.rootViewController as? SiteTabBarController else {
             return false

@@ -29,6 +29,7 @@ public final class Commission: ManagedObject {
         createdAt = Date()
     }
     
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, amount: Double, currency: String, date: Date, item: String, rate: Double, renewal: Int64, status: String) -> Commission {
         let commission: Commission = moc.insertObject()
         commission.amount = NSNumber(value: amount)

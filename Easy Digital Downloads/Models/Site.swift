@@ -83,6 +83,7 @@ public final class Site: ManagedObject {
         }
     }
     
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, uid: String, name: String, url: String, currency: String, hasCommissions: Bool, hasFES: Bool, hasRecurring: Bool, hasReviews: Bool, hasLicensing: Bool, permissions: Data, dashboardOrder: Data) -> Site {
         let site: Site = moc.insertObject()
         site.uid = uid

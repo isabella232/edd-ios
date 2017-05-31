@@ -42,6 +42,7 @@ public final class Discount: ManagedObject {
         return NSPredicate(format: "%K == %lld", Discount.Keys.ID.rawValue, discountId)
     }
 
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, amount: Double, code: String, did: Int64, expiryDate: Date?, globalDiscount: NSNumber, maxUses: Int64, minPrice: Double, name: String, productRequirements: Data?, requirementConditions: String, singleUse: NSNumber, startDate: Date?, status: String, type: String, uses: Int64) -> Discount {
         let discount: Discount = moc.insertObject()
         discount.amount = amount

@@ -38,6 +38,7 @@ public final class Sale: ManagedObject {
         createdAt = Date()
     }
     
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, customer: String, date: Date, email: String, fees: [AnyObject]?, gateway: String, key: String, sid: Int64, subtotal: Double, tax: Double, total: Double, transactionId: String, products: [AnyObject], discounts: [String: AnyObject]?, licenses: [AnyObject]?) -> Sale {
         let sale: Sale = moc.insertObject()
         sale.customer = customer

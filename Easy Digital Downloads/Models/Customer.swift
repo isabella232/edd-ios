@@ -42,6 +42,7 @@ public final class Customer: ManagedObject {
         return NSPredicate(format: "%K == %@", Customer.Keys.Username.rawValue, username)
     }
     
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: Date) -> Customer {
         let customer: Customer = moc.insertObject()
         customer.displayName = displayName

@@ -52,6 +52,7 @@ extension NSManagedObjectContext {
         return context
     }
 
+    @discardableResult
     public func saveOrRollback() -> Bool {
         do {
             try save()

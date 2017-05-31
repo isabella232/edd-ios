@@ -42,6 +42,7 @@ public final class Product: ManagedObject {
         return NSPredicate(format: "%K == %lld", Product.Keys.ID.rawValue, productId)
     }
     
+    @discardableResult
     public static func insertIntoContext(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
         let product: Product = moc.insertObject()
         product.content = content
