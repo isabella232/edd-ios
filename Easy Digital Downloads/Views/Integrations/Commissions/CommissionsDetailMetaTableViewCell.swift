@@ -86,7 +86,7 @@ class CommissionsDetailMetaTableViewCell: UITableViewCell {
         
         itemLabel.text = commission.item
         dateLabel.text = sharedDateFormatter.string(from: commission.date as Date)
-        amountLabel.text = Site.currencyFormat(commission.amount as! NSNumber)
+        amountLabel.text = Site.currencyFormat(NSNumber(value: commission.amount))
         rateLabel.text = "\(commission.rate)%"
         
         layout()

@@ -215,7 +215,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredLogObjects.count ?? 0
+        return self.filteredLogObjects.count 
     }
     
     // MARK: Table View Delegate

@@ -144,7 +144,7 @@ class CustomersViewController: SiteTableViewController, ManagedObjectContextSett
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CustomersPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-CustomersPage")
         sharedDefaults.synchronize()
     }
     

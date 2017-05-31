@@ -125,7 +125,7 @@ public final class Site: ManagedObject {
         }
 
         let auth = SSKeychain.accounts(forService: site!.uid)
-        let data = auth?[0] as! NSDictionary
+        let data = auth![0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
         let password = SSKeychain.password(forService: site!.uid, account: acct)
         
@@ -166,7 +166,7 @@ public final class Site: ManagedObject {
         }
         
         let auth = SSKeychain.accounts(forService: site_.uid)
-        let data = (auth?[0] as! [String: AnyObject]) as! NSDictionary
+        let data = auth![0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
         let password = SSKeychain.password(forService: site_.uid, account: acct)
         

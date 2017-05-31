@@ -292,7 +292,7 @@ extension CustomersSearchViewController: UISearchBarDelegate {
         let searchTerms = searchBar.text!
         if searchTerms.characters.count > 0 {
             EDDAPIWrapper.sharedInstance.requestCustomers(["customer" : searchTerms as AnyObject], success: { (json) in
-                if let error = json["error"].string {
+                if let _ = json["error"].string {
                     DispatchQueue.main.async(execute: {
                         self.showNoResultsView()
                     })

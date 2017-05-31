@@ -60,6 +60,7 @@ public final class Customer: ManagedObject {
         return customer
     }
     
+    @discardableResult
     public static func objectForData(_ moc: NSManagedObjectContext, displayName: String, email: String, firstName: String, lastName: String, totalDownloads: Int64, totalPurchases: Int64, totalSpent: Double, uid: Int64, username: String, dateCreated: Date) -> Customer {
         let entity = NSEntityDescription.entity(forEntityName: "Customer", in: moc)
         let object = NSManagedObject(entity: entity!, insertInto: nil) as! Customer

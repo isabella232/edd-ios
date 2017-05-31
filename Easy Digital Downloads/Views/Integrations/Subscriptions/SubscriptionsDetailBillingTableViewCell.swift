@@ -106,7 +106,7 @@ class SubscriptionsDetailBillingTableViewCell: UITableViewCell {
     func configure(_ subscription: Subscriptions) {
         self.subscription = subscription
         
-        billingCycleText.text = Site.currencyFormat(subscription.initialAmount as! NSNumber) + " " + NSLocalizedString("then", comment: "") + " " + Site.currencyFormat(subscription.recurringAmount as! NSNumber)
+        billingCycleText.text = Site.currencyFormat(NSNumber(value: subscription.initialAmount)) + " " + NSLocalizedString("then", comment: "") + " " + Site.currencyFormat(NSNumber(value: subscription.recurringAmount))
         timesBilledText.text = "\(subscription.billTimes)"
         paymentMethodText.text = subscription.gateway.capitalized
         profileText.text = subscription.profileId
