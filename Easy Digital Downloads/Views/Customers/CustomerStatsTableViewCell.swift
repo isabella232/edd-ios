@@ -103,7 +103,7 @@ class CustomerStatsTableViewCell: UITableViewCell {
         self.customer = customer
         
         totalDownloadsLabel.text = NSLocalizedString("Total Downloads: \(customer.totalDownloads)", comment: "")
-        totalSpentLabel.text = NSLocalizedString("Total Spent: \(sharedNumberFormatter.string(from: NSNumber(customer.totalSpent))!)", comment: "")
+        totalSpentLabel.text = NSLocalizedString("Total Spent: \(sharedNumberFormatter.string(from: NSNumber(value: customer.totalSpent))!)", comment: "")
         totalPurchasesLabel.text = NSLocalizedString("Total Purchases: \(customer.totalPurchases)", comment: "")
         
         layout()

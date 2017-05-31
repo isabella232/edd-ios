@@ -219,7 +219,7 @@ class CustomersSearchViewController: SiteTableViewController {
             
             let item = recentSubscriptions![offset]
             
-            let subscription = Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.date(from: item["info"]["created"].stringValue), expiration: sharedDateFormatter.dateFromString(item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array)
+            let subscription = Subscriptions(ID: item["info"]["id"].int64Value, customerId: item["info"]["customer_id"].int64Value, period: item["info"]["period"].stringValue, initialAmount: item["info"]["initial_amount"].doubleValue, recurringAmount: item["info"]["recurring_amount"].doubleValue, billTimes: item["info"]["bill_times"].int64Value, transactionId: item["info"]["transaction_id"].stringValue, parentPaymentId: item["info"]["parent_payment_id"].int64Value, productId: item["info"]["product_id"].int64Value, created: sharedDateFormatter.date(from: item["info"]["created"].stringValue), expiration: sharedDateFormatter.date(from: item["info"]["expiration"].stringValue), status: item["info"]["status"].stringValue, profileId: item["info"]["profile_id"].stringValue, gateway: item["info"]["gateway"].stringValue, customer: item["info"]["customer"].dictionaryValue, renewalPayments: item["payments"].array)
             
             navigationController?.pushViewController(SubscriptionsDetailViewController(subscription: subscription), animated: true)
         }
@@ -305,7 +305,7 @@ extension CustomersSearchViewController: UISearchBarDelegate {
                         self.loadingView.removeFromSuperview()
                     })
                     
-                    let customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.dateFromString(item["info"]["date_created"].stringValue)!)
+                    let customer = Customer.objectForData(AppDelegate.sharedInstance.managedObjectContext, displayName: item["info"]["display_name"].stringValue, email: item["info"]["email"].stringValue, firstName: item["info"]["first_name"].stringValue, lastName: item["info"]["last_name"].stringValue, totalDownloads: item["stats"]["total_downloads"].int64Value, totalPurchases: item["stats"]["total_purchases"].int64Value, totalSpent: item["stats"]["total_spent"].doubleValue, uid: item["info"]["customer_id"].int64Value, username: item["username"].stringValue, dateCreated: sharedDateFormatter.date(from: item["info"]["date_created"].stringValue)!)
                     
                     self.customer = customer
                     
@@ -313,12 +313,12 @@ extension CustomersSearchViewController: UISearchBarDelegate {
                         self.tableView.reloadData()
                     })
                     
-                    EDDAPIWrapper.sharedInstance.requestSales(["email" : customer.email], success: { (json) in
+                    EDDAPIWrapper.sharedInstance.requestSales(["email" : customer.email as AnyObject], success: { (json) in
                         if let items = json["sales"].array {
-                            self.cells.append(.SalesHeading)
+                            self.cells.append(.salesHeading)
                             self.recentSales = items
                             for _ in 1...items.count {
-                                self.cells.append(.Sales)
+                                self.cells.append(.sales)
                             }
                             DispatchQueue.main.async(execute: {
                                 self.tableView.reloadData()
@@ -329,12 +329,12 @@ extension CustomersSearchViewController: UISearchBarDelegate {
                     }
                     
                     if (Site.activeSite().hasRecurring != nil) {
-                        EDDAPIWrapper.sharedInstance.requestSubscriptions(["customer" : customer.email], success: { (json) in
+                        EDDAPIWrapper.sharedInstance.requestSubscriptions(["customer" : customer.email as AnyObject], success: { (json) in
                             if let items = json["subscriptions"].array {
-                                self.cells.append(.SubscriptionsHeading)
+                                self.cells.append(.subscriptionsHeading)
                                 self.recentSubscriptions = items
                                 for _ in 1...items.count {
-                                    self.cells.append(.Subscriptions)
+                                    self.cells.append(.subscriptions)
                                 }
                                 DispatchQueue.main.async(execute: {
                                     self.tableView.reloadData()

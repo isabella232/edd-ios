@@ -171,13 +171,13 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
                     self.hasMoreLogs = false
                 }
                 for item in items {
-                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.dateFromString(item["date"].stringValue)))
+                    self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue)))
                 }
             } else {
                 self.hasMoreLogs = false
             }
             
-            self.logObjects.sortInPlace({ $0.date.compare($1.date) == ComparisonResult.orderedDescending })
+            self.logObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
             self.filteredLogObjects = self.logObjects
             
             self.updateLastDownloadedPage()

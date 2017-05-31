@@ -86,7 +86,7 @@ class CustomerRecentSaleTableViewCell: UITableViewCell {
     
     func configure(_ data: JSON) {
         let chargedText: String = NSLocalizedString("charged", comment: "")
-        amountLabel.text = "\(Site.currencyFormat(NSNumber(data["total"].doubleValue))) \(chargedText)"
+        amountLabel.text = "\(Site.currencyFormat(NSNumber(value: data["total"].doubleValue))) \(chargedText)"
         
         let date = data["date"].stringValue
         let dateObject = sharedDateFormatter.date(from: date)

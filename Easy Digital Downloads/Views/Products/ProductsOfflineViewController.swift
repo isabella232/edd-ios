@@ -115,7 +115,7 @@ class ProductsOfflineViewController: SiteTableViewController {
         imageView!.contentMode = .scaleAspectFill
         
         let url = URL(string: product!.thumbnail!)
-        imageView!.hnk_setImageFromURL(url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
+        imageView!.af_setImage(withURL: url!, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.2), runImageTransitionIfCached: true, completion: nil)
         
         tableView.addSubview(imageView!)
         tableView.sendSubview(toBack: imageView!)
