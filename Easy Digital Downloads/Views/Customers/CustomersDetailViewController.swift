@@ -82,7 +82,7 @@ class CustomersDetailViewController: SiteTableViewController {
     }
     
     fileprivate func networkOperations() {
-        SessionManager.sharedInstance.session.getAllTasksWithCompletionHandler { (tasks) in
+        SessionManager.default.session.getAllTasks { (tasks) in
             tasks.forEach({ $0.cancel() })
         }
         
