@@ -198,7 +198,7 @@ public final class EDDAPIWrapper: NSObject {
 
         print("Request made to \(strURL)")
 
-        let request = EDDNetworkManager.sharedInstance.request(strURL, method: .get, parameters: passedParameters, encoding: JSONEncoding.default, headers: nil)
+        let request = EDDNetworkManager.sharedInstance.request(strURL, method: .get, parameters: passedParameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in

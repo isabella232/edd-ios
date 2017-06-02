@@ -85,16 +85,16 @@ class DiscountsViewController: SiteTableViewController {
                     if item["start_date"].stringValue.characters.count == 0 {
                         startDate = nil
                     } else {
-                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue)! as NSDate
+                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue) as! NSDate
                     }
                     
                     if item["exp_date"].stringValue.characters.count == 0 {
                         expDate = nil
                     } else {
-                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue)! as NSDate
+                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue) as! NSDate
                     }
                     
-                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate! as Date, expiryDate: expDate as! Date, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
+                    self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate as! Date, expiryDate: expDate as! Date, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))
                 }
             }
             
@@ -165,13 +165,13 @@ class DiscountsViewController: SiteTableViewController {
                     if item["start_date"].stringValue.characters.count == 0 {
                         startDate = nil
                     } else {
-                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue)! as NSDate
+                        startDate = sharedDateFormatter.date(from: item["start_date"].stringValue) as! NSDate
                     }
                     
                     if item["exp_date"].stringValue.characters.count == 0 {
                         expDate = nil
                     } else {
-                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue)! as NSDate
+                        expDate = sharedDateFormatter.date(from: item["exp_date"].stringValue) as! NSDate
                     }
                     
                     self.discountsObjects.append(Discounts(ID: item["ID"].int64Value, name: item["name"].stringValue, code: item["code"].stringValue, amount: item["amount"].doubleValue, minPrice: item["min_price"].doubleValue, type: item["type"].stringValue, startDate: startDate as! Date, expiryDate: expDate as! Date, status: item["status"].stringValue, globalDiscount: item["global_discounts"].boolValue, singleUse: item["single_use"].boolValue, productRequirements: item["product_requirements"].dictionary, requirementCondition: item["requirement_condition"].stringValue))

@@ -191,7 +191,7 @@ class SubscriptionsViewController: SiteTableViewController {
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-SubscriptionsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-SubscriptionsPage")
         sharedDefaults.synchronize()
     }
 
@@ -213,7 +213,7 @@ class SubscriptionsViewController: SiteTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredSubscriptionObjects.count ?? 0
+        return self.filteredSubscriptionObjects.count 
     }
     
     // MARK: Table View Delegate

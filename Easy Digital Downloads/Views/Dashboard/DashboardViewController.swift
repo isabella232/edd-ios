@@ -151,7 +151,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
 
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         if refreshControl.isRefreshing {
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
                 DispatchQueue.main.async(execute: {
                     self.networkOperations()
                     self.tableView.reloadData()

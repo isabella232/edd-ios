@@ -185,7 +185,7 @@ class CommissionsViewController: SiteTableViewController {
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-CommissionsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-CommissionsPage")
         sharedDefaults.synchronize()
     }
     
@@ -202,7 +202,7 @@ class CommissionsViewController: SiteTableViewController {
     // MARK: Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredCommissionsObjects.count ?? 0
+        return self.filteredCommissionsObjects.count 
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

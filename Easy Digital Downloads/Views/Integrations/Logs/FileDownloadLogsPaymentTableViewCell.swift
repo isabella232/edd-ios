@@ -96,7 +96,7 @@ class FileDownloadLogsPaymentTableViewCell: UITableViewCell {
         }
         
         let chargedText: String = NSLocalizedString("charged", comment: "")
-        amountLabel.text = "\(Site.currencyFormat(sale.total as! NSNumber)) \(chargedText)"
+        amountLabel.text = "\(Site.currencyFormat(NSNumber(value: sale.total))) \(chargedText)"
         
         let reformattedDate = sharedDateFormatter.string(from: sale.date as Date)
         dateLabel.text = reformattedDate
