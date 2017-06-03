@@ -36,6 +36,9 @@ class ManageSitesViewController: SiteTableViewController {
         let titleLabel = ViewControllerTitleLabel()
         titleLabel.setTitle(NSLocalizedString("Manage Sites", comment: "Manage Sites title"))
         navigationItem.titleView = titleLabel
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(ManageSitesViewController.addButtonPressed))
+        navigationItem.rightBarButtonItem = addButton
     }
     
     func addButtonPressed() {
