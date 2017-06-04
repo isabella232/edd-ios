@@ -257,7 +257,7 @@ class DiscountsViewController: SiteTableViewController {
     // MARK: Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.discountsObjects.count ?? 0
+        return self.discountsObjects.count 
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
