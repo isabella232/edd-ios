@@ -175,18 +175,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             watchSession.delegate = self
             watchSession.activate()
             if watchSession.isPaired && watchSession.isWatchAppInstalled {
-                do {
-                    let userInfo = [
-                        "activeSiteName": Site.activeSite().name!,
-                        "activeSiteURL" : Site.activeSite().url!,
-                        "activeSiteKey" : Site.activeSite().key,
-                        "activeSiteToken" : Site.activeSite().token,
-                        "activeSiteCurrency" : Site.activeSite().currency!
-                    ]
-                    try watchSession.transferUserInfo(userInfo)
-                } catch let error as NSError {
-                    print(error.description)
-                }
+                let userInfo = [
+                    "activeSiteName": Site.activeSite().name!,
+                    "activeSiteURL" : Site.activeSite().url!,
+                    "activeSiteKey" : Site.activeSite().key,
+                    "activeSiteToken" : Site.activeSite().token,
+                    "activeSiteCurrency" : Site.activeSite().currency!
+                ]
+                watchSession.transferUserInfo(userInfo)
             }
         }
     }
