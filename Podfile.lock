@@ -6,7 +6,6 @@ PODS:
     - Alamofire (~> 4.1)
   - BEMSimpleLineGraph (4.1)
   - HanekeSwift (0.10.1)
-  - MCDateExtensions (1.0.2)
   - SSKeychain (1.4.1)
   - SwiftyJSON (2.3.2)
 
@@ -16,7 +15,6 @@ DEPENDENCIES:
   - AlamofireNetworkActivityIndicator (~> 2.0)
   - BEMSimpleLineGraph
   - HanekeSwift (from `https://github.com/Haneke/HanekeSwift`, branch `feature/swift-3`)
-  - MCDateExtensions (from `https://github.com/mirego/MCDateExtensions.git`)
   - SSKeychain
   - SwiftyJSON
 
@@ -24,16 +22,11 @@ EXTERNAL SOURCES:
   HanekeSwift:
     :branch: feature/swift-3
     :git: https://github.com/Haneke/HanekeSwift
-  MCDateExtensions:
-    :git: https://github.com/mirego/MCDateExtensions.git
 
 CHECKOUT OPTIONS:
   HanekeSwift:
     :commit: 2f6d87f1f725d204d85cb34492e8c399cd5a200f
     :git: https://github.com/Haneke/HanekeSwift
-  MCDateExtensions:
-    :commit: 4f066180898f5c9fd549e4574c520fda8367b139
-    :git: https://github.com/mirego/MCDateExtensions.git
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -41,10 +34,9 @@ SPEC CHECKSUMS:
   AlamofireNetworkActivityIndicator: 4716f6554bdfb9c7cf13b1e0e3af21163129690a
   BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
   HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
-  MCDateExtensions: 93f067b198405405f12c73208619caa436e30bee
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: ee914cbda8b3c56087b905d736837339d852f529
+PODFILE CHECKSUM: 38dd3aee481bfe06eafcf9290121969283fe3fc7
 
 COCOAPODS: 1.2.1
