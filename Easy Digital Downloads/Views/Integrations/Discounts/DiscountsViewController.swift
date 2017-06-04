@@ -240,7 +240,7 @@ class DiscountsViewController: SiteTableViewController {
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
-        sharedDefaults.set(lastDownloadedPage, forKey: "\(Site.activeSite().uid)-DiscountsPage")
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-DiscountsPage")
         sharedDefaults.synchronize()
     }
     
