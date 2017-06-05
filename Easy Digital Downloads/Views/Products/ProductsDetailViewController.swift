@@ -151,19 +151,18 @@ class ProductsDetailViewController: SiteTableViewController {
                 
                 let item = items[0]
                 
-                var stats: Data?
+                var stats: NSData?
                 if Site.hasPermissionToViewReports() {
-                    let product = self.fetchedProduct
-                    stats = NSKeyedArchiver.archivedData(withRootObject: product!["stats"].asData())
+                    stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!) as NSData
                 } else {
                     stats = nil
                 }
                 
-                var files: Data?
+                var files: NSData?
                 var notes: String?
                 if Site.hasPermissionToViewSensitiveData() {
                     if item["files"].arrayObject != nil {
-                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].asData())
+                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
                     } else {
                         files = nil
                     }
@@ -182,12 +181,14 @@ class ProductsDetailViewController: SiteTableViewController {
                 let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
                 
                 if productRecord != nil {
-                    productRecord!.setValue(stats, forKey: "stats")
+                    productRecord!.setValue(stats! as Data, forKey: "stats")
+                    productRecord!.setValue(notes, forKey: "notes")
                     productRecord!.setValue(pricing, forKey: "pricing")
-                    productRecord!.setValue(files, forKey: "files")
+                    productRecord!.setValue(files! as Data, forKey: "files")
                     productRecord!.setValue(item["info"]["title"].stringValue, forKey: "title")
-                    productRecord!.setValue(item["licensing"].dictionaryObject, forKey: "licensing")
-                    productRecord!.setValue(hasVariablePricing, forKey: "hasVariablePricing")
+                    productRecord!.setValue(item["licensing"].dictionaryObject! as [String : AnyObject], forKey: "licensing")
+                    productRecord!.setValue(hasVariablePricing as NSNumber, forKey: "hasVariablePricing")
+                    productRecord!.setValue(item["info"]["thumbnail"].stringValue, forKey: "thumbnail")
                 }
                 
                 DispatchQueue.main.async(execute: {

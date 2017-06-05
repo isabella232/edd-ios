@@ -59,24 +59,26 @@ class ProductsDetailStatsTableViewCell: UITableViewCell {
     }
     
     func configure(_ stats: Data?) {
-        let statsDict: [String: AnyObject] = NSKeyedUnarchiver.unarchiveObject(with: stats!) as! [String: AnyObject]
+        let dict: Dictionary? = NSKeyedUnarchiver.unarchiveObject(with: stats!) as? [String : AnyObject]
         
-        let total = statsDict["total"]!
-        let totalSales = total["sales"] as! String
-        
-        let monthly = statsDict["monthly_average"]!
-        let monthlyEarningsStat = monthly["earnings"]!
-        let monthlyAverageSales = Int((monthly["sales"]! as AnyObject).doubleValue.rounded())
-        let monthlyAverageEarnings = (monthlyEarningsStat! as AnyObject).doubleValue
-        
-        let totalStatsString = NSLocalizedString("Sales", comment: "") + ": \(totalSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(NSNumber(value: (total["earnings"] as! NSString).doubleValue))
-        totalStatsLabel.text = totalStatsString
-        
-        let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": " + String(describing: monthlyAverageSales) + "\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(NSNumber(value: monthlyAverageEarnings!))
-        monthlyAverageStatsLabel.text = monthlyAverageStatsString
-        
-        totalStatsLabel.sizeToFit()
-        monthlyAverageStatsLabel.sizeToFit()
+        if let statsDict = dict {
+            let total = statsDict["total"]!
+            let totalSales = total["sales"] as! String
+            
+            let monthly = statsDict["monthly_average"]!
+            let monthlyEarningsStat = monthly["earnings"]!
+            let monthlyAverageSales = Int((monthly["sales"]! as AnyObject).doubleValue.rounded())
+            let monthlyAverageEarnings = (monthlyEarningsStat! as AnyObject).doubleValue
+            
+            let totalStatsString = NSLocalizedString("Sales", comment: "") + ": \(totalSales)\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(NSNumber(value: (total["earnings"] as! NSString).doubleValue))
+            totalStatsLabel.text = totalStatsString
+            
+            let monthlyAverageStatsString = NSLocalizedString("Sales", comment: "") + ": " + String(describing: monthlyAverageSales) + "\n" + NSLocalizedString("Earnings", comment: "") + ": " + Site.currencyFormat(NSNumber(value: monthlyAverageEarnings!))
+            monthlyAverageStatsLabel.text = monthlyAverageStatsString
+            
+            totalStatsLabel.sizeToFit()
+            monthlyAverageStatsLabel.sizeToFit()
+        }
         
         layout()
     }
