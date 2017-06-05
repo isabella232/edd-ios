@@ -20,6 +20,8 @@ private let sharedDateFormatter: DateFormatter = {
     return formatter
 }()
 
+// MARK: Subscription
+
 public struct Subscriptions {
     var ID: Int64!
     var customerId: Int64!
@@ -38,6 +40,14 @@ public struct Subscriptions {
     var customer: [String: SwiftyJSON.JSON]!
     var renewalPayments: [SwiftyJSON.JSON]?
 }
+
+extension Subscriptions : Equatable {}
+
+public func ==(lhs: Subscriptions, rhs: Subscriptions) -> Bool {
+    return lhs.ID == rhs.ID
+}
+
+// MARK: SubscriptionsViewController
 
 class SubscriptionsViewController: SiteTableViewController {
 
@@ -110,7 +120,7 @@ class SubscriptionsViewController: SiteTableViewController {
             }
             
             self.subscriptionObjects.sort(by: { $0.created.compare($1.created) == ComparisonResult.orderedDescending })
-            self.filteredSubscriptionObjects = self.subscriptionObjects
+            self.filteredSubscriptionObjects = self.subscriptionObjects.uniqueElements
             
             DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
@@ -146,7 +156,7 @@ class SubscriptionsViewController: SiteTableViewController {
             }
             
             self.subscriptionObjects.sort(by: { $0.created.compare($1.created) == ComparisonResult.orderedDescending })
-            self.filteredSubscriptionObjects = self.subscriptionObjects
+            self.filteredSubscriptionObjects = self.subscriptionObjects.uniqueElements
             
             DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
@@ -175,7 +185,7 @@ class SubscriptionsViewController: SiteTableViewController {
                 }
                 
                 self.subscriptionObjects.sort(by: { $0.created.compare($1.created) == ComparisonResult.orderedDescending })
-                self.filteredSubscriptionObjects = self.subscriptionObjects
+                self.filteredSubscriptionObjects = self.subscriptionObjects.uniqueElements
             }
             
             DispatchQueue.main.async(execute: {

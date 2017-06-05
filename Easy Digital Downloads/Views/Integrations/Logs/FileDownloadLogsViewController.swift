@@ -20,6 +20,8 @@ private let sharedDateFormatter: DateFormatter = {
     return formatter
 }()
 
+// MARK: Log
+
 public struct Log {
     var ID: Int64!
     var userId: Int64!
@@ -30,8 +32,15 @@ public struct Log {
     var file: String!
     var ip: String!
     var date: Date!
-    
 }
+
+extension Log: Equatable {}
+
+public func ==(lhs: Log, rhs: Log) -> Bool {
+    return lhs.ID == rhs.ID
+}
+
+// MARK: FileDownloadLogsViewController
 
 class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectContextSettable, UIViewControllerPreviewingDelegate {
 
@@ -57,6 +66,8 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             }
         }
     }
+    
+    let sharedDefaults: UserDefaults = UserDefaults(suiteName: "group.easydigitaldownloads.EDDSalesTracker")!
     
     var lastDownloadedPage = 1
     
@@ -99,14 +110,14 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             let json = JSON.convertFromData(result)! as JSON
             self.logs = json
             
-            if let items = json["download_logs"].array {
+            if let items = json["download_logs"].array?.unique {
                 for item in items {
                     self.logObjects.append(Log(ID: item["ID"].int64Value, userId: item["user_id"].int64Value, productId: item["product_id"].int64Value, productName: item["product_name"].stringValue, customerId: item["customer_id"].int64Value, paymentId: item["payment_id"].int64Value, file: item["file"].stringValue, ip: item["ip"].stringValue, date: sharedDateFormatter.date(from: item["date"].stringValue)))
                 }
             }
             
             self.logObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
-            self.filteredLogObjects = self.logObjects
+            self.filteredLogObjects = self.logObjects.uniqueElements
             
             DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
@@ -144,9 +155,9 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             }
             
             self.logObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
-            self.filteredLogObjects = self.logObjects
+            self.filteredLogObjects = self.logObjects.uniqueElements
             
-            DispatchQueue.main.async(execute: { 
+            DispatchQueue.main.async(execute: {
                 self.tableView.reloadData()
             })
             
@@ -156,14 +167,14 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         }
     }
     
-    fileprivate func requestNextPage(_ page: Int) {
+    fileprivate func requestNextPage() {
         if (operation) {
             return
         }
         
         operation = true
 
-        EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([ "page": page as AnyObject ], success: { (json) in
+        EDDAPIWrapper.sharedInstance.requestFileDownloadLogs([ "page": lastDownloadedPage as AnyObject ], success: { (json) in
             if let items = json["download_logs"].array {
                 if items.count == 10 {
                     self.hasMoreLogs = true
@@ -178,15 +189,14 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
             }
             
             self.logObjects.sort(by: { $0.date.compare($1.date) == ComparisonResult.orderedDescending })
-            self.filteredLogObjects = self.logObjects
+            self.filteredLogObjects = self.logObjects.uniqueElements
             
             self.updateLastDownloadedPage()
+            self.operation = false
             
             DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
-            
-            self.operation = false
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -194,6 +204,8 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
     
     fileprivate func updateLastDownloadedPage() {
         self.lastDownloadedPage = self.lastDownloadedPage + 1;
+        sharedDefaults.set(lastDownloadedPage, forKey: "\(String(describing: Site.activeSite().uid))-FileDownloadsLogsPage")
+        sharedDefaults.synchronize()
     }
     
     // MARK: Scroll View Delegate
@@ -203,7 +215,7 @@ class FileDownloadLogsViewController: SiteTableViewController, ManagedObjectCont
         let contentHeight: CGFloat = scrollView.contentSize.height - tableView.frame.size.height;
         
         if actualPosition >= contentHeight && hasMoreLogs && !operation {
-            self.requestNextPage(self.lastDownloadedPage)
+            self.requestNextPage()
         }
     }
 
