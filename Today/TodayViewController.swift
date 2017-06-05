@@ -203,7 +203,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         formatter.numberStyle = .currency
         formatter.currencyCode = sharedDefaults.string(forKey: "activeSiteCurrency")!
         
-        Alamofire.request(siteURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(siteURL, method: .get, parameters: parameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
