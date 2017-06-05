@@ -56,11 +56,13 @@ class SalesDetailViewController: SiteTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         
-        title = NSLocalizedString("Sale", comment: "") + " #" + "\(sale.ID)"
-        
-        let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Sale", comment: "") + " #" + "\(sale.ID)")
-        navigationItem.titleView = titleLabel
+        if let id = sale.ID {
+            title = NSLocalizedString("Sale", comment: "") + " #" + String(describing: id)
+            
+            let titleLabel = ViewControllerTitleLabel()
+            titleLabel.setTitle(NSLocalizedString("Sale", comment: "") + " #" + String(describing: id))
+            navigationItem.titleView = titleLabel
+        }
         
         tableView.register(SalesDetailMetaTableViewCell.self, forCellReuseIdentifier: "SalesDetailMetaTableViewCell")
         tableView.register(SalesDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SalesDetailHeadingTableViewCell")
