@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
-import SSKeychain
+import SAMKeychain
 
 let CreatedTimestampKey = "createdAt"
 
@@ -124,10 +124,10 @@ public final class Site: ManagedObject {
             request.fetchLimit = 1
         }
 
-        let auth = SSKeychain.accounts(forService: site!.uid)
+        let auth = SAMKeychain.accounts(forService: site!.uid)
         let data = auth![0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
-        let password = SSKeychain.password(forService: site!.uid, account: acct)
+        let password = SAMKeychain.password(forService: site!.uid!, account: acct)
         
         site!.key = acct
         site!.token = password!
@@ -165,10 +165,10 @@ public final class Site: ManagedObject {
             return Site()
         }
         
-        let auth = SSKeychain.accounts(forService: site_.uid)
+        let auth = SAMKeychain.accounts(forService: site_.uid)
         let data = auth![0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
-        let password = SSKeychain.password(forService: site_.uid, account: acct)
+        let password = SAMKeychain.password(forService: site_.uid!, account: acct)
         
         site_.key = acct
         site_.token = password!

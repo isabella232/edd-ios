@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Alamofire
 import SwiftyJSON
-import SSKeychain
+import SAMKeychain
 import SafariServices
 
 class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectContextSettable {
@@ -360,7 +360,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, ManagedObjectC
                                 }
                             }
                             
-                            if (SSKeychain.setPassword(self.token.text, forService: uid, account: self.apiKey.text) == true) {
+                            if (SAMKeychain.setPassword(self.token.text!, forService: uid, account: self.apiKey.text!) == true) {
                                 // Only set the defaultSite if this is the first site being added
                                 self.sharedDefaults.setValue(uid, forKey: "defaultSite")
                                 self.sharedDefaults.setValue(uid, forKey: "activeSite")

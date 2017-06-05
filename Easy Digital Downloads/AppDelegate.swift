@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Alamofire
 import AlamofireNetworkActivityIndicator
-import SSKeychain
+import SAMKeychain
 import WatchConnectivity
 
 @UIApplicationMain

@@ -8,7 +8,7 @@ platform :ios, '10.0'
 abstract_target 'EDD' do
   target 'Easy Digital Downloads' do
     pod 'Alamofire', '~> 4.4'
-    pod 'SSKeychain'
+    pod 'SAMKeychain'
     pod 'SwiftyJSON'
     pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift', :branch => 'feature/swift-3'
     pod 'AlamofireNetworkActivityIndicator', '~> 2.0'
@@ -18,7 +18,7 @@ abstract_target 'EDD' do
 
   target 'Today' do
     pod 'Alamofire', '~> 4.4'
-    pod 'SSKeychain'
+    pod 'SAMKeychain'
     pod 'SwiftyJSON'
     pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift', :branch => 'feature/swift-3'
   end

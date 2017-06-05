@@ -9,7 +9,7 @@
 import UIKit
 import NotificationCenter
 import Alamofire
-import SSKeychain
+import SAMKeychain
 import SwiftyJSON
 import Haneke
 
@@ -131,10 +131,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             return
         }
         
-        let auth = SSKeychain.accounts(forService: defaultSite)
+        let auth = SAMKeychain.accounts(forService: defaultSite)
         let data = auth![0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
-        let password = SSKeychain.password(forService: defaultSite, account: acct)
+        let password = SAMKeychain.password(forService: defaultSite, account: acct)
         
         let siteURL = sharedDefaults.string(forKey: "activeSiteURL")! + "/edd-api/v2/stats"
         
@@ -190,10 +190,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             return
         }
         
-        let auth = SSKeychain.accounts(forService: defaultSite)
+        let auth = SAMKeychain.accounts(forService: defaultSite)
         let data = auth![0] as NSDictionary
         let acct = data.object(forKey: "acct") as! String
-        let password = SSKeychain.password(forService: defaultSite, account: acct)
+        let password = SAMKeychain.password(forService: defaultSite, account: acct)
         
         let siteURL = sharedDefaults.string(forKey: "activeSiteURL")! + "/edd-api/v2/stats"
         

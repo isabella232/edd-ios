@@ -6,7 +6,7 @@ PODS:
     - Alamofire (~> 4.1)
   - BEMSimpleLineGraph (4.1)
   - HanekeSwift (0.10.1)
-  - SSKeychain (1.4.1)
+  - SAMKeychain (1.5.2)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ DEPENDENCIES:
   - AlamofireNetworkActivityIndicator (~> 2.0)
   - BEMSimpleLineGraph
   - HanekeSwift (from `https://github.com/Haneke/HanekeSwift`, branch `feature/swift-3`)
-  - SSKeychain
+  - SAMKeychain
   - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -34,9 +34,9 @@ SPEC CHECKSUMS:
   AlamofireNetworkActivityIndicator: 4716f6554bdfb9c7cf13b1e0e3af21163129690a
   BEMSimpleLineGraph: 44fd451f27f8e9cf96f2da5bea27603093576dd1
   HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
-  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
+  SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 38dd3aee481bfe06eafcf9290121969283fe3fc7
+PODFILE CHECKSUM: 17b46d9f23c537cce263852d04955b2a915f9eaa
 
 COCOAPODS: 1.2.1
