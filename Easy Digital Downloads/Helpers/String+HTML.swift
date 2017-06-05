@@ -15,7 +15,7 @@ extension String {
         let encodedData: Data = htmlEncodedString.data(using: String.Encoding.utf8)!
         let attributedOptions : [String: AnyObject] = [
             NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
-            NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
+            NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue as AnyObject
         ]
         
         var attributedString: NSAttributedString?

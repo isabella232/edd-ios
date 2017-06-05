@@ -313,6 +313,8 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         self.salesGraphDates = data.salesGraphDates
         self.earningsGraphData = data.earningsGraphData
         self.earningsGraphDates = data.earningsGraphDates
+        
+        tableView.reloadData()
     }
     
     fileprivate func processSalesGraphData(_ json: JSON) {
