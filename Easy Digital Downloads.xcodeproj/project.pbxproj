@@ -10,6 +10,7 @@
 		5D5FE48B63CF3ACB8210DAD0 /* Pods_Watch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F856DF9F2E11D6866F6F1E /* Pods_Watch_Extension.framework */; };
 		A22A571F3B11E181F31D66B6 /* Pods_EDD_Today.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 597734C36C483B6090AF044F /* Pods_EDD_Today.framework */; };
 		CD9021C0801F1E02FBA0AD0C /* Pods_EDD_Easy_Digital_Downloads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91B1CBEF62024057411CFCDD /* Pods_EDD_Easy_Digital_Downloads.framework */; };
+		F50226411EE598EA008753F6 /* SwitchSiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50226401EE598EA008753F6 /* SwitchSiteTableViewCell.swift */; };
 		F502B0031CF435790089EEE1 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502B0021CF435790089EEE1 /* LoginTextField.swift */; };
 		F50388861D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */; };
 		F50388881D735B030059BB38 /* InfiniteScrollingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */; };
@@ -247,6 +248,7 @@
 		C1361E3C742CE92CAB0D8A55 /* Pods-EDD-Today.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-Today.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-Today/Pods-EDD-Today.release.xcconfig"; sourceTree = "<group>"; };
 		D3DD97B0F116D34940763117 /* Pods-EDD-EDDToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EDD-EDDToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-EDD-EDDToday/Pods-EDD-EDDToday.release.xcconfig"; sourceTree = "<group>"; };
 		DC144F630E6437BD1D9181E9 /* Pods-Watch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Watch Extension/Pods-Watch Extension.release.xcconfig"; sourceTree = "<group>"; };
+		F50226401EE598EA008753F6 /* SwitchSiteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchSiteTableViewCell.swift; sourceTree = "<group>"; };
 		F502B0021CF435790089EEE1 /* LoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		F50388851D73393C0059BB38 /* FileDownloadLogsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDownloadLogsTableViewCell.swift; sourceTree = "<group>"; };
 		F50388871D735B030059BB38 /* InfiniteScrollingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollingTableView.swift; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 			children = (
 				F5B982B61D6BA21800679271 /* NewSiteViewController.swift */,
 				F51F22471D3B7C0000D114E8 /* SwitchSiteViewController.swift */,
+				F50226401EE598EA008753F6 /* SwitchSiteTableViewCell.swift */,
 			);
 			path = Sites;
 			sourceTree = "<group>";
@@ -1298,6 +1301,7 @@
 				F5CA019B1D981F140000C529 /* ProductsDetailPricingTableViewCell.swift in Sources */,
 				F50388951D74A75B0059BB38 /* CustomersTableViewCell.swift in Sources */,
 				F58D05541DB802B200854BFB /* ReviewsDetailHeadingTableViewCell.swift in Sources */,
+				F50226411EE598EA008753F6 /* SwitchSiteTableViewCell.swift in Sources */,
 				F56546E01D78859600003019 /* ProductsViewController.swift in Sources */,
 				F50DEB4F1CFA4A37001A6A51 /* SalesViewController.swift in Sources */,
 				F5A99B221DA3232D002AB7A0 /* FileDownloadLogsHeadingTableViewCell.swift in Sources */,

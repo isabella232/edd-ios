@@ -41,6 +41,9 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.estimatedRowHeight = 85.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.register(SwitchSiteTableViewCell.self, forCellReuseIdentifier: "SwitchSiteTableViewCell")
         
         let navigationItem = UINavigationItem(title: NSLocalizedString("Switch Site", comment: ""))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SwitchSiteViewController.doneButtonPressed))
@@ -102,18 +105,15 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: Table View Data Source
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "SwitchSiteCell")
+        var cell: SwitchSiteTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SwitchSiteTableViewCell") as! SwitchSiteTableViewCell?
         
         if (cell == nil) {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "SwitchSiteCell")
+            cell = SwitchSiteTableViewCell()
         }
-        
-        cell?.backgroundColor = UIColor.clear
-        cell?.textLabel?.textColor = UIColor.white
         
         let site = sites![indexPath.row] as Site
         
-        cell?.textLabel?.text = site.name!
+        cell?.configure(site)
         
         return cell!
     }
