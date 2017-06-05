@@ -340,9 +340,10 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             let months = dateFormatter.shortMonthSymbols
             let monthSymbol = months?[month!-1]
             
-            let dateString = "\(date) \(String(describing: monthSymbol))"
-            
-            self.salesGraphDates.append(dateString)
+            if let symbol = monthSymbol {
+                let dateString = date + " " + symbol
+                self.salesGraphDates.append(dateString)
+            }
         }
         
         self.salesGraphData = salesGraphData
@@ -370,11 +371,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             
             let dateFormatter: DateFormatter = DateFormatter()
             let months = dateFormatter.shortMonthSymbols
-            let monthSymbol = months?[month!-1]
+            let monthSymbol: String? = months?[month!-1]
             
-            let dateString = "\(date) \(String(describing: monthSymbol))"
-            
-            self.earningsGraphDates.append(dateString)
+            if let symbol = monthSymbol {
+                let dateString = date + " " + symbol
+                self.earningsGraphDates.append(dateString)
+            }
         }
         
         self.earningsGraphData = earningsGraphData
