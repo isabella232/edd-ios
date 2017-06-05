@@ -11,6 +11,8 @@ import CoreData
 import Alamofire
 import AlamofireImage
 import SwiftyJSON
+import SafariServices
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -36,7 +38,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class ProductsDetailViewController: SiteTableViewController {
+class ProductsDetailViewController: SiteTableViewController, UITextViewDelegate {
 
     fileprivate enum CellType {
         case infoHeading
@@ -184,7 +186,9 @@ class ProductsDetailViewController: SiteTableViewController {
                     productRecord!.setValue(stats! as Data, forKey: "stats")
                     productRecord!.setValue(notes, forKey: "notes")
                     productRecord!.setValue(pricing, forKey: "pricing")
-                    productRecord!.setValue(files! as Data, forKey: "files")
+                    if let files_ = files {
+                        productRecord!.setValue(files_ as Data, forKey: "files")
+                    }
                     productRecord!.setValue(item["info"]["title"].stringValue, forKey: "title")
                     productRecord!.setValue(item["licensing"].dictionaryObject! as [String : AnyObject], forKey: "licensing")
                     productRecord!.setValue(hasVariablePricing as NSNumber, forKey: "hasVariablePricing")
@@ -257,6 +261,7 @@ class ProductsDetailViewController: SiteTableViewController {
             case .files:
                 cell = tableView.dequeueReusableCell(withIdentifier: "ProductFilesTableViwCell", for: indexPath) as! ProductsDetailFilesTableViewCell
                 (cell as! ProductsDetailFilesTableViewCell).configure(product!.files!)
+                (cell as! ProductsDetailFilesTableViewCell).filesLabel.delegate = self
             case .notesHeading:
                 cell = tableView.dequeueReusableCell(withIdentifier: "ProductHeadingTableViewCell", for: indexPath) as! ProductsDetailHeadingTableViewCell
                 (cell as! ProductsDetailHeadingTableViewCell).configure("Notes")
@@ -280,6 +285,21 @@ class ProductsDetailViewController: SiteTableViewController {
                 }
             }
         }
+    }
+    
+    // MARK: Text View Delegate
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        let svc = SFSafariViewController(url: URL)
+        if #available(iOS 10.0, *) {
+            svc.preferredBarTintColor = .EDDBlackColor()
+            svc.preferredControlTintColor = .white
+        } else {
+            svc.view.tintColor = .EDDBlueColor()
+        }
+        svc.modalPresentationStyle = .overCurrentContext
+        self.present(svc, animated: true, completion: nil)
+        return false
     }
     
 }

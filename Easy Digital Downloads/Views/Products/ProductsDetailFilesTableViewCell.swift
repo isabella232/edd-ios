@@ -27,13 +27,14 @@ class ProductsDetailFilesTableViewCell: UITableViewCell {
         return view
     }()
     
-    fileprivate let filesLabel = UILabel(frame: CGRect.zero)
+    public let filesLabel = UITextView(frame: CGRect.zero)
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        filesLabel.lineBreakMode = .byWordWrapping
-        filesLabel.numberOfLines = 0
+        filesLabel.translatesAutoresizingMaskIntoConstraints = false
+        filesLabel.isScrollEnabled = false
+        filesLabel.isEditable = false
         
         selectionStyle = .none
     }
@@ -56,13 +57,18 @@ class ProductsDetailFilesTableViewCell: UITableViewCell {
             
             let textAttributes: [String: AnyObject] = [
                 NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline),
-                NSForegroundColorAttributeName: UIColor.EDDBlackColor()
+                NSForegroundColorAttributeName: UIColor.EDDBlackColor(),
             ]
             
             let fileNameString = NSAttributedString(string: file["name"] as! String + "\n", attributes: headingAttributes)
             filesString.append(fileNameString)
             
-            let fileDetailsString = NSAttributedString(string: "Condition: " + (file["condition"] as! String).capitalized + "\n" + "URL: " + (file["file"] as! String) + "\n\n", attributes: textAttributes)
+            let plainString = "Condition: " + (file["condition"] as! String).capitalized + "\n" + "URL: " + (file["file"] as! String) + "\n\n"
+            
+            let range = (plainString as NSString).range(of: file["file"] as! String)
+            
+            let fileDetailsString = NSMutableAttributedString(string: plainString, attributes: textAttributes)
+            fileDetailsString.addAttributes([NSLinkAttributeName: NSURL(string: file["file"] as! String)!], range: range)
             filesString.append(fileDetailsString)
         }
         
