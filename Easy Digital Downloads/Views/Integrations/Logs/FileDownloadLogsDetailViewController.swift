@@ -190,7 +190,9 @@ class FileDownloadLogsDetailViewController: SiteTableViewController {
         switch cells[indexPath.row] {
             case .title:
                 cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsTitleCell", for: indexPath) as! FileDownloadLogsTitleTableViewCell
-                (cell as! FileDownloadLogsTitleTableViewCell).configure("Log #\(log.ID)")
+                if let id = log.ID {
+                    (cell as! FileDownloadLogsTitleTableViewCell).configure("Log #\(id)")
+                }
             case .metaHeading:
                 cell = tableView.dequeueReusableCell(withIdentifier: "FileDownloadLogsHeadingCell", for: indexPath) as! FileDownloadLogsHeadingTableViewCell
                 (cell as! FileDownloadLogsHeadingTableViewCell).configure("Meta")
