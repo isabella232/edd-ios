@@ -102,8 +102,9 @@ class InterfaceController: WKInterfaceController {
         }
         
         let siteURL = site.url + "/edd-api/v2/stats"
+        let parameters: Parameters = ["key": site.key, "token": site.token]
         
-        Alamofire.request(siteURL, method: .get, parameters: ["key": site.key, "token": site.token], encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(siteURL, method: .get, parameters: parameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
@@ -163,8 +164,9 @@ class InterfaceController: WKInterfaceController {
 
     func onRefreshIconTap() {
         let siteURL = site.url + "/edd-api/v2/stats"
+        let parameters: Parameters = ["key": site.key, "token": site.token]
         
-        Alamofire.request(siteURL, method: .get, parameters: ["key": site.key, "token": site.token], encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(siteURL, method: .get, parameters: parameters)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
