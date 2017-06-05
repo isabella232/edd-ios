@@ -55,11 +55,12 @@ class SubscriptionsDetailViewController: SiteTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         
-        title = NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.ID)"
-        
-        let titleLabel = ViewControllerTitleLabel()
-        titleLabel.setTitle(NSLocalizedString("Subscription", comment: "") + " #" + "\(subscription.ID)")
-        navigationItem.titleView = titleLabel
+        if let id = subscription.ID {
+            title = NSLocalizedString("Subscription", comment: "") + " #" + String(describing: id)
+            let titleLabel = ViewControllerTitleLabel()
+            titleLabel.setTitle(NSLocalizedString("Subscription", comment: "") + " #" + String(describing: id))
+            navigationItem.titleView = titleLabel
+        }
         
         tableView.register(SubscriptionsDetailHeadingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailHeadingTableViewCell")
         tableView.register(SubscriptionsDetailBillingTableViewCell.self, forCellReuseIdentifier: "SubscriptionsDetailBillingTableViewCell")
