@@ -190,7 +190,7 @@ class ProductsDetailViewController: SiteTableViewController, UITextViewDelegate 
                         productRecord!.setValue(files_ as Data, forKey: "files")
                     }
                     productRecord!.setValue(item["info"]["title"].stringValue, forKey: "title")
-                    productRecord!.setValue(item["licensing"].dictionaryObject! as [String : AnyObject], forKey: "licensing")
+                    productRecord!.setValue(item["licensing"].dictionary as [String : AnyObject]?, forKey: "licensing")
                     productRecord!.setValue(hasVariablePricing as NSNumber, forKey: "hasVariablePricing")
                     productRecord!.setValue(item["info"]["thumbnail"].stringValue, forKey: "thumbnail")
                 }

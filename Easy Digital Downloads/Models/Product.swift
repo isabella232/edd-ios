@@ -43,7 +43,7 @@ public final class Product: ManagedObject {
     }
     
     @discardableResult
-    public static func insertIntoContext(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
+    public static func insertIntoContext(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String?, title: String, licensing: [String: AnyObject]?) -> Product {
         let product: Product = moc.insertObject()
         product.content = content
         product.createdDate = createdDate
@@ -64,7 +64,7 @@ public final class Product: ManagedObject {
         return product
     }
     
-    public static func objectForData(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String, title: String, licensing: [String: AnyObject]?) -> Product {
+    public static func objectForData(_ moc: NSManagedObjectContext, content: String, createdDate: Date, files: Data?, hasVariablePricing: NSNumber, link: String, modifiedDate: Date, notes: String?, pid: Int64, pricing: Data, stats: Data?, status: String, thumbnail: String?, title: String, licensing: [String: AnyObject]?) -> Product {
         let entity = NSEntityDescription.entity(forEntityName: "Product", in: moc)
         let object = NSManagedObject(entity: entity!, insertInto: nil) as! Product
 
