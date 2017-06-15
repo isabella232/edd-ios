@@ -334,7 +334,7 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
             self.connectionTest.isHidden = false
         }) 
         
-        Alamofire.request(siteURL.text! + "/edd-api/info", method: .get, parameters: ["key": apiKey.text!, "token": token.text!], encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(siteURL.text! + "/edd-api/info", method: .get, parameters: ["key": apiKey.text!, "token": token.text!], encoding: URLEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
