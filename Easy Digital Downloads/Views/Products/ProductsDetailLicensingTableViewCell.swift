@@ -53,8 +53,6 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
     }
     
     func configure(_ licensing: [String: AnyObject]) {
-        print(licensing)
-        
         let enabled = Bool(NSNumber(value: licensing["enabled"]!.int64Value))
     
         if !enabled {

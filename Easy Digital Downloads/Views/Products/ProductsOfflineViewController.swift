@@ -146,7 +146,7 @@ class ProductsOfflineViewController: SiteTableViewController {
                     }
                 }
                 
-                if let _ = item["licensing"].array {
+                if let _ = item["licensing"].dictionary {
                     self.cells.append(.licensingHeading)
                     self.cells.append(.licensing)
                 }
@@ -159,18 +159,18 @@ class ProductsOfflineViewController: SiteTableViewController {
                     }
                 }
                 
-                var stats: NSData?
+                var stats: Data?
                 if Site.hasPermissionToViewReports() {
-                    stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].dictionaryObject!) as NSData
+                    stats = NSKeyedArchiver.archivedData(withRootObject: item["stats"].asData())
                 } else {
                     stats = nil
                 }
                 
-                var files: NSData?
+                var files: Data?
                 var notes: String?
                 if Site.hasPermissionToViewSensitiveData() {
                     if item["files"].arrayObject != nil {
-                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
+                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!).asData()
                     } else {
                         files = nil
                     }
@@ -188,7 +188,9 @@ class ProductsOfflineViewController: SiteTableViewController {
                 
                 let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
                 
-                self.product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files! as Data, hasVariablePricing: hasVariablePricing as NSNumber, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats! as Data, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].string, title: item["info"]["title"].stringValue, licensing: item["licensing"].dictionary as [String : AnyObject]?)
+                let licensing = item["licensing"].dictionaryObject as [String: AnyObject]?
+                
+                self.product = Product.objectForData(AppDelegate.sharedInstance.managedObjectContext, content: item["info"]["content"].stringValue, createdDate: sharedDateFormatter.date(from: item["info"]["create_date"].stringValue)!, files: files, hasVariablePricing: hasVariablePricing as NSNumber, link: item["info"]["link"].stringValue, modifiedDate: sharedDateFormatter.date(from: item["info"]["modified_date"].stringValue)!, notes: notes, pid: item["info"]["id"].int64Value, pricing: pricing, stats: stats, status: item["info"]["status"].stringValue, thumbnail: item["info"]["thumbnail"].string, title: item["info"]["title"].stringValue, licensing: licensing)
                 
                 self.operation = true
                 
@@ -272,10 +274,12 @@ class ProductsOfflineViewController: SiteTableViewController {
     // MARK: Scroll View Delegate
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let y: CGFloat = -tableView.contentOffset.y
-        if y > 0 {
-            imageView!.frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.bounds.width + y, height: 150 + y)
-            imageView!.center = CGPoint(x: view.center.x, y: imageView!.center.y)
+        if let _ = product?.thumbnail {
+            let y: CGFloat = -tableView.contentOffset.y
+            if y > 0 {
+                imageView!.frame = CGRect(x: 0, y: tableView.contentOffset.y, width: tableView.bounds.width + y, height: 150 + y)
+                imageView!.center = CGPoint(x: view.center.x, y: imageView!.center.y)
+            }
         }
     }
 
