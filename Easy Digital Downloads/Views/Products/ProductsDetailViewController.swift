@@ -164,7 +164,7 @@ class ProductsDetailViewController: SiteTableViewController, UITextViewDelegate 
                 var notes: String?
                 if Site.hasPermissionToViewSensitiveData() {
                     if item["files"].arrayObject != nil {
-                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as NSData
+                        files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!) as! NSData
                     } else {
                         files = nil
                     }
@@ -182,15 +182,15 @@ class ProductsDetailViewController: SiteTableViewController, UITextViewDelegate 
                 
                 let pricing = NSKeyedArchiver.archivedData(withRootObject: item["pricing"].dictionaryObject!)
                 
+                let licensing = item["licensing"].dictionaryObject as [String: AnyObject]?
+                
                 if productRecord != nil {
                     productRecord!.setValue(stats! as Data, forKey: "stats")
                     productRecord!.setValue(notes, forKey: "notes")
                     productRecord!.setValue(pricing, forKey: "pricing")
-                    if let files_ = files {
-                        productRecord!.setValue(files_ as Data, forKey: "files")
-                    }
+                    productRecord!.setValue(files, forKey: "files")
                     productRecord!.setValue(item["info"]["title"].stringValue, forKey: "title")
-                    productRecord!.setValue(item["licensing"].dictionary as [String : AnyObject]?, forKey: "licensing")
+                    productRecord!.setValue(licensing, forKey: "licensing")
                     productRecord!.setValue(hasVariablePricing as NSNumber, forKey: "hasVariablePricing")
                     productRecord!.setValue(item["info"]["thumbnail"].stringValue, forKey: "thumbnail")
                 }

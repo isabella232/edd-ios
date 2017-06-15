@@ -228,7 +228,7 @@ class ProductsViewController: SiteTableViewController, ManagedObjectContextSetta
             var notes: String?
             if Site.hasPermissionToViewSensitiveData() {
                 if item["files"].arrayObject != nil {
-                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].asData())
+                    files = NSKeyedArchiver.archivedData(withRootObject: item["files"].arrayObject!).asData()
                 } else {
                     files = nil
                 }

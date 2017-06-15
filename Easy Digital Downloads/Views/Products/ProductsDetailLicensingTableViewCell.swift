@@ -53,8 +53,11 @@ class ProductsDetailLicensingTableViewCell: UITableViewCell {
     }
     
     func configure(_ licensing: [String: AnyObject]) {
-        let enabled = (licensing["enabled"] as! NSNumber).boolValue
-        if enabled == false {
+        print(licensing)
+        
+        let enabled = Bool(NSNumber(value: licensing["enabled"]!.int64Value))
+    
+        if !enabled {
             licensingDisabledLabel.text = NSLocalizedString("Software Licensing has not been enabled for this product.", comment: "")
             stackView.addArrangedSubview(licensingDisabledLabel)
         } else {

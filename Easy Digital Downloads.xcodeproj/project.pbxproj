@@ -321,7 +321,7 @@
 		F553C8911D9D059200C77B5D /* StoreCommissionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCommissionsTableViewCell.swift; sourceTree = "<group>"; };
 		F553C8931D9D642E00C77B5D /* SalesFilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesFilterTableViewController.swift; sourceTree = "<group>"; };
 		F555ED911D65EBA300C02C0B /* Easy Digital Downloads.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Easy Digital Downloads.entitlements"; sourceTree = "<group>"; };
-		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSubmitButton.swift; sourceTree = "<group>"; };
+		F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginSubmitButton.swift; path = ../../Login/LoginSubmitButton.swift; sourceTree = "<group>"; };
 		F56490771D4635B100F4F1F0 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		F56546DF1D78859600003019 /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		F56546E11D78AAAC00003019 /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
@@ -529,7 +529,6 @@
 		F502AFFE1CF434ED0089EEE1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */,
 				F502B0021CF435790089EEE1 /* LoginTextField.swift */,
 				F5EF5E8C1CF2EDBA00298841 /* LoginViewController.swift */,
 			);
@@ -824,6 +823,7 @@
 				F5E7F16A1D99AA0500DC62DE /* SubscriptionsDetailHeadingTableViewCell.swift */,
 				F5E7F16E1D99C41F00DC62DE /* SubscriptionsDetailProductTableViewCell.swift */,
 				F5E7F1661D99444B00DC62DE /* SubscriptionsDetailRenewalPaymentsTableViewCell.swift */,
+				F55C60E41CF5155A00A6D812 /* LoginSubmitButton.swift */,
 				F5E7F1601D989E3300DC62DE /* SubscriptionsDetailViewController.swift */,
 				F51A90631D9498D5003E06C2 /* SubscriptionsTableViewCell.swift */,
 				F5AE176E1D703639003C7AF7 /* SubscriptionsViewController.swift */,
