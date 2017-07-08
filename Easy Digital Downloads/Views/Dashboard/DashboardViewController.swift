@@ -326,6 +326,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         }
         
         var salesGraphData: Array<Int> = []
+        var salesGraphDates: Array<String> = []
         for key in sorted! {
             salesGraphData.append((sales![key]! as AnyObject).integerValue)
 
@@ -344,11 +345,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             
             if let symbol = monthSymbol {
                 let dateString = date + " " + symbol
-                self.salesGraphDates.append(dateString)
+                salesGraphDates.append(dateString)
             }
         }
         
         self.salesGraphData = salesGraphData
+        self.salesGraphDates = salesGraphDates
     }
     
     fileprivate func processEarningsGraphData(_ json: JSON) {
@@ -360,6 +362,7 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
         }
         
         var earningsGraphData: Array<Double> = []
+        var earningsGraphDates: Array<String> = []
         for key in sorted! {
             earningsGraphData.append((earnings![key]! as AnyObject).doubleValue)
             let dateR = key.index(key.endIndex, offsetBy: -2)..<key.endIndex
@@ -377,11 +380,12 @@ class DashboardViewController: SiteTableViewController, ManagedObjectContextSett
             
             if let symbol = monthSymbol {
                 let dateString = date + " " + symbol
-                self.earningsGraphDates.append(dateString)
+                earningsGraphDates.append(dateString)
             }
         }
         
         self.earningsGraphData = earningsGraphData
+        self.earningsGraphDates = earningsGraphDates
     }
 
 }
