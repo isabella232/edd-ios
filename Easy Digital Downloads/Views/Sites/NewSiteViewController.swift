@@ -456,9 +456,14 @@ class NewSiteViewController: UIViewController, UITextFieldDelegate, ManagedObjec
             return false
         }
         
-        // Regex validation
-        let regEx = "(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
-        return NSPredicate(format: "SELF MATCHES %@", regEx).evaluate(with: urlString)
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        if let match = detector.firstMatch(in: urlString, options: [], range: NSRange(location: 0, length: urlString.utf16.count)) {
+            if (match.resultType == NSTextCheckingResult.CheckingType.link) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     // MARK: Keyboard Handlers
