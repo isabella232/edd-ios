@@ -84,7 +84,7 @@ class SiteTableViewController: UITableViewController {
         let leftNavigationItemButton = HighlightButton(type: .custom)
         leftNavigationItemButton.tintColor = .white
         leftNavigationItemButton.setImage(leftNavigationItemImage, for: UIControlState())
-        leftNavigationItemButton.addTarget(self, action: #selector(SiteTableViewController.editSwitchSiteButtonPressed), for: .touchUpInside)
+        leftNavigationItemButton.addTarget(self, action: #selector(SiteTableViewController.switchSiteButtonPressed), for: .touchUpInside)
         leftNavigationItemButton.sizeToFit()
         
         let leftNavigationBarButton = UIBarButtonItem(customView: leftNavigationItemButton)
@@ -93,12 +93,17 @@ class SiteTableViewController: UITableViewController {
         navigationItem.leftBarButtonItems = [leftNavigationBarButton]
     }
     
-    func editSwitchSiteButtonPressed() {
+    func switchSiteButtonPressed() {
         let switchSiteViewController = SwitchSiteViewController()
         switchSiteViewController.view.backgroundColor = .clear
-        switchSiteViewController.modalPresentationStyle = .overFullScreen
-        switchSiteViewController.modalPresentationCapturesStatusBarAppearance = true
-        present(switchSiteViewController, animated: true, completion: nil)
+        
+        let switchSiteNavigationController = UINavigationController(rootViewController: switchSiteViewController)
+        if #available(iOS 11.0, *) {
+            switchSiteNavigationController.navigationBar.prefersLargeTitles = true
+        }
+        switchSiteNavigationController.modalPresentationStyle = .overFullScreen
+        switchSiteNavigationController.modalPresentationCapturesStatusBarAppearance = true
+        present(switchSiteNavigationController, animated: true, completion: nil)
     }
     
     func animateTable() {

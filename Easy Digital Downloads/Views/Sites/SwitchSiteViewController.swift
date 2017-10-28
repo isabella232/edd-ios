@@ -8,10 +8,8 @@
 
 import UIKit
 
-class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SwitchSiteViewController: UITableViewController {
 
-    fileprivate var tableView: UITableView!
-    fileprivate var navigationBar: UINavigationBar!
     fileprivate var sites: [Site]?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,13 +23,13 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
         
         let blurEffect = UIBlurEffect(style: .dark)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
-        visualEffectView.frame = view.bounds
+        visualEffectView.frame = tableView.frame
         
-        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 64))
-        navigationBar.isTranslucent = true
-        navigationBar.barStyle = .blackTranslucent
+        title = NSLocalizedString("Switch Site", comment: "")
         
-        tableView = UITableView(frame: CGRect(x: 0, y: navigationBar.frame.height, width: view.frame.width, height: view.frame.height - navigationBar.frame.height) ,style: .plain);
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.barStyle = .blackTranslucent
+        
         tableView.isScrollEnabled = true
         tableView.bounces = true
         tableView.showsVerticalScrollIndicator = true
@@ -45,18 +43,12 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(SwitchSiteTableViewCell.self, forCellReuseIdentifier: "SwitchSiteTableViewCell")
         
-        let navigationItem = UINavigationItem(title: NSLocalizedString("Switch Site", comment: ""))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SwitchSiteViewController.doneButtonPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(SwitchSiteViewController.addButtonPressed))
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = addButton
-        navigationBar.items = [navigationItem]
-        
-        title = NSLocalizedString("Edit Dashboard", comment: "")
-        
-        view.addSubview(visualEffectView)
-        view.addSubview(tableView)
-        view.addSubview(navigationBar)
+
+        tableView.backgroundView = visualEffectView
     }
     
     func doneButtonPressed() {
@@ -82,15 +74,15 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: Table View Delegate
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sites?.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let site = sites![indexPath.row] as Site
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -104,7 +96,7 @@ class SwitchSiteViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: Table View Data Source
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: SwitchSiteTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SwitchSiteTableViewCell") as! SwitchSiteTableViewCell?
         
         if (cell == nil) {
