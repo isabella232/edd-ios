@@ -920,6 +920,7 @@
 				F50AE5D81DA50C98002F99F5 /* Resources */,
 				F50AE5FA1DA50C99002F99F5 /* Embed App Extensions */,
 				191C6FDF94D19CB1A5A4A388 /* Frameworks */,
+				F561C9F61FA49B700064810B /* Increment Build */,
 			);
 			buildRules = (
 			);
@@ -941,6 +942,7 @@
 				F50AE5E41DA50C99002F99F5 /* Resources */,
 				26D3AABE5CA42D4A93EA8B77 /* [CP] Embed Pods Frameworks */,
 				9893EC8C3DFA8477BD023FF5 /* [CP] Copy Pods Resources */,
+				F561C9F71FA49B880064810B /* Increment Build */,
 			);
 			buildRules = (
 			);
@@ -960,6 +962,7 @@
 				F59E21291D9A76D700955440 /* Frameworks */,
 				F59E212A1D9A76D700955440 /* Resources */,
 				C734F49FD863CD64624A3052 /* [CP] Copy Pods Resources */,
+				F561C9F81FA49B980064810B /* Increment Build */,
 			);
 			buildRules = (
 			);
@@ -982,6 +985,7 @@
 				5073586A433310F390DF3B55 /* [CP] Copy Pods Resources */,
 				F5B0613C1D6B015000F9B4E1 /* Embed App Extensions */,
 				F50AE5FC1DA50C99002F99F5 /* Embed Watch Content */,
+				F561C9F51FA49B510064810B /* Increment Build */,
 			);
 			buildRules = (
 			);
@@ -1243,6 +1247,62 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EDD-Today/Pods-EDD-Today-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F561C9F51FA49B510064810B /* Increment Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		F561C9F61FA49B700064810B /* Increment Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		F561C9F71FA49B880064810B /* Increment Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		F561C9F81FA49B980064810B /* Increment Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
